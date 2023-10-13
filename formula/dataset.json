@@ -1,0 +1,14 @@
+[
+    [
+        "L = L CE + \u03bbL KD ,",
+        "  L = L_{CE} + \\lambda L_{KD}, "
+    ],
+    [
+        "L GKD (y o , \u0177o ) = \u2212 |Ct| i=1 p (i) o log p(i) o ,",
+        "  \\mathcal{L}_{GKD}(\\mathbf{y}_o,\\mathbf{\\hat{y}}_o) &= - \\sum_{i=1}^{|C_{t}|} p_o^{(i)} \\log \\hat{p}_o^{(i)}, "
+    ],
+    [
+        "L T KD (y o , \u0177o ) = t i=1 D KL (p (i) o log p(i) o ),",
+        "  \\mathcal{L}_{TKD}(\\mathbf{y}_o,\\mathbf{\\hat{y}}_o) &= \\sum_{i=1}^{t} \\mathcal{D}_{KL}(p_o^{(i)} \\log \\hat{p}_o^{(i)}), "
+    ]
+]

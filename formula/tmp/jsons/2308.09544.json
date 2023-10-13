@@ -1,0 +1,1718 @@
+{
+    "title": [
+        {
+            "el_type": "title",
+            "txt": "Adapt Your Teacher: Improving Knowledge Distillation for Exemplar-free Continual Learning"
+        }
+    ],
+    "abstract": [
+        {
+            "el_type": "p",
+            "txt": "\n"
+        },
+        {
+            "el_type": "s",
+            "coords": "1,62.07,301.74,225.95,8.59;1,50.11,313.69,237.90,8.59;1,50.11,325.65,193.27,8.59",
+            "txt": "In this work, we investigate exemplar-free class incremental learning (CIL) with knowledge distillation (KD) as a regularization strategy, aiming to prevent forgetting."
+        },
+        {
+            "el_type": "s",
+            "coords": "1,246.49,325.65,39.87,8.59;1,50.11,337.60,236.25,8.59;1,50.11,349.56,236.25,8.59;1,50.11,361.51,133.63,8.59",
+            "txt": "KD-based methods are successfully used in CIL, but they often struggle to regularize the model without access to exemplars of the training data from previous tasks."
+        },
+        {
+            "el_type": "s",
+            "coords": "1,186.86,361.51,99.51,8.59;1,50.11,373.47,236.25,8.59;1,50.11,385.42,236.25,8.59;1,50.11,397.38,20.61,8.59",
+            "txt": "Our analysis reveals that this issue originates from substantial representation shifts in the teacher network when dealing with out-of-distribution data."
+        },
+        {
+            "el_type": "s",
+            "coords": "1,75.60,397.38,212.50,8.59;1,50.11,409.33,176.43,8.59",
+            "txt": "This causes large errors in the KD loss component, leading to performance degradation in CIL."
+        },
+        {
+            "el_type": "s",
+            "coords": "1,229.03,409.33,58.99,8.59;1,50.11,421.29,236.25,8.59;1,49.50,433.24,236.85,8.59;1,50.11,445.20,237.99,8.59",
+            "txt": "Inspired by recent test-time adaptation methods, we introduce Teacher Adaptation (TA), a method that concurrently updates the teacher and the main model during incremental training."
+        },
+        {
+            "el_type": "s",
+            "coords": "1,49.75,457.15,238.26,8.59;1,50.11,469.11,236.25,8.59;1,50.11,481.06,237.99,8.59",
+            "txt": "Our method seamlessly integrates with KD-based CIL approaches and allows for consistent enhancement of their performance across multiple exemplar-free CIL benchmarks."
+        }
+    ],
+    "body": [
+        {
+            "el_type": "head_2",
+            "coords": "1,50.11,530.02,76.84,10.75",
+            "txt": "1. Introduction"
+        },
+        {
+            "el_type": "p",
+            "txt": "\n"
+        },
+        {
+            "el_type": "s",
+            "coords": "1,62.07,551.63,225.95,8.64;1,50.11,563.40,236.25,8.82;1,50.11,575.54,236.25,8.64;1,50.11,587.49,236.25,8.64;1,50.11,599.45,20.79,8.64",
+            "txt": "One of the most challenging continual learning scenarios is class incremental learning (CIL) "
+        },
+        {
+            "el_type": "ref",
+            "coords": "1,209.83,563.58,15.89,8.64",
+            "target": "#b32",
+            "type": "bibr",
+            "txt": "[33]",
+            "tail": ""
+        },
+        {
+            "el_type": "ref",
+            "coords": "1,228.23,563.58,11.91,8.64",
+            "target": "#b22",
+            "type": "bibr",
+            "txt": "[23]",
+            "tail": ", where the model is trained to classify objects incrementally from the sequence of tasks, without forgetting the previously learned ones."
+        },
+        {
+            "el_type": "s",
+            "coords": "1,74.00,599.45,212.36,8.64;1,50.11,611.22,237.90,8.82;1,50.11,623.18,236.25,8.82;1,50.11,635.31,97.37,8.64",
+            "txt": "A simple and effective method of reducing forgetting is by leveraging exemplars "
+        },
+        {
+            "el_type": "ref",
+            "coords": "1,160.27,611.40,15.85,8.64",
+            "target": "#b27",
+            "type": "bibr",
+            "txt": "[28]",
+            "tail": ""
+        },
+        {
+            "el_type": "ref",
+            "coords": "1,178.61,611.40,12.48,8.64",
+            "target": "#b15",
+            "type": "bibr",
+            "txt": "[16]",
+            "tail": ""
+        },
+        {
+            "el_type": "ref",
+            "coords": "1,193.58,611.40,7.50,8.64",
+            "target": "#b4",
+            "type": "bibr",
+            "txt": "[5]",
+            "tail": ""
+        },
+        {
+            "el_type": "ref",
+            "coords": "1,203.57,611.40,13.32,8.64",
+            "target": "#b25",
+            "type": "bibr",
+            "txt": "[26]",
+            "tail": " of previously encountered training examples, e.g. by replaying them or using them for regularization."
+        },
+        {
+            "el_type": "s",
+            "coords": "1,152.67,635.31,133.70,8.64;1,50.11,647.27,236.25,8.64;1,50.11,659.22,88.03,8.64",
+            "txt": "However, this approach presents challenges, particularly in terms of additional storage needs and privacy concerns."
+        },
+        {
+            "el_type": "s",
+            "coords": "1,141.23,659.22,145.13,8.64;1,50.11,671.18,236.25,8.64;1,50.11,683.13,76.40,8.64",
+            "txt": "Therefore, recently there has been a notable surge of interest in methods for more challenging exemplar-free CIL."
+        },
+        {
+            "el_type": "s",
+            "coords": "1,320.82,620.83,225.95,8.64;1,308.86,632.78,236.91,8.64;1,308.86,644.74,236.25,8.64;1,308.86,656.69,236.25,8.64;1,308.53,668.65,154.57,8.64",
+            "txt": "A common approach for exemplar-free CIL is knowledge distillation (KD), where the current model (student) is trained on the new data with a regularization term that minimizes the output difference with the previous model (teacher), which is kept frozen "
+        },
+        {
+            "el_type": "ref",
+            "coords": "1,443.84,668.65,15.41,8.64",
+            "target": "#b20",
+            "type": "bibr",
+            "txt": "[21]",
+            "tail": "."
+        },
+        {
+            "el_type": "s",
+            "coords": "1,471.47,668.65,73.99,8.64;1,308.86,680.60,237.91,8.64;1,308.86,692.56,236.25,8.64;1,308.86,704.51,178.29,8.64",
+            "txt": "Since then, many methods such as iCaRL "
+        },
+        {
+            "el_type": "ref",
+            "coords": "1,408.42,680.60,15.41,8.64",
+            "target": "#b27",
+            "type": "bibr",
+            "txt": "[28]",
+            "tail": ", EEIL "
+        },
+        {
+            "el_type": "ref",
+            "coords": "1,455.21,680.60,10.72,8.64",
+            "target": "#b5",
+            "type": "bibr",
+            "txt": "[6]",
+            "tail": ", LUCIR "
+        },
+        {
+            "el_type": "ref",
+            "coords": "1,505.51,680.60,15.42,8.64",
+            "target": "#b13",
+            "type": "bibr",
+            "txt": "[14]",
+            "tail": ", Pod-NET "
+        },
+        {
+            "el_type": "ref",
+            "coords": "1,331.71,692.56,15.42,8.64",
+            "target": "#b10",
+            "type": "bibr",
+            "txt": "[11]",
+            "tail": ", SSIL "
+        },
+        {
+            "el_type": "ref",
+            "coords": "1,378.20,692.56,10.72,8.64",
+            "target": "#b0",
+            "type": "bibr",
+            "txt": "[1]",
+            "tail": ", or DMC "
+        },
+        {
+            "el_type": "ref",
+            "coords": "1,433.53,692.56,15.89,8.64",
+            "target": "#b40",
+            "type": "bibr",
+            "txt": "[41]",
+            "tail": ""
+        },
+        {
+            "el_type": "ref",
+            "coords": "1,452.51,692.56,13.35,8.64",
+            "target": "#b19",
+            "type": "bibr",
+            "txt": "[20]",
+            "tail": " employed KD, but most of them use exemplars or external data."
+        },
+        {
+            "el_type": "s",
+            "coords": "2,529.66,223.88,15.62,8.64;2,50.11,235.83,495.00,8.64;2,50.11,247.79,330.11,8.64",
+            "txt": "Our method leads to more consistent representations, as visualized by the CKA "
+        },
+        {
+            "el_type": "ref",
+            "coords": "2,351.47,235.83,16.61,8.64",
+            "target": "#b17",
+            "type": "bibr",
+            "txt": "[18]",
+            "tail": " between the representations of the new data obtained in the teacher and student models while learning the second task (middle)."
+        },
+        {
+            "el_type": "s",
+            "coords": "2,383.31,247.79,161.80,8.64;2,50.11,259.74,65.68,8.64",
+            "txt": "KD with TA leads to better task-agnostic accuracy (right)."
+        },
+        {
+            "el_type": "s",
+            "coords": "2,118.88,259.74,246.27,8.64",
+            "txt": "We conduct the experiments on CIFAR100 split into 10 tasks."
+        },
+        {
+            "el_type": "p",
+            "txt": "\n"
+        },
+        {
+            "el_type": "s",
+            "coords": "2,62.07,293.22,224.29,8.64;2,50.11,305.17,236.25,8.64;2,50.11,317.13,236.25,8.64;2,50.11,329.08,94.33,8.64",
+            "txt": "Exemplar-free CIL still remains challenging "
+        },
+        {
+            "el_type": "ref",
+            "coords": "2,239.10,293.22,16.53,8.64",
+            "target": "#b31",
+            "type": "bibr",
+            "txt": "[32]",
+            "tail": " for KD methods due to the possibility of significant distribution drift in subsequent tasks, which leads to large errors during training with KD loss."
+        },
+        {
+            "el_type": "s",
+            "coords": "2,151.69,329.08,134.68,8.64;2,50.11,341.04,236.25,8.64;2,50.11,352.99,236.25,8.64;2,50.11,364.95,236.25,8.64;2,50.11,376.90,236.25,8.64;2,50.11,388.86,237.99,8.64",
+            "txt": "Motivated by the recent domain adaptation methods "
+        },
+        {
+            "el_type": "ref",
+            "coords": "2,131.97,341.04,15.89,8.64",
+            "target": "#b33",
+            "type": "bibr",
+            "txt": "[34]",
+            "tail": ""
+        },
+        {
+            "el_type": "ref",
+            "coords": "2,150.39,341.04,11.92,8.64",
+            "target": "#b30",
+            "type": "bibr",
+            "txt": "[31]",
+            "tail": ", we examine the role of batch normalization (BN) statistics in CIL training with KD loss and conjecture that in standard KD methods, the KD loss between models with different BN statistics may introduce unwanted model updates due to the data distribution shifts."
+        },
+        {
+            "el_type": "s",
+            "coords": "2,49.80,400.81,236.56,8.64;2,50.11,412.77,229.40,8.64",
+            "txt": "To avoid this, we propose to continuously adapt them to the new data for the teacher model while training the student."
+        },
+        {
+            "el_type": "p",
+            "txt": "\n"
+        },
+        {
+            "el_type": "s",
+            "coords": "2,62.07,426.36,224.65,8.64;2,50.11,438.31,236.25,8.64;2,50.11,450.27,237.90,8.64;2,50.11,462.22,25.16,8.64",
+            "txt": "We show that adapting the teacher BN statistics to the new task can significantly lower KD loss without affecting the CE loss, which leads to reduced changes in representations (Figure "
+        },
+        {
+            "el_type": "ref",
+            "coords": "2,64.70,462.22,3.52,8.64",
+            "target": "#fig_1",
+            "type": "figure",
+            "txt": "[2]",
+            "tail": ")."
+        },
+        {
+            "el_type": "s",
+            "coords": "2,78.23,462.22,208.30,8.64;2,50.11,474.18,236.25,8.64;2,50.11,486.13,236.25,8.64;2,50.11,498.09,236.25,8.64;2,50.11,510.04,19.09,8.64",
+            "txt": "We note that TA has been used in standard KD "
+        },
+        {
+            "el_type": "ref",
+            "coords": "2,259.82,462.22,16.46,8.64",
+            "target": "#b42",
+            "type": "bibr",
+            "txt": "[43]",
+            "tail": " or in the online continual learning with exemplars "
+        },
+        {
+            "el_type": "ref",
+            "coords": "2,238.52,474.18,15.19,8.64",
+            "target": "#b11",
+            "type": "bibr",
+            "txt": "[12]",
+            "tail": ", but we are the first to apply it to exemplar-free CIL scenario, where the teacher and the model are trained on non-overlapping data."
+        },
+        {
+            "el_type": "head_2",
+            "coords": "2,50.11,537.09,85.22,10.75",
+            "txt": "2. Related works"
+        },
+        {
+            "el_type": "p",
+            "txt": "\n"
+        },
+        {
+            "el_type": "s",
+            "coords": "2,50.11,559.03,236.25,9.03;2,50.11,571.37,236.25,8.64;2,50.11,583.33,100.90,8.64",
+            "txt": "Class Incremental Learning (CIL) "
+        },
+        {
+            "el_type": "ref",
+            "coords": "2,200.06,559.42,15.85,8.64",
+            "target": "#b32",
+            "type": "bibr",
+            "txt": "[33]",
+            "tail": ""
+        },
+        {
+            "el_type": "ref",
+            "coords": "2,218.41,559.42,13.33,8.64",
+            "target": "#b22",
+            "type": "bibr",
+            "txt": "[23]",
+            "tail": " aims to learn incrementally from a stream of tasks, without the knowledge about the task identifier."
+        },
+        {
+            "el_type": "s",
+            "coords": "2,157.47,583.33,129.05,8.64;2,50.11,595.28,236.60,8.64;2,50.11,607.24,237.49,8.64;2,50.11,619.19,181.75,8.64",
+            "txt": "Most CIL methods store either exemplars or features from the previous tasks in the replay buffer "
+        },
+        {
+            "el_type": "ref",
+            "coords": "2,76.18,607.24,15.69,8.64",
+            "target": "#b27",
+            "type": "bibr",
+            "txt": "[28]",
+            "tail": ""
+        },
+        {
+            "el_type": "ref",
+            "coords": "2,94.36,607.24,12.42,8.64",
+            "target": "#b15",
+            "type": "bibr",
+            "txt": "[16]",
+            "tail": ""
+        },
+        {
+            "el_type": "ref",
+            "coords": "2,109.27,607.24,7.44,8.64",
+            "target": "#b4",
+            "type": "bibr",
+            "txt": "[5]",
+            "tail": ""
+        },
+        {
+            "el_type": "ref",
+            "coords": "2,119.19,607.24,11.77,8.64",
+            "target": "#b25",
+            "type": "bibr",
+            "txt": "[26]",
+            "tail": ", modify the structure of the model "
+        },
+        {
+            "el_type": "ref",
+            "coords": "2,271.91,607.24,15.70,8.64",
+            "target": "#b35",
+            "type": "bibr",
+            "txt": "[36]",
+            "tail": ""
+        },
+        {
+            "el_type": "ref",
+            "coords": "2,50.11,619.19,13.35,8.64",
+            "target": "#b34",
+            "type": "bibr",
+            "txt": "[35]",
+            "tail": " or regularize changes in model "
+        },
+        {
+            "el_type": "ref",
+            "coords": "2,197.38,619.19,15.89,8.64",
+            "target": "#b16",
+            "type": "bibr",
+            "txt": "[17]",
+            "tail": ""
+        },
+        {
+            "el_type": "ref",
+            "coords": "2,215.98,619.19,11.91,8.64",
+            "target": "#b20",
+            "type": "bibr",
+            "txt": "[21]",
+            "tail": "."
+        },
+        {
+            "el_type": "s",
+            "coords": "2,235.60,619.19,51.25,8.64;2,50.11,631.15,237.50,8.64;2,50.11,643.10,236.25,8.64;2,50.11,655.06,144.80,8.64",
+            "txt": "Modern CIL methods usually combine those approaches "
+        },
+        {
+            "el_type": "ref",
+            "coords": "2,230.52,631.15,10.91,8.64",
+            "target": "#b5",
+            "type": "bibr",
+            "txt": "[6]",
+            "tail": ""
+        },
+        {
+            "el_type": "ref",
+            "coords": "2,244.32,631.15,12.50,8.64",
+            "target": "#b36",
+            "type": "bibr",
+            "txt": "[37]",
+            "tail": ""
+        },
+        {
+            "el_type": "ref",
+            "coords": "2,259.71,631.15,12.50,8.64",
+            "target": "#b28",
+            "type": "bibr",
+            "txt": "[29]",
+            "tail": ""
+        },
+        {
+            "el_type": "ref",
+            "coords": "2,275.10,631.15,12.50,8.64",
+            "target": "#b27",
+            "type": "bibr",
+            "txt": "[28]",
+            "tail": ""
+        },
+        {
+            "el_type": "ref",
+            "coords": "2,50.11,643.10,12.50,8.64",
+            "target": "#b20",
+            "type": "bibr",
+            "txt": "[21]",
+            "tail": ""
+        },
+        {
+            "el_type": "ref",
+            "coords": "2,66.16,643.10,8.36,8.64",
+            "target": "#b0",
+            "type": "bibr",
+            "txt": "[1]",
+            "tail": " and often rely heavily on exemplars, which raises issues with data storage and privacy."
+        },
+        {
+            "el_type": "p",
+            "txt": "\n"
+        },
+        {
+            "el_type": "s",
+            "coords": "2,62.07,668.65,224.65,8.64;2,50.11,680.60,237.90,8.64;2,50.11,692.56,236.25,8.64;2,50.11,704.51,46.07,8.64",
+            "txt": "Regularization methods for continual learning employ either parameter regularization "
+        },
+        {
+            "el_type": "ref",
+            "coords": "2,174.79,680.60,15.75,8.64",
+            "target": "#b16",
+            "type": "bibr",
+            "txt": "[17]",
+            "tail": ""
+        },
+        {
+            "el_type": "ref",
+            "coords": "2,193.02,680.60,12.44,8.64",
+            "target": "#b38",
+            "type": "bibr",
+            "txt": "[39]",
+            "tail": ""
+        },
+        {
+            "el_type": "ref",
+            "coords": "2,207.95,680.60,8.29,8.64",
+            "target": "#b1",
+            "type": "bibr",
+            "txt": "[2]",
+            "tail": " or functional regularization through knowledge distillation (KD) on model activations."
+        },
+        {
+            "el_type": "s",
+            "coords": "2,99.82,704.51,187.79,8.64;2,308.86,293.22,237.50,8.64;2,308.51,305.17,15.89,8.64",
+            "txt": "In CL, KD was first applied in LwF "
+        },
+        {
+            "el_type": "ref",
+            "coords": "2,248.40,704.51,15.42,8.64",
+            "target": "#b20",
+            "type": "bibr",
+            "txt": "[21]",
+            "tail": ", and, since then, has been widely used "
+        },
+        {
+            "el_type": "ref",
+            "coords": "2,444.63,293.22,15.89,8.64",
+            "target": "#b26",
+            "type": "bibr",
+            "txt": "[27]",
+            "tail": ""
+        },
+        {
+            "el_type": "ref",
+            "coords": "2,463.16,293.22,12.50,8.64",
+            "target": "#b13",
+            "type": "bibr",
+            "txt": "[14]",
+            "tail": ""
+        },
+        {
+            "el_type": "ref",
+            "coords": "2,478.29,293.22,12.50,8.64",
+            "target": "#b27",
+            "type": "bibr",
+            "txt": "[28]",
+            "tail": ""
+        },
+        {
+            "el_type": "ref",
+            "coords": "2,493.43,293.22,12.50,8.64",
+            "target": "#b25",
+            "type": "bibr",
+            "txt": "[26]",
+            "tail": ""
+        },
+        {
+            "el_type": "ref",
+            "coords": "2,508.56,293.22,7.52,8.64",
+            "target": "#b0",
+            "type": "bibr",
+            "txt": "[1]",
+            "tail": ""
+        },
+        {
+            "el_type": "ref",
+            "coords": "2,518.72,293.22,12.50,8.64",
+            "target": "#b10",
+            "type": "bibr",
+            "txt": "[11]",
+            "tail": ""
+        },
+        {
+            "el_type": "ref",
+            "coords": "2,533.85,293.22,12.50,8.64",
+            "target": "#b9",
+            "type": "bibr",
+            "txt": "[10]",
+            "tail": ""
+        },
+        {
+            "el_type": "ref",
+            "coords": "2,308.51,305.17,11.92,8.64",
+            "target": "#b39",
+            "type": "bibr",
+            "txt": "[40]",
+            "tail": "."
+        },
+        {
+            "el_type": "s",
+            "coords": "2,329.69,305.17,215.58,8.64;2,308.86,317.13,236.25,8.64;2,308.86,329.08,77.55,8.64",
+            "txt": "However, most of those methods are impractical for exemplar-free settings, as their performance heavily relies on exemplar buffer."
+        },
+        {
+            "el_type": "s",
+            "coords": "2,308.86,340.65,236.25,9.03;2,308.86,352.99,237.90,8.64;2,308.86,364.95,237.90,8.64;2,308.86,376.90,139.52,8.64",
+            "txt": "Modifying the teacher model in KD was recently explored in a setting where both models operate on the same domain "
+        },
+        {
+            "el_type": "ref",
+            "coords": "2,333.49,364.95,15.89,8.64",
+            "target": "#b42",
+            "type": "bibr",
+            "txt": "[43]",
+            "tail": ""
+        },
+        {
+            "el_type": "ref",
+            "coords": "2,353.69,364.95,13.35,8.64",
+            "target": "#b21",
+            "type": "bibr",
+            "txt": "[22]",
+            "tail": " and the teacher is adapted through metalearning to better guide the student."
+        },
+        {
+            "el_type": "s",
+            "coords": "2,451.47,376.90,93.65,8.64;2,308.86,388.86,236.25,8.64;2,308.86,400.81,124.80,8.64",
+            "txt": "La-MAML "
+        },
+        {
+            "el_type": "ref",
+            "coords": "2,498.23,376.90,16.52,8.64",
+            "target": "#b11",
+            "type": "bibr",
+            "txt": "[12]",
+            "tail": " applies a similar idea in online continual learning, using exemplars for the outer loop optimization."
+        },
+        {
+            "el_type": "s",
+            "coords": "2,308.86,412.38,236.25,9.03;2,308.86,424.72,236.25,8.64;2,308.86,436.68,200.57,8.64",
+            "txt": "Batch Normalization (BN) "
+        },
+        {
+            "el_type": "ref",
+            "coords": "2,429.21,412.77,16.73,8.64",
+            "target": "#b14",
+            "type": "bibr",
+            "txt": "[15]",
+            "tail": " is widely used in deep learning, but it was shown to be problematic in CL "
+        },
+        {
+            "el_type": "ref",
+            "coords": "2,517.38,424.72,16.73,8.64",
+            "target": "#b29",
+            "type": "bibr",
+            "txt": "[30]",
+            "tail": " as its statistics change drastically between the tasks."
+        },
+        {
+            "el_type": "s",
+            "coords": "2,512.90,436.68,33.86,8.64;2,308.86,448.63,236.42,8.64;2,308.86,460.59,236.24,8.64;2,308.86,472.54,85.31,8.64",
+            "txt": "Alternative normalization approaches such as LayerNorm "
+        },
+        {
+            "el_type": "ref",
+            "coords": "2,521.54,448.63,11.75,8.64",
+            "target": "#b3",
+            "type": "bibr",
+            "txt": "[4]",
+            "tail": " or GroupNorm "
+        },
+        {
+            "el_type": "ref",
+            "coords": "2,362.08,460.59,16.73,8.64",
+            "target": "#b37",
+            "type": "bibr",
+            "txt": "[38]",
+            "tail": " often lead to decreased performance in standard CL models."
+        },
+        {
+            "el_type": "s",
+            "coords": "2,398.78,472.54,146.33,8.64;2,308.86,484.50,185.60,8.64",
+            "txt": "Several domain adaptation methods use BN statistics for domain transfer "
+        },
+        {
+            "el_type": "ref",
+            "coords": "2,460.14,484.50,15.89,8.64",
+            "target": "#b33",
+            "type": "bibr",
+            "txt": "[34]",
+            "tail": ""
+        },
+        {
+            "el_type": "ref",
+            "coords": "2,478.57,484.50,11.91,8.64",
+            "target": "#b30",
+            "type": "bibr",
+            "txt": "[31]",
+            "tail": "."
+        },
+        {
+            "el_type": "s",
+            "coords": "2,497.70,484.50,47.42,8.64;2,308.86,496.45,236.25,8.64;2,308.86,508.41,176.70,8.64",
+            "txt": "CL-specific normalization methods also have been proposed "
+        },
+        {
+            "el_type": "ref",
+            "coords": "2,501.25,496.45,15.72,8.64",
+            "target": "#b24",
+            "type": "bibr",
+            "txt": "[25]",
+            "tail": ""
+        },
+        {
+            "el_type": "ref",
+            "coords": "2,519.46,496.45,7.16,8.64",
+            "target": "#b6",
+            "type": "bibr",
+            "txt": "[7]",
+            "tail": ", but they are not suited for exemplar-free setting."
+        },
+        {
+            "el_type": "head_2",
+            "coords": "2,308.86,530.51,51.80,10.75",
+            "txt": "3. Method"
+        },
+        {
+            "el_type": "p",
+            "txt": "\n"
+        },
+        {
+            "el_type": "s",
+            "coords": "2,320.82,551.02,224.30,8.82;2,308.86,563.16,186.07,8.64",
+            "txt": "We propose Teacher Adaptation -a simple, yet effective method for CIL with KD presented in Figure "
+        },
+        {
+            "el_type": "ref",
+            "coords": "2,487.59,563.16,3.67,8.64",
+            "target": "#fig_0",
+            "type": "figure",
+            "txt": "[1]",
+            "tail": "."
+        },
+        {
+            "el_type": "s",
+            "coords": "2,498.02,563.16,47.10,8.64;2,308.86,575.11,236.25,8.64;2,308.86,587.07,236.25,8.64;2,308.86,599.02,236.25,8.64;2,308.86,610.98,236.25,8.64;2,308.86,622.93,123.95,8.64",
+            "txt": "Our method allows the teacher model to continuously update BN statistics alongside the student when training on the new data, which addresses the problem of diverging BN statistics between the teacher and student model caused by the shifts in training data between subsequent tasks."
+        },
+        {
+            "el_type": "s",
+            "coords": "2,308.86,634.50,198.24,8.96",
+            "txt": "Knowledge Distillation in Continual Learning."
+        },
+        {
+            "el_type": "s",
+            "coords": "2,516.37,634.89,30.40,8.64;2,308.86,646.84,236.25,8.64;2,308.86,658.48,236.25,9.65;2,308.86,670.44,237.49,9.65;2,308.50,682.71,126.05,8.64;3,49.75,236.75,236.61,9.65;3,50.11,248.71,236.25,8.96;3,50.11,260.98,89.85,8.64",
+            "txt": "Knowledge distillation (KD) methods for continual learning save the (teacher) model \u0398 t trained after each task t and use it during learning the (student) model \u0398 t+1 on new task t + 1, with general learning objective: where L CE is the cross-entropy loss, L KD is the KD loss and \u03bb is the coefficient that controls the trade-off between stability and plasticity."
+        },
+        {
+            "el_type": "formula",
+            "coords": "2,386.13,704.20,159.65,9.65",
+            "xml_id": "formula_0",
+            "txt": "L = L CE + \u03bbL KD ,"
+        },
+        {
+            "el_type": "formula",
+            "coords": "3,87.24,75.99,416.49,43.25",
+            "xml_id": "formula_1",
+            "txt": "T10S10 T20S5 T11S50 T26S50 Acc Inc \u2191 F org Inc \u2193 Acc Inc \u2191 F org Inc \u2193 Acc Inc \u2191 F org Inc \u2193 Acc Inc \u2191 F org Inc \u2193 a)"
+        },
+        {
+            "el_type": "p",
+            "txt": "\n"
+        },
+        {
+            "el_type": "s",
+            "coords": "3,62.07,272.94,224.30,8.64;3,50.11,284.89,29.98,8.64",
+            "txt": "The most popular formulation of KD loss was proposed in "
+        },
+        {
+            "el_type": "ref",
+            "coords": "3,60.82,284.89,15.42,8.64",
+            "target": "#b20",
+            "type": "bibr",
+            "txt": "[21]",
+            "tail": "."
+        },
+        {
+            "el_type": "s",
+            "coords": "3,84.13,284.89,202.90,8.64;3,50.11,296.85,62.81,8.64",
+            "txt": "Following "
+        },
+        {
+            "el_type": "ref",
+            "coords": "3,128.32,284.89,10.71,8.64",
+            "target": "#b0",
+            "type": "bibr",
+            "txt": "[1]",
+            "tail": ", we refer to it as global KD (GKD) and define it as:"
+        },
+        {
+            "el_type": "formula",
+            "coords": "3,94.52,314.93,192.51,31.18",
+            "xml_id": "formula_2",
+            "txt": "L GKD (y o , \u0177o ) = \u2212 |Ct| i=1 p (i) o log p(i) o ,"
+        },
+        {
+            "el_type": "p",
+            "txt": "\n"
+        },
+        {
+            "el_type": "s",
+            "coords": "3,49.75,356.46,236.60,9.65;3,50.11,370.35,61.42,9.65",
+            "txt": "where |C t | is the number of classes learned by previous model \u0398 t and p"
+        },
+        {
+            "el_type": "p",
+            "txt": "\n"
+        },
+        {
+            "el_type": "s",
+            "coords": "3,130.80,370.67,157.21,9.00;3,50.11,382.63,34.32,8.64",
+            "txt": "o are temperature-scaled softmax probabilities:"
+        },
+        {
+            "el_type": "p",
+            "txt": "\n"
+        },
+        {
+            "el_type": "s",
+            "coords": "3,126.41,401.29,4.64,8.74;3,131.05,399.72,16.83,6.12;3,128.74,420.07,3.30,6.12;3,134.60,414.20,21.47,9.57;3,158.83,408.03,23.34,8.74",
+            "txt": "e yo/T j e yo/T , po"
+        },
+        {
+            "el_type": "formula",
+            "coords": "3,182.66,399.72,104.37,26.47",
+            "xml_id": "formula_5",
+            "txt": "(i) = e \u0177o/T j e \u0177o/T"
+        },
+        {
+            "el_type": "p",
+            "txt": "\n"
+        },
+        {
+            "el_type": "s",
+            "coords": "3,49.64,436.23,238.38,8.96;3,50.11,449.79,98.54,8.96",
+            "txt": "We denote temperature parameter with T and use o to emphasise that the logits y"
+        },
+        {
+            "el_type": "p",
+            "txt": "\n"
+        },
+        {
+            "el_type": "s",
+            "coords": "3,169.58,449.93,116.79,9.18;3,50.11,462.06,80.83,8.64",
+            "txt": "o only relate to old classes from previous tasks."
+        },
+        {
+            "el_type": "p",
+            "txt": "\n"
+        },
+        {
+            "el_type": "s",
+            "coords": "3,62.07,474.02,224.29,8.64;3,50.11,485.97,237.91,8.64;3,50.11,497.93,237.91,8.64;3,50.11,509.88,208.63,8.64",
+            "txt": "Ahn et al. "
+        },
+        {
+            "el_type": "ref",
+            "coords": "3,103.75,474.02,11.65,8.64",
+            "target": "#b0",
+            "type": "bibr",
+            "txt": "[1]",
+            "tail": " noticed that GKD formulation encourages forgetting of previous tasks and proposed task-wise knowledge distillation (TKD), which computes softmax probabilities separately across the model classification heads:"
+        },
+        {
+            "el_type": "formula",
+            "coords": "3,85.15,529.08,201.88,30.32",
+            "xml_id": "formula_7",
+            "txt": "L T KD (y o , \u0177o ) = t i=1 D KL (p (i) o log p(i) o ),"
+        },
+        {
+            "el_type": "p",
+            "txt": "\n"
+        },
+        {
+            "el_type": "s",
+            "coords": "3,49.75,572.69,206.64,9.65",
+            "txt": "where D KL is Kullback-Leibler divergence and p"
+        },
+        {
+            "el_type": "p",
+            "txt": "\n"
+        },
+        {
+            "el_type": "s",
+            "coords": "3,276.82,575.89,3.93,6.12;3,50.11,584.64,236.24,8.96;3,50.11,596.92,55.89,8.64",
+            "txt": "o are computed task-wise across the outputs for task i as in Equation ( "
+        },
+        {
+            "el_type": "ref",
+            "coords": "3,92.06,596.92,3.48,8.64",
+            "target": "#formula_5",
+            "type": "formula",
+            "txt": "[3]",
+            "tail": "))."
+        },
+        {
+            "el_type": "p",
+            "txt": "\n"
+        },
+        {
+            "el_type": "s",
+            "coords": "3,49.78,608.48,88.78,8.96",
+            "txt": "Teacher Adaptation."
+        },
+        {
+            "el_type": "s",
+            "coords": "3,141.65,608.87,144.71,8.64;3,50.11,620.83,237.49,8.64;3,49.75,632.78,236.61,8.64;3,50.11,644.42,236.25,9.65;3,50.11,656.37,58.35,9.65",
+            "txt": "Most models used in CIL for vision tasks are convolutional neural networks such as ResNet "
+        },
+        {
+            "el_type": "ref",
+            "coords": "3,268.70,620.83,15.12,8.64",
+            "target": "#b12",
+            "type": "bibr",
+            "txt": "[13]",
+            "tail": ", which typically use BN layers and keep the parameters and statistics of those layers in the teacher model \u0398 t fixed during learning \u0398 t+1 ."
+        },
+        {
+            "el_type": "s",
+            "coords": "3,111.58,656.69,176.43,8.64;3,50.11,668.65,236.42,8.64;3,50.11,680.60,33.78,8.64",
+            "txt": "However, when changing the task, BN statistics in both models quickly diverge, which leads to higher KD loss."
+        },
+        {
+            "el_type": "s",
+            "coords": "3,86.83,680.60,199.53,8.64;3,50.11,692.56,236.41,8.64;3,50.11,704.51,232.98,8.64",
+            "txt": "Gradient updates in this case not only regularize the model towards the previous tasks, but also compensate for the changes in BN statistics, harming the learning process."
+        },
+        {
+            "el_type": "p",
+            "txt": "\n"
+        },
+        {
+            "el_type": "s",
+            "coords": "3,320.82,237.07,224.30,8.64;3,308.86,249.03,236.25,8.64;3,308.50,260.80,137.03,8.82",
+            "txt": "Inspired by test-time adaptation methods "
+        },
+        {
+            "el_type": "ref",
+            "coords": "3,480.00,237.07,15.12,8.64",
+            "target": "#b33",
+            "type": "bibr",
+            "txt": "[34]",
+            "tail": ", we propose to reduce this negative interference with a simple method that we label Teacher Adaptation (TA)."
+        },
+        {
+            "el_type": "s",
+            "coords": "3,448.01,260.98,97.10,8.64;3,308.86,272.94,236.25,8.64;3,308.86,284.89,89.62,8.64",
+            "txt": "Our method updates BN statistics of both models simultaneously on new data while learning the new task."
+        },
+        {
+            "el_type": "s",
+            "coords": "3,402.41,284.89,142.86,8.64;3,308.86,296.85,236.25,8.64;3,308.86,308.80,225.67,8.64",
+            "txt": "As shown in Figure "
+        },
+        {
+            "el_type": "ref",
+            "coords": "3,485.50,284.89,3.81,8.64",
+            "target": "#fig_1",
+            "type": "figure",
+            "txt": "[2]",
+            "tail": ", it allows for significantly reduced KD loss over learning from sequential tasks in CIL, which improves the overall model stability."
+        },
+        {
+            "el_type": "head_2",
+            "coords": "3,308.86,334.04,77.04,10.75",
+            "txt": "4. Experiments"
+        },
+        {
+            "el_type": "p",
+            "txt": "\n"
+        },
+        {
+            "el_type": "s",
+            "coords": "3,308.53,355.37,148.70,8.96",
+            "txt": "TA on standard CIL benchmarks."
+        },
+        {
+            "el_type": "s",
+            "coords": "3,465.78,355.76,80.98,8.64;3,308.86,367.71,236.25,8.64;3,308.86,379.67,236.25,8.64;3,308.86,391.62,236.25,8.64;3,308.86,403.58,30.76,8.64",
+            "txt": "We evaluate knowledge distillation approaches described in Section 3 on the standard continual learning benchmarks CIFAR100 "
+        },
+        {
+            "el_type": "ref",
+            "coords": "3,528.38,379.67,16.73,8.64",
+            "target": "#b18",
+            "type": "bibr",
+            "txt": "[19]",
+            "tail": " and ImageNet-Subset "
+        },
+        {
+            "el_type": "ref",
+            "coords": "3,396.74,391.62,10.52,8.64",
+            "target": "#b8",
+            "type": "bibr",
+            "txt": "[9]",
+            "tail": ", each containing images from 100 classes."
+        },
+        {
+            "el_type": "s",
+            "coords": "3,343.08,403.58,202.04,8.64;3,308.86,415.53,215.28,8.64",
+            "txt": "For experiments on CIFAR100, we keep the class order from iCaRL "
+        },
+        {
+            "el_type": "ref",
+            "coords": "3,388.72,415.53,16.73,8.64",
+            "target": "#b27",
+            "type": "bibr",
+            "txt": "[28]",
+            "tail": " and we use ResNet32 "
+        },
+        {
+            "el_type": "ref",
+            "coords": "3,504.87,415.53,15.42,8.64",
+            "target": "#b12",
+            "type": "bibr",
+            "txt": "[13]",
+            "tail": "."
+        },
+        {
+            "el_type": "s",
+            "coords": "3,531.31,415.53,13.97,8.64;3,308.86,427.49,161.26,8.64",
+            "txt": "For ImageNet Subset, we use ResNet18 "
+        },
+        {
+            "el_type": "ref",
+            "coords": "3,451.21,427.49,15.13,8.64",
+            "target": "#b12",
+            "type": "bibr",
+            "txt": "[13]",
+            "tail": "."
+        },
+        {
+            "el_type": "s",
+            "coords": "3,473.22,427.49,73.55,8.64;3,308.86,439.44,236.25,8.64;3,308.86,451.01,237.49,9.03;3,308.86,462.96,236.74,9.03;3,308.86,475.31,236.25,8.64;3,308.86,487.26,236.25,8.64;3,308.86,499.22,56.89,8.64",
+            "txt": "We investigate different class splits, which we denote using the total number of tasks T (which includes the first pretraining task if present), and the number of classes in the first task S. We use FACIL framework provided by Masana et al. "
+        },
+        {
+            "el_type": "ref",
+            "coords": "3,462.40,475.31,15.39,8.64",
+            "target": "#b22",
+            "type": "bibr",
+            "txt": "[23]",
+            "tail": ", and always use the same hyperparameters for each KD method within a single setting."
+        },
+        {
+            "el_type": "s",
+            "coords": "3,370.28,499.22,175.00,8.64;3,308.86,511.17,236.25,8.64;3,308.86,523.13,112.40,8.64",
+            "txt": "We train the network on each new task for 200 epochs in all experiments, using SGD optimizer without momentum or weight decay."
+        },
+        {
+            "el_type": "s",
+            "coords": "3,424.37,523.13,120.75,8.64;3,308.86,535.08,236.25,8.64;3,308.86,547.04,237.99,8.64",
+            "txt": "Following Zhou et al. "
+        },
+        {
+            "el_type": "ref",
+            "coords": "3,512.10,523.13,15.21,8.64",
+            "target": "#b41",
+            "type": "bibr",
+            "txt": "[42]",
+            "tail": ", we use a learning rate scheduler with the initial learning rate of 0.1 and 10x decay on the 60th, 120th, and 160th epoch."
+        },
+        {
+            "el_type": "s",
+            "coords": "3,308.39,559.00,220.70,8.64",
+            "txt": "We report the results averaged over three random seeds."
+        },
+        {
+            "el_type": "s",
+            "coords": "3,532.19,559.00,12.92,8.64;3,308.86,570.95,224.53,8.64",
+            "txt": "We provide the description of reported metrics in Appendix."
+        },
+        {
+            "el_type": "p",
+            "txt": "\n"
+        },
+        {
+            "el_type": "s",
+            "coords": "3,320.82,583.93,224.29,8.64;3,308.86,595.89,44.29,8.64",
+            "txt": "We present the results obtained on standard CIL baselines in Table "
+        },
+        {
+            "el_type": "ref",
+            "coords": "3,345.53,595.89,3.81,8.64",
+            "target": "#tab_0",
+            "type": "table",
+            "txt": "[1]",
+            "tail": "."
+        },
+        {
+            "el_type": "s",
+            "coords": "3,358.39,595.89,186.72,8.64;3,308.86,607.84,127.02,8.64",
+            "txt": "On CIFAR100, TA consistently improves the accuracy across all the settings."
+        },
+        {
+            "el_type": "s",
+            "coords": "3,438.97,607.84,106.14,8.64;3,308.86,619.80,236.25,8.64;3,308.86,631.75,187.22,8.64",
+            "txt": "On ImageNet, our method improves upon the baseline for most settings, or at worst stays within the margin of error of the baseline."
+        },
+        {
+            "el_type": "s",
+            "coords": "3,499.16,631.75,45.95,8.64;3,308.86,643.71,236.25,8.64;3,308.86,655.49,180.44,8.82",
+            "txt": "We observe that applying our method generally leads to a more stable network and therefore reduces forgetting, i.e."
+        },
+        {
+            "el_type": "s",
+            "coords": "3,492.42,655.67,52.87,8.64;3,308.86,667.62,165.48,8.64",
+            "txt": "TKD+TA for equally split ImageNet (T10S10, T20S5)."
+        },
+        {
+            "el_type": "s",
+            "coords": "3,308.53,680.22,238.23,8.96;3,308.86,692.17,39.61,8.96",
+            "txt": "Teacher Adaptation under varying degrees of distribution shift."
+        },
+        {
+            "el_type": "s",
+            "coords": "3,354.62,692.56,190.49,8.64;3,308.50,704.51,236.61,8.64;4,50.11,206.36,495.00,8.64;4,50.11,218.31,58.25,8.64",
+            "txt": "We also introduce a corrupted CIFAR100 setting where data in every other task contains a noise of varying Figure "
+        },
+        {
+            "el_type": "ref",
+            "coords": "4,78.57,206.36,3.87,8.64",
+            "txt": "3",
+            "tail": ": Average incremental accuracy for standard KD and our method of TA under varying strength of data shift on splits of CIFAR100."
+        },
+        {
+            "el_type": "s",
+            "coords": "4,112.40,218.31,377.88,8.64",
+            "txt": "We vary the shift strength by adding Gaussian noise of different severity to every other task."
+        },
+        {
+            "el_type": "s",
+            "coords": "4,494.33,218.31,50.78,8.64;4,50.11,230.27,233.09,8.64",
+            "txt": "As the noise strengthens, the gap between TA and standard KD widens."
+        },
+        {
+            "el_type": "s",
+            "coords": "4,286.30,230.27,252.70,8.64",
+            "txt": "Our method leads to more robust learning in case of data shifts."
+        },
+        {
+            "el_type": "s",
+            "coords": "4,50.11,263.74,236.42,8.64;4,49.86,275.70,187.29,8.64",
+            "txt": "severity, which allows us to measure the impact of TA under varying and controllable degrees of data shift."
+        },
+        {
+            "el_type": "s",
+            "coords": "4,240.98,275.70,45.38,8.64;4,50.11,287.65,236.25,8.64;4,50.11,299.61,236.25,8.64;4,50.11,311.56,78.29,8.64",
+            "txt": "We corrupt every other task in this setting with Gaussian noise, so that in subsequent tasks the data distribution changes from clean to noisy or vice versa."
+        },
+        {
+            "el_type": "s",
+            "coords": "4,131.48,311.56,156.53,8.64;4,50.11,323.52,236.25,8.64;4,50.11,335.47,111.58,8.64",
+            "txt": "We obtain varying strength of distribution shift by using different levels of noise severity, following the methodology from "
+        },
+        {
+            "el_type": "ref",
+            "coords": "4,142.51,335.47,15.35,8.64",
+            "target": "#b23",
+            "type": "bibr",
+            "txt": "[24]",
+            "tail": "."
+        },
+        {
+            "el_type": "s",
+            "coords": "4,164.79,335.47,123.23,8.64;4,50.11,347.43,87.24,8.64",
+            "txt": "We show the results of this experiment in Figure "
+        },
+        {
+            "el_type": "ref",
+            "coords": "4,129.73,347.43,3.81,8.64",
+            "txt": "3",
+            "tail": "."
+        },
+        {
+            "el_type": "s",
+            "coords": "4,142.02,347.43,144.35,8.64;4,50.11,359.38,236.25,8.64;4,50.11,371.34,236.25,8.64;4,50.11,383.29,186.15,8.64",
+            "txt": "As the noise severity increases, the gap between standard KD and TA widens, indicating that our method is better suited to more challenging scenarios of learning under extreme data distribution shifts."
+        },
+        {
+            "el_type": "s",
+            "coords": "4,49.75,395.54,238.26,8.96;4,50.11,407.50,19.48,8.96",
+            "txt": "Alternative solutions to problems with batch normalization."
+        },
+        {
+            "el_type": "s",
+            "coords": "4,76.15,407.89,210.21,8.64;4,49.75,419.84,238.35,8.64",
+            "txt": "To justify the validity of our method, we compare it with other potential solutions for the problem with BN layers."
+        },
+        {
+            "el_type": "s",
+            "coords": "4,49.64,431.80,236.72,8.64;4,50.11,443.75,237.90,8.64;4,50.11,455.71,236.25,8.64;4,50.11,467.66,236.25,8.64;4,50.11,479.62,237.49,8.64;4,49.76,491.57,237.26,8.64;4,50.11,503.53,177.08,8.64",
+            "txt": "We use GKD on CIFAR100 split into 10 tasks and compare the following solutions: 1) standard training with BN statistics from the previous task fixed in the teacher model, but updated in the student model, 2) BN layers removed, 3) BN statistics fixed in both models after learning the first task, 4) BN layers replaced with LayerNorm "
+        },
+        {
+            "el_type": "ref",
+            "coords": "4,215.60,491.57,11.75,8.64",
+            "target": "#b3",
+            "type": "bibr",
+            "txt": "[4]",
+            "tail": " layers, and 5) finally our solution of Teacher Adaptation."
+        },
+        {
+            "el_type": "s",
+            "coords": "4,232.78,503.53,53.58,8.64;4,50.11,515.48,236.25,8.64;4,50.11,527.44,236.59,8.64;4,50.11,539.39,236.25,8.64;4,50.11,551.35,236.25,8.64;4,50.11,563.30,35.74,8.64",
+            "txt": "We show the results of those experiments in Table "
+        },
+        {
+            "el_type": "ref",
+            "coords": "4,198.50,515.48,3.73,8.64",
+            "target": "#tab_1",
+            "type": "table",
+            "txt": "[2]",
+            "tail": ". Fixing or removing BN leads to unstable training, which can be partially fixed by setting a high gradient clipping value or lowering the lambda parameter, but at the cost of the worse performance of the network."
+        },
+        {
+            "el_type": "s",
+            "coords": "4,89.28,563.30,198.33,8.64;4,50.11,575.26,237.90,8.64;4,50.11,587.21,137.51,8.64",
+            "txt": "Training the networks with LayerNorm is stable, but ultimately those networks converge to much worse solutions than the variants with BN."
+        },
+        {
+            "el_type": "s",
+            "coords": "4,190.27,587.21,96.44,8.64;4,50.11,598.85,236.25,8.96;4,50.11,611.12,144.74,8.64",
+            "txt": "Our solution is the only one that improves over different values of \u03bb and without the need of clipping the gradient values."
+        },
+        {
+            "el_type": "head_2",
+            "coords": "4,50.11,635.32,73.74,10.75",
+            "txt": "5. Conclusions"
+        },
+        {
+            "el_type": "p",
+            "txt": "\n"
+        },
+        {
+            "el_type": "s",
+            "coords": "4,62.07,656.69,225.95,8.64;4,50.11,668.65,236.25,8.64;4,50.11,680.60,123.94,8.64",
+            "txt": "We propose Teacher Adaptation (TA), a simple, yet effective method to improve the performance of KD-based methods in exemplar-free CIL."
+        },
+        {
+            "el_type": "s",
+            "coords": "4,176.55,680.60,111.06,8.64;4,49.80,692.56,238.21,8.64;4,50.11,704.51,74.61,8.64",
+            "txt": "During learning a new task, TA updates the teacher network by adjusting its BN statistics with new data."
+        },
+        {
+            "el_type": "s",
+            "coords": "4,127.82,704.51,158.54,8.64;4,308.86,499.17,236.60,8.64;4,308.86,511.13,237.90,8.64;4,308.86,523.09,173.51,8.64",
+            "txt": "This mitigates the changes in the model caused by KD loss that arise as the current learner constantly tries to compensate for the diverging normalization statistics between itself and the teacher model."
+        },
+        {
+            "el_type": "s",
+            "coords": "4,488.41,523.09,56.70,8.64;4,308.55,535.04,236.56,8.64;4,308.86,547.00,236.25,8.64;4,308.86,558.95,29.64,8.64",
+            "txt": "We show that TA consistently improves the results for different KD-based methods on several CIL benchmarks in an exemplar-free setting."
+        },
+        {
+            "el_type": "s",
+            "coords": "4,343.26,558.95,202.02,8.64;4,308.86,570.91,236.25,8.64;4,308.86,582.86,108.09,8.64",
+            "txt": "Moreover, we demonstrate that benefits from our method increase as we increase the degree of shift in data between subsequent tasks."
+        },
+        {
+            "el_type": "s",
+            "coords": "4,421.88,582.86,123.23,8.64;4,308.86,594.82,237.90,8.64;4,308.86,606.77,236.25,8.64;4,308.86,618.73,155.54,8.64",
+            "txt": "TA can be easily added to the existing CIL methods and induces only a slight computational overhead, making it a valuable addition to existing exemplar-free KD-based CIL methods."
+        },
+        {
+            "el_type": "p",
+            "txt": "\n"
+        },
+        {
+            "el_type": "s",
+            "coords": "7,157.60,130.07,4.24,6.12;7,175.37,121.63,4.24,6.12;7,175.37,129.62,13.79,6.12;7,191.32,124.59,95.05,9.65;7,50.11,136.55,236.25,8.96;7,50.11,148.50,145.44,8.96",
+            "txt": "k k j=1 a k,j , where a k,j \u2208 [0, 1] be the accuracy of the j-th task (j \u2264 k) after training the network sequentially for k tasks "
+        },
+        {
+            "el_type": "ref",
+            "coords": "7,181.35,148.82,10.65,8.64",
+            "target": "#b2",
+            "type": "bibr",
+            "txt": "[3]",
+            "tail": "."
+        },
+        {
+            "el_type": "s",
+            "coords": "7,198.63,148.82,89.38,8.64;7,50.11,160.46,237.99,9.65",
+            "txt": "Overall average incremental accuracy Acc Inc is the mean value from all tasks."
+        },
+        {
+            "el_type": "s",
+            "coords": "7,49.64,172.55,236.72,8.82;7,50.11,184.37,220.00,9.65",
+            "txt": "We also report average forgetting as defined in "
+        },
+        {
+            "el_type": "ref",
+            "coords": "7,246.30,172.73,10.72,8.64",
+            "target": "#b7",
+            "type": "bibr",
+            "txt": "[8]",
+            "tail": ", while the F org Inc is similarly the mean value from all tasks."
+        },
+        {
+            "el_type": "s",
+            "coords": "7,273.22,184.69,13.15,8.64;7,50.11,196.64,236.60,8.64;7,50.11,208.28,231.09,9.65",
+            "txt": "We provide results with additional metrics such as final accuracy Acc F inal and final forgetting F org F inal in the Appendix."
+        },
+        {
+            "el_type": "p",
+            "txt": "\n"
+        },
+        {
+            "el_type": "s",
+            "coords": "7,50.11,234.45,190.20,8.96",
+            "txt": "B. Alternative methods of teacher adaptation."
+        },
+        {
+            "el_type": "s",
+            "coords": "7,250.27,234.84,36.44,8.64;7,50.11,246.79,236.60,8.64;7,50.11,258.75,236.42,8.64;7,50.11,270.70,27.95,8.64",
+            "txt": "We study alternative methods of adapting the teacher model and try pertaining (P ) and continuously training (CT ) the teacher model."
+        },
+        {
+            "el_type": "s",
+            "coords": "7,81.43,270.70,204.93,8.64;7,50.11,282.66,236.25,8.64;7,49.75,294.61,236.61,8.64;7,50.11,306.57,107.27,8.64",
+            "txt": "For pertaining, we train the teacher on new data in isolation for a few epochs, while during continuous training we update the teacher alongside the main model using the same batches of new data."
+        },
+        {
+            "el_type": "s",
+            "coords": "7,161.47,306.57,125.06,8.64;7,50.11,318.21,237.99,8.96",
+            "txt": "We train either the full teacher model (F M ) or only its batch normalization layers (BN )."
+        },
+        {
+            "el_type": "s",
+            "coords": "7,50.11,330.48,237.91,8.64;7,50.11,342.12,122.11,8.96",
+            "txt": "Finally, we repeat all the experiments with fixed batch normalization statistics (f ix BN )."
+        },
+        {
+            "el_type": "s",
+            "coords": "7,175.16,342.43,112.94,8.64;7,49.75,354.39,236.61,8.64;7,50.11,366.35,237.90,8.64;7,50.11,377.98,123.00,8.96;7,173.11,376.41,10.20,6.12;7,183.80,377.98,103.80,8.96;7,50.11,390.26,236.25,8.64;7,50.11,402.21,118.71,8.64",
+            "txt": "We present results in Table "
+        },
+        {
+            "el_type": "ref",
+            "coords": "7,280.78,342.43,3.66,8.64",
+            "target": "#tab_2",
+            "type": "table",
+            "txt": "[3]",
+            "tail": ". Alternative solutions perform within the standard deviation of TA, but the values of the hyperparmeters for those models are small (learning rate 10 \u22127 , 5 epochs of pertaining), indicating that the teacher the crucial change in the model is batch normalization statistics."
+        },
+        {
+            "el_type": "s",
+            "coords": "7,50.11,656.30,237.99,8.96",
+            "txt": "C. Task-recency bias reduction with Teacher Adaptation."
+        },
+        {
+            "el_type": "p",
+            "txt": "\n"
+        },
+        {
+            "el_type": "s",
+            "coords": "7,49.64,668.65,236.89,8.64;7,49.75,680.60,236.61,8.64;7,50.11,692.56,220.55,8.64",
+            "txt": "We also conduct additional analysis of our method of Teacher Adaptation (TA) to understand the mechanism with which it improves upon the standard knowledge distillation."
+        },
+        {
+            "el_type": "s",
+            "coords": "7,276.20,692.56,10.16,8.64;7,50.11,704.51,236.25,8.64;7,308.86,450.82,236.25,8.64;7,308.86,462.77,237.99,8.64",
+            "txt": "At Figure "
+        },
+        {
+            "el_type": "ref",
+            "coords": "7,79.80,704.51,3.81,8.64",
+            "txt": "4",
+            "tail": ", we analyze task confusion matrices of standard Figure "
+        },
+        {
+            "el_type": "ref",
+            "coords": "7,336.28,450.82,3.80,8.64",
+            "txt": "4",
+            "tail": ": Task confusion matrix after learning all ten tasks on CIFAR100/10 for (upper) base GKD and (lower) GKD+TA."
+        },
+        {
+            "el_type": "p",
+            "txt": "\n"
+        },
+        {
+            "el_type": "s",
+            "coords": "7,308.39,474.73,238.38,8.64;7,308.86,486.68,194.13,8.64",
+            "txt": "We see that TA leads to a model that is better at distinguishing between tasks and shows lower recency bias."
+        },
+        {
+            "el_type": "s",
+            "coords": "7,308.86,520.16,149.39,8.64",
+            "txt": "KD (GKD) and its extension with TA."
+        },
+        {
+            "el_type": "s",
+            "coords": "7,460.76,520.16,84.35,8.64;7,308.55,532.11,236.56,8.64;7,308.86,544.07,206.13,8.64",
+            "txt": "We find that applying TA results in a model that is better at distinguishing between the tasks, and generally exhibits lower recency bias."
+        },
+        {
+            "el_type": "s",
+            "coords": "7,518.09,544.07,28.68,8.64;7,308.86,556.02,236.25,8.64;7,308.55,567.98,236.55,8.64;7,308.86,579.93,236.25,8.64;7,308.86,591.89,40.38,8.64",
+            "txt": "We hypothesize that the lower KD loss that we observe when using TA results in smaller updates to the model, so the difference between the magnitudes of logits learned for different tasks is smaller."
+        },
+        {
+            "el_type": "s",
+            "coords": "7,352.35,591.89,192.76,8.64;7,308.86,603.84,28.78,8.64",
+            "txt": "Therefore, TA helps to alleviate the recency bias in CIL."
+        },
+        {
+            "el_type": "p",
+            "txt": "\n"
+        },
+        {
+            "el_type": "s",
+            "coords": "7,308.86,629.98,204.10,8.96",
+            "txt": "D. Additional results for standard benchmarks."
+        },
+        {
+            "el_type": "s",
+            "coords": "7,522.93,630.37,23.84,8.64;7,308.86,642.32,236.25,8.64;7,308.86,654.28,236.24,8.64;7,308.86,666.24,110.46,8.64",
+            "txt": "In addition to results in Section 4, we conduct more experiments on CIFAR100 and ImageNet100, adding two settings with a smaller number of tasks."
+        },
+        {
+            "el_type": "s",
+            "coords": "7,425.18,666.24,119.93,8.64;7,308.86,678.19,237.90,8.64;7,308.86,690.15,17.74,8.64",
+            "txt": "We report final accuracy and forgetting in addition to incremental accuracy and forgetting."
+        },
+        {
+            "el_type": "s",
+            "coords": "7,329.73,690.15,215.56,8.64;7,308.86,702.10,98.81,8.64",
+            "txt": "We report the results for CIFAR100 in Table "
+        },
+        {
+            "el_type": "ref",
+            "coords": "7,507.27,690.15,3.68,8.64",
+            "target": "#tab_3",
+            "type": "table",
+            "txt": "[4]",
+            "tail": ", and for ImageNet100 in Table "
+        },
+        {
+            "el_type": "ref",
+            "coords": "7,400.20,702.10,3.74,8.64",
+            "target": "#tab_4",
+            "type": "table",
+            "txt": "[5]",
+            "tail": "."
+        },
+        {
+            "el_type": "head",
+            "coords": "8,174.23,80.33,41.93,8.44",
+            "txt": "<b>Equal split</b>\n"
+        },
+        {
+            "el_type": "p",
+            "txt": "\n"
+        },
+        {
+            "el_type": "s",
+            "coords": "8,380.54,80.33,97.38,8.44;8,181.81,96.91,26.78,8.44;8,415.84,96.91,26.78,8.44",
+            "txt": "First task with 50 classes 5 tasks 6 tasks"
+        },
+        {
+            "el_type": "formula",
+            "coords": "8,84.12,113.17,419.44,9.43",
+            "xml_id": "formula_9",
+            "txt": "Acc F inal \u2191 Acc Inc \u2191 F org F inal \u2193 F org Inc \u2193 Acc F inal \u2191 Acc Inc \u2191 F org F inal \u2193 F"
+        },
+        {
+            "el_type": "figure",
+            "coords": "1,308.86,538.64,237.91,8.64;1,308.86,550.59,236.61,8.64;1,308.86,562.55,237.90,8.64;1,308.86,574.50,236.25,8.64;1,308.86,586.46,231.04,8.64",
+            "xml_id": "fig_0"
+        },
+        {
+            "el_type": "figure",
+            "coords": "2,50.11,211.92,495.17,8.64;2,50.11,223.88,495.17,8.64;2,50.11,235.83,495.00,8.64;2,50.11,247.79,495.00,8.64;2,50.11,259.74,315.04,8.64",
+            "xml_id": "fig_1"
+        },
+        {
+            "el_type": "figure",
+            "type": "table",
+            "coords": "3,49.80,100.30,495.31,111.94",
+            "xml_id": "tab_0"
+        },
+        {
+            "el_type": "figure",
+            "type": "table",
+            "coords": "4,308.55,258.92,236.56,215.42",
+            "xml_id": "tab_1"
+        },
+        {
+            "el_type": "figure",
+            "type": "table",
+            "coords": "7,49.80,424.73,238.21,199.56",
+            "xml_id": "tab_2"
+        },
+        {
+            "el_type": "figure",
+            "type": "table",
+            "coords": "8,50.11,113.17,495.00,569.11",
+            "xml_id": "tab_3"
+        },
+        {
+            "el_type": "figure",
+            "type": "table",
+            "coords": "8,207.63,698.07,179.66,8.64",
+            "xml_id": "tab_4"
+        }
+    ],
+    "back": [
+        {
+            "el_type": "head",
+            "coords": "4,308.86,640.87,98.83,10.75",
+            "txt": "<b>Acknowledgements</b>\n"
+        },
+        {
+            "el_type": "p",
+            "txt": "\n"
+        },
+        {
+            "el_type": "s",
+            "coords": "4,320.82,661.57,224.29,8.64;4,308.86,673.52,237.99,8.64;4,308.86,685.48,92.26,8.64",
+            "txt": "Filip Szatkowski and Tomasz Trzcinski are supported by National Centre of Science (NCP, Poland) Grant No. 2022/45/B/ST6/02817."
+        },
+        {
+            "el_type": "s",
+            "coords": "4,404.21,685.48,140.90,8.64;4,308.86,697.43,168.87,8.64",
+            "txt": "Tomasz Trzci\u0144ski is also supported by NCP Grant No. 2020/39/B/ST6/01511."
+        },
+        {
+            "el_type": "bibr",
+            "xml_id": "b0",
+            "txt": "[1] Hongjoon Ahn, Jihwan Kwak, Subin Lim, Hyeonsu Bang, Hyojun Kim, and Taesup Moon. Ss-il: Separated softmax for incremental learning. In Proceedings of the IEEE/CVF International conference on computer vision, pages 844-853, 2021."
+        },
+        {
+            "el_type": "bibr",
+            "xml_id": "b1",
+            "txt": "[2] Rahaf Aljundi, Francesca Babiloni, Mohamed Elhoseiny, Marcus Rohrbach, and Tinne Tuytelaars. Memory aware synapses: Learning what (not) to forget, 2018."
+        },
+        {
+            "el_type": "bibr",
+            "xml_id": "b2",
+            "txt": "[3] Rahaf Aljundi, Punarjay Chakravarty, and Tinne Tuytelaars. Expert gate: Lifelong learning with a network of experts. In CVPR, pages 3366-3375, 2017."
+        },
+        {
+            "el_type": "bibr",
+            "xml_id": "b3",
+            "txt": "[4] Jimmy Lei Ba, Jamie Ryan Kiros, and Geoffrey E Hinton. Layer normalization. arXiv preprint arXiv:1607.06450, 2016."
+        },
+        {
+            "el_type": "bibr",
+            "xml_id": "b4",
+            "txt": "[5] Jihwan Bang, Heesu Kim, YoungJoon Yoo, Jung-Woo Ha, and Jonghyun Choi. Rainbow memory: Continual learn- ing with a memory of diverse samples. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition, pages 8218-8227, 2021."
+        },
+        {
+            "el_type": "bibr",
+            "xml_id": "b5",
+            "txt": "[6] Francisco M Castro, Manuel J Mar\u00edn-Jim\u00e9nez, Nicol\u00e1s Guil, Cordelia Schmid, and Karteek Alahari. End-to-end incremen- tal learning. In Proceedings of the European conference on computer vision (ECCV), pages 233-248, 2018."
+        },
+        {
+            "el_type": "bibr",
+            "xml_id": "b6",
+            "txt": "[7] Sungmin Cha, Sungjun Cho, Dasol Hwang, Sunwon Hong, Moontae Lee, and Taesup Moon. Rebalancing batch normal- ization for exemplar-based class-incremental learning, 2023."
+        },
+        {
+            "el_type": "bibr",
+            "xml_id": "b7",
+            "txt": "[8] Arslan Chaudhry, Puneet K Dokania, Thalaiyasingam Ajan- than, and Philip HS Torr. Riemannian walk for incremental learning: Understanding forgetting and intransigence. In ECCV, pages 532-547, 2018."
+        },
+        {
+            "el_type": "bibr",
+            "xml_id": "b8",
+            "txt": "[9] Jia Deng, Wei Dong, Richard Socher, Li-Jia Li, Kai Li, and Fei-Fei Li. Imagenet: A large-scale hierarchical im- age database. In 2009 IEEE Computer Society Conference on Computer Vision and Pattern Recognition (CVPR 2009), 20-25 June 2009, Miami, Florida, USA, pages 248-255, 2009."
+        },
+        {
+            "el_type": "bibr",
+            "xml_id": "b9",
+            "txt": "[10] Fei Ding, Yin Yang, Hongxin Hu, Venkat Krovi, and Feng Luo. Multi-level knowledge distillation via knowledge align- ment and correlation, 2021."
+        },
+        {
+            "el_type": "bibr",
+            "xml_id": "b10",
+            "txt": "[11] Arthur Douillard, Matthieu Cord, Charles Ollion, Thomas Robert, and Eduardo Valle. Podnet: Pooled outputs distil- lation for small-tasks incremental learning. In Computer Vision-ECCV 2020: 16th European Conference, Glasgow, UK, August 23-28, 2020, Proceedings, Part XX 16, pages 86-102. Springer, 2020."
+        },
+        {
+            "el_type": "bibr",
+            "xml_id": "b11",
+            "txt": "[12] Gunshi Gupta, Karmesh Yadav, and Liam Paull. Look-ahead meta learning for continual learning. Advances in Neural Information Processing Systems, 33:11588-11598, 2020."
+        },
+        {
+            "el_type": "bibr",
+            "xml_id": "b12",
+            "txt": "[13] Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun. Deep residual learning for image recognition. In Proceed- ings of the IEEE conference on computer vision and pattern recognition, pages 770-778, 2016."
+        },
+        {
+            "el_type": "bibr",
+            "xml_id": "b13",
+            "txt": "[14] Saihui Hou, Xinyu Pan, Chen Change Loy, Zilei Wang, and Dahua Lin. Learning a unified classifier incrementally via rebalancing. In Proceedings of the IEEE/CVF conference on Computer Vision and Pattern Recognition, pages 831-839, 2019."
+        },
+        {
+            "el_type": "bibr",
+            "xml_id": "b14",
+            "txt": "[15] Sergey Ioffe and Christian Szegedy. Batch normalization: Accelerating deep network training by reducing internal co- variate shift. In International conference on machine learning, pages 448-456. pmlr, 2015."
+        },
+        {
+            "el_type": "bibr",
+            "xml_id": "b15",
+            "txt": "[16] Ahmet Iscen, Thomas Bird, Mathilde Caron, Alireza Fathi, and Cordelia Schmid. A memory transformer network for incremental learning, 2022."
+        },
+        {
+            "el_type": "bibr",
+            "xml_id": "b16",
+            "txt": "[17] James Kirkpatrick, Razvan Pascanu, Neil Rabinowitz, Joel Veness, Guillaume Desjardins, Andrei A Rusu, Kieran Milan, John Quan, Tiago Ramalho, Agnieszka Grabska-Barwinska, et al. Overcoming catastrophic forgetting in neural net- works. Proceedings of the national academy of sciences, 114(13):3521-3526, 2017."
+        },
+        {
+            "el_type": "bibr",
+            "xml_id": "b17",
+            "txt": "[18] Simon Kornblith, Mohammad Norouzi, Honglak Lee, and Geoffrey Hinton. Similarity of neural network representations revisited. In International Conference on Machine Learning, pages 3519-3529. PMLR, 2019."
+        },
+        {
+            "el_type": "bibr",
+            "xml_id": "b18",
+            "txt": "[19] Alex Krizhevsky. Learning multiple layers of features from tiny images. 2009."
+        },
+        {
+            "el_type": "bibr",
+            "xml_id": "b19",
+            "txt": "[20] Kibok Lee, Kimin Lee, Jinwoo Shin, and Honglak Lee. Over- coming catastrophic forgetting with unlabeled data in the wild. In Proceedings of the IEEE/CVF International Conference on Computer Vision, pages 312-321, 2019."
+        },
+        {
+            "el_type": "bibr",
+            "xml_id": "b20",
+            "txt": "[21] Zhizhong Li and Derek Hoiem. Learning without forget- ting. IEEE transactions on pattern analysis and machine intelligence, 40(12):2935-2947, 2017."
+        },
+        {
+            "el_type": "bibr",
+            "xml_id": "b21",
+            "txt": "[22] Xinge Ma, Jin Wang, Liang-Chih Yu, and Xuejie Zhang. Knowledge distillation with reptile meta-learning for pre- trained language model compression. In Proceedings of the 29th International Conference on Computational Linguistics, pages 4907-4917, 2022."
+        },
+        {
+            "el_type": "bibr",
+            "xml_id": "b22",
+            "txt": "[23] Marc Masana, Xialei Liu, Bart\u0142omiej Twardowski, Mikel Menta, Andrew D Bagdanov, and Joost van de Weijer. Class- incremental learning: survey and performance evaluation on image classification. IEEE Transactions on Pattern Analysis and Machine Intelligence, 2022."
+        },
+        {
+            "el_type": "bibr",
+            "xml_id": "b23",
+            "txt": "[24] Claudio Michaelis, Benjamin Mitzkus, Robert Geirhos, Evge- nia Rusak, Oliver Bringmann, Alexander S. Ecker, Matthias Bethge, and Wieland Brendel. Benchmarking robustness in object detection: Autonomous driving when winter is coming. arXiv preprint arXiv:1907.07484, 2019."
+        },
+        {
+            "el_type": "bibr",
+            "xml_id": "b24",
+            "txt": "[25] Quang Pham, Chenghao Liu, and Steven Hoi. Continual normalization: Rethinking batch normalization for online continual learning. arXiv preprint arXiv:2203.16102, 2022."
+        },
+        {
+            "el_type": "bibr",
+            "xml_id": "b25",
+            "txt": "[26] Ameya Prabhu, Philip HS Torr, and Puneet K Dokania. Gdumb: A simple approach that questions our progress in continual learning. In Computer Vision-ECCV 2020: 16th European Conference, Glasgow, UK, August 23-28, 2020, Proceedings, Part II 16, pages 524-540. Springer, 2020."
+        },
+        {
+            "el_type": "bibr",
+            "xml_id": "b26",
+            "txt": "[27] Sylvestre-Alvise Rebuffi, Hakan Bilen, and Andrea Vedaldi. Efficient parametrization of multi-domain deep neural net- works. In Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition, pages 8119-8127, 2018."
+        },
+        {
+            "el_type": "bibr",
+            "xml_id": "b27",
+            "txt": "[28] Sylvestre-Alvise Rebuffi, Alexander Kolesnikov, Georg Sperl, and Christoph H Lampert. icarl: Incremental classifier and representation learning. In Proceedings of the IEEE con- ference on Computer Vision and Pattern Recognition, pages 2001-2010, 2017."
+        },
+        {
+            "el_type": "bibr",
+            "xml_id": "b28",
+            "txt": "[29] David Rolnick, Arun Ahuja, Jonathan Schwarz, Timothy Lill- icrap, and Gregory Wayne. Experience replay for continual learning. Advances in Neural Information Processing Systems, 32, 2019."
+        },
+        {
+            "el_type": "bibr",
+            "xml_id": "b29",
+            "txt": "[30] Shibani Santurkar, Dimitris Tsipras, Andrew Ilyas, and Alek- sander Madry. How does batch normalization help optimiza- tion?, 2019."
+        },
+        {
+            "el_type": "bibr",
+            "xml_id": "b30",
+            "txt": "[31] Steffen Schneider, Evgenia Rusak, Luisa Eck, Oliver Bring- mann, Wieland Brendel, and Matthias Bethge. Improving robustness against common corruptions by covariate shift adaptation. In H. Larochelle, M. Ranzato, R. Hadsell, M.F. Balcan, and H. Lin, editors, Advances in Neural Information Processing Systems, volume 33, pages 11539-11551. Curran Associates, Inc., 2020."
+        },
+        {
+            "el_type": "bibr",
+            "xml_id": "b31",
+            "txt": "[32] James Seale Smith, Junjiao Tian, Shaunak Halbe, Yen-Chang Hsu, and Zsolt Kira. A closer look at rehearsal-free continual learning. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition, pages 2409-2419, 2023."
+        },
+        {
+            "el_type": "bibr",
+            "xml_id": "b32",
+            "txt": "[33] Gido M Van de Ven and Andreas S Tolias. Three scenarios for continual learning. arXiv preprint arXiv:1904.07734, 2019."
+        },
+        {
+            "el_type": "bibr",
+            "xml_id": "b33",
+            "txt": "[34] Dequan Wang, Evan Shelhamer, Shaoteng Liu, Bruno A. Ol- shausen, and Trevor Darrell. Tent: Fully test-time adaptation by entropy minimization. In 9th International Conference on Learning Representations, ICLR 2021, Virtual Event, Austria, May 3-7, 2021. OpenReview.net, 2021."
+        },
+        {
+            "el_type": "bibr",
+            "xml_id": "b34",
+            "txt": "[35] Zifeng Wang, Zizhao Zhang, Sayna Ebrahimi, Ruoxi Sun, Han Zhang, Chen-Yu Lee, Xiaoqi Ren, Guolong Su, Vin- cent Perot, Jennifer Dy, et al. Dualprompt: Complementary prompting for rehearsal-free continual learning. In Computer Vision-ECCV 2022: 17th European Conference, Tel Aviv, Is- rael, October 23-27, 2022, Proceedings, Part XXVI, pages 631-648. Springer, 2022."
+        },
+        {
+            "el_type": "bibr",
+            "xml_id": "b35",
+            "txt": "[36] Zifeng Wang, Zizhao Zhang, Chen-Yu Lee, Han Zhang, Ruoxi Sun, Xiaoqi Ren, Guolong Su, Vincent Perot, Jen- nifer Dy, and Tomas Pfister. Learning to prompt for continual learning. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition, pages 139-149, 2022."
+        },
+        {
+            "el_type": "bibr",
+            "xml_id": "b36",
+            "txt": "[37] Yue Wu, Yinpeng Chen, Lijuan Wang, Yuancheng Ye, Zicheng Liu, Yandong Guo, and Yun Fu. Large scale incre- mental learning. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR), June 2019."
+        },
+        {
+            "el_type": "bibr",
+            "xml_id": "b37",
+            "txt": "[38] Yuxin Wu and Kaiming He. Group normalization, 2018."
+        },
+        {
+            "el_type": "bibr",
+            "xml_id": "b38",
+            "txt": "[39] Friedemann Zenke, Ben Poole, and Surya Ganguli. Continual learning through synaptic intelligence, 2017."
+        },
+        {
+            "el_type": "bibr",
+            "xml_id": "b39",
+            "txt": "[40] Junting Zhang, Jie Zhang, Shalini Ghosh, Dawei Li, Serafettin Tasci, Larry Heck, Heming Zhang, and C. C. Jay Kuo. Class- incremental learning via deep model consolidation, 2020."
+        },
+        {
+            "el_type": "bibr",
+            "xml_id": "b40",
+            "txt": "[41] Junting Zhang, Jie Zhang, Shalini Ghosh, Dawei Li, Serafettin Tasci, Larry P. Heck, Heming Zhang, and C.-C. Jay Kuo. Class-incremental learning via deep model consolidation. In IEEE Winter Conference on Applications of Computer Vision, WACV 2020, Snowmass Village, CO, USA, March 1-5, 2020, pages 1120-1129. IEEE, 2020."
+        },
+        {
+            "el_type": "bibr",
+            "xml_id": "b41",
+            "txt": "[42] Da-Wei Zhou, Fu-Yun Wang, Han-Jia Ye, and De-Chuan Zhan. Pycil: A python toolbox for class-incremental learning, 2023."
+        },
+        {
+            "el_type": "bibr",
+            "xml_id": "b42",
+            "txt": "[43] Wangchunshu Zhou, Canwen Xu, and Julian J. McAuley. BERT learns to teach: Knowledge distillation with meta learn- ing. In Smaranda Muresan, Preslav Nakov, and Aline Villavi- cencio, editors, Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers), ACL 2022, Dublin, Ireland, May 22-27, 2022, pages 7037-7049. Association for Computational Linguistics, 2022."
+        }
+    ]
+}
