@@ -65,6 +65,10 @@ def create_minhash(data):
         minhash.update(d.encode('utf8'))
     return minhash
 
+def make_dir_if_not_exist(folder):
+  if not os.path.exists(folder):
+    os.makedirs(folder)
+
 def main():  # pragma no cover
     parser = argparse.ArgumentParser(
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
@@ -98,27 +102,27 @@ def main():  # pragma no cover
     dir_paths = [os.path.join(source_data_path, f) 
                 for f in os.listdir(source_data_path) 
                 if os.path.isdir(os.path.join(source_data_path, f))]# 找到包含pdf，tex文件的路径
-    workfile_path_tuple_list = []# 存储数据路径，如：[(pdf1_path,tex1_path),(pdf2_path,tex2_path),...]
+    workfile_path_tuple_list = []# 存储数据路径，如：[(pdf1_path,tex1_paths),(pdf2_path,tex2_paths),...]
     for path in dir_paths:
         pdf_path = None
-        tex_path = None
+        tex_paths = []
         for f in os.listdir(path):
-            # 这个地方我人为把pdf加到source文件夹里面了
-            # 实际上这里面没有
-            if f.endswith('.pdf'):
+            if f.endswith('.pdf'):# 这个地方我人为把pdf加到source文件夹里面了，实际上这里面没有
                 pdf_path = os.path.join(path, f)
-            # 一个source文件里可能会有好几个.tex文件
-            # 需要总结一下主.tex文件的命名规律
-            elif f == 'main.tex': 
-                tex_path = os.path.join(path, f)
-            if pdf_path is not None and tex_path is not None:
-                workfile_path_tuple_list.append((pdf_path, tex_path))
-                break# 找齐了就跳出循环
+            elif f.endswith('.tex'): # 一个source文件里可能会有好几个.tex文件，全找！
+                tex_paths.append(os.path.join(path, f))
+        if pdf_path is not None and len(tex_paths) != 0:
+            workfile_path_tuple_list.append((pdf_path, tex_paths))
+        else:
+            continue
                 
     # 由于不能直接对原数据集进行写入操作，这里把数据集中的论文拉到本地
-    for (pdf_path, tex_path) in workfile_path_tuple_list:
-        shutil.copy(pdf_path, pdf_work_dir + os.path.basename(pdf_path))
-        shutil.copy(tex_path, tex_work_dir + os.path.basename(pdf_path).strip('.pdf')+'.tex')
+    for (pdf_path, tex_paths) in workfile_path_tuple_list:
+        make_dir_if_not_exist(pdf_work_dir)
+        shutil.copy(pdf_path, os.path.join(pdf_work_dir, os.path.basename(pdf_path)))
+        for tex_path in tex_paths:  
+            make_dir_if_not_exist(os.path.join(tex_work_dir,f"{os.path.basename(pdf_path).strip('.pdf')}"))
+            shutil.copy(tex_path, os.path.join(tex_work_dir, os.path.basename(pdf_path).strip('.pdf'), os.path.basename(tex_path)))
 
     # 使用Grobid进行pdf解析，得到tex文件
     client = GrobidClient(config_path='./config.json')# Grobid配置文件
@@ -137,13 +141,13 @@ def main():  # pragma no cover
     print('解析完毕！')
 
     # 将tmp路径下的pdf,xml以及tex路径加到workfile_path_tuple_list_new中
-    workfile_path_tuple_list_new = []# [(pdf1_path,tex1_path,xml1_path),(pdf2_path,tex2_path,xml2_path),...]
-    for (pdf_path,tex_path) in workfile_path_tuple_list:
+    workfile_path_tuple_list_new = []# [(pdf1_path,tex1_paths,xml1_path),(pdf2_path,tex2_paths,xml2_path),...]
+    for (pdf_path,tex_paths) in workfile_path_tuple_list:
         base_name_pdf = os.path.basename(pdf_path)
         # Grobid解析成功才计入
         if base_name_pdf.strip('.pdf') + '.tei.xml' in os.listdir(xml_work_dir):
             workfile_path_tuple_list_new.append((os.path.join(pdf_work_dir, base_name_pdf),
-                                                 os.path.join(tex_work_dir, f"{base_name_pdf.strip('.pdf')}.tex"),
+                                                 [os.path.join(tex_work_dir, base_name_pdf.strip('.pdf'), os.path.basename(tex_path)) for tex_path in tex_paths],
                                                  os.path.join(xml_work_dir, f"{base_name_pdf.strip('.pdf')}.tei.xml")))
     # 接下来是清洗工作
     # 清洗xml和tex
@@ -158,11 +162,14 @@ def main():  # pragma no cover
 
     # data pair list
     data_pair_list = []
-    for (pdf_path,tex_path,xml_path) in workfile_path_tuple_list_new:
+    for (pdf_path,tex_paths,xml_path) in workfile_path_tuple_list_new:
+        equation_xml_list = []
+        equation_latex_list = []
         # xml公式list
-        equation_xml_list = clean_xml(pdf_parser, pdf_path, xml_path)    
+        equation_xml_list += clean_xml(pdf_parser, pdf_path, xml_path)    
         # tex公式list
-        equation_latex_list = clean_tex(tex_path)
+        for tex_path in tex_paths:
+            equation_latex_list += clean_tex(tex_path)
 
         # 文本匹配形成pair
         # 创建 MinHash 对象并插入到 LSH 中
