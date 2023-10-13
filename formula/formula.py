@@ -177,9 +177,9 @@ def main():  # pragma no cover
         for idx, sentence in enumerate(equation_xml_list):
             minhash = create_minhash(list(sentence))
             lsh.insert(idx, minhash)
-        for query in equation_latex_list:
+        for query_origin in equation_latex_list:
             # 去除无关信息会使相似性分数更加显著
-            query = query.strip('\\begin{equation}').strip('\\end{equation}')
+            query = query_origin.strip('\\begin{equation}').strip('\\end{equation}')
             query = query.strip('\\begin{align}').strip('\\end{align}')
             # 查找相似的集合
             query_minhash = create_minhash(list(query))
@@ -194,7 +194,7 @@ def main():  # pragma no cover
                     max_simlilarity = jaccard_similarity
                     max_sim_xml = equation_xml_list[result]
             if max_simlilarity >= 0.5:# 只有相似性大于0.5的pair才考虑，可调
-                data_pair_list.append((max_sim_xml, query))
+                data_pair_list.append((max_sim_xml, query_origin))
     with open('./dataset.json','w') as fp:
         json.dump(data_pair_list, fp, indent=4)
 if __name__ == "__main__":  # pragma no cover

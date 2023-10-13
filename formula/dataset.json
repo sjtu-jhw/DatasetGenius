@@ -1,42 +1,42 @@
 [
     [
         "lrate = d \u22120.5 model \u2022 min(step_num \u22120.5 , step_num \u2022 warmup_steps \u22121.5 )",
-        " lrate = \\dmodel^{-0.5} \\cdot  \\min({step\\_num}^{-0.5},  {step\\_num} \\cdot {warmup\\_steps}^{-1.5}) "
+        "\\begin{equation} lrate = \\dmodel^{-0.5} \\cdot  \\min({step\\_num}^{-0.5},  {step\\_num} \\cdot {warmup\\_steps}^{-1.5}) \\end{equation}"
     ],
     [
         "Attention(Q, K, V ) = softmax( QK T \u221a d k )V",
-        "  \\mathrm{Attention}(Q, K, V) = \\mathrm{softmax}(\\frac{QK^T}{\\sqrt{d_k}})V "
+        "\\begin{equation}  \\mathrm{Attention}(Q, K, V) = \\mathrm{softmax}(\\frac{QK^T}{\\sqrt{d_k}})V \\end{equation}"
     ],
     [
         "FFN(x) = max(0, xW 1 + b 1 )W 2 + b 2",
-        "  \\mathrm{FFN}(x)=\\max(0, xW_1 + b_1) W_2 + b_2 "
+        "\\begin{equation}  \\mathrm{FFN}(x)=\\max(0, xW_1 + b_1) W_2 + b_2 \\end{equation}"
     ],
     [
         "L = L CE + \u03bbL KD ,",
-        "  L = L_{CE} + \\lambda L_{KD}, "
+        "\\begin{equation}  L = L_{CE} + \\lambda L_{KD}, \\end{equation}"
     ],
     [
         "L GKD (y o , \u0177o ) = \u2212 |Ct| i=1 p (i) o log p(i) o ,",
-        "  \\mathcal{L}_{GKD}(\\mathbf{y}_o,\\mathbf{\\hat{y}}_o) &= - \\sum_{i=1}^{|C_{t}|} p_o^{(i)} \\log \\hat{p}_o^{(i)}, "
+        "\\begin{align}  \\mathcal{L}_{GKD}(\\mathbf{y}_o,\\mathbf{\\hat{y}}_o) &= - \\sum_{i=1}^{|C_{t}|} p_o^{(i)} \\log \\hat{p}_o^{(i)}, \\end{align}"
     ],
     [
         "L T KD (y o , \u0177o ) = t i=1 D KL (p (i) o log p(i) o ),",
-        "  \\mathcal{L}_{TKD}(\\mathbf{y}_o,\\mathbf{\\hat{y}}_o) &= \\sum_{i=1}^{t} \\mathcal{D}_{KL}(p_o^{(i)} \\log \\hat{p}_o^{(i)}), "
+        "\\begin{align}  \\mathcal{L}_{TKD}(\\mathbf{y}_o,\\mathbf{\\hat{y}}_o) &= \\sum_{i=1}^{t} \\mathcal{D}_{KL}(p_o^{(i)} \\log \\hat{p}_o^{(i)}), \\end{align}"
     ],
     [
         "L = L CE + \u03bbL KD ,",
-        "  L = L_{CE} + \\lambda L_{KD}, "
+        "\\begin{equation}  L = L_{CE} + \\lambda L_{KD}, \\end{equation}"
     ],
     [
         "L GKD (y o , \u0177o ) = \u2212 |Ct| i=1 p (i) o log p(i) o ,",
-        "  \\mathcal{L}_{GKD}(\\mathbf{y}_o,\\mathbf{\\hat{y}}_o) &= - \\sum_{i=1}^{|C_{t}|} p_o^{(i)} \\log \\hat{p}_o^{(i)}, "
+        "\\begin{align}  \\mathcal{L}_{GKD}(\\mathbf{y}_o,\\mathbf{\\hat{y}}_o) &= - \\sum_{i=1}^{|C_{t}|} p_o^{(i)} \\log \\hat{p}_o^{(i)}, \\end{align}"
     ],
     [
         "L T KD (y o , \u0177o ) = t i=1 D KL (p (i) o log p(i) o ),",
-        "  \\mathcal{L}_{TKD}(\\mathbf{y}_o,\\mathbf{\\hat{y}}_o) &= \\sum_{i=1}^{t} \\mathcal{D}_{KL}(p_o^{(i)} \\log \\hat{p}_o^{(i)}), "
+        "\\begin{align}  \\mathcal{L}_{TKD}(\\mathbf{y}_o,\\mathbf{\\hat{y}}_o) &= \\sum_{i=1}^{t} \\mathcal{D}_{KL}(p_o^{(i)} \\log \\hat{p}_o^{(i)}), \\end{align}"
     ],
     [
         "D (\u03b2) l = \u03b2 \u2022 C all \u2212 \u03b1 max \u2022 C rest \u2212 C reduced .",
-        "  D_{l}^{(\\beta)} = \\beta \\cdot C_{\\rm all} - \\alpha_{\\rm max} \\cdot C_{\\rm rest} - C_{\\rm reduced}. "
+        "\\begin{equation}  D_{l}^{(\\beta)} = \\beta \\cdot C_{\\rm all} - \\alpha_{\\rm max} \\cdot C_{\\rm rest} - C_{\\rm reduced}. \\end{equation}"
     ]
 ]
