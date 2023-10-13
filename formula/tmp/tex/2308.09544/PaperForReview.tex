@@ -1,0 +1,2214 @@
+% WACV 2024 Paper Template
+% based on the CVPR 2023 template (https://media.icml.cc/Conferences/CVPR2023/cvpr2023-author_kit-v1_1-1.zip) with 2-track changes from the WACV 2023 template (https://github.com/wacv-pcs/WACV-2023-Author-Kit)
+% based on the CVPR template provided by Ming-Ming Cheng (https://github.com/MCG-NKU/CVPR_Template)
+% modified and extended by Stefan Roth (stefan.roth@NOSPAMtu-darmstadt.de)
+
+\documentclass[10pt,twocolumn,letterpaper]{article}
+
+%%%%%%%%% PAPER TYPE  - PLEASE UPDATE FOR FINAL VERSION
+%\usepackage[review,algorithms]{wacv}      % To produce the REVIEW version for the algorithms track
+%\usepackage[review,applications]{wacv}      % To produce the REVIEW version for the applications track
+\usepackage{wacv}              % To produce the CAMERA-READY version
+%\usepackage[pagenumbers]{wacv} % To force page numbers, e.g. for an arXiv version
+
+% Include other packages here, before hyperref.
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{booktabs}
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+\usepackage{xcolor}         % colors
+
+\usepackage{times}
+\usepackage{epsfig}
+\usepackage{graphicx}
+
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage{subcaption}
+
+\makeatletter
+\robustify\@latex@warning@no@line
+\makeatother
+\usepackage[noblocks]{authblk}
+
+\usepackage[title]{appendix}
+
+% It is strongly recommended to use hyperref, especially for the review version.
+% hyperref with option pagebackref eases the reviewers' job.
+% Please disable hyperref *only* if you encounter grave issues, e.g. with the
+% file validation for the camera-ready version.
+%
+% If you comment hyperref and then uncomment it, you should delete
+% ReviewTempalte.aux before re-running LaTeX.
+% (Or just hit 'q' on the first LaTeX run, let it finish, and you
+%  should be clear).
+\usepackage[pagebackref,breaklinks,colorlinks]{hyperref}
+\usepackage{verbatim}
+
+\newcommand\mateusz[1]{{\color{teal} \bf Mateusz: #1}}
+\newcommand\bt[1]{{\color{blue} {\bf BT:} #1}}
+\newcommand\fs[1]{{\color{orange} \bf FS: #1}}
+\newcommand\marcin[1]{{\color{red} \bf Marcin: #1}}
+\newcommand\tomek[1]{{\color{magenta} \bf TT: #1}}
+% \newcommand\rev[1]{{\color{blue} #1}}
+\newcommand\rev[1]{{#1}}
+
+\newcommand{\appendixhead}%
+{\centering\textbf{\huge Appendix}
+\vspace{0.25in}}
+
+% Allow affiliations side by side
+\makeatletter
+\renewcommand\AB@affilsepx{, \protect\Affilfont}
+\makeatother
+\setlength{\affilsep}{-0.15cm}
+
+% Support for easy cross-referencing
+\usepackage[capitalize]{cleveref}
+\crefname{section}{Sec.}{Secs.}
+\Crefname{section}{Section}{Sections}
+\Crefname{table}{Table}{Tables}
+\crefname{table}{Tab.}{Tabs.}
+
+
+%%%%%%%%% PAPER ID  - PLEASE UPDATE
+\def\wacvPaperID{0576} % *** Enter the WACV Paper ID here
+\def\confName{WACV}
+\def\confYear{2024}
+
+\newcommand\todo[1]{{\color{red} [\bf TODO: #1]}}
+\newcommand\gkd{GKD}
+\newcommand\mkd{MKD}
+\newcommand\tkd{TKD}
+\newcommand\ta{TA}
+\newcommand\wu{WU}
+
+
+\begin{document}
+
+\title{Adapt Your Teacher: Improving Knowledge Distillation for Exemplar-free Continual Learning}
+
+\author[1,2]{Filip~Szatkowski\thanks{corresponding author, email: \href{mailto:filip.szatkowski.dokt@pw.edu.pl}{filip.szatkowski.dokt@pw.edu.pl}}}
+\author[2,3,4]{Mateusz~Pyla}
+\author[2,3,4]{Marcin~Przewięźlikowski}
+\author[2,5]{\\Sebastian~Cygert}
+\author[2,6,7]{Bartłomiej~Twardowski}
+\author[1,2,8]{Tomasz~Trzciński}
+\affil[1]{\normalsize Warsaw~University~of~Technology}
+\affil[2]{IDEAS~NCBR}
+\affil[3]{Jagiellonian~University,~Faculty~of~Mathematics~and~Computer~Science}
+\affil[4]{Jagiellonian~University,~Doctoral~School~of~Exact~and~Natural~Sciences}
+\affil[5]{Gdańsk~University~of~Technology}
+\affil[6]{Autonomous~University of~Barcelona}
+\affil[7]{Computer~Vision~Center}
+\affil[8]{Tooploox}
+
+\maketitle
+
+%%%%%%%%% ABSTRACT
+
+\begin{abstract}
+
+% This paper examines exemplar-free class incremental learning (CIL) methods that use knowledge distillation (KD) as a regularization technique. These methods avoid forgetting by employing the model trained on previous tasks to constrain the learning of the current task without storing any replay data. However, the teacher model fails to provide accurate guidance when faced with unseen data from the incoming task, due to a significant drift in the input distribution. We analyze several KD-based methods and identify that this problem stems from a substantial representation shift in the teacher network when applied to out-of-distribution data from the new task. This results in larger errors in the KD loss component, which induce more undesired changes in the student model and degrade the overall performance of CIL models. To address this issue, we propose Teacher Adaptation (TA), a method that updates the teacher model along with the main model during incremental training. Inspired by recent test-time adaptation methods, we adjust batch normalization statistics of the teacher network. This simple yet effective method can be easily integrated into most KD-based CIL approaches. We demonstrate that \ta\ consistently improves the performance of CIL methods across various exemplar-free CIL benchmarks.
+
+% Tomek's version:
+In this work, we investigate exemplar-free class incremental learning (CIL) with knowledge distillation (KD) as a regularization strategy, aiming to prevent forgetting. KD-based methods are successfully used in CIL, but they often struggle to regularize the model without access to exemplars of the training data from previous tasks. Our analysis reveals that this issue originates from substantial representation shifts in the teacher network when dealing with out-of-distribution data. This causes large errors in the KD loss component, leading to performance degradation in CIL models. Inspired by recent test-time adaptation methods, we introduce Teacher Adaptation (TA), a method that concurrently updates the teacher and the main models during incremental training. Our method seamlessly integrates with KD-based CIL approaches and allows for consistent enhancement of their performance across multiple exemplar-free CIL benchmarks. The source code for our method is provided in supplementary materials.
+
+\end{abstract}
+
+%%%%%%%%% BODY TEXT
+% \vspace{-0.5cm}
+\section{Introduction}
+\label{sec:intro}
+
+% About CL
+Continual learning aims to create machine learning models capable of acquiring new knowledge and adapting to evolving data distributions over time.
+One of the most challenging continual learning scenarios is \emph{class incremental learning} (CIL)~\cite{van2019three,masana2022class}, where the model is trained to classify objects incrementally from the sequence of tasks, without forgetting the previously learned ones. 
+% One of the most popular methods of reducing forgetting is through storing \emph{exemplars} of previously encountered training examples. However, it is not scalable due to utilizing growing memory buffers. Moreover, in some cases, storing previous data may be infeasible due to concerns such as privacy. This creates the need for methods that can perform CIL in more challenging exemplar-free scenarios. 
+% \bt{
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.9\columnwidth]{figures/method ICCV.pdf}
+
+   \caption{
+   \rev{
+   Enhancement of vanilla Knowledge Distillation approach used in Continual Learning with our method of Teacher Adaptation. When training the student model on the new task, we allow the teacher model to continuously update its batch normalization statistics, which reduces the divergence between the representations in both models. Our method leads to lower knowledge distillation loss and an overall more stable model.}}
+   \label{fig:method}
+\end{figure}
+
+
+A simple and effective method of reducing forgetting is by leveraging \emph{exemplars}~\cite{rebuffi2017icarl,iscen2022memory,bang2021rainbow,prabhu2020gdumb} of previously encountered training examples, {\it e.g.} by replaying them or using them for regularization.
+However, this approach presents challenges, particularly in terms of high storage needs and privacy concerns. These problems can affect edge devices, due to their limited storage capacity, and medical data, given their sensitive nature. 
+%Consequently, the attention has now turned towards more demanding exemplar-free methods for continual incremental learning (CIL), which have attracted significant interest.
+% Therefore, more demanding exemplar-free CIL methods have attracted significant interest recently.
+% Therefore, there has been a notable surge of interest in more challenging exemplar-free methods for continual incremental learning recently.
+Therefore, recently there has been a notable surge of interest in methods for more challenging exemplar-free CIL.
+
+% \marcin{Deep learning models are known to s}
+% Deep laerning models are known to suffer from \emp
+
+
+% 1 x 3 teaser
+\begin{figure*}[t]
+    \centering
+      \begin{subfigure}[b]{0.33\textwidth}
+        \centering
+        \includegraphics[trim=10 0 10 0 ,clip,width=\textwidth]{figures/teaser_both_losses.pdf}
+          \end{subfigure}
+    \begin{subfigure}[b]{0.33\textwidth}
+        \centering
+        \includegraphics[trim=10 0 10 0 ,clip,width=\textwidth]{figures/teaser_cka.pdf}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.33\textwidth}
+        \centering
+        \includegraphics[trim=10 0 10 0 ,clip,width=\textwidth]{figures/teaser_tag_acc.pdf}
+    \end{subfigure}
+
+   \caption{
+   Applying our teacher adaptation (TA) method reduces knowledge distillation (KD) loss and improves stability over the course of continual learning. 
+ (left) KD loss and cross-entropy (CE) loss of training the model with and without TA. Our method leads to more consistent representation, as visualized by the CKA~\cite{kornblith2019similarity} between the representations of the new data obtained in the teacher and student models while learning the second task (middle). KD with \ta\ leads to better task-agnostic accuracy (right). We conduct the experiments on CIFAR100 split into 10 tasks.
+ }
+   \label{fig:teaser}
+\end{figure*}
+
+
+%Knowledge Distillation methods, KD is good, especially with exemplars. But the problem is...
+A common approach for exemplar-free CIL is knowledge distillation (KD), where the current model (student) is trained on the new data with a regularization term that minimizes the output difference with the previous model (teacher), which is kept frozen. This approach was introduced by LwF~\cite{li2017learning} and has been extended by many other methods. However, most of these methods use exemplars, such as iCaRL~\cite{rebuffi2017icarl}, EEIL~\cite{castro2018end}, LUCIR~\cite{hou2019learning}, PodNET~\cite{douillard2020podnet}, SSIL~\cite{ahn2021ss}, or rely on external datasets~\cite{dmc,lee2019overcoming}.
+% Yet, without using any exemplars the CIL still remains very challenging~\cite{smith2023closer}. 
+% In such scenario, the teacher and the student are trained on separate chunks of data, with possibly large covariate shifts. 
+% This leads to larger errors during training with KD loss, causing more undesired changes in the main model and harming the overall performance of the CIL training.
+% This raises the question: can we perform \textit{teacher adaptation (TA)} so it more effectively transfers the knowledge from the previous tasks (regularized) with new task data? 
+
+Exemplar-free CIL still remains challenging~\cite{smith2023closer} for KD methods due to the possibility of significant distribution drift in subsequent tasks. Such drift leads to large errors during training with KD loss, causing more undesired changes in the main model and harming the overall performance of the CIL training. This raises the question: \textit{Can we adjust the teacher model to better transfer knowledge from earlier tasks?}
+
+%Recently, it has been demonstrated that significant forgetting occurs at task boundaries when a CIL model transitions from training on a current task to a new one~\cite{DeLange2023ICLRStability}.
+
+% Inspired by the recent domain adaptation methods~\cite{TENT,steffen2020shiftadapt} we take a closer look at the batch norm statistics and propose to adapt them for the teacher model to the new data. We hypothesize that the KD loss needs to compensate for the changes in data distribution and causes unnecessary model updates. 
+
+% \bt{We study multiple KD-based exemplar-free CIL approaches and identified the problem of representation discrepency when distilling with the out-of-distribution data. One of the potential solution is to adapt a teacher for a new task data to better regularize the main network. However, most of the teacher adaptation techniques \todo{cite} are framed for meta-learning and simple distillation.}
+% \sebastian{Inspired by the recent domain adaptation methods~\cite{TENT,steffen2020shiftadapt} we take a closer look at the batch normalization statistics during CIL training. We hypothesize that in standard KD methods, KD loss between the models with different normalization statistics compensates for the changes in data distribution and causes unnecessary model updates.  Therefore, we propose to continuously adapt them to the new data for the teacher model alongside training the student.}
+Motivated by the recent domain adaptation methods~\cite{TENT,steffen2020shiftadapt}, we examine the role of batch normalization statistics in CIL training. We conjecture that in standard KD methods, the KD loss between models with different normalization statistics may introduce unwanted model updates due to the data distribution shifts. To avoid this, we propose to continuously adapt them to the new data for the teacher model while training the student.
+
+%We find that when learning new task with different data distributions, the model receives large gradient updates from the KD loss, which causes a large drift in the learned representations by the feature extractor. 
+\rev{We show that adapting the teacher's batch normalization statistics to the new task can significantly lower KD loss without affecting the CE loss, which leads to reduced changes in the model's representations (\Cref{fig:teaser}). 
+% We note that \ta\ has been used in standard KD~\cite{zhou2022BERTteach} or in the online continual learning with exemplars~\cite{gupta2020look}, we are the first to apply it to exemplar-free CIL scenario, where the teacher and the model are trained on non-overlapping data.
+We note that, while the idea of changing the teacher model was explored in the standard KD settings~\cite{zhou2022BERTteach,ma2022knowledge}, our approach is the first application of this idea to CIL scenario, where the teacher and the model are trained on non-overlapping data. Moreover, our method works differently by exploiting the batch normalization statistics.}
+%Therefore we propose to update the BatchNorm statistics of the old model to the new data. 
+%We take a closer look at this phenomenon and realize that the mismatch of the batch norm statistics (between old and new tasks) is one of the reasons for abrupt representational changes. 
+%To further reduce the representation drift we also prepare the student for the knowledge transfer and initialize the classifier head for new classes using a warm-up phase~\cite{Kumar2022finetunedistort}. 
+We apply our method on top of different distillation strategies in CIL and show consistent improvements across various settings.
+
+In summary, we make the following contributions: 
+\begin{enumerate}
+    \item We revisit the KD-based class-incremental learning (CIL) framework and study the negative impact of regularization using out-of-distribution data. We are the first to highlight the need for adjusting the teacher model in an exemplar-free situation, where it is usually kept frozen.
+    \item We propose a simple yet highly effective technique called Teacher Adaptation (TA), that enhances KD for exemplar-free CIL.
+    \item Through extensive experiments, we demonstrate that \ta\ can be seamlessly integrated with various KD approaches, leading to significant improvements over the baselines across a wide range of continual learning scenarios for various datasets. We show that those improvements hold even when using pretrained models or in the presence of substantial distributional shifts between consecutive domains.
+\end{enumerate}
+
+
+\section{Related works}
+
+\textbf{Class Incremental Learning (CIL)}~\cite{van2019three,masana2022class} is a subfield of continual learning, where the aim is to learn incrementally from a stream of tasks, without the task identifier. 
+There exist several families of approaches to CIL:
+% CIL methods are usually divided into (i) memory-based methods~\cite{rebuffi2017icarl,iscen2022memory,bang2021rainbow,prabhu2020gdumb}, (ii) architectural methods~\cite{wang2022learning,wang2022dualprompt}, and (iii) regularization-based methods~\cite{kirkpatrick2017overcoming,zenke2017continual,aljundi2018memory,li2017learning}. Many CIL methods often also combine those approaches~\cite{castro2018end,Wu_2019_CVPR,rolnick2019experience}, for instance using both memory and regularizaion~\cite{rebuffi2017icarl,li2017learning,ahn2021ss}. \todo{można by to skompresować - wywalić to wyliczanie i od razu przejść do akapitu poniżej}
+Memory-based methods store either exemplars or features from the previous tasks in the buffer~\cite{rebuffi2017icarl,iscen2022memory,bang2021rainbow,prabhu2020gdumb} and use them during training the new task to consolidate previously learned knowledge. Those methods usually perform well, but their practical applications are limited due to privacy concerns and memory requirements that arise when storing the data. Architectural approaches focus on modifying the structure of the model, often by allocating certain parameters to corresponding tasks~\cite{wang2022learning,wang2022dualprompt}. Finally, regularization-based methods aim to preserve the knowledge in the network by imposing constraints on the changes in model weights~\cite{kirkpatrick2017overcoming} or activations during learning the new task~\cite{li2017learning}. Many CIL methods often also combine the above approaches~\cite{castro2018end,Wu_2019_CVPR,rolnick2019experience}, for instance using both memory and regularizaion~\cite{rebuffi2017icarl,li2017learning,ahn2021ss}.
+
+\textbf{Regularization methods for continual learning} offer a way to prevent forgetting with constant memory usage and no privacy issues. There are two main types of regularization methods: (i) parameter regularization and (ii) functional regularization. The first type of methods regularizes the model weights, for example using the Fisher Information Matrix~\cite{kirkpatrick2017overcoming}, synaptic saliency~\cite{zenke2017continual} or the gradient inspection~\cite{aljundi2018memory}. On the other hand, functional regularization methods employ knowledge distillation (KD) techniques to regularize model activations. KD was originally proposed by Hinton et al.~\cite{hinton2015distilling} to transfer the knowledge from a larger model to a smaller one. In CL, KD was first applied in Learning without Forgetting (LwF)~\cite{li2017learning}, where the model is discouraged from drifting too far from the model from previous tasks. We describe KD methods in detail in~\Cref{sec:kd_in_cl}.
+
+\rev{\textbf{Functional regularization} has been widely used in CL since the introduction of LwF~\cite{rebuffi2018efficient,hou2019learning,rebuffi2017icarl,prabhu2020gdumb} and numerous variants of KD have been proposed.} Particularly, SSIL~\cite{ahn2021ss} uses task-wise knowledge distillation, while PODNET~\cite{douillard2020podnet} regularizes using spatial-based distillation loss applied throughout the model. 
+% Since the introduction of LwF, functional regularization has been widely used~\cite{rebuffi2018efficient,hou2019learning,rebuffi2017icarl,prabhu2020gdumb} and numerous variants of KD have been proposed for continual learning (CL). Particularly, SSIL~\cite{ahn2021ss} uses task-wise knowledge distillation, while PODNET~\cite{douillard2020podnet} regularizes using spatial-based distillation loss applied throughout the model. 
+% There are various approaches that use multiple teachers, for instance multi-level knowledge distillation~\cite{ding2021multilevel} uses the current model to distill the knowledge from pruned snapshots of all previous models. DMC~\cite{zhang2020classincremental} works by minimizing the distance between the outputs of the individual models and the consolidated model on a shared input space, using an auxiliary dataset.
+\rev{
+ Multi-level knowledge distillation~\cite{ding2021multilevel} uses the current model to distill the knowledge from pruned snapshots of all previous models, while ANCL~\cite{kim2023achieving} distills simultaneously from the previous task model and the model learned specifically for the new task. Moreover, DMC~\cite{zhang2020classincremental} uses knowledge distillation on an auxiliary dataset to consolidate the knowledge from previous tasks.
+}
+However, most of those methods use a memory buffer and their performance depends on it heavily, which makes them impractical for exemplar-free settings. 
+\rev{Recently, several works explored the idea of modifying the teacher model through meta-learning for better knowledge transfer in standard KD setting~\cite{zhou2022BERTteach,ma2022knowledge}, but to our knowledge our method is the first application of this idea to CIL.}
+% In this work, we investigate the most general variant of KD. 
+
+% \textbf{Improving knowledge distillation through modifications in teacher model.} Several works explored the idea of modifying the teacher model through meta-learning for better knowledge transfer in standard KD setting with both models operating on the same domain~\cite{zhou2022BERTteach,ma2022knowledge}. 
+% La-MAML~\cite{gupta2020look} explored the same idea in online continual learning, but their method uses exemplars for the outer meta-learning loop.
+\textbf{Batch Normalization} (BN)~\cite{ioffe2015batch} is widely used in deep learning models, but can be problematic for settings where the data distribution changes over time. Alternative approaches such as LayerNorm~\cite{ba2016layer} or GroupNorm~\cite{wu2018group} do not rely on the batch-wise statistics, but directly replacing BN layers with them was shown to often decrease the performance of the models.
+Several domain adaptation methods achieve domain transfer through the use of normalization statistics~\cite{TENT,steffen2020shiftadapt}. \rev{Recent work on efficient finetuning of large language models using only normalization layers ~\cite{qi2022parameter} also suggests that the normalization layers play a crucial role in training deep neural networks.} 
+In CL, it was shown that BN can cause a discrepancy between the training and testing phases of BN, as the testing data is normalized using the statistics biased towards the current task, which results in higher forgetting of older tasks~\cite{santurkar2019does}. Several works have attempted to address this issue by CL-specific modifications to BN~\cite{pham2022continual,cha2023rebalancing}. However, those approaches are not suited for exemplar-free settings. 
+
+
+% \textbf{Batch Normalization} (BN)~\cite{ioffe2015batch} is a widely used technique that normalizes the input distribution of each layer using the mean and variance statistics computed from mini-batches during training. However, BN can be problematic for settings where the data distribution changes over time and is non-i.i.d and non-stationary, e.g., in domain adaptation~\cite{steffen2020shiftadapt,TENT}. 
+% In CL, BN can cause a discrepancy between the training and testing phases of BN, as the testing data is normalized using the statistics biased towards the current task, resulting in higher catastrophic forgetting of older tasks~\cite{santurkar2019does}. There are some alternatives, namely LayerNorm~\cite{ba2016layer} or GroupNorm~\cite{wu2018group}, however they do not achieve comparable results according to our experiments. Recently, a few test-time adaptation and teacher adaptation were explored to some settings~\cite{TENT}.
+
+% In this paper, we analyze the effect of BN statistics in CIL teacher-student setting. Several works have attempted to address this issue by CIL-specific modifications to BN. Online Normalization~\cite{pham2022continual} (ON) updates the running mean and variance using an exponential moving average (EMA) of the current mini-batch statistics. However, ON does not fully resolve the data imbalance issue, especially in computing the gradients for learning the affine transformation parameters of BN. Moreover, ON requires additional hyperparameters to tune, such as the EMA decay rate and the control process gain. Finally, it is not suitable for offline CIL setting.
+
+% Continual Normalization (CN)~\cite{pham2022continual} rebalances BN for exemplar-based class-incremental learning. CN leverages both reshape and repeat operations to create a task-balanced batch that contains equal number of samples from each task. CN then applies BN on this batch to normalize the input distribution and compute the gradients for the affine transformation parameters. Rebalancing Batch Normalization~\cite{cha2023rebalancing} works by creating a task-balanced batch using reshape and repeat operations on the exemplars from past tasks and the data from the current task. RBN then updates the BN statistics and the affine transformation parameters of the model using the task-balanced batch. In this work, we concentrate on a more challenging, exemplar-free setup.
+
+\section{Method}
+\label{sec:method}
+
+% \begin{figure*}[t]
+%     \centering
+%     \includegraphics[trim=0 0 90 0,clip,width=\textwidth]{figures/method.pdf}
+
+%    \caption{
+%    Enhancement of vanilla Knowledge Distillation approach used in Continual Learning with our method of Teacher Adaptation. When training the student model on the new task, we allow the teacher model to continuously update its batch normalization statistics, which reduces the divergence between the representations in both models. Our method leads to lower knowledge distillation loss and an overall more stable model.}
+%    \label{fig:method}
+% \end{figure*}
+
+In class-incremental learning setup, the model learns tasks sequentially. Each task contains several classes which are disjoint with the classes in other tasks. During training task $t$, we only have access to the data $D^t$ from task $t$ which contains images $\mathbf{x}_{i} \in X^t$ with class labels $y_i \in C^t$. Thus an incremental learning problem $\mathcal{T}$ with $n$ tasks can be formulated as: 
+$\mathcal{T}=\left \{ D^1, D^2,...,D^t,..., D^n \right \}$,
+%=\left \{ \left ( X^1, C^1 \right ) ,\left ( X^2,C^2 \right ),...,\left ( X^t,C^t \right ),...(X^n, C^n)\right \}$. 
+where after training $n$ tasks we evaluate the model on all classes $ C^{1} \cup \ldots \cup C^n$, without knowing the task label at inference time (this is different than task-incremental learning, where task id can be used).
+
+Below, we first introduce standard KD-based methods for exemplar-free CIL. Then we outline a problem of diverging batch normalization statistics between the teacher and student model caused by the shifts in training data between subsequent tasks. Finally, we propose to address this issue with a method that we call \emph{Teacher Adaptation} - a simple, yet effective solution that allows the teacher model to continuously update its normalization statistics alongside the student when training on the new data. The method in comparison to standard LwF is presented in \Cref{fig:method}. 
+
+
+\subsection{Knowledge Distillation in Continual Learning}
+\label{sec:kd_in_cl}
+
+Knowledge distillation is one of the most popular techniques employed to reduce forgetting between subsequent tasks in incremental learning. Continual learning methods that use knowledge distillation save the model $\Theta_{t}$ (\emph{teacher}) trained after each task $t$ and use it during learning the model $\Theta_{t+1}$ (\emph{student}) on new task $t+1$. The learning objective for task $t+1$ then becomes:
+\begin{equation}
+    L = L_{CE} + \lambda L_{KD},
+\end{equation}
+where $L_{CE}$ is the cross-entropy loss for classification on new data, $L_{KD}$ is the knowledge distillation loss computed using $\Theta_{t}$ and $\Theta_{t+1}$, and $\lambda$ is the coefficient that controls the trade-off between stability and plasticity. The general formula for knowledge distillation loss can include either output from the final layer of the model~\cite{li2017learning,rebuffi2017icarl,ahn2021ss}, or also representations from intermediate model layers~\cite{dhar2019learning,douillard2020podnet}. In practice, most exemplar-free methods that use knowledge distillation compute knowledge distillation loss using only the final layer outputs, and various methods that use intermediate representations usually only perform well with exemplars~\cite{smith2023closer}.
+
+\rev{Multiple variants of knowledge distillation loss were proposed for continual learning. In exemplar-free CIL, KD loss is usually computed with the logits $y_{o}$, $\hat{y_{o}}$ returned by the current and previous models respectively. Following Li et al.~\cite{li2017learning}, we denote that the loss uses logits corresponding to previously seen classes with a subscript $o$. Ahn et al.~\cite{ahn2021ss} classify KD methods into general KD (GKD), which aggregates together logits belonging to the classes from all the previous tasks, and task-wise KD (TKD), which treats classes within each task separately. 
+
+GKD loss appears in several works~\cite{lee2019overcoming,wu2019large,zhao2020maintaining} and usually uses cross-entropy:
+\begin{align}
+\label{eq:gkd_loss}
+    \mathcal{L}_{GKD}(\mathbf{y}_o,\mathbf{\hat{y}}_o) &= - \sum_{i=1}^{|C_{t}|} p_o^{(i)} \log \hat{p}_o^{(i)},
+\end{align}
+where $p_o^{(i)}$ is the probability of the $i$-th class and $|C_{t}|$ is the number of classes learned by previous model $\Theta_{t}$. Probabilities $p_o^{(i)}$, $\hat{p}_o^{(i)}$ are computed with temperature parameter $T$ as follows:
+\begin{equation}
+\label{eq:temp_norm}
+p_o^{(i)} = \dfrac{e^{y_o / T}}{\sum_j e^{y_o / T}}, \quad\hat{p_o}^{(i)} = \dfrac{e^{\hat{y_o} / T}}{\sum_j e^{\hat{y_o} / T}}
+\end{equation}
+
+Comparatively, TKD loss, which was also used in several works~\cite{li2017learning,castro2018end,ahn2021ss}, sums of the separately computed losses for each task:
+\begin{align}
+\label{eq:tkd_loss}
+    \mathcal{L}_{TKD}(\mathbf{y}_o,\mathbf{\hat{y}}_o) &= \sum_{i=1}^{t} \mathcal{D}_{KL}(p_o^{(i)} \log \hat{p}_o^{(i)}),
+\end{align}
+where $\mathcal{D}_{KL}$ is Kullback–Leibler divergence and $p_o^{(i)}$, $\hat{p}_o^{(i)}$ are computed task-wise across the classes that belong to task $i$ as in \Cref{eq:temp_norm}.
+
+Rebuffi et al.~\cite{rebuffi2017icarl} proposed another distinct variant of KD for multi-class incremental learning, where the loss is computed element-wise for each class (MKD):
+\begin{align}
+\label{eq:icarl_loss}
+    \mathcal{L}_{\mkd\ }(\mathbf{y}_o,\mathbf{\hat{y}}_o) &= - \sum_{i=1}^{|C_{t}|} \sigma(y_o^{i}) \log \sigma(\hat{y}_o^{i}),
+\end{align}
+where $\sigma$ is a sigmoid function.
+
+Additionally, a more recent KD-based method, Auxiliary Network Continual Learning (ANCL)~\cite{kim2023achieving}, explores the idea of multi-teacher KD for continual learning. ANCL trains an auxiliary network trained only for the current task and combines standard GKD loss with the KD loss computed between outputs for the current task and outputs of this auxiliary network.
+
+In this work, we investigate the aforementioned KD techniques (\gkd, \mkd, \tkd, ANCL).
+}
+
+% Multiple variants of knowledge distillation loss are used in continual learning. Li et al.~\cite{li2017learning} proposed the most popular formulation of knowledge distillation loss, which we will refer to as global KD (\gkd\ ) following Ahn et al.~\cite{ahn2021ss}. This loss uses probabilities $\mathbf{y}_o$ and $\mathbf{\hat{y}}_o$ obtained from the models $\Theta_{t}$ and $\Theta_{t+1}$ respectively. We use $o$ to denote that the probabilities are for \textit{old} classes learned up to task $t$. Probabilities are obtained from model outputs through the softmax function.
+
+% \begin{align}
+% \label{eq:lwf_loss}
+%     \mathcal{L}_{\gkd\ }(\mathbf{y}_o,\mathbf{\hat{y}}_o) &= - \sum_{i=1}^{|C_{t}|} y_o^{\prime (i)} \log \hat{y}_o^{\prime (i)},
+% \end{align}
+% where $|C_{t}|$ is the number of classes learned by previous model $\Theta_{t}$ and $y_o^{\prime (i)}$, $\hat{y}_o^{\prime (i)}$ are the probabilities $y_o^{(i)}$, $\hat{y}_o^{(i)}$ scaled with temperature parameter $T$ \rev{Workshop paper review pointed out that this is incorrect - make sure it's ok. Also some reviewers pointed out that our descriptions are not correct.}:
+% \begin{equation}
+% \label{eq:temp_norm}
+%     y_o^{\prime (i)} = \dfrac{(y_o^{(i)})^{1/T}}{\sum_j (y_o^{(j)})^{1/T}}, \quad \hat{y}_o^{\prime (i)} = \dfrac{(\hat{y}_o^{(i)})^{1/T}}{\sum_j (\hat{y}_o^{(j)})^{1/T}}.
+% \end{equation}
+
+% Rebuffi et al.~\cite{rebuffi2017icarl} proposed another variant of knowledge distillation designed for multi-class incremental learning (\mkd). Compared to \gkd, this loss is computed with probabilities obtained through the sigmoid function instead of softmax. Therefore, the objective becomes binary cross-entropy as follows:
+% \begin{align}
+% \label{eq:icarl_loss}
+%     \mathcal{L}_{\mkd\ }(\mathbf{y}_o,\mathbf{\hat{y}}_o) &= - \sum_{i=1}^{|C_{t}|} y_o^{i} \log \hat{y}_o^{i}.
+% \end{align}
+
+% Ahn et al.~\cite{ahn2021ss} noticed that \gkd\ formulation encourages forgetting of previous tasks, as usually, the magnitudes of logits returned for different tasks are non-uniform due to task-recency bias and proposed task-wise knowledge distillation (\tkd), which computes softmax probabilities separately across the model classification heads:
+% \begin{align}
+% \label{eq:ssil_loss}
+%     \mathcal{L}_{\tkd\ }(\mathbf{y}_o,\mathbf{\hat{y}}_o) &= \sum_{i=1}^{t} \mathcal{D}_{KL}(y_o^{\prime (i)} \log \hat{y}_o^{\prime (i)}),
+% \end{align}
+% where $\mathcal{D}_{KL}$ is Kullback–Leibler divergence and $y_o^{\prime (i)}$, $\hat{y}_o^{\prime (i)}$ are temperature-normalized (as in \Cref{eq:temp_norm}) task-wise softmax probabilities computed across the outputs for task $i$.
+
+% In this work, we investigate the three aforementioned KD techniques (\gkd, \mkd, \tkd) in the exemplar-free setting.
+
+\subsection{Teacher Adaptation} 
+
+Most models used in class incremental learning for vision tasks are convolutional neural networks such as ResNet~\cite{he2016deep}. Those models typically use batch normalization layers and keep the parameters and statistics of those layers in the teacher model $\Theta_{t}$ fixed during learning $\Theta_{t+1}$. However, with the changing distribution of the data in the new task, batch normalization statistics in the student and teacher models quickly diverge, which leads to higher KD loss. Gradient updates in this case not only regularize the model towards the stable performance on previous tasks but also compensate for the changes in normalization statistics, which needlessly overwrites the knowledge stored in the model and harms the learning process.
+
+Inspired by test-time adaptation methods~\cite{TENT}, we propose to reduce this negative interference with a simple method that we label \emph{Teacher Adaptation (TA)}. Our method updates batch normalization statistics of both models simultaneously on new data while learning the new task. As shown in \Cref{fig:teaser}, it allows for significantly reduced KD loss over learning from sequential tasks in CIL, which improves the overall model stability. \rev{We provide additional analysis on why TA improves learning with KD in \Cref{sec:exp:bn_ablations} and in the Appendix.}
+
+
+
+\begin{table*}[!ht]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}llrrrrrrrr@{}}
+\toprule
+ & &
+  \multicolumn{4}{c}{Equal split of classes} &
+  \multicolumn{4}{c}{Start from half of the classes} \\ \cmidrule{3-10}
+ & &
+  \multicolumn{2}{c}{10 tasks} &
+  \multicolumn{2}{c}{20 tasks} &
+  \multicolumn{2}{c}{11 tasks} &
+  \multicolumn{2}{c}{26 tasks} \\ \cmidrule{3-10}
+ & &
+  \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} &
+  \multicolumn{1}{c}{$Forg_{Inc} \downarrow$} &
+  \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} &
+  \multicolumn{1}{c}{$Forg_{Inc} \downarrow$} &
+  \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} &
+  \multicolumn{1}{c}{$Forg_{Inc} \downarrow$} &
+  \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} &
+  \multicolumn{1}{c}{$Forg_{Inc} \downarrow$}  \\ \midrule
+ \parbox[t]{2.5mm}{\multirow{8}{*}{\rotatebox[origin=c]{90}{a) CIFAR100}}} & \gkd\  &
+  42.52$\pm$0.76 &
+  22.26$\pm$0.31 &
+  31.89$\pm$0.45 &
+  34.68$\pm$1.87 &
+  41.69$\pm$1.18 &
+  18.09$\pm$0.88 &
+  17.64$\pm$0.93 &
+  9.67$\pm$0.26 \\
+% \textit{+\ta\ } &
+%   44.09$\pm$0.97 &
+%   \textbf{19.41$\pm$0.60} &
+%   35.99$\pm$0.79 &
+%   \textbf{23.32$\pm$1.79} &
+%   44.05$\pm$1.12 &
+%   \textbf{12.97$\pm$0.43} &
+%   19.37$\pm$1.73 &
+%   \textbf{8.31$\pm$0.68} \\
+& \textit{+ours} &
+  \textbf{45.25$\pm$1.02} &
+  \textbf{19.87$\pm$0.34 }&
+  \textbf{37.11$\pm$0.64} &
+  \textbf{24.87$\pm$1.04 }&
+  \textbf{46.27$\pm$1.09} &
+  \textbf{13.98$\pm$0.98} &
+  \textbf{26.15$\pm$0.94} &
+  \textbf{8.73$\pm$0.85} \\ \cmidrule{2-10}
+& \mkd\  &
+  39.36$\pm$0.70 &
+  42.74$\pm$0.52 &
+  32.89$\pm$0.42 &
+  32.01$\pm$1.36 &
+  41.04$\pm$0.93 &
+  15.37$\pm$0.33 &
+  19.14$\pm$1.36 &
+  8.76$\pm$0.35 \\
+% \textit{+\ta\ } &
+%   43.55$\pm$0.96 &
+%   32.61$\pm$0.80 &
+%   35.36$\pm$0.85 &
+%   \textbf{20.96$\pm$1.31} &
+%   41.67$\pm$1.35 &
+%   \textbf{10.51$\pm$0.36} &
+%   20.99$\pm$1.53 &
+%   \textbf{8.20$\pm$0.98} \\
+& \textit{+ours} &
+  \textbf{44.85$\pm$0.80} &
+  \textbf{30.08$\pm$0.57} &
+  \textbf{36.79$\pm$0.70} &
+  \textbf{21.84$\pm$0.33} &
+  \textbf{44.19$\pm$1.17} &
+  \textbf{12.56$\pm$0.53} &
+  \textbf{26.10$\pm$0.75} &
+  \textbf{9.17$\pm$0.20} \\ \cmidrule{2-10}
+& \tkd\  &
+  43.74$\pm$0.84 &
+  23.65$\pm$0.79 &
+  34.58$\pm$0.34 &
+  21.13$\pm$1.17 &
+  40.44$\pm$1.40 &
+  12.20$\pm$0.46 &
+  14.64$\pm$0.33 &
+  \textbf{6.02$\pm$0.54} \\
+% \textit{+\ta\ } &
+%   45.29$\pm$1.02 &
+%   \textbf{19.42$\pm$0.85} &
+%   34.62$\pm$0.92 &
+%   \textbf{14.72$\pm$1.28} &
+%   41.68$\pm$1.03 &
+%   \textbf{9.29$\pm$0.75} &
+%   16.66$\pm$1.66 &
+%   6.88$\pm$0.36 \\
+& \textit{+ours} &
+  \textbf{46.21$\pm$0.86} &
+  \textbf{20.45$\pm$0.57} &
+  \textbf{36.26$\pm$0.71} &
+  \textbf{17.01$\pm$0.89} &
+  \textbf{44.22$\pm$1.08} &
+  \textbf{11.79$\pm$0.57} &
+  \textbf{22.00$\pm$0.97} &
+  9.36$\pm$0.68 \\ \cmidrule{2-10}
+ & ANCL \ & 43.15$\pm$0.49 & 32.78$\pm$1.52 & 34.32$\pm$0.41 & 36.74$\pm$1.38 & 45.16$\pm$0.32 & 20.21$\pm$0.30  & 21.84$\pm$1.33 & 11.79$\pm$0.51 \\
+  % \textit{+\ta\ } & 45.67$\pm$0.14 & \textbf{26.71$\pm$1.71} & 37.52$\pm$0.78 & \textbf{26.77$\pm$0.49} & 47.46$\pm$0.49 & 16.76$\pm$0.89 & 26.47$\pm$0.41 & \textbf{10.33$\pm$0.57} \\
+  % \textit{+\wu\ } & 44.28$\pm$0.08 & 32.06$\pm$1.07 & 36.06$\pm$0.73 & 35.34$\pm$1.52 & 46.63$\pm$0.77 & 19.2$\pm$0.64  & 23.81$\pm$0.88 & 13.18$\pm$0.34 \\
+ &  \textit{+ours} & \textbf{46.73$\pm$0.20}  & \textbf{26.86$\pm$1.17} & \textbf{38.48$\pm$0.94} & \textbf{27.99$\pm$1.20}  & \textbf{48.25$\pm$0.33} & \textbf{16.11$\pm$0.19} & \textbf{29.67$\pm$1.13} & \textbf{10.98$\pm$0.56}
+  \\ \midrule
+
+% TINY IMAGENET
+
+\parbox[t]{2.5mm}{\multirow{8}{*}{\rotatebox[origin=c]{90}{b) TinyImageNet200}}}  & GKD &
+  32.12$\pm$0.57 &
+  21.21$\pm$1.31 &
+  25.75$\pm$0.65 &
+  27.55$\pm$1.81 &
+  34.32$\pm$1.96 &
+  11.41$\pm$2.80 &
+  23.30$\pm$1.59 &
+  12.63$\pm$2.21 \\
+% \textit{+TA} &
+%   33.12$\pm$0.53 &
+%   \textbf{17.50$\pm$1.76} &
+%   27.16$\pm$0.87 &
+%   22.62$\pm$2.03 &
+%   37.01$\pm$1.84 &
+%   \textbf{10.05$\pm$0.87} &
+%   26.88$\pm$1.62 &
+%   \textbf{11.08$\pm$0.47} \\
+& \textit{+ours} &
+  \textbf{33.90$\pm$0.78} &
+  \textbf{17.70$\pm$1.48 }&
+  \textbf{27.85$\pm$0.90} &
+  \textbf{21.65$\pm$1.43} &
+  \textbf{37.50$\pm$1.84} &
+  \textbf{10.14$\pm$1.10} &
+  \textbf{28.82$\pm$1.95} &
+  \textbf{11.44$\pm$0.61} \\ \cmidrule{2-10}
+& MKD &
+  31.04$\pm$1.00 &
+  16.90$\pm$0.75 &
+  25.22$\pm$0.88 &
+  25.80$\pm$2.46 &
+  \textbf{33.75$\pm$2.11} &
+  10.30$\pm$1.63 &
+  23.42$\pm$1.95 &
+  10.41$\pm$1.97 \\
+% \textit{+TA} &
+%   31.78$\pm$0.83 &
+%   \textbf{11.42$\pm$1.23} &
+%   27.05$\pm$1.11 &
+%   17.55$\pm$2.36 &
+%   32.23$\pm$2.28 &
+%   \textbf{5.91$\pm$0.66} &
+%   23.29$\pm$1.61 &
+%   \textbf{7.61$\pm$1.18} \\
+& \textit{+ours} &
+  \textbf{32.22$\pm$0.95} &
+  \textbf{11.94$\pm$1.07} &
+  \textbf{27.39$\pm$1.33} &
+  \textbf{16.74$\pm$1.52} &
+  32.99$\pm$1.98 &
+ \textbf{ 6.42$\pm$0.80} &
+  \textbf{25.75$\pm$1.74} &
+  \textbf{8.35$\pm$0.82} \\ \cmidrule{2-10}
+& TKD &
+  33.15$\pm$0.45 &
+  21.05$\pm$0.39 &
+  27.29$\pm$0.76 &
+  23.20$\pm$2.46 &
+  37.31$\pm$1.36 &
+  11.83$\pm$1.31 &
+  23.94$\pm$2.14 &
+  10.20$\pm$1.09 \\
+% \textit{+TA} &
+%   33.94$\pm$0.70 &
+%   17.32$\pm$0.97 &
+%   28.51$\pm$0.96 &
+%   17.38$\pm$2.44 &
+%   37.97$\pm$1.47 &
+%   \textbf{9.02$\pm$0.65} &
+%   26.56$\pm$1.62 &
+%   \textbf{8.05$\pm$0.36} \\
+& \textit{+ours} &
+  \textbf{34.58$\pm$0.96} &
+  \textbf{17.27$\pm$0.54} &
+  \textbf{28.71$\pm$1.06} &
+  \textbf{17.37$\pm$1.78} &
+  \textbf{38.41$\pm$1.52} &
+  \textbf{9.16$\pm$0.62} &
+  \textbf{28.10$\pm$1.97} &
+  \textbf{9.56$\pm$0.65} \\ \cmidrule{2-10}
+& ANCL &
+  32.84$\pm$0.78 &
+  27.24$\pm$1.47 &
+  26.98$\pm$0.60 &
+  32.45$\pm$1.18 &
+  37.74$\pm$0.60 &
+  17.28$\pm$2.59 &
+  27.95$\pm$1.98 &
+  20.91$\pm$0.92 \\
+% \textit{+TA} &
+%   33.85$\pm$0.55 &
+%   24.02$\pm$1.39 &
+%   28.42$\pm$0.48 &
+%   27.26$\pm$0.98 &
+%   39.50$\pm$1.18 &
+%   \textbf{14.88$\pm$1.41} &
+%   31.60$\pm$1.89 &
+%   18.10$\pm$0.55 \\
+& \textit{+ours} &
+  \textbf{34.59$\pm$0.75} &
+  \textbf{23.64$\pm$0.76} &
+  \textbf{29.18$\pm$0.71} &
+  \textbf{26.50$\pm$1.34} &
+  \textbf{40.10$\pm$1.39} &
+  \textbf{15.12$\pm$1.01} &
+  \textbf{32.60$\pm$1.45} &
+  \textbf{17.94$\pm$0.39} \\ 
+  \midrule
+
+% IMAGENET
+
+\parbox[t]{2.5mm}{\multirow{8}{*}{\rotatebox[origin=c]{90}{c) ImageNet100}}} 
+ & GKD &
+  54.62$\pm$0.52 &
+  25.95$\pm$0.11 &
+  42.82$\pm$0.58 &
+  35.39$\pm$0.88 &
+  \textbf{57.94$\pm$0.90} &
+  \textbf{14.47$\pm$0.83} &
+  21.91$\pm$0.06 &
+  9.29$\pm$0.69 \\
+& \textit{+ours} &
+  \textbf{55.82$\pm$0.61} &
+  \textbf{20.52$\pm$0.24} &
+  \textbf{45.88$\pm$0.79} &
+  \textbf{23.25$\pm$0.62} &
+  57.18$\pm$0.45 &
+  17.24$\pm$0.39 &
+  \textbf{22.31$\pm$0.64} &
+  \textbf{11.28$\pm$0.98} \\ \cmidrule{2-10}
+& MKD &
+  54.01$\pm$0.01 &
+  28.19$\pm$0.61 &
+  43.39$\pm$0.66 &
+  34.25$\pm$0.81 &
+  \textbf{56.18$\pm$0.90} &
+  14.94$\pm$0.17 &
+  \textbf{26.07$\pm$0.29} &
+  16.00$\pm$0.06 \\
+& \textit{+ours} &
+  \textbf{56.02$\pm$0.20} &
+  \textbf{18.60$\pm$0.76} &
+  \textbf{46.18$\pm$0.54} &
+  \textbf{19.14$\pm$0.79} &
+  52.05$\pm$0.24 &
+  \textbf{14.23$\pm$0.46} &
+  22.25$\pm$0.13 &
+  \textbf{11.94$\pm$1.23} \\ \cmidrule{2-10}
+& TKD &
+  55.70$\pm$0.49 &
+  23.55$\pm$0.35 &
+  44.75$\pm$0.28 &
+  32.16$\pm$0.14 &
+  \textbf{54.72$\pm$0.86} &
+  \textbf{10.16$\pm$0.34} &
+  19.32$\pm$0.23 &
+  9.67$\pm$0.61 \\
+& \textit{+ours} &
+  \textbf{56.23$\pm$0.70} &
+  \textbf{18.09$\pm$0.26} &
+  \textbf{46.45$\pm$0.42} &
+  \textbf{19.55$\pm$0.30} &
+  53.85$\pm$0.39 &
+  13.15$\pm$0.16 &
+  \textbf{22.55$\pm$0.83} &
+  \textbf{9.96$\pm$0.28} \\ \cmidrule{2-10}
+& ANCL &
+  55.81$\pm$0.41 &
+  27.13$\pm$0.50 &
+  44.94$\pm$0.63 &
+  34.24$\pm$1.14 &
+  \textbf{60.97$\pm$0.62} &
+  \textbf{15.72$\pm$0.14} &
+  29.19$\pm$0.76 &
+  16.12$\pm$0.27 \\
+& \textit{+ours} &
+  \textbf{57.41$\pm$0.22} &
+  \textbf{21.54$\pm$0.50} &
+  \textbf{47.49$\pm$0.35} &
+  \textbf{22.61$\pm$0.40} &
+  59.22$\pm$0.26 &
+  17.34$\pm$0.53 &
+  \textbf{29.64$\pm$0.50} &
+  \textbf{14.67$\pm$0.84} \\
+  \bottomrule
+\end{tabular}%
+}
+\caption{\rev{Standard Knowledge Distillation (KD) techniques with and without our Teacher Adaptation (TA) method on different splits of a)~CIFAR100, b)~TinyImageNet200 and c)~ImageNet100. TA is generally beneficial to the CIL process, and the improvements occur most consistently in scenarios with a long sequence of equally sized tasks, where the initial model learns a weaker feature extractor.}}
+\label{tab:benchmarks}
+\end{table*}
+
+% \begin{table*}[!ht]
+% \centering
+% \resizebox{\textwidth}{!}{%
+% \begin{tabular}{@{}lrrrrrrrr@{}}
+% \toprule
+%  &
+%   \multicolumn{2}{c}{T10S10} &
+%   \multicolumn{2}{c}{T20S5} &
+%   \multicolumn{2}{c}{T11S50} &
+%   \multicolumn{2}{c}{T26S50} \\ \cmidrule{2-9}
+%  &
+%   \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} &
+%   \multicolumn{1}{c}{$Forg_{Inc} \downarrow$} &
+%   \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} &
+%   \multicolumn{1}{c}{$Forg_{Inc} \downarrow$} &
+%   \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} &
+%   \multicolumn{1}{c}{$Forg_{Inc} \downarrow$} &
+%   \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} &
+%   \multicolumn{1}{c}{$Forg_{Inc} \downarrow$}  \\ \midrule
+% \gkd\  &
+%   42.52$\pm$0.76 &
+%   22.26$\pm$0.31 &
+%   31.89$\pm$0.45 &
+%   34.68$\pm$1.87 &
+%   41.69$\pm$1.18 &
+%   18.09$\pm$0.88 &
+%   17.64$\pm$0.93 &
+%   9.67$\pm$0.26 \\
+% % \textit{+\ta\ } &
+% %   44.09$\pm$0.97 &
+% %   \textbf{19.41$\pm$0.60} &
+% %   35.99$\pm$0.79 &
+% %   \textbf{23.32$\pm$1.79} &
+% %   44.05$\pm$1.12 &
+% %   \textbf{12.97$\pm$0.43} &
+% %   19.37$\pm$1.73 &
+% %   \textbf{8.31$\pm$0.68} \\
+% \textit{+\ta\ +\wu\ } &
+%   \textbf{45.25$\pm$1.02} &
+%   \textbf{19.87$\pm$0.34 }&
+%   \textbf{37.11$\pm$0.64} &
+%   \textbf{24.87$\pm$1.04 }&
+%   \textbf{46.27$\pm$1.09} &
+%   \textbf{13.98$\pm$0.98} &
+%   \textbf{26.15$\pm$0.94} &
+%   \textbf{8.73$\pm$0.85} \\ \midrule
+% \mkd\  &
+%   39.36$\pm$0.70 &
+%   42.74$\pm$0.52 &
+%   32.89$\pm$0.42 &
+%   32.01$\pm$1.36 &
+%   41.04$\pm$0.93 &
+%   15.37$\pm$0.33 &
+%   19.14$\pm$1.36 &
+%   8.76$\pm$0.35 \\
+% % \textit{+\ta\ } &
+% %   43.55$\pm$0.96 &
+% %   32.61$\pm$0.80 &
+% %   35.36$\pm$0.85 &
+% %   \textbf{20.96$\pm$1.31} &
+% %   41.67$\pm$1.35 &
+% %   \textbf{10.51$\pm$0.36} &
+% %   20.99$\pm$1.53 &
+% %   \textbf{8.20$\pm$0.98} \\
+% \textit{+\ta\ +\wu\ } &
+%   \textbf{44.85$\pm$0.80} &
+%   \textbf{30.08$\pm$0.57} &
+%   \textbf{36.79$\pm$0.70} &
+%   \textbf{21.84$\pm$0.33} &
+%   \textbf{44.19$\pm$1.17} &
+%   \textbf{12.56$\pm$0.53} &
+%   \textbf{26.10$\pm$0.75} &
+%   \textbf{9.17$\pm$0.20} \\ \midrule
+% \tkd\  &
+%   43.74$\pm$0.84 &
+%   23.65$\pm$0.79 &
+%   34.58$\pm$0.34 &
+%   21.13$\pm$1.17 &
+%   40.44$\pm$1.40 &
+%   12.20$\pm$0.46 &
+%   14.64$\pm$0.33 &
+%   \textbf{6.02$\pm$0.54} \\
+% % \textit{+\ta\ } &
+% %   45.29$\pm$1.02 &
+% %   \textbf{19.42$\pm$0.85} &
+% %   34.62$\pm$0.92 &
+% %   \textbf{14.72$\pm$1.28} &
+% %   41.68$\pm$1.03 &
+% %   \textbf{9.29$\pm$0.75} &
+% %   16.66$\pm$1.66 &
+% %   6.88$\pm$0.36 \\
+% \textit{+\ta\ +\wu\ } &
+%   \textbf{46.21$\pm$0.86} &
+%   \textbf{20.45$\pm$0.57} &
+%   \textbf{36.26$\pm$0.71} &
+%   \textbf{17.01$\pm$0.89} &
+%   \textbf{44.22$\pm$1.08} &
+%   \textbf{11.79$\pm$0.57} &
+%   \textbf{22.00$\pm$0.97} &
+%   9.36$\pm$0.68 \\ \midrule
+%   ANCL \ & 43.15$\pm$0.49 & 32.78$\pm$1.52 & 34.32$\pm$0.41 & 36.74$\pm$1.38 & 45.16$\pm$0.32 & 20.21$\pm$0.30  & 21.84$\pm$1.33 & 11.79$\pm$0.51 \\
+%   % \textit{+\ta\ } & 45.67$\pm$0.14 & \textbf{26.71$\pm$1.71} & 37.52$\pm$0.78 & \textbf{26.77$\pm$0.49} & 47.46$\pm$0.49 & 16.76$\pm$0.89 & 26.47$\pm$0.41 & \textbf{10.33$\pm$0.57} \\
+%   % \textit{+\wu\ } & 44.28$\pm$0.08 & 32.06$\pm$1.07 & 36.06$\pm$0.73 & 35.34$\pm$1.52 & 46.63$\pm$0.77 & 19.2$\pm$0.64  & 23.81$\pm$0.88 & 13.18$\pm$0.34 \\
+%   \textit{+\ta +\wu\ } & \textbf{46.73$\pm$0.20}  & \textbf{26.86$\pm$1.17} & \textbf{38.48$\pm$0.94} & \textbf{27.99$\pm$1.20}  & \textbf{48.25$\pm$0.33} & \textbf{16.11$\pm$0.19} & \textbf{29.67$\pm$1.13} & \textbf{10.98$\pm$0.56}
+%   \\ \midrule
+%  &
+%   \multicolumn{2}{c}{T10S10} &
+%   \multicolumn{2}{c}{T20S5} &
+%   \multicolumn{2}{c}{T11S50} &
+%   \multicolumn{2}{c}{T26S50} \\ \cmidrule{2-9}
+%  &
+%   \multicolumn{1}{c}{$Acc_{Inc}$} &
+%   \multicolumn{1}{c}{$Forg_{Inc}$} &
+%   \multicolumn{1}{c}{$Acc_{Inc}$} &
+%   \multicolumn{1}{c}{$Forg_{Inc}$} &
+%   \multicolumn{1}{c}{$Acc_{Inc}$} &
+%   \multicolumn{1}{c}{$Forg_{Inc}$} &
+%   \multicolumn{1}{c}{$Acc_{Inc}$} &
+%   \multicolumn{1}{c}{$Forg_{Inc}$} \\ \midrule
+% GKD &
+%   32.12$\pm$0.57 &
+%   21.21$\pm$1.31 &
+%   25.75$\pm$0.65 &
+%   27.55$\pm$1.81 &
+%   34.32$\pm$1.96 &
+%   11.41$\pm$2.80 &
+%   23.30$\pm$1.59 &
+%   12.63$\pm$2.21 \\
+% % \textit{+TA} &
+% %   33.12$\pm$0.53 &
+% %   \textbf{17.50$\pm$1.76} &
+% %   27.16$\pm$0.87 &
+% %   22.62$\pm$2.03 &
+% %   37.01$\pm$1.84 &
+% %   \textbf{10.05$\pm$0.87} &
+% %   26.88$\pm$1.62 &
+% %   \textbf{11.08$\pm$0.47} \\
+% \textit{+TA+WU} &
+%   \textbf{33.90$\pm$0.78} &
+%   \textbf{17.70$\pm$1.48 }&
+%   \textbf{27.85$\pm$0.90} &
+%   \textbf{21.65$\pm$1.43} &
+%   \textbf{37.50$\pm$1.84} &
+%   \textbf{10.14$\pm$1.10} &
+%   \textbf{28.82$\pm$1.95} &
+%   \textbf{11.44$\pm$0.61} \\ \midrule
+% MKD &
+%   31.04$\pm$1.00 &
+%   16.90$\pm$0.75 &
+%   25.22$\pm$0.88 &
+%   25.80$\pm$2.46 &
+%   \textbf{33.75$\pm$2.11} &
+%   10.30$\pm$1.63 &
+%   23.42$\pm$1.95 &
+%   10.41$\pm$1.97 \\
+% % \textit{+TA} &
+% %   31.78$\pm$0.83 &
+% %   \textbf{11.42$\pm$1.23} &
+% %   27.05$\pm$1.11 &
+% %   17.55$\pm$2.36 &
+% %   32.23$\pm$2.28 &
+% %   \textbf{5.91$\pm$0.66} &
+% %   23.29$\pm$1.61 &
+% %   \textbf{7.61$\pm$1.18} \\
+% \textit{+TA+WU} &
+%   \textbf{32.22$\pm$0.95} &
+%   \textbf{11.94$\pm$1.07} &
+%   \textbf{27.39$\pm$1.33} &
+%   \textbf{16.74$\pm$1.52} &
+%   32.99$\pm$1.98 &
+%  \textbf{ 6.42$\pm$0.80} &
+%   \textbf{25.75$\pm$1.74} &
+%   \textbf{8.35$\pm$0.82} \\ \midrule
+% TKD &
+%   33.15$\pm$0.45 &
+%   21.05$\pm$0.39 &
+%   27.29$\pm$0.76 &
+%   23.20$\pm$2.46 &
+%   37.31$\pm$1.36 &
+%   11.83$\pm$1.31 &
+%   23.94$\pm$2.14 &
+%   10.20$\pm$1.09 \\
+% % \textit{+TA} &
+% %   33.94$\pm$0.70 &
+% %   17.32$\pm$0.97 &
+% %   28.51$\pm$0.96 &
+% %   17.38$\pm$2.44 &
+% %   37.97$\pm$1.47 &
+% %   \textbf{9.02$\pm$0.65} &
+% %   26.56$\pm$1.62 &
+% %   \textbf{8.05$\pm$0.36} \\
+% \textit{+TA+WU} &
+%   \textbf{34.58$\pm$0.96} &
+%   \textbf{17.27$\pm$0.54} &
+%   \textbf{28.71$\pm$1.06} &
+%   \textbf{17.37$\pm$1.78} &
+%   \textbf{38.41$\pm$1.52} &
+%   \textbf{9.16$\pm$0.62} &
+%   \textbf{28.10$\pm$1.97} &
+%   \textbf{9.56$\pm$0.65} \\ \midrule
+% ANCL &
+%   32.84$\pm$0.78 &
+%   27.24$\pm$1.47 &
+%   26.98$\pm$0.60 &
+%   32.45$\pm$1.18 &
+%   37.74$\pm$0.60 &
+%   17.28$\pm$2.59 &
+%   27.95$\pm$1.98 &
+%   20.91$\pm$0.92 \\
+% % \textit{+TA} &
+% %   33.85$\pm$0.55 &
+% %   24.02$\pm$1.39 &
+% %   28.42$\pm$0.48 &
+% %   27.26$\pm$0.98 &
+% %   39.50$\pm$1.18 &
+% %   \textbf{14.88$\pm$1.41} &
+% %   31.60$\pm$1.89 &
+% %   18.10$\pm$0.55 \\
+% \textit{+TA+WU} &
+%   \textbf{34.59$\pm$0.75} &
+%   \textbf{23.64$\pm$0.76} &
+%   \textbf{29.18$\pm$0.71} &
+%   \textbf{26.50$\pm$1.34} &
+%   \textbf{40.10$\pm$1.39} &
+%   \textbf{15.12$\pm$1.01} &
+%   \textbf{32.60$\pm$1.45} &
+%   \textbf{17.94$\pm$0.39} \\ \midrule
+%  &
+%   \multicolumn{2}{c}{T10S10} &
+%   \multicolumn{2}{c}{T20S5} &
+%   \multicolumn{2}{c}{T11S50} &
+%   \multicolumn{2}{c}{T26S50} \\ \cmidrule{2-9}
+%  &
+%   \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} &
+%   \multicolumn{1}{c}{$Forg_{Inc} \downarrow$} &
+%   \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} &
+%   \multicolumn{1}{c}{$Forg_{Inc} \downarrow$} &
+%   \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} &
+%   \multicolumn{1}{c}{$Forg_{Inc} \downarrow$} &
+%   \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} &
+%   \multicolumn{1}{c}{$Forg_{Inc} \downarrow$}  \\ \midrule
+% GKD &
+%   54.62$\pm$0.52 &
+%   25.95$\pm$0.11 &
+%   42.82$\pm$0.58 &
+%   35.39$\pm$0.88 &
+%   \textbf{57.94$\pm$0.90} &
+%   \textbf{14.47$\pm$0.83} &
+%   21.91$\pm$0.06 &
+%   9.29$\pm$0.69 \\
+% \textit{+TA} &
+%   \textbf{55.82$\pm$0.61} &
+%   \textbf{20.52$\pm$0.24} &
+%   \textbf{45.88$\pm$0.79} &
+%   \textbf{23.25$\pm$0.62} &
+%   57.18$\pm$0.45 &
+%   17.24$\pm$0.39 &
+%   \textbf{22.31$\pm$0.64} &
+%   \textbf{11.28$\pm$0.98} \\ \midrule
+% MKD &
+%   54.01$\pm$0.01 &
+%   28.19$\pm$0.61 &
+%   43.39$\pm$0.66 &
+%   34.25$\pm$0.81 &
+%   \textbf{56.18$\pm$0.90} &
+%   14.94$\pm$0.17 &
+%   \textbf{26.07$\pm$0.29} &
+%   16.00$\pm$0.06 \\
+% \textit{+TA} &
+%   \textbf{56.02$\pm$0.20} &
+%   \textbf{18.60$\pm$0.76} &
+%   \textbf{46.18$\pm$0.54} &
+%   \textbf{19.14$\pm$0.79} &
+%   52.05$\pm$0.24 &
+%   \textbf{14.23$\pm$0.46} &
+%   22.25$\pm$0.13 &
+%   \textbf{11.94$\pm$1.23} \\ \midrule
+% TKD &
+%   55.70$\pm$0.49 &
+%   23.55$\pm$0.35 &
+%   44.75$\pm$0.28 &
+%   32.16$\pm$0.14 &
+%   \textbf{54.72$\pm$0.86} &
+%   \textbf{10.16$\pm$0.34} &
+%   19.32$\pm$0.23 &
+%   9.67$\pm$0.61 \\
+% \textit{+TA} &
+%   \textbf{56.23$\pm$0.70} &
+%   \textbf{18.09$\pm$0.26} &
+%   \textbf{46.45$\pm$0.42} &
+%   \textbf{19.55$\pm$0.30} &
+%   53.85$\pm$0.39 &
+%   13.15$\pm$0.16 &
+%   \textbf{22.55$\pm$0.83} &
+%   \textbf{9.96$\pm$0.28} \\ \midrule
+% ANCL &
+%   55.81$\pm$0.41 &
+%   27.13$\pm$0.50 &
+%   44.94$\pm$0.63 &
+%   34.24$\pm$1.14 &
+%   \textbf{60.97$\pm$0.62} &
+%   \textbf{15.72$\pm$0.14} &
+%   29.19$\pm$0.76 &
+%   16.12$\pm$0.27 \\
+% \textit{+TA} &
+%   \textbf{57.41$\pm$0.22} &
+%   \textbf{21.54$\pm$0.50} &
+%   \textbf{47.49$\pm$0.35} &
+%   \textbf{22.61$\pm$0.40} &
+%   59.22$\pm$0.26 &
+%   17.34$\pm$0.53 &
+%   \textbf{29.64$\pm$0.50} &
+%   \textbf{14.67$\pm$0.84} \\
+%   \bottomrule
+% \end{tabular}%
+% }
+% \caption{\rev{Comparision of standard Knowledge Distillation (KD) techniques and our method on different splits of a) CIFAR100, b) TinyImageNet200, c)ImageNet100. Adapting the teacher is generally beneficial to the learning process. The benefits are visible, especially for longer task sequences or in cases where the first task is small, as in those settings the data statistics change more drastically compared to the initial statistics after the first task.}\todo{Check caption; can this table be done a bit better?}}
+% \label{tab:benchmarks}
+% \end{table*}
+
+% \begin{table*}[!ht]
+% \centering
+% \resizebox{\textwidth}{!}{%
+% \begin{tabular}{@{}lrrrrrrrr@{}}
+% \toprule
+%  &
+%   \multicolumn{2}{c}{T10S10} &
+%   \multicolumn{2}{c}{T20S5} &
+%   \multicolumn{2}{c}{T11S50} &
+%   \multicolumn{2}{c}{T26S50} \\ \cmidrule{2-9}
+%  &
+%   \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} &
+%   \multicolumn{1}{c}{$Forg_{Inc} \downarrow$} &
+%   \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} &
+%   \multicolumn{1}{c}{$Forg_{Inc} \downarrow$} &
+%   \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} &
+%   \multicolumn{1}{c}{$Forg_{Inc} \downarrow$} &
+%   \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} &
+%   \multicolumn{1}{c}{$Forg_{Inc} \downarrow$}  \\ \midrule
+% \gkd\  &
+%   42.52$\pm$0.76 &
+%   22.26$\pm$0.31 &
+%   31.89$\pm$0.45 &
+%   34.68$\pm$1.87 &
+%   41.69$\pm$1.18 &
+%   18.09$\pm$0.88 &
+%   17.64$\pm$0.93 &
+%   9.67$\pm$0.26 \\
+% % \textit{+\ta\ } &
+% %   44.09$\pm$0.97 &
+% %   \textbf{19.41$\pm$0.60} &
+% %   35.99$\pm$0.79 &
+% %   \textbf{23.32$\pm$1.79} &
+% %   44.05$\pm$1.12 &
+% %   \textbf{12.97$\pm$0.43} &
+% %   19.37$\pm$1.73 &
+% %   \textbf{8.31$\pm$0.68} \\
+% \textit{+\ta\ +\wu\ } &
+%   \textbf{45.25$\pm$1.02} &
+%   \textbf{19.87$\pm$0.34 }&
+%   \textbf{37.11$\pm$0.64} &
+%   \textbf{24.87$\pm$1.04 }&
+%   \textbf{46.27$\pm$1.09} &
+%   \textbf{13.98$\pm$0.98} &
+%   \textbf{26.15$\pm$0.94} &
+%   \textbf{8.73$\pm$0.85} \\ \midrule
+% \mkd\  &
+%   39.36$\pm$0.70 &
+%   42.74$\pm$0.52 &
+%   32.89$\pm$0.42 &
+%   32.01$\pm$1.36 &
+%   41.04$\pm$0.93 &
+%   15.37$\pm$0.33 &
+%   19.14$\pm$1.36 &
+%   8.76$\pm$0.35 \\
+% % \textit{+\ta\ } &
+% %   43.55$\pm$0.96 &
+% %   32.61$\pm$0.80 &
+% %   35.36$\pm$0.85 &
+% %   \textbf{20.96$\pm$1.31} &
+% %   41.67$\pm$1.35 &
+% %   \textbf{10.51$\pm$0.36} &
+% %   20.99$\pm$1.53 &
+% %   \textbf{8.20$\pm$0.98} \\
+% \textit{+\ta\ +\wu\ } &
+%   \textbf{44.85$\pm$0.80} &
+%   \textbf{30.08$\pm$0.57} &
+%   \textbf{36.79$\pm$0.70} &
+%   \textbf{21.84$\pm$0.33} &
+%   \textbf{44.19$\pm$1.17} &
+%   \textbf{12.56$\pm$0.53} &
+%   \textbf{26.10$\pm$0.75} &
+%   \textbf{9.17$\pm$0.20} \\ \midrule
+% \tkd\  &
+%   43.74$\pm$0.84 &
+%   23.65$\pm$0.79 &
+%   34.58$\pm$0.34 &
+%   21.13$\pm$1.17 &
+%   40.44$\pm$1.40 &
+%   12.20$\pm$0.46 &
+%   14.64$\pm$0.33 &
+%   \textbf{6.02$\pm$0.54} \\
+% % \textit{+\ta\ } &
+% %   45.29$\pm$1.02 &
+% %   \textbf{19.42$\pm$0.85} &
+% %   34.62$\pm$0.92 &
+% %   \textbf{14.72$\pm$1.28} &
+% %   41.68$\pm$1.03 &
+% %   \textbf{9.29$\pm$0.75} &
+% %   16.66$\pm$1.66 &
+% %   6.88$\pm$0.36 \\
+% \textit{+\ta\ +\wu\ } &
+%   \textbf{46.21$\pm$0.86} &
+%   \textbf{20.45$\pm$0.57} &
+%   \textbf{36.26$\pm$0.71} &
+%   \textbf{17.01$\pm$0.89} &
+%   \textbf{44.22$\pm$1.08} &
+%   \textbf{11.79$\pm$0.57} &
+%   \textbf{22.00$\pm$0.97} &
+%   9.36$\pm$0.68 \\ \midrule
+%   ANCL \ & 43.15$\pm$0.49 & 32.78$\pm$1.52 & 34.32$\pm$0.41 & 36.74$\pm$1.38 & 45.16$\pm$0.32 & 20.21$\pm$0.30  & 21.84$\pm$1.33 & 11.79$\pm$0.51 \\
+%   % \textit{+\ta\ } & 45.67$\pm$0.14 & \textbf{26.71$\pm$1.71} & 37.52$\pm$0.78 & \textbf{26.77$\pm$0.49} & 47.46$\pm$0.49 & 16.76$\pm$0.89 & 26.47$\pm$0.41 & \textbf{10.33$\pm$0.57} \\
+%   % \textit{+\wu\ } & 44.28$\pm$0.08 & 32.06$\pm$1.07 & 36.06$\pm$0.73 & 35.34$\pm$1.52 & 46.63$\pm$0.77 & 19.2$\pm$0.64  & 23.81$\pm$0.88 & 13.18$\pm$0.34 \\
+%   \textit{+\ta +\wu\ } & \textbf{46.73$\pm$0.20}  & \textbf{26.86$\pm$1.17} & \textbf{38.48$\pm$0.94} & \textbf{27.99$\pm$1.20}  & \textbf{48.25$\pm$0.33} & \textbf{16.11$\pm$0.19} & \textbf{29.67$\pm$1.13} & \textbf{10.98$\pm$0.56}
+%   \\ \bottomrule
+% \end{tabular}%
+% }
+% \caption{\rev{Comparision of standard Knowledge Distillation (KD) techniques with added Teacher Adaptation (TA) on different splits of CIFAR100. Adapting the teacher model improves the results in all settings.}}
+% \label{tab:cifar100_main}
+% \end{table*}
+
+% \begin{table*}[!ht]
+% \centering
+% \resizebox{\textwidth}{!}{%
+% \begin{tabular}{@{}lrrrrrrrr@{}}
+% \toprule
+%  &
+%   \multicolumn{2}{c}{T10S10} &
+%   \multicolumn{2}{c}{T20S5} &
+%   \multicolumn{2}{c}{T11S50} &
+%   \multicolumn{2}{c}{T26S50} \\ \cmidrule{2-9}
+%  &
+%   \multicolumn{1}{c}{$Acc_{Inc}$} &
+%   \multicolumn{1}{c}{$Forg_{Inc}$} &
+%   \multicolumn{1}{c}{$Acc_{Inc}$} &
+%   \multicolumn{1}{c}{$Forg_{Inc}$} &
+%   \multicolumn{1}{c}{$Acc_{Inc}$} &
+%   \multicolumn{1}{c}{$Forg_{Inc}$} &
+%   \multicolumn{1}{c}{$Acc_{Inc}$} &
+%   \multicolumn{1}{c}{$Forg_{Inc}$} \\ \midrule
+% GKD &
+%   32.12$\pm$0.57 &
+%   21.21$\pm$1.31 &
+%   25.75$\pm$0.65 &
+%   27.55$\pm$1.81 &
+%   34.32$\pm$1.96 &
+%   11.41$\pm$2.80 &
+%   23.30$\pm$1.59 &
+%   12.63$\pm$2.21 \\
+% % \textit{+TA} &
+% %   33.12$\pm$0.53 &
+% %   \textbf{17.50$\pm$1.76} &
+% %   27.16$\pm$0.87 &
+% %   22.62$\pm$2.03 &
+% %   37.01$\pm$1.84 &
+% %   \textbf{10.05$\pm$0.87} &
+% %   26.88$\pm$1.62 &
+% %   \textbf{11.08$\pm$0.47} \\
+% \textit{+TA+WU} &
+%   \textbf{33.90$\pm$0.78} &
+%   \textbf{17.70$\pm$1.48 }&
+%   \textbf{27.85$\pm$0.90} &
+%   \textbf{21.65$\pm$1.43} &
+%   \textbf{37.50$\pm$1.84} &
+%   \textbf{10.14$\pm$1.10} &
+%   \textbf{28.82$\pm$1.95} &
+%   \textbf{11.44$\pm$0.61} \\ \midrule
+% MKD &
+%   31.04$\pm$1.00 &
+%   16.90$\pm$0.75 &
+%   25.22$\pm$0.88 &
+%   25.80$\pm$2.46 &
+%   \textbf{33.75$\pm$2.11} &
+%   10.30$\pm$1.63 &
+%   23.42$\pm$1.95 &
+%   10.41$\pm$1.97 \\
+% % \textit{+TA} &
+% %   31.78$\pm$0.83 &
+% %   \textbf{11.42$\pm$1.23} &
+% %   27.05$\pm$1.11 &
+% %   17.55$\pm$2.36 &
+% %   32.23$\pm$2.28 &
+% %   \textbf{5.91$\pm$0.66} &
+% %   23.29$\pm$1.61 &
+% %   \textbf{7.61$\pm$1.18} \\
+% \textit{+TA+WU} &
+%   \textbf{32.22$\pm$0.95} &
+%   \textbf{11.94$\pm$1.07} &
+%   \textbf{27.39$\pm$1.33} &
+%   \textbf{16.74$\pm$1.52} &
+%   32.99$\pm$1.98 &
+%  \textbf{ 6.42$\pm$0.80} &
+%   \textbf{25.75$\pm$1.74} &
+%   \textbf{8.35$\pm$0.82} \\ \midrule
+% TKD &
+%   33.15$\pm$0.45 &
+%   21.05$\pm$0.39 &
+%   27.29$\pm$0.76 &
+%   23.20$\pm$2.46 &
+%   37.31$\pm$1.36 &
+%   11.83$\pm$1.31 &
+%   23.94$\pm$2.14 &
+%   10.20$\pm$1.09 \\
+% % \textit{+TA} &
+% %   33.94$\pm$0.70 &
+% %   17.32$\pm$0.97 &
+% %   28.51$\pm$0.96 &
+% %   17.38$\pm$2.44 &
+% %   37.97$\pm$1.47 &
+% %   \textbf{9.02$\pm$0.65} &
+% %   26.56$\pm$1.62 &
+% %   \textbf{8.05$\pm$0.36} \\
+% \textit{+TA+WU} &
+%   \textbf{34.58$\pm$0.96} &
+%   \textbf{17.27$\pm$0.54} &
+%   \textbf{28.71$\pm$1.06} &
+%   \textbf{17.37$\pm$1.78} &
+%   \textbf{38.41$\pm$1.52} &
+%   \textbf{9.16$\pm$0.62} &
+%   \textbf{28.10$\pm$1.97} &
+%   \textbf{9.56$\pm$0.65} \\ \midrule
+% ANCL &
+%   32.84$\pm$0.78 &
+%   27.24$\pm$1.47 &
+%   26.98$\pm$0.60 &
+%   32.45$\pm$1.18 &
+%   37.74$\pm$0.60 &
+%   17.28$\pm$2.59 &
+%   27.95$\pm$1.98 &
+%   20.91$\pm$0.92 \\
+% % \textit{+TA} &
+% %   33.85$\pm$0.55 &
+% %   24.02$\pm$1.39 &
+% %   28.42$\pm$0.48 &
+% %   27.26$\pm$0.98 &
+% %   39.50$\pm$1.18 &
+% %   \textbf{14.88$\pm$1.41} &
+% %   31.60$\pm$1.89 &
+% %   18.10$\pm$0.55 \\
+% \textit{+TA+WU} &
+%   \textbf{34.59$\pm$0.75} &
+%   \textbf{23.64$\pm$0.76} &
+%   \textbf{29.18$\pm$0.71} &
+%   \textbf{26.50$\pm$1.34} &
+%   \textbf{40.10$\pm$1.39} &
+%   \textbf{15.12$\pm$1.01} &
+%   \textbf{32.60$\pm$1.45} &
+%   \textbf{17.94$\pm$0.39} \\ \bottomrule
+% \end{tabular}%
+% }
+% \caption{\rev{Comparision of Knowledge Distillation (KD) techniques with added Teacher Adaptation (TA) on different splits of TinyImageNet200. Adapting the teacher is beneficial to the learning process for all the tasks.}}
+% \label{tab:tin200_main}
+% \end{table*}
+
+% \begin{table*}[!ht]
+% \centering
+
+% \resizebox{\textwidth}{!}{%
+% \begin{tabular}{lrrrrrrrr}
+% \toprule
+%  &
+%   \multicolumn{2}{c}{T10S10} &
+%   \multicolumn{2}{c}{T20S5} &
+%   \multicolumn{2}{c}{T11S50} &
+%   \multicolumn{2}{c}{T26S50} \\ \cmidrule{2-9}
+%  &
+%   \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} &
+%   \multicolumn{1}{c}{$Forg_{Inc} \downarrow$} &
+%   \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} &
+%   \multicolumn{1}{c}{$Forg_{Inc} \downarrow$} &
+%   \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} &
+%   \multicolumn{1}{c}{$Forg_{Inc} \downarrow$} &
+%   \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} &
+%   \multicolumn{1}{c}{$Forg_{Inc} \downarrow$}  \\ \midrule
+% \gkd\  &
+%   54.62$\pm$0.52 &
+%   25.95$\pm$0.11 &
+%   42.82$\pm$0.58 &
+%   35.39$\pm$0.88 &
+%   52.67$\pm$0.93 &
+%   9.92$\pm$0.83 &
+%   21.91$\pm$0.06 &
+%   \textbf{9.29$\pm$0.69} \\
+% \textit{+\ta\ } &
+%   \textbf{55.82$\pm$0.61} &
+%   \textbf{20.52$\pm$0.24} &
+%   \textbf{45.88$\pm$0.79} &
+%   \textbf{23.25$\pm$0.62} &
+%   51.44$\pm$0.51 &
+%   \textbf{14.55$\pm$0.76} &
+%   22.31$\pm$0.64 &
+%   11.28$\pm$0.98 \\
+% \textit{+\ta\ +\wu\ } &
+%   54.23$\pm$0.99 &
+%   23.31$\pm$0.65 &
+%   45.75$\pm$0.61 &
+%   25.37$\pm$0.04 &
+%   \textbf{58.34$\pm$0.52} &
+%   19.21$\pm$0.71 &
+%   \textbf{34.19$\pm$0.28} &
+%   18.97$\pm$1.23 \\ \midrule
+% MKD &
+%   54.01$\pm$0.01 &
+%   28.19$\pm$0.61 &
+%   43.39$\pm$0.66 &
+%   34.25$\pm$0.81 &
+%   \textbf{56.18$\pm$0.90} &
+%   14.94$\pm$0.17 &
+%   \textbf{26.07$\pm$0.29} &
+%   16.00$\pm$0.06 \\
+% \textit{+TA} &
+%   \textbf{56.02$\pm$0.20} &
+%   \textbf{18.60$\pm$0.76} &
+%   \textbf{46.18$\pm$0.54} &
+%   \textbf{19.14$\pm$0.79} &
+%   52.05$\pm$0.24 &
+%   \textbf{14.23$\pm$0.46} &
+%   22.25$\pm$0.13 &
+%   \textbf{11.94$\pm$1.23} \\
+% \textit{+TA+WU} &
+%   55.80$\pm$0.44 &
+%   19.52$\pm$1.91 &
+%   46.12$\pm$0.44 &
+%   20.06$\pm$0.80 &
+%   54.05$\pm$3.32 &
+%   15.60$\pm$2.54 &
+%   25.79$\pm$6.22 &
+%   13.72$\pm$3.01 \\ \midrule
+
+% \tkd\  &
+%   55.70$\pm$0.49 &
+%   23.55$\pm$0.35 &
+%   \textbf{45.71$\pm$0.37} &
+%   25.85$\pm$0.26 &
+%   54.72$\pm$0.86 &
+%   \textbf{10.16$\pm$0.34} &
+%   19.32$\pm$0.23 &
+%   \textbf{9.67$\pm$0.61} \\
+% \textit{+\ta\ } &
+%   \textbf{56.23$\pm$0.70} &
+%   \textbf{18.09$\pm$0.26} &
+%   45.14$\pm$0.78 &
+%   \textbf{15.62$\pm$0.51} &
+%   53.85$\pm$0.39 &
+%   13.15$\pm$0.16 &
+%   22.55$\pm$0.83 &
+%   9.96$\pm$0.28 \\
+% \textit{+\ta\ +\wu\ } &
+%   54.40$\pm$0.64 &
+%   22.50$\pm$0.12 &
+%   45.29$\pm$0.41 &
+%   20.93$\pm$1.02 &
+%   \textbf{58.86$\pm$0.38} &
+%   19.07$\pm$0.75 &
+%   \textbf{32.46$\pm$0.52} &
+%   20.65$\pm$0.99 \\ \midrule
+% ANCL &
+%   55.81$\pm$0.41 &
+%   27.13$\pm$0.50 &
+%   44.94$\pm$0.63 &
+%   34.24$\pm$1.14 &
+%   \textbf{60.96$\pm$0.87} &
+%   \textbf{13.14$\pm$0.39} &
+%   29.19$\pm$0.76 &
+%   16.12$\pm$0.27 \\
+% \textit{+TA} &
+%   \textbf{57.41$\pm$0.22} &
+%   \textbf{21.54$\pm$0.50} &
+%   \textbf{47.49$\pm$0.35} &
+%   \textbf{22.61$\pm$0.40} &
+%   58.57$\pm$0.45 &
+%   16.18$\pm$0.55 &
+%   \textbf{29.64$\pm$0.50} &
+%   \textbf{14.67$\pm$0.84} \\
+%   \bottomrule
+% \end{tabular}%
+% }
+% \caption{\rev{Comparision of standard Knowledge Distillation (KD) techniques with added Teacher Adaptation (TA) and optional warmup phase (WU) on different splits of ImageNet100. Adapting the teacher is beneficial to the learning process for all the tasks, but adding the warmup phase is only beneficial for settings where the model is pretrained on 50 classes.}\todo{Update with results}}
+% \label{tab:imagenet100_main}
+% \end{table*}
+
+
+% \begin{table*}[!ht]
+% \centering
+
+% \resizebox{\textwidth}{!}{%
+% \begin{tabular}{lrrrrrrrr}
+% \toprule
+%  &
+%   \multicolumn{2}{c}{T10S10} &
+%   \multicolumn{2}{c}{T20S5} &
+%   \multicolumn{2}{c}{T11S50} &
+%   \multicolumn{2}{c}{T26S50} \\ \cmidrule{2-9}
+%  &
+%   \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} &
+%   \multicolumn{1}{c}{$Forg_{Inc} \downarrow$} &
+%   \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} &
+%   \multicolumn{1}{c}{$Forg_{Inc} \downarrow$} &
+%   \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} &
+%   \multicolumn{1}{c}{$Forg_{Inc} \downarrow$} &
+%   \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} &
+%   \multicolumn{1}{c}{$Forg_{Inc} \downarrow$}  \\ \midrule
+% GKD &
+%   54.62$\pm$0.52 &
+%   25.95$\pm$0.11 &
+%   42.82$\pm$0.58 &
+%   35.39$\pm$0.88 &
+%   \textbf{57.94$\pm$0.90} &
+%   \textbf{14.47$\pm$0.83} &
+%   21.91$\pm$0.06 &
+%   9.29$\pm$0.69 \\
+% \textit{+TA} &
+%   \textbf{55.82$\pm$0.61} &
+%   \textbf{20.52$\pm$0.24} &
+%   \textbf{45.88$\pm$0.79} &
+%   \textbf{23.25$\pm$0.62} &
+%   57.18$\pm$0.45 &
+%   17.24$\pm$0.39 &
+%   \textbf{22.31$\pm$0.64} &
+%   \textbf{11.28$\pm$0.98} \\ \midrule
+% MKD &
+%   54.01$\pm$0.01 &
+%   28.19$\pm$0.61 &
+%   43.39$\pm$0.66 &
+%   34.25$\pm$0.81 &
+%   \textbf{56.18$\pm$0.90} &
+%   14.94$\pm$0.17 &
+%   \textbf{26.07$\pm$0.29} &
+%   16.00$\pm$0.06 \\
+% \textit{+TA} &
+%   \textbf{56.02$\pm$0.20} &
+%   \textbf{18.60$\pm$0.76} &
+%   \textbf{46.18$\pm$0.54} &
+%   \textbf{19.14$\pm$0.79} &
+%   52.05$\pm$0.24 &
+%   \textbf{14.23$\pm$0.46} &
+%   22.25$\pm$0.13 &
+%   \textbf{11.94$\pm$1.23} \\ \midrule
+% TKD &
+%   55.70$\pm$0.49 &
+%   23.55$\pm$0.35 &
+%   44.75$\pm$0.28 &
+%   32.16$\pm$0.14 &
+%   \textbf{54.72$\pm$0.86} &
+%   \textbf{10.16$\pm$0.34} &
+%   19.32$\pm$0.23 &
+%   9.67$\pm$0.61 \\
+% \textit{+TA} &
+%   \textbf{56.23$\pm$0.70} &
+%   \textbf{18.09$\pm$0.26} &
+%   \textbf{46.45$\pm$0.42} &
+%   \textbf{19.55$\pm$0.30} &
+%   53.85$\pm$0.39 &
+%   13.15$\pm$0.16 &
+%   \textbf{22.55$\pm$0.83} &
+%   \textbf{9.96$\pm$0.28} \\ \midrule
+% ANCL &
+%   55.81$\pm$0.41 &
+%   27.13$\pm$0.50 &
+%   44.94$\pm$0.63 &
+%   34.24$\pm$1.14 &
+%   \textbf{60.97$\pm$0.62} &
+%   \textbf{15.72$\pm$0.14} &
+%   29.19$\pm$0.76 &
+%   16.12$\pm$0.27 \\
+% \textit{+TA} &
+%   \textbf{57.41$\pm$0.22} &
+%   \textbf{21.54$\pm$0.50} &
+%   \textbf{47.49$\pm$0.35} &
+%   \textbf{22.61$\pm$0.40} &
+%   59.22$\pm$0.26 &
+%   17.34$\pm$0.53 &
+%   \textbf{29.64$\pm$0.50} &
+%   \textbf{14.67$\pm$0.84} \\
+%   \bottomrule
+% \end{tabular}%
+% }
+% \caption{\rev{Comparision of standard Knowledge Distillation (KD) techniques with our method on different splits of ImageNet100.}}
+% \label{tab:imagenet100_main}
+% \end{table*}
+
+% \begin{table*}[!ht]
+% \centering
+% \resizebox{\textwidth}{!}{%
+% \begin{tabular}{@{}llrrrrrrrr@{}}
+% \toprule
+%  & &
+%   \multicolumn{2}{c}{T10S10} &
+%   \multicolumn{2}{c}{T20S5} &
+%   \multicolumn{2}{c}{T11S50} &
+%   \multicolumn{2}{c}{T26S50} \\ \cmidrule{3-10}
+%  & &
+%   \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} &
+%   \multicolumn{1}{c}{$Forg_{Inc} \downarrow$} &
+%   \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} &
+%   \multicolumn{1}{c}{$Forg_{Inc} \downarrow$} &
+%   \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} &
+%   \multicolumn{1}{c}{$Forg_{Inc} \downarrow$} &
+%   \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} &
+%   \multicolumn{1}{c}{$Forg_{Inc} \downarrow$}  \\ \midrule
+% \parbox[t]{3mm}{\multirow{8}{*}{\rotatebox[origin=c]{90}{a)~CIFAR100}}} & \gkd\  &
+%   42.52$\pm$0.76 &
+%   22.26$\pm$0.31 &
+%   31.89$\pm$0.45 &
+%   34.68$\pm$1.87 &
+%   41.69$\pm$1.18 &
+%   18.09$\pm$0.88 &
+%   17.64$\pm$0.93 &
+%   9.67$\pm$0.26 \\
+% % \textit{+\ta\ } &
+% %   44.09$\pm$0.97 &
+% %   \textbf{19.41$\pm$0.60} &
+% %   35.99$\pm$0.79 &
+% %   \textbf{23.32$\pm$1.79} &
+% %   44.05$\pm$1.12 &
+% %   \textbf{12.97$\pm$0.43} &
+% %   19.37$\pm$1.73 &
+% %   \textbf{8.31$\pm$0.68} \\
+% & \textit{+\ta\ +\wu\ } &
+%   \textbf{45.25$\pm$1.02} &
+%   19.87$\pm$0.34 &
+%   \textbf{37.11$\pm$0.64} &
+%   24.87$\pm$1.04 &
+%   \textbf{46.27$\pm$1.09} &
+%   13.98$\pm$0.98 &
+%   \textbf{26.15$\pm$0.94} &
+%   8.73$\pm$0.85 \\ \cmidrule{2-10}
+% & \mkd\  &
+%   39.36$\pm$0.70 &
+%   42.74$\pm$0.52 &
+%   32.89$\pm$0.42 &
+%   32.01$\pm$1.36 &
+%   41.04$\pm$0.93 &
+%   15.37$\pm$0.33 &
+%   19.14$\pm$1.36 &
+%   8.76$\pm$0.35 \\
+% % \textit{+\ta\ } &
+% %   43.55$\pm$0.96 &
+% %   32.61$\pm$0.80 &
+% %   35.36$\pm$0.85 &
+% %   \textbf{20.96$\pm$1.31} &
+% %   41.67$\pm$1.35 &
+% %   \textbf{10.51$\pm$0.36} &
+% %   20.99$\pm$1.53 &
+% %   \textbf{8.20$\pm$0.98} \\
+% & \textit{+\ta\ +\wu\ } &
+%   \textbf{44.85$\pm$0.80} &
+%   \textbf{30.08$\pm$0.57} &
+%   \textbf{36.79$\pm$0.70} &
+%   21.84$\pm$0.33 &
+%   \textbf{44.19$\pm$1.17} &
+%   12.56$\pm$0.53 &
+%   \textbf{26.10$\pm$0.75} &
+%   9.17$\pm$0.20 \\ \cmidrule{2-10}
+% & \tkd\  &
+%   43.74$\pm$0.84 &
+%   23.65$\pm$0.79 &
+%   34.58$\pm$0.34 &
+%   21.13$\pm$1.17 &
+%   40.44$\pm$1.40 &
+%   12.20$\pm$0.46 &
+%   14.64$\pm$0.33 &
+%   \textbf{6.02$\pm$0.54} \\
+% % \textit{+\ta\ } &
+% %   45.29$\pm$1.02 &
+% %   \textbf{19.42$\pm$0.85} &
+% %   34.62$\pm$0.92 &
+% %   \textbf{14.72$\pm$1.28} &
+% %   41.68$\pm$1.03 &
+% %   \textbf{9.29$\pm$0.75} &
+% %   16.66$\pm$1.66 &
+% %   6.88$\pm$0.36 \\
+% & \textit{+\ta\ +\wu\ } &
+%   \textbf{46.21$\pm$0.86} &
+%   20.45$\pm$0.57 &
+%   \textbf{36.26$\pm$0.71} &
+%   17.01$\pm$0.89 &
+%   \textbf{44.22$\pm$1.08} &
+%   11.79$\pm$0.57 &
+%   \textbf{22.00$\pm$0.97} &
+%   9.36$\pm$0.68 \\ \cmidrule{2-10}
+%   & LwF(A)\ & 43.15$\pm$0.49 & 32.78$\pm$1.52 & 34.32$\pm$0.41 & 36.74$\pm$1.38 & 45.16$\pm$0.32 & 20.21$\pm$0.30  & 21.84$\pm$1.33 & 11.79$\pm$0.51 \\
+%   % \textit{+\ta\ } & 45.67$\pm$0.14 & \textbf{26.71$\pm$1.71} & 37.52$\pm$0.78 & \textbf{26.77$\pm$0.49} & 47.46$\pm$0.49 & 16.76$\pm$0.89 & 26.47$\pm$0.41 & \textbf{10.33$\pm$0.57} \\
+%   % \textit{+\wu\ } & 44.28$\pm$0.08 & 32.06$\pm$1.07 & 36.06$\pm$0.73 & 35.34$\pm$1.52 & 46.63$\pm$0.77 & 19.2$\pm$0.64  & 23.81$\pm$0.88 & 13.18$\pm$0.34 \\
+%   & \textit{+\ta +\wu\ } & \textbf{46.73$\pm$0.20}  & 26.86$\pm$1.17 & \textbf{38.48$\pm$0.94} & 27.99$\pm$1.20  & \textbf{48.25$\pm$0.33} & \textbf{16.11$\pm$0.19} & \textbf{29.67$\pm$1.13} & 10.98$\pm$0.56
+%   \\ \midrule
+% \parbox[t]{3mm}{\multirow{8}{*}{\rotatebox[origin=c]{90}{b)~TinyImageNet200}}} & GKD &
+%   32.12$\pm$0.57 &
+%   21.21$\pm$1.31 &
+%   25.75$\pm$0.65 &
+%   27.55$\pm$1.81 &
+%   34.32$\pm$1.96 &
+%   11.41$\pm$2.80 &
+%   23.30$\pm$1.59 &
+%   12.63$\pm$2.21 \\
+% % \textit{+TA} &
+% %   33.12$\pm$0.53 &
+% %   \textbf{17.50$\pm$1.76} &
+% %   27.16$\pm$0.87 &
+% %   22.62$\pm$2.03 &
+% %   37.01$\pm$1.84 &
+% %   \textbf{10.05$\pm$0.87} &
+% %   26.88$\pm$1.62 &
+% %   \textbf{11.08$\pm$0.47} \\
+% & \textit{+TA+WU} &
+%   \textbf{33.90$\pm$0.78} &
+%   17.70$\pm$1.48 &
+%   \textbf{27.85$\pm$0.90} &
+%   \textbf{21.65$\pm$1.43} &
+%   \textbf{37.50$\pm$1.84} &
+%   10.14$\pm$1.10 &
+%   \textbf{28.82$\pm$1.95} &
+%   11.44$\pm$0.61 \\ \cmidrule{2-10}
+% & MKD &
+%   31.04$\pm$1.00 &
+%   16.90$\pm$0.75 &
+%   25.22$\pm$0.88 &
+%   25.80$\pm$2.46 &
+%   \textbf{33.75$\pm$2.11} &
+%   10.30$\pm$1.63 &
+%   23.42$\pm$1.95 &
+%   10.41$\pm$1.97 \\
+% % \textit{+TA} &
+% %   31.78$\pm$0.83 &
+% %   \textbf{11.42$\pm$1.23} &
+% %   27.05$\pm$1.11 &
+% %   17.55$\pm$2.36 &
+% %   32.23$\pm$2.28 &
+% %   \textbf{5.91$\pm$0.66} &
+% %   23.29$\pm$1.61 &
+% %   \textbf{7.61$\pm$1.18} \\
+% & \textit{+TA+WU} &
+%   \textbf{32.22$\pm$0.95} &
+%   11.94$\pm$1.07 &
+%   \textbf{27.39$\pm$1.33} &
+%   \textbf{16.74$\pm$1.52} &
+%   32.99$\pm$1.98 &
+%   6.42$\pm$0.80 &
+%   \textbf{25.75$\pm$1.74} &
+%   8.35$\pm$0.82 \\ \cmidrule{2-10}
+% & TKD &
+%   33.15$\pm$0.45 &
+%   21.05$\pm$0.39 &
+%   27.29$\pm$0.76 &
+%   23.20$\pm$2.46 &
+%   37.31$\pm$1.36 &
+%   11.83$\pm$1.31 &
+%   23.94$\pm$2.14 &
+%   10.20$\pm$1.09 \\
+% % \textit{+TA} &
+% %   33.94$\pm$0.70 &
+% %   17.32$\pm$0.97 &
+% %   28.51$\pm$0.96 &
+% %   17.38$\pm$2.44 &
+% %   37.97$\pm$1.47 &
+% %   \textbf{9.02$\pm$0.65} &
+% %   26.56$\pm$1.62 &
+% %   \textbf{8.05$\pm$0.36} \\
+% & \textit{+TA+WU} &
+%   \textbf{34.58$\pm$0.96} &
+%   \textbf{17.27$\pm$0.54} &
+%   \textbf{28.71$\pm$1.06} &
+%   \textbf{17.37$\pm$1.78} &
+%   \textbf{38.41$\pm$1.52} &
+%   9.16$\pm$0.62 &
+%   \textbf{28.10$\pm$1.97} &
+%   9.56$\pm$0.65 \\ \cmidrule{2-10}
+% & LwF(A) &
+%   32.84$\pm$0.78 &
+%   27.24$\pm$1.47 &
+%   26.98$\pm$0.60 &
+%   32.45$\pm$1.18 &
+%   37.74$\pm$0.60 &
+%   17.28$\pm$2.59 &
+%   27.95$\pm$1.98 &
+%   20.91$\pm$0.92 \\
+% % \textit{+TA} &
+% %   33.85$\pm$0.55 &
+% %   24.02$\pm$1.39 &
+% %   28.42$\pm$0.48 &
+% %   27.26$\pm$0.98 &
+% %   39.50$\pm$1.18 &
+% %   \textbf{14.88$\pm$1.41} &
+% %   31.60$\pm$1.89 &
+% %   18.10$\pm$0.55 \\
+% & \textit{+TA+WU} &
+%   \textbf{34.59$\pm$0.75} &
+%   \textbf{23.64$\pm$0.76} &
+%   \textbf{29.18$\pm$0.71} &
+%   \textbf{26.50$\pm$1.34} &
+%   \textbf{40.10$\pm$1.39} &
+%   15.12$\pm$1.01 &
+%   \textbf{32.60$\pm$1.45} &
+%   \textbf{17.94$\pm$0.39} \\ \midrule
+% \parbox[t]{3mm}{\multirow{8}{*}{\rotatebox[origin=c]{90}{c)~ImageNet100}}} & \gkd\  &
+%   54.62$\pm$0.52 &
+%   25.95$\pm$0.11 &
+%   42.82$\pm$0.58 &
+%   35.39$\pm$0.88 &
+%   52.67$\pm$0.93 &
+%   9.92$\pm$0.83 &
+%   21.91$\pm$0.06 &
+%   \textbf{9.29$\pm$0.69} \\
+% % \textit{+\ta\ } &
+% %   \textbf{55.82$\pm$0.61} &
+% %   \textbf{20.52$\pm$0.24} &
+% %   \textbf{45.88$\pm$0.79} &
+% %   \textbf{23.25$\pm$0.62} &
+% %   51.44$\pm$0.51 &
+% %   \textbf{14.55$\pm$0.76} &
+% %   22.31$\pm$0.64 &
+% %   11.28$\pm$0.98 \\
+% & \textit{+\ta\ +\wu\ } &
+%   54.23$\pm$0.99 &
+%   23.31$\pm$0.65 &
+%   45.75$\pm$0.61 &
+%   25.37$\pm$0.04 &
+%   \textbf{58.34$\pm$0.52} &
+%   19.21$\pm$0.71 &
+%   \textbf{34.19$\pm$0.28} &
+%   18.97$\pm$1.23 \\ \cmidrule{2-10}
+%   & \gkd\  &
+%   54.62$\pm$0.52 &
+%   25.95$\pm$0.11 &
+%   42.82$\pm$0.58 &
+%   35.39$\pm$0.88 &
+%   52.67$\pm$0.93 &
+%   9.92$\pm$0.83 &
+%   21.91$\pm$0.06 &
+%   \textbf{9.29$\pm$0.69} \\
+% % \textit{+\ta\ } &
+% %   \textbf{55.82$\pm$0.61} &
+% %   \textbf{20.52$\pm$0.24} &
+% %   \textbf{45.88$\pm$0.79} &
+% %   \textbf{23.25$\pm$0.62} &
+% %   51.44$\pm$0.51 &
+% %   \textbf{14.55$\pm$0.76} &
+% %   22.31$\pm$0.64 &
+% %   11.28$\pm$0.98 \\
+% & \textit{+\ta\ +\wu\ } &
+%   54.23$\pm$0.99 &
+%   23.31$\pm$0.65 &
+%   45.75$\pm$0.61 &
+%   25.37$\pm$0.04 &
+%   \textbf{58.34$\pm$0.52} &
+%   19.21$\pm$0.71 &
+%   \textbf{34.19$\pm$0.28} &
+%   18.97$\pm$1.23 \\ \cmidrule{2-10}
+%   & \gkd\  &
+%   54.62$\pm$0.52 &
+%   25.95$\pm$0.11 &
+%   42.82$\pm$0.58 &
+%   35.39$\pm$0.88 &
+%   52.67$\pm$0.93 &
+%   9.92$\pm$0.83 &
+%   21.91$\pm$0.06 &
+%   \textbf{9.29$\pm$0.69} \\
+% % \textit{+\ta\ } &
+% %   \textbf{55.82$\pm$0.61} &
+% %   \textbf{20.52$\pm$0.24} &
+% %   \textbf{45.88$\pm$0.79} &
+% %   \textbf{23.25$\pm$0.62} &
+% %   51.44$\pm$0.51 &
+% %   \textbf{14.55$\pm$0.76} &
+% %   22.31$\pm$0.64 &
+% %   11.28$\pm$0.98 \\
+% & \textit{+\ta\ +\wu\ } &
+%   54.23$\pm$0.99 &
+%   23.31$\pm$0.65 &
+%   45.75$\pm$0.61 &
+%   25.37$\pm$0.04 &
+%   \textbf{58.34$\pm$0.52} &
+%   19.21$\pm$0.71 &
+%   \textbf{34.19$\pm$0.28} &
+%   18.97$\pm$1.23 \\ \cmidrule{2-10}
+% & \tkd\  &
+%   55.70$\pm$0.49 &
+%   23.55$\pm$0.35 &
+%   \textbf{45.71$\pm$0.37} &
+%   25.85$\pm$0.26 &
+%   54.72$\pm$0.86 &
+%   \textbf{10.16$\pm$0.34} &
+%   19.32$\pm$0.23 &
+%   \textbf{9.67$\pm$0.61} \\
+% % \textit{+\ta\ } &
+% %   \textbf{56.23$\pm$0.70} &
+% %   \textbf{18.09$\pm$0.26} &
+% %   45.14$\pm$0.78 &
+% %   \textbf{15.62$\pm$0.51} &
+% %   53.85$\pm$0.39 &
+% %   13.15$\pm$0.16 &
+% %   22.55$\pm$0.83 &
+% %   9.96$\pm$0.28 \\
+% & \textit{+\ta\ +\wu\ } &
+%   54.40$\pm$0.64 &
+%   22.50$\pm$0.12 &
+%   45.29$\pm$0.41 &
+%   20.93$\pm$1.02 &
+%   \textbf{58.86$\pm$0.38} &
+%   19.07$\pm$0.75 &
+%   \textbf{32.46$\pm$0.52} &
+%   20.65$\pm$0.99 \\ \bottomrule
+% \end{tabular}%
+% }
+% \caption{\rev{Comparision of standard Knowledge Distillation (KD) techniques with added Teacher Adaptation (TA) on a)~CIFAR100, b)~TinyImageNet200 and c)~ImageNet100.\todo{Just placeholder to see how much space will it take}}}
+% \label{tab:benchmarks}
+% \end{table*}
+
+
+% To further stabilize the training, we employ a \emph{warmup phase (WU)} at the beginning of each task, following Kumar et al.~\cite{Kumar2022finetunedistort}. Before training the full student model on the new data, we first finetune the classification head added for this new task in isolation, with the rest of the network frozen. Compared to the standard practice of finetuning the full student model on the new task, using warmup phase reduces the cross-entropy loss at the start of the new task, and avoids overwriting the knowledge from the previous tasks with large gradient updates caused by random classification head initialization.
+
+
+\section{Experiments}
+
+\subsection{Experimental setup}
+\label{sec:exp:setup}
+% We conduct experiments on common continual learning benchmarks, such as CIFAR100~\cite{Krizhevsky2009LearningML} and ImageNet-Subset~\cite{deng2009_imagenet}. We measure models’ adaptability to large shifts in data distributions on DomainNet~\cite{peng2019moment} dataset. Additionally, following FACIL~\cite{masana2022class} we construct fine-grained classification benchmark using Oxford Flowers~\cite{nilsback2008automated}, MIT Indoor Scenes~\cite{quattoni2009recognizing}, CUB-200-2011 Birds~\cite{wah2011caltech}, Stanford Cars~\cite{krause20133d}, FGVC Aircraft~\cite{maji2013fine}, and Stanford Actions~\cite{yao2011human}. Finally, we also introduce a corrupted CIFAR100 setting where data in every other task contains the noise of varying severity, which allows us to measure the impact of \ta\ under varying and controllable degrees of data shift.
+
+\rev{
+We conduct experiments on common continual learning benchmarks, such as CIFAR100~\cite{Krizhevsky2009LearningML}, TinyImageNet200~\cite{abai2019densenet} and ImageNet-Subset~\cite{deng2009_imagenet}. We measure models’ adaptability to large shifts in data distributions on DomainNet~\cite{peng2019moment} dataset. Additionally, following FACIL~\cite{masana2022class} we construct fine-grained classification benchmark using Oxford Flowers~\cite{nilsback2008automated}, MIT Indoor Scenes~\cite{quattoni2009recognizing}, CUB-200-2011 Birds~\cite{wah2011caltech}, Stanford Cars~\cite{krause20133d}, FGVC Aircraft~\cite{maji2013fine}, and Stanford Actions~\cite{yao2011human}. Finally, we also introduce a corrupted CIFAR100 setting where data in every other task contains noise of varying severity, which allows us to measure the impact of \ta\ under varying and controllable degrees of data shift.
+}
+
+We create CIL scenarios by splitting the classes in each dataset into disjoint tasks. We experiment with two particular types of settings: the first type of setting is built by splitting the classes in the dataset into tasks containing an equal number of classes, while the other simulates pretaining the network and uses half of the classes as a larger first task, with subsequent tasks composed of the evenly split remaining classes. 
+
+For all experiments, we use FACIL framework provided by Masana et al.~\cite{masana2022class}. For experiments on CIFAR100, we keep the class order from iCaRL~\cite{rebuffi2017icarl} and we use ResNet32~\cite{he2016deep}. \rev{For TinyImageNet, following~\cite{kim2023achieving}, we rescale images to 32x32 pixels and also use ResNet32.} For the other datasets, we use ResNet18~\cite{he2016deep}. We always use the same hyperparameters for all variants within the single KD method unless stated otherwise, we report the results averaged over three runs with different random seeds.
+
+\rev{In every setup, we train the network on each new task for 200 epochs with batch size 128. We use SGD optimizer without momentum or weight decay, with a learning rate scheduler proposed by Zhou et al.~\cite{zhou2023pycil}, where the initial learning rate of 0.1 is decreased 10x after 60th, 120th and 160th epoch. For experiments conducted on CIFAR100 and TinyImageNet200 in \Cref{tab:benchmarks} we also employ a warmup phase~\cite{Kumar2022finetunedistort} for the new classification head. In the Appendix, we provide the ablation study of the warmup with different benchmarks, alongside the details of its implementation and discussion on the method. Additionally, we provide the evaluation of our method with different model architectures and batch sizes.}
+%For experiments with a warmup, we train the new head for up to 200 epochs, using early stopping with patience of 50.
+
+\begin{table*}[!th]
+\small
+\centering
+
+%\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}lrrrrrr@{}}
+\toprule
+ &
+  \multicolumn{2}{c}{6 tasks, 20 classes each} &
+  \multicolumn{2}{c}{12 tasks, 10 classes each} &
+  \multicolumn{2}{c}{24 tasks, 5 classes each} \\ \cmidrule{2-7}
+ &
+  \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} &
+  \multicolumn{1}{c}{$Forg_{Inc} \downarrow$}  &
+  \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} &
+  \multicolumn{1}{c}{$Forg_{Inc} \downarrow$} &
+  \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} &
+  \multicolumn{1}{c}{$Forg_{Inc} \downarrow$} \\ \midrule
+\gkd\  &
+  56.03$\pm$3.75 &
+  \textbf{30.23$\pm$0.72} &
+  44.03$\pm$1.53 &
+  42.70$\pm$2.32 &
+  30.14$\pm$4.00 &
+  51.95$\pm$2.28 \\
+\textit{+ours} &
+  \textbf{57.24$\pm$1.79} &
+  33.12$\pm$1.76 &
+  \textbf{50.80$\pm$1.27} &
+  \textbf{37.58$\pm$3.01} &
+  \textbf{42.86$\pm$1.82} &
+  \textbf{39.01$\pm$1.55} \\
+% \textit{+\ta\ +\wu\ } &
+%   52.96$\pm$1.20 &
+%   38.77$\pm$2.45 &
+%   49.46$\pm$2.09 &
+%   \textbf{35.81$\pm$2.02} &
+%   \textbf{45.17$\pm$0.65} &
+%   \textbf{33.27$\pm$1.89} \\ 
+  \midrule
+MKD &
+  \textbf{60.12$\pm$1.59} &
+  \textbf{26.42$\pm$1.60} &
+  45.19$\pm$2.91 &
+  43.81$\pm$1.56 &
+  32.61$\pm$0.55 &
+  55.91$\pm$1.77 \\
+\textit{+ours} &
+  55.77$\pm$2.23 &
+  31.43$\pm$2.28 &
+  \textbf{51.16$\pm$1.84} &
+  \textbf{34.89$\pm$2.60} &
+  \textbf{45.49$\pm$1.82} &
+  \textbf{34.48$\pm$0.89} \\
+% \textit{+TA+WU} &
+%   56.41$\pm$1.04 &
+%   34.47$\pm$0.71 &
+%   50.40$\pm$3.57 &
+%   35.74$\pm$3.45 &
+%   \textbf{45.80$\pm$2.48} &
+%   \textbf{32.48$\pm$2.15} \\ 
+  \midrule
+\tkd\  &
+  56.69$\pm$3.36 &
+  33.86$\pm$1.36 &
+  46.28$\pm$1.42 &
+  43.38$\pm$0.82 &
+  32.17$\pm$2.71 &
+  51.72$\pm$1.95 \\
+\textit{+ours} &
+  \textbf{57.99$\pm$1.88} &
+  \textbf{33.79$\pm$1.80} &
+  \textbf{51.66$\pm$1.63} &
+  \textbf{35.43$\pm$2.75} &
+  \textbf{43.95$\pm$2.60} &
+  \textbf{33.28$\pm$1.86}
+% \textit{+\ta\ +\wu\ } &
+%   53.68$\pm$1.56 &
+%   39.73$\pm$2.92 &
+%   50.12$\pm$2.31 &
+%   \textbf{34.64$\pm$1.99} &
+%   37.22$\pm$6.11 &
+%   \textbf{24.53$\pm$3.01} 
+\\
+\bottomrule
+\end{tabular}%
+%}
+\caption{\rev{Average task-agnostic accuracy and forgetting for KD-based CL methods on fine-grained classification datasets.}}
+\label{tab:finegrained_main}
+\end{table*}
+
+
+%\resizebox{\columnwidth}{!}{
+% \begin{tabular}{@{}lrrrrrrrr@{}} 
+\begin{table*}[!th]
+\centering
+
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrrrrrrrr}
+\toprule
+ &
+  \multicolumn{2}{c}{6 tasks} &
+  \multicolumn{2}{c}{6 tasks, pretrained} &
+  \multicolumn{2}{c}{12 tasks} &
+  \multicolumn{2}{c}{12 tasks, pretrained} \\ \cmidrule{2-9}
+ &
+  \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} &
+  \multicolumn{1}{c}{$Forg_{Inc} \downarrow$} &
+  \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} &
+  \multicolumn{1}{c}{$Forg_{Inc} \downarrow$} &
+  \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} &
+  \multicolumn{1}{c}{$Forg_{Inc} \downarrow$} &
+  \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} &
+  \multicolumn{1}{c}{$Forg_{Inc} \downarrow$}  \\ \midrule
+  \gkd\  &
+  18.63$\pm$0.27 &
+  \textbf{23.27$\pm$0.26} &
+  43.27$\pm$0.10 &
+  36.83$\pm$0.88 &
+  14.45$\pm$0.25 &
+  \textbf{29.04$\pm$0.37} &
+  35.98$\pm$0.96 &
+  43.00$\pm$1.66 
+  \\
+\textit{+ours } &
+  \textbf{19.55$\pm$0.42} &
+  27.22$\pm$0.21 &
+  \textbf{43.52$\pm$0.17} &
+  \textbf{34.98$\pm$0.19} &
+  \textbf{16.25$\pm$0.46} &
+  33.03$\pm$0.19 &
+  \textbf{38.89$\pm$0.52} &
+  \textbf{41.10$\pm$0.42}
+  \\
+% \textit{+\ta\ +\wu\ } &
+%   18.68$\pm$0.36 &
+%   31.12$\pm$0.38 &
+%   39.00$\pm$0.12 &
+%   49.44$\pm$0.37 &
+%   16.22$\pm$0.45 &
+%   32.63$\pm$0.11 &
+%   34.24$\pm$0.42 &
+%   44.17$\pm$0.37
+%   \\
+  \midrule
+
+  \tkd\  &
+  19.12$\pm$0.26 &
+  \textbf{26.66$\pm$0.38} &
+  42.42$\pm$0.10 &
+  \textbf{40.83$\pm$1.11} &
+  16.31$\pm$0.55 &
+  37.32$\pm$0.87 &
+  38.15$\pm$0.22 &
+  42.28$\pm$0.50
+  \\
+\textit{+ours } &
+  \textbf{19.57$\pm$0.10} &
+  29.96$\pm$0.05 &
+  \textbf{42.75$\pm$0.14} &
+  41.79$\pm$0.65 &
+  \textbf{16.74$\pm$0.55} &
+  \textbf{33.32$\pm$0.47} &
+  \textbf{39.06$\pm$0.33} &
+  \textbf{40.19$\pm$0.85}
+  \\
+% \textit{+\ta\ +\wu\ } &
+%   18.65$\pm$0.27 &
+%   32.33$\pm$0.49 &
+%   40.62$\pm$0.07 &
+%   46.86$\pm$0.39 &
+%   16.40$\pm$0.56 &
+%   \textbf{32.87$\pm$0.34} &
+%   36.81$\pm$0.97 &
+%   41.98$\pm$0.95
+%   \\
+
+  \midrule
+
+  %MKD  & 
+  %\\
+  %\textit{+\ta\ } &
+
+  %\textit{+\ta\ + \wu\} &
+MKD             
+  & \textbf{18.74$\pm$0.52} 
+  & \textbf{19.10$\pm$0.40}  
+  & \textbf{45.70$\pm$0.30}    
+  & \textbf{27.48$\pm$0.60 }  
+  & 13.45$\pm$0.53 
+  & \textbf{27.23$\pm$0.98} 
+  & \textbf{39.14$\pm$0.21} 
+  & 36.53$\pm$1.00  \\
+  \textit{+ours } 
+  & 18.04$\pm$0.16 
+  & 22.70$\pm$0.25 
+  & 42.91$\pm$0.04 
+  & 29.43$\pm$0.04 
+  &\textbf{15.30$\pm$0.35}  
+  & 28.71$\pm$0.26 
+  & 37.84$\pm$0.35 
+  & \textbf{34.09$\pm$0.39} \\
+  % \textit{+\ta\ + \wu\ } & 19.09$\pm$0.76  & 27.46$\pm$0.33 & 42.21$\pm$0.92  & 38.07$\pm$0.54  & 15.82$\pm$0.31  & 30.23$\pm$0.40  &               &      \\
+  
+  \midrule
+  ANCL  & 19.58$\pm$0.46 & \textbf{25.63$\pm$0.20}  & \textbf{42.90$\pm$0.84}  & \textbf{37.28$\pm$1.86} & 14.82$\pm$0.41 & 33.46$\pm$0.40 & 33.34$\pm$0.55 & 49.05$\pm$0.65 
+  \\
+  \textit{+ours } & \textbf{20.34$\pm$0.40}  & 30.73$\pm$0.44 & 42.67$\pm$0.51 & 38.56$\pm$1.24 & \textbf{17.19$\pm$0.06} & \textbf{37.40$\pm$0.38} & \textbf{35.81$\pm$0.18} & \textbf{43.84$\pm$0.23}
+  \\
+  % \textit{+\ta\ +\wu\ } & 20.39$\pm$0.09 & 32.83$\pm$0.66 & 42.44$\pm$0.80 & 37.09$\pm$1.33 &  &  &  & 
+  % \\
+  
+ \bottomrule
+\end{tabular}%
+}
+\caption{\rev{Average task-agnostic accuracy and forgetting for KD and TA under significant semantic drift on DomainNet. We test scenarios with 6 tasks of 50 classes and 12 tasks of 25 classes, both when training from scratch and starting from pretrained model. Aside from MKD, TA generally leads to better results.}}
+\label{tab:domainnet_main}
+\end{table*}
+\noindent
+\textbf{Evaluation metrics.}
+The average incremental accuracy at task $k$ is defined as $A_{k}\!=\!\frac{1}{k} \sum_{j=1}^{k}a_{k,j}$, where
+${a_{k,j}} \in [0, 1]$ be the accuracy of the $j$-th task ($j \leq k$) after training the network sequentially for $k$ tasks~\cite{aljundi2017expert}. Overall average incremental accuracy $Acc_{Inc}$ is the mean value from all tasks. We also report \textit{average forgetting} as defined in~\cite{chaudhry2018riemannian}, while the $Forg_{Inc}$ is similarly the mean value from all tasks. We provide results with additional metrics such as final accuracy $Acc_{Final}$ and final forgetting $Forg_{Final}$ in the Appendix.
+
+\subsection{Standard CIL benchmarks}
+\label{sec:exp:benchmarks}
+\rev{We evaluate knowledge distillation approaches described in \Cref{sec:kd_in_cl} on the standard CIL benchmarks CIFAR100, TinyImageNet200 and ImageNet100, using different class splits. We present the results in \Cref{tab:benchmarks} a), b) and c) respectively. We also provide results for more settings and ablation study of our method on those datasets in the Appendix.}
+
+
+
+\rev{In most settings, we observe that our method improves upon the baseline knowledge distillation. We notice that the improvement TA is generally more significant in settings with a larger number of tasks and an equal split of the classes. In settings with half the classes presented in the first task, the gains from TA are sometimes not that visible, as in this case the initial model already learns a good feature extractor, and the distribution of its normalization statistics after the first task is a better approximation of the statistics for the whole dataset. TA sometimes underperforms with MKD, which might be caused by the fact that the loss formula of MKD uses sigmoid function, and the differences between the probabilities for KD loss are insignificant if the values of logits are not small and centered around zero, which is not guaranteed without imposing additional learning constraints.}
+
+% On CIFAR100, we test all the KD methods described in \Cref{sec:kd_in_cl} and observe consistent gains from applying Teacher Adaptation to all of them. The addition of the warmup phase also consistently improves the results. Improvements hold in both the setting with an even split of the classes and the setting with pretraining on the first half of the classes. We observe more significant gains for the harder settings composed of more classes, which proves that our method increases the stability of the network.
+
+% \rev{\todo{We need to add a paragraph on TinyImageNet here, but I would only do it after we add the rest of the results for ImageNet and CIFAR, as we will probably want to modify the tables and text slightly.}}
+
+% For ImageNet100, we test global and task-wise variants of KD. As in the case of CIFAR100, applying Teacher Adaptation consistently improves the results. The warmup phase for ImageNet seems to slightly negatively affect the results for the settings with the equal splits of classes between tasks, but it significantly improves the scores in settings where we start from 50 classes.
+
+
+
+
+
+
+\subsection{TA under severe distribution shifts} %Severe shift of distribution
+\label{sec:exp:shift}
+
+Motivated by the continual learning settings in which the data distribution changes significantly across the tasks, we conduct a series of experiments to empirically verify the benefits of our method.
+
+
+
+\subsubsection{Fine-grained classification datasets}
+\label{sec:exp:finegrained}
+
+
+% To evaluate our approach on fine-grained classification tasks, we use Stanford Actions, FGVC Aircraft, Stanford Cars, CUB-200-2011 Birds, MIT Indoor Scenes and Oxford Flowers. In this setting, we start training from ResNet18 checkpoint pretrained on ImageNet. We create CIL settings using a disjoint subset of classes sampled from each dataset as a separate task. We sample random subsets of classes without replacement from each dataset using datasets in the order of their appearance in the text. If the required number of tasks exceeds the number of datasets, we repeat this procedure, sampling another subset of classes for each dataset. 
+\vspace{-0.5cm}
+\rev{We evaluate TA on fine-grained classification tasks using six datasets: Stanford Actions, FGVC Aircraft, Stanford Cars, CUB-200-2011 Birds, MIT Indoor Scenes and Oxford Flowers. We create CIL tasks by randomly sampling a subset of classes from each dataset, in the above-mentioned order. We sample the classes without replacement, and to obtain the settings with 12 or 24 tasks we repeat the procedure. For this set of experiments, we start from ResNet18 checkpoint pretrained on ImageNet.}
+
+
+\rev{We conduct experiments using splits of 24 tasks with 5 classes each, 12 tasks with 10 classes each, and 6 tasks with 20 classes each. We show the results in~\Cref{tab:finegrained_main}. Consistently with the results from \Cref{sec:exp:benchmarks}, our method generally improves upon the base KD, with the improvements being more visible on the longer tasks. 
+
+We omit ANCL method from our analysis, as we were unable to obtain sufficiently good results with its official implementation. We provide the results of additional experiments conducted with reverse order of datasets and with the full datasets used as a single task in the Appendix. 
+}
+
+%We provide the results of the experiment conducted on six full datasets in the Appendix. To ensure that our results are not affected by the dataset order, in Appendix we also provide the results for this setting with reversed order of datasets. We observe that the results from the main experiments hold in the other settings.
+
+\subsubsection{Large domain shifts with DomainNet}
+\label{sec:exp:domainnet}
+
+\begin{figure*}[!ht]
+    \centering
+    \begin{subfigure}[b]{0.33\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/corrupted_CIFAR100x5.png}
+          \end{subfigure}
+    \begin{subfigure}[b]{0.33\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/corrupted_CIFAR100x10.png}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.33\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/corrupted_CIFAR100x20.png}
+    \end{subfigure}
+
+   \caption{
+   Average incremental accuracy for standard KD and our method of \ta\ under varying strength of data shift on splits of CIFAR100. As the noise strengthens, the gap between \ta\ and standard KD widens, indicating that our method leads to more robust learning in case of data shifts. We obtain data shifts by adding noise of varying strength to every other task, using the Gaussian noise and noise severity scale proposed by Michaelis et al.~\cite{michaelis2019dragon}. 
+   }
+   \label{fig:corruptions}
+\end{figure*}
+In order to verify the effectiveness of teacher adaptation for continual learners under significant data distribution shifts, we use DomainNet~\cite{peng2019moment} as our evaluation dataset. DomainNet consists of images from 6 domains and 345 classes. We select the first 50 classes and create each task from a different domain, resulting in more severe data drift between tasks in CIL. This allows us to measure how well the models can adapt to new data distributions. We use ResNet18 and compare two settings: training from scratch and from starting from the model pretrained on ImageNet. ~\Cref{tab:domainnet_main} shows the results of our experiments. \rev{Consistently with the results from previous Sections, we find that, aside from MKD, TA generally performs better than the baselines, and the differences are more visible when training on 12 tasks, where the model is exposed to more changes in the data distribution.}
+
+\subsubsection{Varying the strength of the distribution shift}
+\label{sec:exp:corruptions}
+
+We create CIL settings with controllable levels of data distribution shift between subsequent tasks by corrupting every other task. We split CIFAR100 into 5, 10, and 20 tasks of equal size and add Gaussian noise to every other task, so that in subsequent tasks the data distribution changes from clean to noisy or vice versa. We obtain varying strength of distribution shift by using different levels of noise severity, following the methodology of Michaelis et al.~\cite{michaelis2019dragon}.
+
+We show the results of this experiment in \Cref{fig:corruptions}. We see that as the noise severity increases, the gap between standard KD and \ta\ widens, indicating that our method is better suited to more challenging scenarios of learning under extreme data distribution shifts.
+
+\subsection{Detailed analysis}
+\label{sec:exp:bn_ablations}
+
+
+
+\subsubsection{Alternatives to batch normalization} We conduct a series of ablation experiments on CIFAR100 split into 10 tasks to justify the validity of our method over other potential solutions for adaptation of batch normalization layers. The results of those experiments are shown in~\Cref{tab:bn_ablations}. We compare the following settings: 1)~standard training with batch normalization statistics from the previous task fixed in the teacher model, but updated in the student model,  2)~batch normalization layers removed, 3)~batch normalization statistics fixed in both models after learning the first task, 4)~batch normalization layers replaced with LayerNorm~\cite{ba2016layer} \rev{or 5)~GroupNorm~\cite{wu2018group} layers,} and finally 6)~our solution of Teacher Adaptation. 
+
+\begin{table}[!h]
+\centering
+\vspace{-0.2cm}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+$clip=100$       & \multicolumn{2}{c}{$\lambda=5$}                                     & \multicolumn{2}{c}{$\lambda=10$}                                    \\ \midrule
+                 & \multicolumn{1}{c}{$Acc_{Final} \uparrow$} & \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} & \multicolumn{1}{c}{$Acc_{Final} \uparrow$} & \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} \\ \cmidrule{2-5}
+1) \textbf{\gkd\ }     & 25.47$\pm$0.57                    & 41.59$\pm$0.32                  & 27.96$\pm$0.34                    & 42.28$\pm$0.67                  \\
+2) \textbf{-BN}     & 0.33$\pm$1.15                     & 2.01$\pm$2.67                   & 0.33$\pm$1.15                     & 2.85$\pm$3.81                   \\
+3) \textbf{fix BN}  & -                                 & -                               & -                                 & -                               \\
+4) \textbf{-BN +LN} & 21.94$\pm$0.95                    & 34.7$\pm$0.48                   & 22.76$\pm$1.05                    & 34.48$\pm$0.15                  \\
+5) \textbf{-BN +GN} & 21.92$\pm$0.46 & 32.15$\pm$0.16 & 22.01$\pm$0.82 & 31.71$\pm$0.35 \\
+6) \textbf{+\ta\ }    & \textbf{31.39$\pm$0.17}           & \textbf{44.98$\pm$0.38}         & \textbf{31.85$\pm$0.10}           & \textbf{44.06$\pm$0.69}         \\ \midrule
+$clip=1$         & \multicolumn{2}{c}{$\lambda=5$}                                     & \multicolumn{2}{c}{$\lambda=10$}                                    \\ \midrule
+                 & \multicolumn{1}{c}{$Acc_{Final} \uparrow$} & \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} & \multicolumn{1}{c}{$Acc_{Final}  \uparrow$} & \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} \\ \cmidrule{2-5}
+1) \textbf{\gkd\ }     & 20.80$\pm$0.56                    & 34.28$\pm$0.24                  & 27.96$\pm$0.34                    & 42.28$\pm$0.67                  \\
+2) \textbf{-BN}     & 19.47$\pm$0.18                    & 29.83$\pm$0.53                  & 0.33$\pm$1.15                     & 2.85$\pm$3.81                   \\
+3) \textbf{fix BN}  & 20.21$\pm$0.31                    & 32.07$\pm$0.20                  & -                                 & -                               \\
+4) \textbf{-BN +LN} & 18.49$\pm$1.41                    & 30.39$\pm$0.72                  & 22.76$\pm$1.05                    & 34.48$\pm$0.15                  \\
+5) \textbf{-BN +GN} & 16.17$\pm$0.89 & 32.15$\pm$0.16 & 15.73$\pm$1.01 & 25.07$\pm$1.10  \\  
+6) \textbf{+\ta\ }    & \textbf{24.19$\pm$0.90}           & \textbf{36.13$\pm$0.24}         & \textbf{31.85$\pm$0.10}           & \textbf{44.06$\pm$0.69}         \\ \bottomrule
+\end{tabular}%
+}
+\caption{Results for different solutions to the problem of diverging batch normalization layers when using knowledge distillation in continual learning. We use \gkd\  with different $\lambda$ and gradient clipping values. We compare the baseline with variants without batch normalization layers, with batch normalization statistics fixed after the first task and with batch normalization layers replaced with LayerNorm \rev{or GroupNorm}. "-" indicates that training crashes due to instability. \ta\ is the only solution that improves upon the baseline.}
+\label{tab:bn_ablations}
+% \vspace{-1cm}
+\end{table}
+
+
+Fixing or removing BatchNorms leads to unstable training. This can be partially fixed by setting a high gradient clipping value or lowering the lambda parameter, but both solutions lead to much worse performance of the network. %Training the networks with LayerNorm is stable, but ultimately those networks converge to much worse solutions than the variants with BatchNorm.
+\rev{Different normalization layers enable stable training, but ultimately converge to much worse solutions than the network with BatchNorm.}
+Our solution is the only one that improves over different values of $\lambda$ and does not require controlling the gradients by clipping the high values.
+
+% \paragraph{Teacher adaptation before learning phase.} Motivated by the effectiveness of TA, we study if the similar effect could be achieved by fine-tuning the teacher model in isolation on the new data for several number of epochs before actual training on the new task. We conduct our experiment on CIFAR100 split into 10 tasks. \Cref{tab:ablation_tf} presents the results obtained with different combinations of learning rate and number of epochs for pretraining the teacher model. We notice that, for the best hyperparameters, teacher pretraining obtains similar results to TA. However, the values of the hyperparmeters for those model are also very small, indicating that the teacher model doesn't change much. 
+% Upon closer study, we find that pretraining phase indeed affects mostly batch normalization statistics. Additionally, knowing that other successful method from test-time adaptation~\cite{TENT} use similar approach, we continue with Teacher Adaptation based on batch normalization layers, as it does not require any hyperparameter tuning or additional pretraining epochs.
+% %This is presented in the ~\Cref{tab:tf_bn_changes}, where we compare the changes in between initial teacher model and the model after pretraining phase on each task. 
+
+
+% \begin{table}[!h]
+% \centering
+
+% \resizebox{\columnwidth}{!}{%
+% \begin{tabular}{lrrr}
+% \toprule
+% Method & \multicolumn{1}{c}{Epochs} & \multicolumn{1}{c}{Learing rate} & \multicolumn{1}{c}{$Acc_{Final}$} \\ \midrule
+% Knowledge Distillation                   & \multicolumn{2}{c}{-} & 28.27$\pm$0.44 \\ \midrule
+% \multirow{3}{*}{+Teacher Pretraining} & 5        & 1e-5       & 31.95$\pm$0.36 \\
+%                      & 10       & 1e-5       & 31.05$\pm$0.45 \\
+%                      & 10       & 1e-7       & 31.23$\pm$0.55 \\ \midrule
+% +Teacher Adaptation                  & \multicolumn{2}{c}{-} & 31.92$\pm$0.86 
+% \\ \bottomrule
+% \end{tabular}%
+% }
+% \caption{Best results for pretraining the teacher (TP) compared with standard KD and TA. TP achieves the best results with small learning rates and epochs, and \ta\ achieves the same performance as the best TP settings without the need for additional training epochs or hyperparameter tuning. 
+% % \Cref{tab:tf_bn_changes} shows that the actual effect of TP is most the adaptation of batch normalization statistics.
+% }
+% \label{tab:ablation_tf}
+% \end{table}
+
+
+\subsubsection{Alternative methods of teacher adaptation.} \rev{We study alternative methods of adapting the teacher model and try pretraining ($P$) or continuously training ($CT$) the teacher model. For pertaining, we train the teacher on the new data in isolation for a few epochs before the training of the main model. During continuous training, we update the teacher alongside the main model using the same batches of new data. With both approaches, we set a lower learning rate for the teacher. We conduct those experiments by training either the full teacher model ($FM$) or only its batch normalization layers ($BN$). Finally, to isolate the impact of changing batch normalization statistics and training model parameters, we repeat all the experiments with fixed batch normalization statistics ($fix\ BN$). 
+
+
+We conduct our experiment on CIFAR100 split into 10 tasks and present the results in \Cref{tab:ta_ablations}. Alternative solutions perform within the standard deviation of TA with tuned hyperparameters, but the values of the hyperparameters for those models (described in the Appendix) are also very small, indicating that the teacher model doesn't change much. Upon closer study, we find that it's mostly batch normalization statistics that change over the course of the training. Therefore, knowing that other successful methods from test-time adaptation~\cite{TENT} use a similar approach, we continue with Teacher Adaptation based on batch normalization layers, as it does not require any hyperparameter tuning or additional pretraining epochs.
+}
+
+
+\begin{table}[!h]
+\centering
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+Method             & \multicolumn{1}{c}{$Acc_{Final} \uparrow$} & \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} & \multicolumn{1}{c}{$Forg_{Final} \downarrow$} & \multicolumn{1}{c}{$Forg_{Inc} \downarrow$} \\ \midrule
+Base                                & 27.53$\pm$0.15 & 42.22$\pm$0.38 & 31.28$\pm$1.64 & 23.11$\pm$1.58 \\ \midrule
+P-FM        & 31.54$\pm$0.67 & 43.46$\pm$0.72 & 24.18$\pm$1.17 & 20.80$\pm$1.51 \\
+\textit{+fix BN}        & 28.02$\pm$0.60 & 42.33$\pm$0.53 & 29.91$\pm$1.27 & 22.66$\pm$0.95 \\ \midrule
+P-BN           & 31.16$\pm$0.54 & 43.64$\pm$0.77 & 24.44$\pm$0.96 & 20.13$\pm$0.75 \\
+\textit{+fix BN}        & 27.62$\pm$0.48 & 42.12$\pm$0.38 & 29.95$\pm$1.64 & 22.50$\pm$0.95 \\ \midrule
+CT-FM & 31.37$\pm$0.94 & 43.38$\pm$0.77 & 24.34$\pm$1.37 & 20.93$\pm$1.58 \\
+\textit{+fix BN}        & 28.17$\pm$0.49 & 42.29$\pm$0.42 & 29.79$\pm$1.02 & 22.55$\pm$0.67 \\ \midrule
+CT-BN    & 31.35$\pm$0.63 & 43.69$\pm$0.76 & 24.29$\pm$0.61 & 20.23$\pm$0.59 \\
+\textit{+fix BN}        & 27.33$\pm$0.50 & 42.09$\pm$0.45 & 30.20$\pm$1.73 & 22.50$\pm$0.85 \\ \midrule
+TA & \textbf{32.15$\pm$0.12}           & \textbf{44.31$\pm$0.26}         & \textbf{23.55$\pm$0.51}            & \textbf{19.85$\pm$0.93}          \\ \bottomrule
+\end{tabular}%
+}
+\caption{\rev{Ablation study of different ways to adapt the teacher model. Our method achieves the best results while requiring no additional hyperparameters. We try teacher adaptation during pretraining (P) and continuous training (CT). We train either full model (FM) or only batch normalization layers (BN). \emph{fix BN} indicates fixed BN statistics.}}
+\label{tab:ta_ablations}
+\end{table}
+
+\section{Conclusions}
+ 
+We propose Teacher Adaptation, a simple yet effective method to improve the performance of knowledge distillation-based methods in exemplar-free class-incremental learning. Our method continuously updates the teacher network by adjusting batch normalization statistics during learning a new task both for the currently learning model and the teacher model saved after learning the previous tasks. This mitigates the changes in the model caused by knowledge distillation loss that arise as the current learner is continuously trying to compensate for the modified normalization statistics. We further improve the stability of the model by introducing a warm-up phase at the beginning of the task, where a new classification head is trained in isolation before finetuning the whole model. The warm-up phase ensures that the initialization of the weights is not random in the initial phases of training, and reduces the gradient updates to the whole model.
+We conduct experiments with Teacher Adaptation on several class-incremental benchmarks and show that it consistently improves the results for different knowledge distillation-based methods in an exemplar-free setting. Moreover, our method can be easily added to the existing class-incremental learning solutions and induces only a slight computational overhead. 
+
+\vspace{-0.5cm}
+\paragraph{Discussion}
+Since the introduction of Learning without Forgetting, KD-based methods have emerged as effective solutions to mitigate forgetting in CIL models. Several approaches, such as iCaRL, EEIL, BiC, LUCIR, and SSIL, have integrated KD with exemplars, which helps maintain a balanced discrepancy between the teacher and student models.
+%In scenarios where a sufficient number of exemplars are available, teacher adaptation may not be required. \todo{Add a sentence about sufficient approximation of BN stats}
+\rev{In scenarios where a sufficient number of exemplars are available, teacher adaptation may not be required, as their presence in the training data mitigates the divergence between the normalization statistics of the subsequent tasks.}
+Nevertheless, our research is dedicated exclusively to the exemplar-free setting, in which we investigate techniques that do not rely on storing exemplars. To the best of our knowledge, we are the first to propose the adaptation of the teacher model within the context of KD-based exemplar-free CIL.
+
+%thereby revisiting this fundamental exemplar-free method with the aim of achieving better results.
+
+
+\vspace{-0.5cm}
+\paragraph{Impact} 
+Our method focuses on exemplar-free scenarios, and therefore we alleviate the issues with storing potentially confidential, private, or sensitive data.
+However, we recognize that machine learning algorithms can be harmful if applied carelessly, and we encourage practitioners to carefully check training data and the models to ensure that the results of their work do not perpetuate biases or discriminate against any minority.
+
+All our work was conducted using publicly available datasets and open-source code. To allow other researchers to build on our work and validate the results, we will share the code for the experiments in this paper on GitHub upon acceptance.
+
+\section*{Acknowledgements}
+Filip Szatkowski and Tomasz Trzcinski are supported by National Centre of Science (NCP, Poland) Grant No. 2022/45/B/ST6/02817. Tomasz Trzciński is also supported by NCP Grant No. 2020/39/B/ST6/01511.
+
+{\small
+\bibliographystyle{ieee_fullname}
+\bibliography{egbib}
+}
+
+\clearpage
+
+\input{Appendix}
+
+\end{document}

@@ -1,0 +1,2250 @@
+\begin{appendix}
+
+\twocolumn[\appendixhead]
+
+This document contains additional experimental results and analysis.
+
+\section{ANCL implementation with TA}
+\rev{We follow the provided implementation of ANCL~\cite{kim2023achieving} based on the FACIL~\cite{masana2022class} framework. We only apply the adaptation to the main teacher network fitted on the previous data, and, in cases where we use warmup, we only apply it to the new head of the main network. The auxiliary network does not undergo the teacher adaptation process, as it is already fit for the current task, and we do not see a reason to apply the warmup to this network. We keep the same training schedule and hyperparameters as described in \Cref{sec:exp:setup}.}
+
+\section{Warmup phase}
+\rev{As mentioned in \Cref{sec:exp:setup}, we experimented with applying the warmup phase, a technique that recently appeared in several works~\cite{Kumar2022finetunedistort,berariu2021study,sun2023improving}. With this method, before training the full student model on the new data, we first finetune the classification head added for this new task in isolation, while the rest of the network is kept frozen. 
+Compared to the standard practice of finetuning the full student model on the new task, starting with a warmup phase reduces the initial cross-entropy loss at the start of the new task, and avoids overwriting the knowledge from the previous tasks with large gradient updates caused by random classification head initialization.
+
+For training the new head during the warmup phase, we use SGD optimizer and OneCycle scheduler~\cite{smith2019super} with cosine annealing, maximum learning rate of 0.1 and the number of epochs of increasing learning rate set as 40. We train the new head for 200 epochs with early stopping and freeze updates of batch normalization statistics in the model during the training.
+
+In \Cref{sec:app:experiments}, we evaluate different CL benchmarks with TA and warmup separately. We generally find that the warmup works complementary to our method when we use smaller networks such as ResNet32 and train on smaller datasets. We hypothesize that for the settings with a larger dataset and a larger network better initialization of the new head does not translate to better performance in CIL because the overall magnitude of updates required to train the model in such settings is greater and leads to overwriting the initialization over the course of the training.
+}
+
+\vspace{2cm}
+
+\section{Ablation studies of Teacher Adaptation}
+
+
+
+
+
+\subsection{Teacher Adaptation with different batch sizes.} \rev{Larger batch sizes should lead to better estimation of the global statistics in the batch normalization layer, which, in theory, should lead to reduced effectiveness of TA. To investigate the impact of the batch size on our method, we train the model on CIFAR100 split into 10 tasks with different batch sizes, tuning the learning rate and $\lambda$ for each batch size. We present the results in \Cref{tab:bs_ablations}. Regardless of the batch size, TA constantly improves upon standard training, and the difference between the two approaches does not scale with batch size.}
+
+
+\begin{table}[!h]
+\centering
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+Batch size & \multicolumn{1}{c}{$Acc_{Final} \uparrow$} & \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} & \multicolumn{1}{c}{$Forg_{Final} \downarrow$} & \multicolumn{1}{c}{$Forg_{Inc} \downarrow$} \\ 
+\midrule
+32           & 28.94$\pm$0.29 & 44.24$\pm$0.27 & 32.57$\pm$0.92 & 23.89$\pm$1.19 \\
+\textit{+TA} & \textbf{32.58$\pm$0.80} & \textbf{45.69$\pm$0.35} & \textbf{25.44$\pm$0.94} & \textbf{20.92$\pm$0.53} \\ 
+\midrule
+64           & 28.92$\pm$0.57 & 43.89$\pm$0.27 & 30.48$\pm$1.11 & 21.70$\pm$0.39 \\
+\textit{+TA} & \textbf{32.15$\pm$1.24} & \textbf{44.71$\pm$0.57} & \textbf{23.43$\pm$1.97} & \textbf{19.16$\pm$0.67} \\ 
+\midrule
+128          & 28.27$\pm$0.44 & 42.52$\pm$0.76 & 29.59$\pm$0.92 & 22.26$\pm$0.31 \\
+\textit{+TA} &\textbf{ 31.92$\pm$0.86 }& \textbf{44.09$\pm$0.97} & \textbf{22.65$\pm$1.32} & \textbf{19.41$\pm$0.60} \\ 
+\midrule
+256          & 25.13$\pm$0.46 & 40.44$\pm$0.11 & 40.06$\pm$0.38 & 31.39$\pm$0.98 \\
+\textit{+TA} & \textbf{30.56$\pm$0.68} & \textbf{43.28$\pm$0.23} & \textbf{28.24$\pm$0.64} & \textbf{23.94$\pm$0.59} \\ 
+\midrule
+512          & 23.01$\pm$0.89 & 37.44$\pm$0.34 & 40.57$\pm$1.20 & 32.03$\pm$0.69 \\
+\textit{+TA} &\textbf{ 27.52$\pm$1.03} & \textbf{39.86$\pm$0.45} & \textbf{29.31$\pm$0.86} & \textbf{25.03$\pm$0.55} \\ \bottomrule
+\end{tabular}%
+}
+\caption{\rev{Teacher adaptation with different batch sizes. Our method improves upon the standard training regardless of the batch size.}}
+\label{tab:bs_ablations}
+\end{table}
+
+
+\subsection{Different CNN architectures with Teacher Adaptation.} 
+\rev{To test the robustness of our method, in addition to experiments with ResNets, we test it with other standard convolutional neural networks. We evaluate our method with MobileNetV2~\cite{sandler2018mobilenetv2}, MobileNetV3-small~\cite{howard2019searching} and VGG11~\cite{simonyan2014very}. We use CIFAR100 and ImageNet100 split into 10 equally sized tasks and train the networks as described in \Cref{sec:exp:setup}. We show the results of those experiments in the \Cref{tab:networks_ablation}. The final results obtained with tested networks are lower than with our standard baselines, as do not tune their hyperparameters extensively, but we still notice that using TA constantly improves the results, regardless of the architecture we use.}
+
+\begin{table}[!h]
+\centering
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lrrrr}
+\toprule
+\multicolumn{5}{c}{\large{CIFAR100}}                                                                                                                               \\ \midrule
+Network      & \multicolumn{1}{c}{$Acc_{Final} \uparrow$} & \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} & \multicolumn{1}{c}{$Forg_{Final} \downarrow$} & \multicolumn{1}{c}{$Forg_{Inc} \downarrow$} \\ \midrule
+MobilenetV2  & 12.47$\pm$0.69                    & 25.71$\pm$1.05                  & 49.86$\pm$0.61                     & 41.23$\pm$1.25                   \\
+\textit{+TA} & \textbf{20.62$\pm$1.01}           & \textbf{31.91$\pm$0.57}         & \textbf{26.66$\pm$1.34}            & \textbf{22.31$\pm$0.56}          \\ \midrule
+MobilenetV3-small &
+  \multicolumn{1}{l}{16.59$\pm$0.09} &
+  \multicolumn{1}{l}{29.86$\pm$0.06} &
+  \multicolumn{1}{l}{38.89$\pm$0.42} &
+  \multicolumn{1}{l}{30.99$\pm$0.12} \\ 
+\textit{+TA} &
+  \multicolumn{1}{l}{\textbf{21.22$\pm$0.91}} &
+  \multicolumn{1}{l}{\textbf{32.24$\pm$0.60}} &
+  \multicolumn{1}{l}{\textbf{20.98$\pm$0.13}} &
+  \multicolumn{1}{l}{\textbf{16.84$\pm$1.19}} \\ \midrule
+ResNet32     & 28.27$\pm$0.44                    & 42.52$\pm$0.76                  & 29.59$\pm$0.92                     & 22.26$\pm$0.31                   \\
+\textit{+TA} & \textbf{31.92$\pm$0.86}           & \textbf{44.09$\pm$0.97}         & \textbf{22.65$\pm$1.32}            & \textbf{19.41$\pm$0.60}          \\ \midrule
+VGG11        & 17.10$\pm$0.12                    & 34.34$\pm$0.39                  & 62.36$\pm$0.62                     & 52.99$\pm$0.97                   \\
+\textit{+TA} & \textbf{24.87$\pm$0.35}           & \textbf{42.50$\pm$0.15}         & \textbf{43.96$\pm$0.62}            & \textbf{32.92$\pm$0.51}          \\ \midrule
+
+\multicolumn{5}{c}{\large{ImageNet100}} \\ \midrule
+Network      & \multicolumn{1}{c}{$Acc_{Final} \uparrow$} & \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} & \multicolumn{1}{c}{$Forg_{Final} \downarrow$} & \multicolumn{1}{c}{$Forg_{Inc} \downarrow$} \\ \midrule
+ResNet18     & 40.99$\pm$0.45                    & 54.82$\pm$0.56                  & 31.99$\pm$0.87                     & 25.90$\pm$0.65                   \\
+\textit{+TA} & \textbf{42.69$\pm$0.53}           & \textbf{55.84$\pm$0.51}         & \textbf{25.26$\pm$0.23}            & \textbf{20.43$\pm$0.33}          \\ \midrule
+VGG11        & 24.35$\pm$0.32                    & 44.72$\pm$0.50                  & 61.62$\pm$0.10                     & 46.73$\pm$0.31                   \\
+\textit{+TA} & \textbf{30.67$\pm$0.31}           & \textbf{48.81$\pm$0.29}         & \textbf{50.04$\pm$0.76}            & \textbf{37.60$\pm$0.56}         \\ \bottomrule
+\end{tabular}%
+
+}
+\caption{\rev{Teacher Adaptation with different network architectures on CIFAR100 and ImageNet100 split into 10 equally sized tasks.}}
+\label{tab:networks_ablation}
+\end{table}
+
+
+
+\subsection{Batch normalization statistics investigation.} 
+
+
+\begin{figure*}[!ht]
+    \centering
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/bn_kld_student_vs_teacher.pdf}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/bn_kld_student_vs_first_task.pdf}
+    \end{subfigure}
+   \caption{
+   \rev{TA impact on batch normalization statistics. Left: KLD between the normalization statistics of the teacher and the student at the end of the training of all the tasks. Right: KLD between the normalization statistics of the model at the end of each task and the model trained on the first task.}
+   }
+   \label{fig:kld}
+\end{figure*}
+
+\rev{We investigate the batch normalization statistics in the teacher and student model over the course of CIL on CIFAR100 split into 10 equally sized tasks. To measure the divergence between the normalization statistics in the models, we compute the average Kullback-Leibler divergence (KLD) between the distributions of normalization statistics in every batch normalization layer. 
+We show the results of this analysis in the \Cref{fig:kld}. Specifically, we measure KLD between the final teacher and student model at the end of each task, as well as the difference between the final student model trained for each task and the model initially learned after the first task. Applying TA leads to reduced KLD between the statistics in both teacher and student, and also student and initial model. This proves that our method leads to more stable representations over the course of training.}
+
+
+
+
+\begin{figure*}[t]
+    \centering
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/cm_base.png}
+          \end{subfigure}
+    \begin{subfigure}[b]{0.49\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/cm_TA.png}
+    \end{subfigure}
+
+   \caption{Task confusion matrix after learning all ten tasks on CIFAR100/10 for (left) base GKD and (right) GKD+TA. We see that TA leads to a model that is better at distinguishing between tasks and shows lower recency bias.}
+   \label{fig:app:tcm}
+\end{figure*}
+
+\subsection{Hyperparameters for alternative adaptation methods ablation}
+\rev{The best results reported in \Cref{tab:ta_ablations} were obtained with teacher learning rate of 1e-7. For variants with teacher pertaining, the best results were obtained with training for 5 epochs. We keep $\lambda$ fixed at 10 for all methods reported in the Table. While all variants that allow adaptation of batch norm statistics improve upon the baseline, the values of best hyperparameters are generally small, suggesting that the main source of improvement in all the methods comes from changes in normalization. This is further supported by the fact that all improvements vanish when normalization statistics are fixed.}
+
+
+\subsection{Task recency bias with TA}
+We also conduct additional analysis of our method of Teacher Adaptation (TA) to understand the mechanism with which it improves upon the standard knowledge distillation. At \Cref{fig:app:tcm}, we analyze task confusion matrices of standard knowledge distillation (LwF) and its extension with TA.  We find that applying TA results in a model that is better at distinguishing between the tasks, and generally exhibits lower recency bias. 
+
+We hypothesize that the lower KD loss that we observe when using TA results in smaller updates to the model, so the difference between the magnitudes of logits learned for different tasks is smaller. Therefore, Teacher Adaptation helps to alleviate the recency bias in class-incremental learning.
+
+
+\section{Additional experiments for different CL benchmarks}
+\label{sec:app:experiments}
+We provide the results of additional experiments conducted with our method and warmup. To shorten the notation, we denote the total number of tasks, including the first pretraining task (if present), with \textbf{T}, and the number of classes in the first task by \textbf{S}. For example, for CIFAR100 \textbf{T10S10} is a setting composed of 10 tasks with 10 classes each, while \textbf{T11S50} is a setting where the first task contains 50 classes and the next 10 tasks contain 5 classes each.
+
+\subsection{Standard benchmarks}
+In addition to \Cref{sec:exp:benchmarks}, we conduct more experiments on CIFAR100, TinyImageNet200 and ImageNet100, adding two settings with a smaller number of tasks. We report final accuracy and forgetting in addition to incremental accuracy and forgetting. Additionally, we include the results for the warmup phase (WU) applied in isolation, without the Teacher Adaptation.
+
+We report the results for CIFAR100, TinyImageNet200 and ImageNet100 in \Cref{tab:app:cifar100}, \Cref{tab:app:tin200}, and \Cref{tab:app:imagenet100} respectively.
+
+\begin{table*}[!th]
+\centering
+\resizebox{0.95\textwidth}{!}{%
+\begin{tabular}{@{}lrrrrrrrr@{}}
+\toprule
+ % &
+  % \multicolumn{4}{c}{Equal split} &
+  % \multicolumn{4}{c}{First task with 50 classes} \\ \cmidrule{2-9}
+ &
+  \multicolumn{4}{c}{T5S20} &
+  \multicolumn{4}{c}{T6S50} \\ \cmidrule{2-9}
+\textit{} &
+  \multicolumn{1}{c}{$Acc_{Final} \uparrow$} &
+  \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} &
+  \multicolumn{1}{c}{$Forg_{Final} \downarrow$} &
+  \multicolumn{1}{c}{$Forg_{Inc} \downarrow$} &
+  \multicolumn{1}{c}{$Acc_{Final} \uparrow$} &
+  \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} &
+  \multicolumn{1}{c}{$Forg_{Final} \downarrow$} &
+  \multicolumn{1}{c}{$Forg_{Inc} \downarrow$} \\ \midrule
+GKD &
+  37.63$\pm$0.52 &
+  48.80$\pm$0.36 &
+  23.13$\pm$2.28 &
+  19.30$\pm$2.37 &
+  40.74$\pm$0.72 &
+  51.93$\pm$1.24 &
+  25.87$\pm$0.75 &
+  18.90$\pm$0.29 \\
+\textit{+TA} &
+  40.84$\pm$0.23 &
+  50.08$\pm$0.26 &
+  \textbf{16.76$\pm$1.68} &
+  \textbf{16.66$\pm$1.25} &
+  43.18$\pm$1.66 &
+  52.22$\pm$1.28 &
+  \textbf{18.73$\pm$1.61} &
+  \textbf{14.09$\pm$0.66} \\
+\textit{+WU} &
+  38.82$\pm$0.06 &
+  49.69$\pm$0.26 &
+  22.08$\pm$0.61 &
+  19.34$\pm$1.24 &
+  43.19$\pm$0.95 &
+  53.42$\pm$0.50 &
+  24.54$\pm$2.17 &
+  18.94$\pm$2.69 \\
+\textit{+TA+WU} &
+  \textbf{41.50$\pm$0.60} &
+  \textbf{50.70$\pm$0.27} &
+  16.85$\pm$0.74 &
+  17.16$\pm$1.24 &
+  \textbf{44.66$\pm$0.54} &
+  \textbf{53.40$\pm$0.73} &
+  \textbf{18.73$\pm$1.73} &
+  14.53$\pm$1.56 \\ \midrule
+MKD &
+  34.41$\pm$0.16 &
+  47.42$\pm$0.32 &
+  23.74$\pm$1.63 &
+  23.51$\pm$1.75 &
+  39.33$\pm$0.72 &
+  50.28$\pm$1.12 &
+  23.54$\pm$0.62 &
+  18.19$\pm$0.31 \\
+\textit{+TA} &
+  37.03$\pm$0.82 &
+  48.63$\pm$0.17 &
+  \textbf{14.64$\pm$0.22} &
+  \textbf{17.63$\pm$0.73} &
+  39.45$\pm$1.29 &
+  49.42$\pm$1.38 &
+  \textbf{13.97$\pm$0.89} &
+  \textbf{11.02$\pm$0.28} \\
+\textit{+WU} &
+  35.37$\pm$0.19 &
+  47.96$\pm$0.15 &
+  24.63$\pm$0.81 &
+  24.35$\pm$0.44 &
+  40.89$\pm$1.52 &
+  \textbf{51.46$\pm$0.68} &
+  24.45$\pm$2.59 &
+  19.53$\pm$2.86 \\
+\textit{+TA+WU} &
+  \textbf{38.26$\pm$0.24} &
+  \textbf{49.58$\pm$0.06} &
+  15.18$\pm$0.41 &
+  17.96$\pm$0.65 &
+  \textbf{41.42$\pm$0.78} &
+  51.04$\pm$1.17 &
+  15.00$\pm$1.07 &
+  12.03$\pm$1.32 \\ \midrule
+TKD &
+  38.33$\pm$0.70 &
+  49.56$\pm$0.48 &
+  24.78$\pm$2.58 &
+  25.04$\pm$2.55 &
+  41.19$\pm$0.42 &
+  52.07$\pm$1.35 &
+  17.31$\pm$1.20 &
+  15.02$\pm$0.39 \\
+\textit{+TA} &
+  41.12$\pm$0.35 &
+  50.87$\pm$0.15 &
+  18.12$\pm$1.55 &
+  \textbf{21.09$\pm$1.39} &
+  41.36$\pm$0.89 &
+  51.88$\pm$0.80 &
+  12.84$\pm$1.25 &
+  11.42$\pm$0.64 \\
+\textit{+WU} &
+  40.03$\pm$0.66 &
+  50.50$\pm$0.17 &
+  22.79$\pm$0.73 &
+  24.19$\pm$1.61 &
+  \textbf{43.16$\pm$0.26} &
+  \textbf{53.51$\pm$0.39} &
+  18.40$\pm$1.73 &
+  16.03$\pm$2.77 \\
+\textit{+TA+WU} &
+  \textbf{42.07$\pm$0.67} &
+  \textbf{51.47$\pm$0.33} &
+  \textbf{17.77$\pm$1.37} &
+  21.21$\pm$1.34 &
+  43.08$\pm$0.35 &
+  53.12$\pm$0.60 &
+  \textbf{13.64$\pm$0.89} &
+  \textbf{12.13$\pm$1.37} \\
+  
+  \midrule
+  ANCL &
+  37.13$\pm$0.33 & 48.60$\pm$0.27 & 32.41$\pm$0.26 & 31.71$\pm$0.81 & 43.41$\pm$0.62 & 53.40$\pm$0.49 & 23.54$\pm$1.29 & 18.08$\pm$0.40 \\
+  \textit{+TA} &
+  41.04$\pm$0.22 & 50.36$\pm$0.43 & 24.07$\pm$0.81 & 26.18$\pm$0.51 & 44.64$\pm$1.65 & 53.33$\pm$0.66 & 18.43$\pm$3.12 & 14.44$\pm$1.29 \\
+  \textit{+WU} &
+  38.94$\pm$0.57 & 49.26$\pm$0.61 & 29.84$\pm$0.88 & 30.98$\pm$1.98 & 44.74$\pm$0.30 & \textbf{54.25$\pm$0.29} & 22.42$\pm$1.75 & 17.49$\pm$1.56 \\
+  \textit{+TA+WU} &
+  \textbf{42.08$\pm$0.53} & \textbf{50.59$\pm$0.21} & \textbf{22.55$\pm$1.15} & \textbf{26.09$\pm$1.11} & \textbf{45.64$\pm$0.87} & 54.05$\pm$0.42 & \textbf{18.12$\pm$1.58} & \textbf{14.28$\pm$1.06} \\
+  \midrule
+ &
+  \multicolumn{4}{c}{T10S10} &
+  \multicolumn{4}{c}{T11S50} \\ 
+ %  \cmidrule{2-9}
+ % &
+ %  \multicolumn{1}{c}{$Acc_{Final} \uparrow$} &
+ %  \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} &
+ %  \multicolumn{1}{c}{$Forg_{Final} \downarrow$} &
+ %  \multicolumn{1}{c}{$Forg_{Inc} \downarrow$} &
+ %  \multicolumn{1}{c}{$Acc_{Final} \uparrow$} &
+ %  \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} &
+ %  \multicolumn{1}{c}{$Forg_{Final} \downarrow$} &
+ %  \multicolumn{1}{c}{$Forg_{Inc} \downarrow$} \\ 
+ \midrule
+GKD &
+  28.27$\pm$0.44 &
+  42.52$\pm$0.76 &
+  29.59$\pm$0.92 &
+  22.26$\pm$0.31 &
+  30.79$\pm$1.62 &
+  41.69$\pm$1.18 &
+  26.84$\pm$2.12 &
+  18.09$\pm$0.88 \\
+\textit{+TA} &
+  31.92$\pm$0.86 &
+  44.09$\pm$0.97 &
+  22.65$\pm$1.32 &
+  \textbf{19.41$\pm$0.60} &
+  33.20$\pm$0.76 &
+  44.05$\pm$1.12 &
+  \textbf{18.90$\pm$0.19} &
+  \textbf{12.97$\pm$0.43} \\
+\textit{+WU} &
+  31.11$\pm$0.58 &
+  43.95$\pm$0.65 &
+  25.26$\pm$0.93 &
+  21.95$\pm$0.74 &
+  33.17$\pm$0.86 &
+  44.09$\pm$1.26 &
+  23.85$\pm$1.29 &
+  17.25$\pm$0.74 \\
+\textit{+TA+WU} &
+  \textbf{33.76$\pm$0.78} &
+  \textbf{45.25$\pm$1.02} &
+  \textbf{20.87$\pm$0.13} &
+  19.87$\pm$0.34 &
+  \textbf{34.72$\pm$0.77} &
+  \textbf{46.27$\pm$1.09} &
+  19.13$\pm$1.77 &
+  13.98$\pm$0.98 \\ \midrule
+MKD &
+  25.41$\pm$1.07 &
+  39.36$\pm$0.70 &
+  44.04$\pm$0.98 &
+  42.74$\pm$0.52 &
+  31.31$\pm$1.22 &
+  41.04$\pm$0.93 &
+  22.56$\pm$0.94 &
+  15.37$\pm$0.33 \\
+\textit{+TA} &
+  29.97$\pm$1.44 &
+  43.55$\pm$0.96 &
+  32.37$\pm$2.17 &
+  32.61$\pm$0.80 &
+  30.90$\pm$0.69 &
+  41.67$\pm$1.35 &
+  \textbf{14.76$\pm$0.25} &
+  \textbf{10.51$\pm$0.36} \\
+\textit{+WU} &
+  27.32$\pm$1.28 &
+  40.78$\pm$0.95 &
+  37.89$\pm$0.22 &
+  39.03$\pm$0.53 &
+  31.63$\pm$1.16 &
+  42.45$\pm$0.78 &
+  22.57$\pm$1.57 &
+  16.98$\pm$1.23 \\
+\textit{+TA+WU} &
+  \textbf{31.94$\pm$0.23} &
+  \textbf{44.85$\pm$0.80} &
+  \textbf{26.83$\pm$1.01} &
+  \textbf{30.08$\pm$0.57} &
+  \textbf{32.79$\pm$0.55} &
+  \textbf{44.19$\pm$1.17} &
+  16.44$\pm$0.63 &
+  12.56$\pm$0.53 \\
+  \midrule
+TKD &
+  30.05$\pm$0.81 &
+  43.74$\pm$0.84 &
+  24.53$\pm$0.23 &
+  23.65$\pm$0.79 &
+  28.38$\pm$1.46 &
+  40.44$\pm$1.40 &
+  15.68$\pm$0.84 &
+  12.20$\pm$0.46 \\
+\textit{+TA} &
+  31.80$\pm$0.67 &
+  45.29$\pm$1.02 &
+  18.59$\pm$0.90 &
+  \textbf{19.42$\pm$0.85} &
+  28.50$\pm$0.39 &
+  41.68$\pm$1.03 &
+  \textbf{11.58$\pm$0.38} &
+  \textbf{9.29$\pm$0.75} \\
+\textit{+WU} &
+  31.23$\pm$0.94 &
+  44.59$\pm$0.72 &
+  23.21$\pm$0.35 &
+  23.73$\pm$0.32 &
+  \textbf{30.88$\pm$1.16} &
+  42.45$\pm$1.31 &
+  17.94$\pm$0.39 &
+  14.30$\pm$0.99 \\
+\textit{+TA+WU} &
+  \textbf{33.14$\pm$1.03} &
+  \textbf{46.21$\pm$0.86} &
+  \textbf{17.55$\pm$0.66} &
+  20.45$\pm$0.57 &
+  30.60$\pm$0.37 &
+  \textbf{44.22$\pm$1.08} &
+  14.65$\pm$0.49 &
+  11.79$\pm$0.57 \\
+
+  \midrule
+  ANCL &
+  29.77$\pm$1.10 & 43.15$\pm$0.49 & 36.37$\pm$1.48 & 32.78$\pm$1.52 & 29.77$\pm$1.10  & 43.15$\pm$0.49 & 36.37$\pm$1.48 & 32.78$\pm$1.52 \\
+  \textit{+TA} &
+  33.47$\pm$0.17 & 45.67$\pm$0.14 & \textbf{28.04$\pm$1.61} & \textbf{26.71$\pm$1.71} & 33.47$\pm$0.17 & 45.67$\pm$0.14 & \textbf{28.04$\pm$1.61} & \textbf{26.71$\pm$1.71} \\
+  \textit{+WU} &
+  31.41$\pm$0.54 & 44.28$\pm$0.08 & 34.70$\pm$0.25  & 32.06$\pm$1.07 & 31.41$\pm$0.54 & 44.28$\pm$0.08 & 34.70$\pm$0.25  & 32.06$\pm$1.07 \\
+  \textit{+TA+WU} &
+  \textbf{34.17$\pm$0.30}  & \textbf{46.73$\pm$0.20}  & 28.67$\pm$0.63 & 26.86$\pm$1.17 & \textbf{34.17$\pm$0.30}  & \textbf{46.73$\pm$0.20}  & 28.67$\pm$0.63 & 26.86$\pm$1.17 \\
+  \midrule
+  
+ &
+  \multicolumn{4}{c}{T20S5} &
+  \multicolumn{4}{c}{T26S50} \\ 
+ %  \cmidrule{2-9}
+ % &
+ %  \multicolumn{1}{c}{$Acc_{Final} \uparrow$} &
+ %  \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} &
+ %  \multicolumn{1}{c}{$Forg_{Final} \downarrow$} &
+ %  \multicolumn{1}{c}{$Forg_{Inc} \downarrow$} &
+ %  \multicolumn{1}{c}{$Acc_{Final} \uparrow$} &
+ %  \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} &
+ %  \multicolumn{1}{c}{$Forg_{Final} \downarrow$} &
+ %  \multicolumn{1}{c}{$Forg_{Inc} \downarrow$} \\
+ \midrule
+GKD &
+  15.59$\pm$0.32 &
+  31.89$\pm$0.45 &
+  43.28$\pm$0.56 &
+  34.68$\pm$1.87 &
+  10.10$\pm$0.71 &
+  17.64$\pm$0.93 &
+  15.29$\pm$0.27 &
+  9.67$\pm$0.26 \\
+\textit{+TA} &
+  19.55$\pm$0.24 &
+  35.99$\pm$0.79 &
+  30.38$\pm$2.08 &
+  \textbf{23.32$\pm$1.79} &
+  11.99$\pm$0.66 &
+  19.37$\pm$1.73 &
+  \textbf{9.05$\pm$0.63} &
+  \textbf{8.31$\pm$0.68} \\
+\textit{+WU} &
+  19.22$\pm$0.80 &
+  34.67$\pm$0.55 &
+  37.05$\pm$1.03 &
+  31.14$\pm$1.41 &
+  10.41$\pm$1.01 &
+  21.87$\pm$0.16 &
+  17.92$\pm$0.48 &
+  11.02$\pm$0.65 \\
+\textit{+TA+WU} &
+  \textbf{21.52$\pm$0.62} &
+  \textbf{37.11$\pm$0.64} &
+  \textbf{30.34$\pm$0.78} &
+  24.87$\pm$1.04 &
+  \textbf{18.11$\pm$0.52} &
+  \textbf{26.15$\pm$0.94} &
+  10.11$\pm$0.97 &
+  8.73$\pm$0.85 \\ \midrule
+MKD &
+  17.61$\pm$0.51 &
+  32.89$\pm$0.42 &
+  33.36$\pm$0.80 &
+  32.01$\pm$1.36 &
+  11.55$\pm$0.86 &
+  19.14$\pm$1.36 &
+  14.04$\pm$0.71 &
+  8.76$\pm$0.35 \\
+\textit{+TA} &
+  19.07$\pm$0.65 &
+  35.36$\pm$0.85 &
+  \textbf{21.27$\pm$1.08} &
+  \textbf{20.96$\pm$1.31} &
+  13.91$\pm$0.80 &
+  20.99$\pm$1.53 &
+  \textbf{9.52$\pm$0.26} &
+  \textbf{8.20$\pm$0.98} \\
+\textit{+WU} &
+  18.96$\pm$0.82 &
+  34.30$\pm$0.94 &
+  30.45$\pm$0.70 &
+  29.75$\pm$1.56 &
+  11.48$\pm$0.36 &
+  22.42$\pm$0.76 &
+  17.42$\pm$1.70 &
+  11.51$\pm$1.19 \\
+\textit{+TA+WU} &
+  \textbf{20.52$\pm$0.85} &
+  \textbf{36.79$\pm$0.70} &
+  21.88$\pm$0.81 &
+  21.84$\pm$0.33 &
+  \textbf{18.15$\pm$0.70} &
+  \textbf{26.10$\pm$0.75} &
+  11.64$\pm$1.04 &
+  9.17$\pm$0.20 \\ \midrule
+TKD &
+  19.39$\pm$0.41 &
+  34.58$\pm$0.34 &
+  22.06$\pm$0.46 &
+  21.13$\pm$1.17 &
+  7.88$\pm$0.08 &
+  14.64$\pm$0.33 &
+  7.96$\pm$0.47 &
+  \textbf{6.02$\pm$0.54} \\
+\textit{+TA} &
+  18.30$\pm$0.50 &
+  34.62$\pm$0.92 &
+  \textbf{15.22$\pm$1.25} &
+  \textbf{14.72$\pm$1.28} &
+  9.05$\pm$0.64 &
+  16.66$\pm$1.66 &
+  \textbf{7.17$\pm$0.53} &
+  6.88$\pm$0.36 \\
+\textit{+WU} &
+  \textbf{20.77$\pm$0.59} &
+  35.72$\pm$0.09 &
+  21.14$\pm$0.88 &
+  20.93$\pm$1.62 &
+  9.55$\pm$0.53 &
+  18.01$\pm$0.59 &
+  12.63$\pm$1.04 &
+  9.90$\pm$0.99 \\
+\textit{+TA+WU} &
+  20.24$\pm$0.97 &
+  \textbf{36.26$\pm$0.71} &
+  17.98$\pm$1.00 &
+  17.01$\pm$0.89 &
+  \textbf{13.34$\pm$0.73} &
+  \textbf{22.00$\pm$0.97} &
+  10.80$\pm$1.03 &
+  9.36$\pm$0.68 \\ 
+
+  \midrule
+  ANCL &
+  19.21$\pm$0.75 & 34.32$\pm$0.41 & 39.97$\pm$1.81 & 36.74$\pm$1.38 & 11.04$\pm$0.40  & 21.84$\pm$1.33 & 18.31$\pm$1.64 & 11.79$\pm$0.51 \\
+  \textit{+TA} &
+  20.63$\pm$1.04 & 37.52$\pm$0.78 & \textbf{31.07$\pm$1.00}  & \textbf{26.77$\pm$0.49} & 18.96$\pm$0.91 & 26.47$\pm$0.41 & \textbf{12.69$\pm$1.49} & \textbf{10.33$\pm$0.57} \\
+  \textit{+WU} &
+  21.53$\pm$0.38 & 36.06$\pm$0.73 & 37.34$\pm$0.53 & 35.34$\pm$1.52 & 11.81$\pm$0.24 & 23.81$\pm$0.88 & 20.05$\pm$0.95 & 13.18$\pm$0.34 \\
+  \textit{+TA+WU} &
+  \textbf{22.54$\pm$0.33} & \textbf{38.48$\pm$0.94} & 31.87$\pm$0.92 & 27.99$\pm$1.20  & \textbf{20.79$\pm$0.28} & \textbf{29.67$\pm$1.13} & 13.84$\pm$0.45 & 10.98$\pm$0.56 \\
+
+  
+  \bottomrule
+\end{tabular}%
+}
+\caption{Additional results for CIFAR100}
+\label{tab:app:cifar100}
+\end{table*}
+
+
+
+\begin{table*}[!th]
+\centering
+\resizebox{0.95\textwidth}{!}{%
+\begin{tabular}{lrrrrrrrr}
+\toprule
+ % &
+ %  \multicolumn{4}{c}{Equal split} &
+ %  \multicolumn{4}{c}{First task with 50 classes} \\ \cmidrule{2-9}
+ &
+  \multicolumn{4}{c}{T5S40} &
+  \multicolumn{4}{c}{T6S100} \\ \cmidrule{2-9}
+ &
+    \multicolumn{1}{c}{$Acc_{Final} \uparrow$} &
+  \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} &
+  \multicolumn{1}{c}{$Forg_{Final} \downarrow$} &
+  \multicolumn{1}{c}{$Forg_{Inc} \downarrow$} &
+  \multicolumn{1}{c}{$Acc_{Final} \uparrow$} &
+  \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} &
+  \multicolumn{1}{c}{$Forg_{Final} \downarrow$} &
+  \multicolumn{1}{c}{$Forg_{Inc} \downarrow$} \\ 
+  \midrule
+GKD &
+  27.51$\pm$0.81 &
+  37.53$\pm$1.28 &
+  18.22$\pm$0.55 &
+  14.58$\pm$0.56 &
+  32.92$\pm$1.40 &
+  38.74$\pm$2.77 &
+  13.77$\pm$2.12 &
+  9.60$\pm$2.04 \\
+\textit{+TA} &
+  28.36$\pm$1.13 &
+  37.60$\pm$1.49 &
+  15.55$\pm$1.79 &
+  12.63$\pm$0.39 &
+  33.79$\pm$0.89 &
+  38.56$\pm$1.73 &
+  10.94$\pm$0.71 &
+  \textbf{8.28$\pm$0.73} \\
+\textit{+WU} &
+  28.31$\pm$0.66 &
+  37.74$\pm$1.00 &
+  17.32$\pm$0.54 &
+  15.04$\pm$0.93 &
+  33.80$\pm$0.79 &
+  39.33$\pm$1.84 &
+  13.04$\pm$2.02 &
+  9.44$\pm$1.29 \\
+\textit{+TA+WU} &
+  \textbf{29.36$\pm$0.81} &
+  \textbf{38.21$\pm$1.10} &
+  \textbf{14.05$\pm$1.38} &
+  \textbf{12.50$\pm$0.60} &
+  \textbf{34.68$\pm$1.06} &
+  \textbf{39.45$\pm$1.73} &
+  \textbf{10.40$\pm$0.73} &
+  8.36$\pm$0.78 \\ \midrule
+MKD &
+  24.09$\pm$0.94 &
+  34.93$\pm$1.39 &
+  11.53$\pm$0.17 &
+  10.22$\pm$1.34 &
+  29.65$\pm$0.77 &
+  35.48$\pm$2.06 &
+  9.27$\pm$1.86 &
+  6.66$\pm$1.30 \\
+\textit{+TA} &
+  24.17$\pm$0.77 &
+  34.67$\pm$1.58 &
+  6.57$\pm$0.26 &
+  \textbf{6.51$\pm$0.67} &
+  28.28$\pm$0.79 &
+  34.07$\pm$1.63 &
+  \textbf{4.31$\pm$0.47} &
+  \textbf{4.14$\pm$0.60} \\
+\textit{+WU} &
+  \textbf{24.55$\pm$0.73} &
+  \textbf{35.28$\pm$1.08} &
+  11.10$\pm$0.07 &
+  10.79$\pm$1.45 &
+  \textbf{30.40$\pm$1.05} &
+  \textbf{36.43$\pm$2.08} &
+  9.79$\pm$2.19 &
+  7.10$\pm$1.53 \\
+\textit{+TA+WU} &
+  24.33$\pm$0.46 &
+  35.05$\pm$1.37 &
+  \textbf{6.28$\pm$0.70} &
+  6.92$\pm$1.04 &
+  28.53$\pm$1.58 &
+  34.81$\pm$1.95 &
+  4.49$\pm$0.34 &
+  4.42$\pm$0.63 \\ \midrule
+TKD &
+  28.18$\pm$0.92 &
+  37.43$\pm$0.86 &
+  19.76$\pm$1.11 &
+  20.37$\pm$0.78 &
+  34.17$\pm$0.72 &
+  40.11$\pm$1.59 &
+  12.33$\pm$1.05 &
+  11.59$\pm$1.22 \\
+\textit{+TA} &
+  28.95$\pm$0.93 &
+  38.07$\pm$1.03 &
+  16.36$\pm$1.91 &
+  17.23$\pm$0.56 &
+  34.42$\pm$0.61 &
+  40.20$\pm$1.31 &
+  10.13$\pm$1.03 &
+  10.15$\pm$1.03 \\
+\textit{+WU} &
+  29.07$\pm$0.54 &
+  37.73$\pm$0.71 &
+  17.35$\pm$1.16 &
+  19.68$\pm$0.80 &
+  34.22$\pm$0.79 &
+  40.44$\pm$1.63 &
+  12.09$\pm$1.68 &
+  11.48$\pm$1.58 \\
+\textit{+TA+WU} &
+  \textbf{29.57$\pm$0.46} &
+  \textbf{38.29$\pm$0.74} &
+  \textbf{14.69$\pm$1.34} &
+  \textbf{16.93$\pm$0.86} &
+  \textbf{34.63$\pm$1.07} &
+  \textbf{40.64$\pm$1.38} &
+  \textbf{9.55$\pm$0.60} &
+  \textbf{10.01$\pm$1.07} \\ \midrule
+LwF(A) &
+  28.33$\pm$0.36 &
+  37.63$\pm$0.83 &
+  21.80$\pm$1.09 &
+  20.57$\pm$0.85 &
+  34.48$\pm$0.78 &
+  40.85$\pm$1.49 &
+  19.51$\pm$0.94 &
+  15.69$\pm$1.43 \\
+\textit{+TA} &
+  29.37$\pm$0.69 &
+  38.31$\pm$1.06 &
+  19.34$\pm$1.20 &
+  \textbf{18.17$\pm$0.74} &
+  36.01$\pm$1.02 &
+  41.22$\pm$1.46 &
+  \textbf{15.83$\pm$0.35} &
+  \textbf{13.75$\pm$1.12} \\
+\textit{+WU} &
+  28.59$\pm$0.63 &
+  37.69$\pm$0.73 &
+  21.70$\pm$0.96 &
+  20.87$\pm$1.02 &
+  34.64$\pm$0.38 &
+  41.11$\pm$1.38 &
+  20.23$\pm$1.55 &
+  15.70$\pm$1.97 \\
+\textit{+TA+WU} &
+  \textbf{29.98$\pm$0.86} &
+  \textbf{38.45$\pm$0.84} &
+  \textbf{18.66$\pm$1.61} &
+  18.35$\pm$0.98 &
+  \textbf{36.20$\pm$0.73} &
+  \textbf{41.54$\pm$1.21} &
+  16.64$\pm$1.02 &
+  13.85$\pm$1.43 \\ \midrule
+ &
+  \multicolumn{4}{c}{T10S20} &
+  \multicolumn{4}{c}{T11S100} \\ 
+ %  \cmidrule{2-9}
+ % &
+ %  \multicolumn{1}{c}{$Acc_{Final}$} &
+ %  \multicolumn{1}{c}{$Acc_{Inc}$} &
+ %  \multicolumn{1}{c}{$Forg_{Final}$} &
+ %  \multicolumn{1}{c}{$Forg_{Inc}$} &
+ %  \multicolumn{1}{c}{$Acc_{Final}$} &
+ %  \multicolumn{1}{c}{$Acc_{Inc}$} &
+ %  \multicolumn{1}{c}{$Forg_{Final}$} &
+ %  \multicolumn{1}{c}{$Forg_{Inc}$} \\ 
+  \midrule
+GKD &
+  20.76$\pm$0.96 &
+  32.12$\pm$0.57 &
+  26.87$\pm$2.16 &
+  21.21$\pm$1.31 &
+  27.17$\pm$0.73 &
+  34.32$\pm$1.96 &
+  17.53$\pm$3.99 &
+  11.41$\pm$2.80 \\
+\textit{+TA} &
+  22.94$\pm$0.70 &
+  33.12$\pm$0.53 &
+  21.39$\pm$2.14 &
+  \textbf{17.50$\pm$1.76} &
+  30.65$\pm$0.55 &
+  37.01$\pm$1.84 &
+  \textbf{12.85$\pm$1.60} &
+  \textbf{10.05$\pm$0.87} \\
+\textit{+WU} &
+  21.94$\pm$0.71 &
+  33.00$\pm$0.59 &
+  24.84$\pm$1.49 &
+  20.37$\pm$0.65 &
+  28.77$\pm$0.81 &
+  36.54$\pm$1.45 &
+  18.11$\pm$1.90 &
+  11.66$\pm$1.83 \\
+\textit{+TA+WU} &
+  \textbf{23.72$\pm$1.34} &
+  \textbf{33.90$\pm$0.78} &
+  \textbf{21.29$\pm$2.19} &
+  17.70$\pm$1.48 &
+  \textbf{31.34$\pm$0.49} &
+  \textbf{37.50$\pm$1.84} &
+  13.25$\pm$2.11 &
+  10.14$\pm$1.10 \\ \midrule
+MKD &
+  19.37$\pm$0.85 &
+  31.04$\pm$1.00 &
+  17.04$\pm$0.66 &
+  16.90$\pm$0.75 &
+  26.11$\pm$0.72 &
+  33.75$\pm$2.11 &
+  16.22$\pm$2.18 &
+  10.30$\pm$1.63 \\
+\textit{+TA} &
+  20.74$\pm$0.88 &
+  31.78$\pm$0.83 &
+  \textbf{9.89$\pm$1.58} &
+  \textbf{11.42$\pm$1.23} &
+  25.59$\pm$1.25 &
+  32.23$\pm$2.28 &
+  \textbf{6.18$\pm$0.99} &
+  \textbf{5.91$\pm$0.66} \\
+\textit{+WU} &
+  19.93$\pm$0.67 &
+  31.32$\pm$0.95 &
+  16.81$\pm$1.12 &
+  16.97$\pm$0.27 &
+  26.36$\pm$0.80 &
+  \textbf{33.91$\pm$1.39} &
+  17.12$\pm$2.33 &
+  11.17$\pm$1.71 \\
+\textit{+TA+WU} &
+  \textbf{21.42$\pm$0.75} &
+  \textbf{32.22$\pm$0.95} &
+  10.13$\pm$1.25 &
+  11.94$\pm$1.07 &
+  \textbf{26.79$\pm$1.56} &
+  32.99$\pm$1.98 &
+  6.78$\pm$0.92 &
+  6.42$\pm$0.80 \\ \midrule
+TKD &
+  22.88$\pm$0.29 &
+  33.15$\pm$0.45 &
+  19.17$\pm$0.02 &
+  21.05$\pm$0.39 &
+  28.32$\pm$1.18 &
+  37.31$\pm$1.36 &
+  14.34$\pm$0.78 &
+  11.83$\pm$1.31 \\
+\textit{+TA} &
+  23.92$\pm$0.49 &
+  33.94$\pm$0.70 &
+  \textbf{14.91$\pm$0.98} &
+  17.32$\pm$0.97 &
+  30.18$\pm$0.92 &
+  37.97$\pm$1.47 &
+  \textbf{7.93$\pm$0.77} &
+  \textbf{9.02$\pm$0.65} \\
+\textit{+WU} &
+  23.32$\pm$0.61 &
+  33.71$\pm$0.97 &
+  18.77$\pm$1.33 &
+  20.33$\pm$0.41 &
+  27.90$\pm$2.05 &
+  37.22$\pm$1.60 &
+  14.43$\pm$1.16 &
+  11.48$\pm$0.86 \\
+\textit{+TA+WU} &
+  \textbf{24.69$\pm$0.89} &
+  \textbf{34.58$\pm$0.96} &
+  15.09$\pm$0.92 &
+  \textbf{17.27$\pm$0.54} &
+  \textbf{30.80$\pm$0.75} &
+  \textbf{38.41$\pm$1.52} &
+  8.55$\pm$1.06 &
+  9.16$\pm$0.62 \\ \midrule
+ANCL &
+  22.58$\pm$0.83 &
+  32.84$\pm$0.78 &
+  28.76$\pm$2.52 &
+  27.24$\pm$1.47 &
+  27.78$\pm$0.96 &
+  37.74$\pm$0.60 &
+  25.24$\pm$2.77 &
+  17.28$\pm$2.59 \\
+\textit{+TA} &
+  23.98$\pm$0.68 &
+  33.85$\pm$0.55 &
+  \textbf{25.23$\pm$1.31} &
+  24.02$\pm$1.39 &
+  31.34$\pm$0.34 &
+  39.50$\pm$1.18 &
+  20.36$\pm$1.54 &
+  \textbf{14.88$\pm$1.41} \\
+\textit{+WU} &
+  23.20$\pm$0.57 &
+  33.33$\pm$0.81 &
+  28.66$\pm$1.18 &
+  26.86$\pm$0.20 &
+  29.05$\pm$0.75 &
+  38.86$\pm$1.29 &
+  25.35$\pm$0.64 &
+  17.11$\pm$0.89 \\
+\textit{+TA+WU} &
+  \textbf{24.78$\pm$0.86} &
+  \textbf{34.59$\pm$0.75} &
+  25.24$\pm$1.47 &
+  \textbf{23.64$\pm$0.76} &
+  \textbf{32.36$\pm$0.60} &
+  \textbf{40.10$\pm$1.39} &
+  \textbf{20.31$\pm$1.73} &
+  15.12$\pm$1.01 \\ \midrule
+ &
+  \multicolumn{4}{c}{T20S10} &
+  \multicolumn{4}{c}{T26S100} \\ 
+ %  \cmidrule{2-9}
+ % &
+ %  \multicolumn{1}{c}{$Acc_{Final}$} &
+ %  \multicolumn{1}{c}{$Acc_{Inc}$} &
+ %  \multicolumn{1}{c}{$Forg_{Final}$} &
+ %  \multicolumn{1}{c}{$Forg_{Inc}$} &
+ %  \multicolumn{1}{c}{$Acc_{Final}$} &
+ %  \multicolumn{1}{c}{$Acc_{Inc}$} &
+ %  \multicolumn{1}{c}{$Forg_{Final}$} &
+ %  \multicolumn{1}{c}{$Forg_{Inc}$} \\ 
+  \midrule
+GKD &
+  13.83$\pm$0.25 &
+  25.75$\pm$0.65 &
+  33.70$\pm$0.54 &
+  27.55$\pm$1.81 &
+  14.33$\pm$1.42 &
+  23.30$\pm$1.59 &
+  23.27$\pm$2.88 &
+  12.63$\pm$2.21 \\
+\textit{+TA} &
+  16.15$\pm$0.83 &
+  27.16$\pm$0.87 &
+  27.52$\pm$0.51 &
+  22.62$\pm$2.03 &
+  19.70$\pm$0.79 &
+  26.88$\pm$1.62 &
+  \textbf{14.57$\pm$1.00} &
+  \textbf{11.08$\pm$0.47} \\ 
+\textit{+WU} &
+  15.20$\pm$0.46 &
+  26.98$\pm$1.05 &
+  30.78$\pm$1.84 &
+  25.57$\pm$1.97 &
+  16.10$\pm$1.03 &
+  25.59$\pm$1.76 &
+  21.45$\pm$1.77 &
+  12.66$\pm$1.65 \\ 
+\textit{+TA+WU} &
+  \textbf{17.65$\pm$0.16} &
+  \textbf{27.85$\pm$0.90} &
+  \textbf{25.60$\pm$0.40} &
+  \textbf{21.65$\pm$1.43} &
+  \textbf{21.86$\pm$1.34} &
+  \textbf{28.82$\pm$1.95} &
+  15.56$\pm$0.77 &
+  11.44$\pm$0.61 \\ \midrule
+MKD &
+  13.81$\pm$0.53 &
+  25.22$\pm$0.88 &
+  24.61$\pm$1.91 &
+  25.80$\pm$2.46 &
+  15.99$\pm$1.72 &
+  23.42$\pm$1.95 &
+  18.15$\pm$3.02 &
+  10.41$\pm$1.97 \\
+\textit{+TA} &
+  16.66$\pm$0.59 &
+  27.05$\pm$1.11 &
+  14.46$\pm$0.75 &
+  17.55$\pm$2.36 &
+  17.65$\pm$0.32 &
+  23.29$\pm$1.61 &
+  \textbf{8.57$\pm$1.70} &
+  \textbf{7.61$\pm$1.18} \\
+\textit{+WU} &
+  13.97$\pm$0.62 &
+  25.76$\pm$0.73 &
+  24.33$\pm$2.37 &
+  24.76$\pm$2.29 &
+  16.74$\pm$1.44 &
+  24.42$\pm$1.72 &
+  19.95$\pm$2.21 &
+  12.29$\pm$2.42 \\
+\textit{+TA+WU} &
+  \textbf{17.31$\pm$0.48} &
+  \textbf{27.39$\pm$1.33} &
+  \textbf{13.66$\pm$0.39} &
+  \textbf{16.74$\pm$1.52} &
+  \textbf{20.29$\pm$1.27} &
+  \textbf{25.75$\pm$1.74} &
+  9.48$\pm$1.04 &
+  8.35$\pm$0.82 \\ \midrule
+TKD &
+  16.13$\pm$0.45 &
+  27.29$\pm$0.76 &
+  21.34$\pm$2.13 &
+  23.20$\pm$2.46 &
+  14.77$\pm$1.50 &
+  23.94$\pm$2.14 &
+  14.54$\pm$2.43 &
+  10.20$\pm$1.09 \\
+\textit{+TA} &
+  18.34$\pm$0.25 &
+  28.51$\pm$0.96 &
+  14.67$\pm$0.26 &
+  17.38$\pm$2.44 &
+  18.20$\pm$0.34 &
+  26.56$\pm$1.62 &
+  \textbf{8.11$\pm$1.01} &
+  \textbf{8.05$\pm$0.36} \\
+\textit{+WU} &
+  16.16$\pm$0.29 &
+  28.02$\pm$0.63 &
+  21.28$\pm$1.94 &
+  22.07$\pm$1.48 &
+  15.71$\pm$1.15 &
+  24.74$\pm$2.16 &
+  16.75$\pm$1.81 &
+  12.14$\pm$2.04 \\
+\textit{+TA+WU} &
+  \textbf{18.99$\pm$0.50} &
+  \textbf{28.71$\pm$1.06} &
+  \textbf{14.58$\pm$0.94} &
+  \textbf{17.37$\pm$1.78} &
+  \textbf{20.07$\pm$0.87} &
+  \textbf{28.10$\pm$1.97} &
+  9.74$\pm$0.90 &
+  9.56$\pm$0.65 \\ \midrule
+ANCL &
+  15.75$\pm$0.24 &
+  26.98$\pm$0.60 &
+  35.24$\pm$1.66 &
+  32.45$\pm$1.18 &
+  15.42$\pm$1.49 &
+  27.95$\pm$1.98 &
+  29.72$\pm$3.14 &
+  20.91$\pm$0.92 \\
+\textit{+TA} &
+  17.91$\pm$0.33 &
+  28.42$\pm$0.48 &
+  30.13$\pm$1.18 &
+  27.26$\pm$0.98 &
+  21.04$\pm$1.79 &
+  31.60$\pm$1.89 &
+  23.59$\pm$1.71 &
+  18.10$\pm$0.55 \\
+\textit{+WU} &
+  16.40$\pm$0.39 &
+  27.54$\pm$0.44 &
+  34.51$\pm$1.06 &
+  31.76$\pm$0.91 &
+  16.47$\pm$1.58 &
+  28.80$\pm$1.59 &
+  29.62$\pm$2.49 &
+  20.74$\pm$1.10 \\
+\textit{+TA+WU} &
+  \textbf{19.02$\pm$0.34} &
+  \textbf{29.18$\pm$0.71} &
+  \textbf{28.78$\pm$0.40} &
+  \textbf{26.50$\pm$1.34} &
+  \textbf{22.32$\pm$1.25} &
+  \textbf{32.60$\pm$1.45} &
+  \textbf{23.21$\pm$1.01} &
+  \textbf{17.94$\pm$0.39} \\ \bottomrule
+\end{tabular}%
+}
+\caption{Additional results for TinyImageNet200.}
+\label{tab:app:tin200}
+\end{table*}
+
+
+
+\begin{table*}[!th]
+\centering
+\resizebox{0.95\textwidth}{!}{%
+\begin{tabular}{@{}lrrrrrrrr@{}}
+\toprule
+ % &  \multicolumn{4}{c}{Equal split} & \multicolumn{4}{c}{First task with 50 classes} \\ \cmidrule{2-9}
+&
+  \multicolumn{4}{c}{T5S20} &
+  \multicolumn{4}{c}{T6S50} \\ \cmidrule{2-9}
+ &
+  \multicolumn{1}{c}{$Acc_{Final} \uparrow$} &
+  \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} &
+  \multicolumn{1}{c}{$Forg_{Final} \downarrow$} &
+  \multicolumn{1}{c}{$Forg_{Inc} \downarrow$} &
+  \multicolumn{1}{c}{$Acc_{Final} \uparrow$} &
+  \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} &
+  \multicolumn{1}{c}{$Forg_{Final} \downarrow$} &
+  \multicolumn{1}{c}{$Forg_{Inc} \downarrow$} 
+\\ \midrule
+GKD &
+  51.06$\pm$0.59 &
+  61.95$\pm$0.50 &
+  27.57$\pm$0.79 &
+  23.16$\pm$0.88 &
+  57.30$\pm$1.40 &
+  66.36$\pm$0.75 &
+  19.19$\pm$0.53 &
+  12.92$\pm$0.59 \\
+\textit{+TA} &
+  \textbf{52.29$\pm$0.28} &
+  \textbf{62.89$\pm$0.32} &
+  \textbf{23.40$\pm$0.31} &
+  \textbf{18.94$\pm$0.43} &
+  57.86$\pm$0.68 &
+  66.20$\pm$0.40 &
+  \textbf{16.81$\pm$1.00} &
+  \textbf{12.70$\pm$0.36} \\
+\textit{+WU} &
+  51.04$\pm$0.53 &
+  60.24$\pm$0.23 &
+  26.26$\pm$0.63 &
+  27.22$\pm$0.29 &
+  \textbf{59.52$\pm$0.27} &
+  \textbf{67.63$\pm$0.39} &
+  18.26$\pm$0.76 &
+  14.45$\pm$0.47 \\
+\textit{+TA+WU} &
+  51.27$\pm$0.18 &
+  61.01$\pm$0.12 &
+  23.98$\pm$0.36 &
+  23.51$\pm$0.29 &
+  58.40$\pm$0.86 &
+  66.86$\pm$0.31 &
+  18.87$\pm$0.75 &
+  15.29$\pm$0.69 \\ \midrule
+MKD &
+  50.17$\pm$0.25 &
+  61.48$\pm$0.35 &
+  23.21$\pm$0.78 &
+  21.01$\pm$0.35 &
+  54.70$\pm$1.02 &
+  65.82$\pm$0.24 &
+  27.21$\pm$0.70 &
+  18.25$\pm$0.32 \\
+\textit{+TA} &
+  50.92$\pm$0.42 &
+  62.18$\pm$0.45 &
+  \textbf{16.00$\pm$0.61} &
+  \textbf{14.71$\pm$0.35} &
+  57.26$\pm$0.83 &
+  66.03$\pm$0.32 &
+  \textbf{19.00$\pm$1.04} &
+  \textbf{14.34$\pm$0.11} \\
+\textit{+WU} &
+  50.45$\pm$0.60 &
+  61.45$\pm$0.47 &
+  23.20$\pm$0.50 &
+  21.42$\pm$1.21 &
+  56.78$\pm$0.61 &
+  66.36$\pm$0.31 &
+  25.14$\pm$0.24 &
+  19.54$\pm$0.67 \\
+\textit{+TA+WU} &
+  \textbf{51.59$\pm$0.24} &
+  \textbf{62.37$\pm$0.59} &
+  16.66$\pm$0.72 &
+  15.56$\pm$1.62 &
+  \textbf{57.82$\pm$0.37} &
+  \textbf{66.60$\pm$0.14} &
+  19.86$\pm$0.60 &
+  16.32$\pm$0.62 \\ \midrule
+TKD &
+  \textbf{53.73$\pm$0.25} &
+  62.91$\pm$0.44 &
+  20.77$\pm$0.58 &
+  20.30$\pm$0.80 &
+  58.90$\pm$1.02 &
+  67.49$\pm$0.42 &
+  17.38$\pm$0.80 &
+  14.15$\pm$0.13 \\
+\textit{+TA} &
+  53.29$\pm$0.04 &
+  \textbf{63.04$\pm$0.30} &
+  \textbf{18.28$\pm$0.72} &
+  \textbf{17.26$\pm$0.89} &
+  58.80$\pm$0.48 &
+  67.00$\pm$0.23 &
+  \textbf{15.07$\pm$0.66} &
+  \textbf{13.48$\pm$0.23} \\
+\textit{+WU} &
+  52.14$\pm$0.16 &
+  60.83$\pm$0.24 &
+  22.90$\pm$0.70 &
+  25.45$\pm$0.55 &
+  \textbf{59.85$\pm$0.95} &
+  \textbf{67.77$\pm$0.46} &
+  18.40$\pm$0.63 &
+  16.35$\pm$0.64 \\
+\textit{+TA+WU} &
+  51.69$\pm$0.19 &
+  61.09$\pm$0.28 &
+  21.68$\pm$0.15 &
+  23.15$\pm$0.59 &
+  58.45$\pm$0.41 &
+  66.94$\pm$0.26 &
+  18.31$\pm$0.51 &
+  16.40$\pm$0.60 \\ \midrule
+ANCL &
+  54.50$\pm$0.28 &
+  63.96$\pm$0.32 &
+  20.26$\pm$0.36 &
+  17.56$\pm$0.40 &
+  58.24$\pm$1.28 &
+  66.98$\pm$0.70 &
+  16.34$\pm$0.36 &
+  11.40$\pm$0.48 \\
+\textit{+TA} &
+  54.39$\pm$0.64 &
+  63.92$\pm$0.42 &
+  18.04$\pm$0.33 &
+  15.29$\pm$0.37 &
+  59.16$\pm$0.63 &
+  66.92$\pm$0.56 &
+  15.03$\pm$0.91 &
+  11.91$\pm$0.10 \\
+\textit{+WU} &
+  \textbf{54.84$\pm$0.20} &
+  \textbf{64.25$\pm$0.37} &
+  18.71$\pm$0.18 &
+  16.55$\pm$0.51 &
+  \textbf{60.14$\pm$0.66} &
+  \textbf{67.78$\pm$0.41} &
+  \textbf{14.04$\pm$0.27} &
+  \textbf{10.56$\pm$0.42} \\
+\textit{+TA+WU} &
+  54.39$\pm$0.60 &
+  64.08$\pm$0.40 &
+  \textbf{17.81$\pm$0.53} &
+  \textbf{15.00$\pm$0.59} &
+  59.72$\pm$0.56 &
+  67.00$\pm$0.20 &
+  14.62$\pm$0.32 &
+  12.12$\pm$0.51 \\ \midrule
+ &
+  \multicolumn{4}{c}{T10S10} &
+  \multicolumn{4}{c}{T11S50} \\ 
+ % \cmidrule{2-9}
+ % &
+ %  \multicolumn{1}{c}{$Acc_{Final}$} &
+ %  \multicolumn{1}{c}{$Acc_{Inc}$} &
+ %  \multicolumn{1}{c}{$Forg_{Final}$} &
+ %  \multicolumn{1}{c}{$Forg_{Inc}$} &
+ %  \multicolumn{1}{c}{$Acc_{Final}$} &
+ %  \multicolumn{1}{c}{$Acc_{Inc}$} &
+ %  \multicolumn{1}{c}{$Forg_{Final}$} &
+ %  \multicolumn{1}{c}{$Forg_{Inc}$} \\ 
+  \midrule
+GKD &
+  40.33$\pm$0.37 &
+  54.62$\pm$0.52 &
+  32.72$\pm$0.09 &
+  25.95$\pm$0.11 &
+  43.34$\pm$0.85 &
+  57.94$\pm$0.90 &
+  26.04$\pm$2.37 &
+  \textbf{14.47$\pm$0.83} \\
+\textit{+TA} &
+  \textbf{43.17$\pm$1.06} &
+  \textbf{55.82$\pm$0.61} &
+  25.10$\pm$1.03 &
+  \textbf{20.52$\pm$0.24} &
+  48.80$\pm$0.21 &
+  57.18$\pm$0.45 &
+  \textbf{17.56$\pm$0.53} &
+  17.24$\pm$0.39 \\
+\textit{+WU} &
+  41.64$\pm$0.32 &
+  53.12$\pm$0.61 &
+  28.09$\pm$0.62 &
+  27.10$\pm$0.55 &
+  47.81$\pm$1.13 &
+  \textbf{60.93$\pm$0.31} &
+  23.24$\pm$1.20 &
+  14.88$\pm$0.68 \\
+\textit{+TA+WU} &
+  42.37$\pm$1.01 &
+  54.23$\pm$0.99 &
+  \textbf{24.94$\pm$0.76} &
+  23.31$\pm$0.65 &
+  \textbf{50.79$\pm$0.11} &
+  59.56$\pm$0.21 &
+  19.53$\pm$0.13 &
+  18.56$\pm$0.28 \\ \midrule
+MKD &
+  40.35$\pm$0.43 &
+  54.01$\pm$0.01 &
+  30.94$\pm$1.01 &
+  28.19$\pm$0.61 &
+  43.01$\pm$0.94 &
+  56.18$\pm$0.90 &
+  26.99$\pm$0.88 &
+  14.94$\pm$0.17 \\
+\textit{+TA} &
+  42.35$\pm$0.50 &
+  \textbf{56.02$\pm$0.20} &
+  \textbf{19.37$\pm$1.18} &
+  \textbf{18.60$\pm$0.76} &
+  43.80$\pm$0.49 &
+  52.05$\pm$0.24 &
+  \textbf{13.67$\pm$1.09} &
+  \textbf{14.23$\pm$0.46} \\
+\textit{+WU} &
+  40.49$\pm$0.52 &
+  53.79$\pm$0.54 &
+  29.89$\pm$1.41 &
+  27.98$\pm$0.27 &
+  43.61$\pm$1.63 &
+  \textbf{57.32$\pm$1.60} &
+  27.71$\pm$1.83 &
+  16.09$\pm$3.04 \\
+\textit{+TA+WU} &
+  \textbf{42.94$\pm$0.88} &
+  55.39$\pm$0.25 &
+  20.62$\pm$0.53 &
+  21.11$\pm$0.38 &
+  \textbf{45.33$\pm$3.15} &
+  54.05$\pm$3.32 &
+  15.21$\pm$2.99 &
+  15.60$\pm$2.54 \\ \midrule
+TKD &
+  43.19$\pm$0.16 &
+  55.70$\pm$0.49 &
+  24.84$\pm$0.35 &
+  23.55$\pm$0.35 &
+  40.56$\pm$1.30 &
+  54.72$\pm$0.86 &
+  15.39$\pm$1.01 &
+  \textbf{10.16$\pm$0.34} \\
+\textit{+TA} &
+  \textbf{43.93$\pm$0.72} &
+  \textbf{56.23$\pm$0.70} &
+  \textbf{17.89$\pm$0.14} &
+  \textbf{18.09$\pm$0.26} &
+  42.83$\pm$0.61 &
+  53.85$\pm$0.39 &
+  \textbf{10.13$\pm$0.20} &
+  13.15$\pm$0.16 \\
+\textit{+WU} &
+  42.71$\pm$1.29 &
+  53.51$\pm$0.56 &
+  24.84$\pm$0.96 &
+  26.84$\pm$0.28 &
+  45.44$\pm$0.98 &
+  \textbf{58.94$\pm$0.45} &
+  23.85$\pm$1.16 &
+  18.09$\pm$0.76 \\
+\textit{+TA+WU} &
+  43.05$\pm$0.55 &
+  54.40$\pm$0.64 &
+  21.32$\pm$0.73 &
+  22.50$\pm$0.12 &
+  \textbf{49.48$\pm$0.92} &
+  58.86$\pm$0.38 &
+  17.65$\pm$1.12 &
+  19.07$\pm$0.75 \\ \midrule
+ANCL &
+  44.01$\pm$0.19 &
+  55.81$\pm$0.41 &
+  29.56$\pm$0.51 &
+  27.13$\pm$0.50 &
+  46.94$\pm$0.67 &
+  60.97$\pm$0.62 &
+  26.30$\pm$0.84 &
+  15.72$\pm$0.14 \\
+\textit{+TA} &
+  45.75$\pm$0.90 &
+  \textbf{57.41$\pm$0.22} &
+  23.71$\pm$1.08 &
+  \textbf{21.54$\pm$0.50} &
+  50.35$\pm$0.45 &
+  59.22$\pm$0.26 &
+  18.07$\pm$1.14 &
+  17.34$\pm$0.53 \\
+\textit{+WU} &
+  45.08$\pm$0.08 &
+  56.13$\pm$0.40 &
+  27.27$\pm$0.34 &
+  26.13$\pm$0.20 &
+  50.18$\pm$0.87 &
+  \textbf{63.15$\pm$0.12} &
+  23.10$\pm$0.73 &
+  \textbf{13.29$\pm$0.35} \\
+\textit{+TA+WU} &
+  \textbf{46.37$\pm$0.36} &
+  57.20$\pm$0.32 &
+  \textbf{22.79$\pm$0.74} &
+  21.70$\pm$0.29 &
+  \textbf{52.70$\pm$0.25} &
+  61.18$\pm$0.34 &
+  \textbf{17.93$\pm$0.82} &
+  16.92$\pm$0.26 \\ \midrule 
+ &
+  \multicolumn{4}{c}{T20S5} &
+  \multicolumn{4}{c}{T26S50} \\ 
+  % \cmidrule{2-9}
+  % &
+  % \multicolumn{1}{c}{$Acc_{Final}$} &
+  % \multicolumn{1}{c}{$Acc_{Inc}$} &
+  % \multicolumn{1}{c}{$Forg_{Final}$} &
+  % \multicolumn{1}{c}{$Forg_{Inc}$} &
+  % \multicolumn{1}{c}{$Acc_{Final}$} &
+  % \multicolumn{1}{c}{$Acc_{Inc}$} &
+  % \multicolumn{1}{c}{$Forg_{Final}$} &
+  % \multicolumn{1}{c}{$Forg_{Inc}$} \\
+  \midrule
+GKD &
+  24.14$\pm$0.91 &
+  42.82$\pm$0.58 &
+  45.53$\pm$0.88 &
+  35.39$\pm$0.88 &
+  14.82$\pm$0.85 &
+  21.91$\pm$0.06 &
+  17.99$\pm$0.53 &
+  9.29$\pm$0.69 \\
+\textit{+TA} &
+  31.89$\pm$1.63 &
+  \textbf{45.88$\pm$0.79} &
+  \textbf{27.74$\pm$1.03} &
+  \textbf{23.25$\pm$0.62} &
+  17.16$\pm$0.84 &
+  22.31$\pm$0.64 &
+  \textbf{12.71$\pm$1.11} &
+  \textbf{11.28$\pm$0.98} \\
+\textit{+WU} &
+  28.27$\pm$1.19 &
+  43.92$\pm$0.38 &
+  37.93$\pm$1.38 &
+  32.37$\pm$0.66 &
+  17.85$\pm$0.27 &
+  30.15$\pm$0.56 &
+  23.05$\pm$1.17 &
+  15.86$\pm$0.91 \\
+\textit{+TA+WU} &
+  \textbf{32.63$\pm$0.69} &
+  45.75$\pm$0.61 &
+  29.33$\pm$0.37 &
+  25.37$\pm$0.04 &
+  \textbf{24.90$\pm$0.24} &
+  \textbf{34.19$\pm$0.28} &
+  20.82$\pm$1.10 &
+  18.97$\pm$1.23 \\ \midrule
+MKD &
+  26.27$\pm$1.28 &
+  43.39$\pm$0.66 &
+  40.22$\pm$1.04 &
+  34.25$\pm$0.81 &
+  15.83$\pm$1.18 &
+  26.07$\pm$0.29 &
+  29.85$\pm$0.95 &
+  16.00$\pm$0.06 \\
+\textit{+TA} &
+  31.90$\pm$0.34 &
+  46.18$\pm$0.54 &
+  \textbf{18.92$\pm$0.14} &
+  \textbf{19.14$\pm$0.79} &
+  16.12$\pm$0.25 &
+  22.25$\pm$0.13 &
+  \textbf{11.65$\pm$0.66} &
+  \textbf{11.94$\pm$1.23} \\
+\textit{+WU} &
+  27.50$\pm$1.10 &
+  43.73$\pm$0.43 &
+  38.01$\pm$1.61 &
+  33.47$\pm$0.76 &
+  16.15$\pm$0.27 &
+  \textbf{28.42$\pm$1.65} &
+  32.35$\pm$3.78 &
+  18.39$\pm$4.16 \\
+\textit{+TA+WU} &
+  \textbf{33.55$\pm$1.15} &
+  \textbf{46.12$\pm$0.64} &
+  22.06$\pm$1.28 &
+  21.56$\pm$0.80 &
+  \textbf{19.85$\pm$6.72} &
+  25.79$\pm$6.22 &
+  13.35$\pm$3.06 &
+  13.72$\pm$3.01 \\ \midrule
+TKD &
+  29.39$\pm$0.47 &
+  44.75$\pm$0.28 &
+  35.96$\pm$0.95 &
+  32.16$\pm$0.14 &
+  10.99$\pm$0.22 &
+  19.32$\pm$0.23 &
+  13.55$\pm$0.88 &
+  9.67$\pm$0.61 \\
+\textit{+TA} &
+  32.71$\pm$0.27 &
+  \textbf{46.45$\pm$0.42} &
+  \textbf{19.12$\pm$1.02} &
+  \textbf{19.55$\pm$0.30} &
+  13.90$\pm$0.52 &
+  22.55$\pm$0.83 &
+  \textbf{7.24$\pm$0.71} &
+  \textbf{9.96$\pm$0.28} \\
+\textit{+WU} &
+  30.79$\pm$0.60 &
+  45.29$\pm$0.38 &
+  33.50$\pm$0.33 &
+  31.09$\pm$0.94 &
+  15.48$\pm$1.06 &
+  27.81$\pm$0.55 &
+  29.99$\pm$0.49 &
+  23.07$\pm$0.97 \\
+\textit{+TA+WU} &
+  \textbf{33.73$\pm$0.68} &
+  \textbf{46.45$\pm$0.27} &
+  23.74$\pm$0.63 &
+  22.98$\pm$0.53 &
+  \textbf{22.59$\pm$0.66} &
+  \textbf{32.46$\pm$0.52} &
+  21.63$\pm$1.15 &
+  20.65$\pm$0.99 \\ \midrule
+ANCL &
+  28.83$\pm$0.71 &
+  44.94$\pm$0.63 &
+  41.59$\pm$1.13 &
+  34.24$\pm$1.14 &
+  17.92$\pm$0.24 &
+  29.19$\pm$0.76 &
+  28.50$\pm$0.64 &
+  16.12$\pm$0.27 \\
+\textit{+TA} &
+  33.92$\pm$0.68 &
+  47.49$\pm$0.35 &
+  \textbf{25.89$\pm$0.82} &
+  \textbf{22.61$\pm$0.40} &
+  23.52$\pm$0.73 &
+  29.64$\pm$0.50 &
+  \textbf{15.06$\pm$0.78} &
+  \textbf{14.67$\pm$0.84} \\
+\textit{+WU} &
+  31.66$\pm$0.44 &
+  46.28$\pm$0.56 &
+  37.07$\pm$0.77 &
+  32.07$\pm$1.20 &
+  19.79$\pm$0.47 &
+  32.25$\pm$0.15 &
+  28.02$\pm$0.46 &
+  15.11$\pm$0.46 \\
+\textit{+TA+WU} &
+  \textbf{35.79$\pm$0.39} &
+  \textbf{47.81$\pm$0.30} &
+  27.14$\pm$0.10 &
+  24.93$\pm$0.89 &
+  \textbf{27.49$\pm$1.10} &
+  \textbf{33.31$\pm$0.58} &
+  15.23$\pm$0.58 &
+  14.68$\pm$0.35 \\
+  \bottomrule
+\end{tabular}%
+}
+\caption{Additional results for ImageNet100}
+\label{tab:app:imagenet100}
+\end{table*}
+
+
+
+
+\subsection{Fine-grained classification using full datasets}
+\label{sec:app:fg_full}
+We conduct experiments using the same datasets as in the \Cref{sec:exp:finegrained}, but without sampling classes, so each of the 6 datasets is treated as a single task. Additionally, we add the results for experiments with a reversed order of tasks to ensure that the ordering does not affect our results. We report final and incremental accuracy and forgetting in \Cref{tab:app:full_fg}. We observe that Teacher Adaptation (TA) improves the final accuracy, but applying warmup (WU) in this setting results in significant drops in performance regardless of the order of tasks.
+
+\begin{table*}
+\centering
+\resizebox{0.9\textwidth}{!}{%
+\begin{tabular}{@{}lrrrrrrrr@{}}
+\toprule
+ &
+  \multicolumn{4}{c}{Basic order} &
+  \multicolumn{4}{c}{Reverse order} \\ \cmidrule{2-9}
+ &
+  \multicolumn{1}{c}{$Acc_{Final} \uparrow$} &
+  \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} &
+  \multicolumn{1}{c}{$Forg_{Final} \downarrow$} &
+  \multicolumn{1}{c}{$Forg_{Inc} \downarrow$} &
+  \multicolumn{1}{c}{$Acc_{Final} \uparrow$} &
+  \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} &
+  \multicolumn{1}{c}{$Forg_{Final} \downarrow$} &
+  \multicolumn{1}{c}{$Forg_{Inc} \downarrow$} \\ \midrule
+GKD &
+  26.71$\pm$0.53 &
+  \textbf{46.74$\pm$0.94} &
+  46.57$\pm$0.89 &
+  \textbf{37.47$\pm$1.07} &
+  26.61$\pm$1.07 &
+  54.88$\pm$0.62 &
+  52.71$\pm$1.01 &
+  39.34$\pm$0.41 \\
+\textit{+TA} &
+  \textbf{31.16$\pm$0.75} &
+  46.38$\pm$0.74 &
+  44.09$\pm$0.68 &
+  37.84$\pm$0.98 &
+  \textbf{33.61$\pm$0.40} &
+  \textbf{54.97$\pm$0.35} &
+  41.89$\pm$0.64 &
+  \textbf{36.63$\pm$0.58} \\
+\textit{+WU} &
+  23.96$\pm$1.53 &
+  36.37$\pm$0.95 &
+  \textbf{34.78$\pm$1.80} &
+  46.72$\pm$1.22 &
+  23.60$\pm$1.33 &
+  43.02$\pm$0.56 &
+  39.25$\pm$1.36 &
+  51.69$\pm$0.76 \\
+\textit{+TA+WU} &
+  24.74$\pm$0.95 &
+  37.74$\pm$1.03 &
+  40.44$\pm$0.87 &
+  44.85$\pm$0.74 &
+  27.06$\pm$0.44 &
+  44.68$\pm$0.39 &
+  \textbf{37.26$\pm$0.77} &
+  47.10$\pm$0.61 \\ \bottomrule
+\end{tabular}%
+}
+\caption{Additional results for training on full fine-grained datasets in standard and reversed order.}
+\label{tab:app:full_fg}
+\end{table*}
+
+\subsection{Fine-grained classification with reverse order of datasets}
+We show results for the experiments conducted in \Cref{sec:exp:finegrained}, extended with additional metrics. Additionally, we add the results for the results with reversed order of tasks, as in \Cref{sec:app:fg_full}. Similar to the results in the main paper, the impact of our method is more visible in settings with a larger number of tasks.
+
+\begin{table*}
+\centering
+\resizebox{0.9\textwidth}{!}{%
+\begin{tabular}{@{}lrrrrrrrr@{}}
+\toprule
+ &
+  \multicolumn{4}{c}{6 tasks, 20 classes each, base order} &
+  \multicolumn{4}{c}{6 tasks, 20 classes each, reverse order} \\ \cmidrule{2-9}
+ &
+\multicolumn{1}{c}{$Acc_{Final} \uparrow$} &
+  \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} &
+  \multicolumn{1}{c}{$Forg_{Final} \downarrow$} &
+  \multicolumn{1}{c}{$Forg_{Inc} \downarrow$} &
+  \multicolumn{1}{c}{$Acc_{Final} \uparrow$} &
+  \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} &
+  \multicolumn{1}{c}{$Forg_{Final} \downarrow$} &
+  \multicolumn{1}{c}{$Forg_{Inc} \downarrow$} \\ \midrule
+GKD &
+  38.12$\pm$2.00 &
+  56.03$\pm$3.75 &
+  45.18$\pm$3.15 &
+  \textbf{30.23$\pm$0.72} &
+  37.10$\pm$3.40 &
+  \textbf{67.30$\pm$1.99} &
+  55.82$\pm$4.80 &
+  34.60$\pm$3.77 \\
+\textit{+TA} &
+  \textbf{43.11$\pm$0.64} &
+  \textbf{57.24$\pm$1.79} &
+  39.58$\pm$0.80 &
+  33.12$\pm$1.76 &
+  \textbf{46.97$\pm$3.94} &
+  67.19$\pm$4.81 &
+  41.20$\pm$4.55 &
+  \textbf{33.94$\pm$7.78} \\
+\textit{+WU} &
+  31.56$\pm$6.58 &
+  44.06$\pm$5.43 &
+  42.48$\pm$1.08 &
+  49.24$\pm$2.65 &
+  36.70$\pm$3.30 &
+  54.88$\pm$1.53 &
+  42.92$\pm$4.58 &
+  51.30$\pm$3.39 \\
+\textit{+TA+WU} &
+  42.85$\pm$2.34 &
+  52.96$\pm$1.20 &
+  \textbf{35.97$\pm$2.75} &
+  38.77$\pm$2.45 &
+  44.05$\pm$1.94 &
+  58.92$\pm$2.47 &
+  \textbf{38.27$\pm$2.75} &
+  45.16$\pm$4.57 \\ \midrule
+MKD &
+  41.32$\pm$0.81 &
+  \textbf{60.12$\pm$1.59} &
+  40.30$\pm$3.98 &
+  \textbf{26.42$\pm$1.60} &
+  43.96$\pm$3.89 &
+  \textbf{70.65$\pm$1.67} &
+  42.83$\pm$5.11 &
+  \textbf{25.52$\pm$3.43} \\
+\textit{+TA} &
+  39.93$\pm$1.95 &
+  55.77$\pm$2.23 &
+  36.22$\pm$1.07 &
+  31.43$\pm$2.28 &
+  \textbf{46.94$\pm$4.42} &
+  67.15$\pm$4.48 &
+  \textbf{37.01$\pm$6.67} &
+  31.07$\pm$8.38 \\
+\textit{+WU} &
+  34.65$\pm$2.72 &
+  48.01$\pm$1.97 &
+  44.86$\pm$0.61 &
+  47.07$\pm$2.40 &
+  35.49$\pm$5.51 &
+  56.83$\pm$2.79 &
+  46.14$\pm$6.67 &
+  48.15$\pm$5.95 \\
+\textit{+TA+WU} &
+  \textbf{44.91$\pm$2.51} &
+  56.41$\pm$1.04 &
+  \textbf{35.53$\pm$2.19} &
+  34.47$\pm$0.71 &
+  44.62$\pm$2.85 &
+  61.25$\pm$3.28 &
+  38.31$\pm$3.91 &
+  41.48$\pm$6.24 \\ \midrule
+TKD &
+  38.70$\pm$3.61 &
+  56.69$\pm$3.36 &
+  44.99$\pm$1.04 &
+  33.86$\pm$1.36 &
+  40.23$\pm$4.35 &
+  \textbf{66.84$\pm$2.79} &
+  50.63$\pm$5.56 &
+  35.77$\pm$4.85 \\
+\textit{+TA} &
+  42.34$\pm$0.77 &
+  \textbf{57.99$\pm$1.88} &
+  39.97$\pm$0.52 &
+  \textbf{33.79$\pm$1.80} &
+  \textbf{46.86$\pm$5.55} &
+  67.18$\pm$5.28 &
+  39.90$\pm$6.90 &
+  \textbf{33.67$\pm$8.84} \\
+\textit{+WU} &
+  32.71$\pm$5.27 &
+  45.64$\pm$5.00 &
+  44.43$\pm$2.13 &
+  49.06$\pm$3.58 &
+  37.53$\pm$2.65 &
+  56.12$\pm$1.34 &
+  44.06$\pm$4.80 &
+  50.70$\pm$3.59 \\
+\textit{+TA+WU} &
+  \textbf{43.04$\pm$1.30} &
+  53.68$\pm$1.56 &
+  \textbf{37.14$\pm$1.52} &
+  39.73$\pm$2.92 &
+  44.52$\pm$2.14 &
+  59.37$\pm$2.39 &
+  \textbf{38.32$\pm$2.53} &
+  45.65$\pm$4.61 \\ \midrule
+ &
+  \multicolumn{4}{c}{12 tasks, 10 classes each, base order} &
+  \multicolumn{4}{c}{12 tasks, 10 classes each, reverse order} \\ \cmidrule{2-9}
+ &
+\multicolumn{1}{c}{$Acc_{Final} \uparrow$} &
+  \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} &
+  \multicolumn{1}{c}{$Forg_{Final} \downarrow$} &
+  \multicolumn{1}{c}{$Forg_{Inc} \downarrow$} &
+  \multicolumn{1}{c}{$Acc_{Final} \uparrow$} &
+  \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} &
+  \multicolumn{1}{c}{$Forg_{Final} \downarrow$} &
+  \multicolumn{1}{c}{$Forg_{Inc} \downarrow$} \\ \midrule
+GKD &
+  23.66$\pm$2.75 &
+  44.03$\pm$1.53 &
+  58.93$\pm$1.75 &
+  42.70$\pm$2.32 &
+  26.84$\pm$4.11 &
+  51.68$\pm$2.03 &
+  59.80$\pm$5.93 &
+  47.19$\pm$2.43 \\
+\textit{+TA} &
+  \textbf{36.46$\pm$0.94} &
+  \textbf{50.80$\pm$1.27} &
+  43.53$\pm$1.96 &
+  37.58$\pm$3.01 &
+  41.15$\pm$5.50 &
+  \textbf{59.51$\pm$4.40} &
+  42.61$\pm$6.36 &
+  \textbf{36.14$\pm$6.20} \\
+\textit{+WU} &
+  11.02$\pm$1.11 &
+  29.93$\pm$2.68 &
+  50.32$\pm$3.34 &
+  54.06$\pm$0.60 &
+  19.55$\pm$0.93 &
+  39.99$\pm$0.23 &
+  46.40$\pm$0.80 &
+  54.24$\pm$0.27 \\
+\textit{+TA+WU} &
+  36.00$\pm$0.89 &
+  49.46$\pm$2.09 &
+  \textbf{35.49$\pm$1.90} &
+  \textbf{35.81$\pm$2.02} &
+  \textbf{44.79$\pm$4.28} &
+  52.88$\pm$5.06 &
+  \textbf{26.81$\pm$5.14} &
+  40.33$\pm$3.03 \\ \midrule
+MKD &
+  25.35$\pm$4.36 &
+  45.19$\pm$2.91 &
+  55.04$\pm$2.71 &
+  43.81$\pm$1.56 &
+  31.81$\pm$5.29 &
+  53.63$\pm$2.31 &
+  52.38$\pm$6.99 &
+  43.86$\pm$3.05 \\
+\textit{+TA} &
+  \textbf{35.10$\pm$1.92} &
+  \textbf{51.16$\pm$1.84} &
+  37.96$\pm$1.84 &
+  \textbf{34.89$\pm$2.60} &
+  41.95$\pm$5.36 &
+  \textbf{60.11$\pm$3.87} &
+  36.16$\pm$6.75 &
+  \textbf{33.18$\pm$5.64} \\
+\textit{+WU} &
+  15.61$\pm$6.67 &
+  32.93$\pm$3.65 &
+  49.31$\pm$7.17 &
+  54.64$\pm$1.52 &
+  26.19$\pm$8.31 &
+  42.21$\pm$1.31 &
+  44.49$\pm$6.28 &
+  54.20$\pm$1.67 \\
+\textit{+TA+WU} &
+  34.65$\pm$4.00 &
+  50.40$\pm$3.57 &
+  \textbf{36.79$\pm$1.04} &
+  35.74$\pm$3.45 &
+  \textbf{45.91$\pm$4.64} &
+  54.05$\pm$4.55 &
+  \textbf{27.74$\pm$4.92} &
+  40.08$\pm$3.32 \\ \midrule
+TKD &
+  24.69$\pm$3.39 &
+  46.28$\pm$1.42 &
+  56.57$\pm$2.87 &
+  43.38$\pm$0.82 &
+  31.50$\pm$3.26 &
+  54.13$\pm$2.24 &
+  52.51$\pm$5.19 &
+  43.47$\pm$2.21 \\
+\textit{+TA} &
+  35.06$\pm$1.42 &
+  \textbf{51.66$\pm$1.63} &
+  39.72$\pm$2.08 &
+  35.43$\pm$2.75 &
+  41.40$\pm$4.78 &
+  \textbf{59.22$\pm$3.67} &
+  37.10$\pm$5.97 &
+  \textbf{34.27$\pm$5.88} \\
+\textit{+WU} &
+  15.04$\pm$1.20 &
+  33.32$\pm$1.74 &
+  50.10$\pm$1.89 &
+  53.59$\pm$1.52 &
+  26.10$\pm$4.04 &
+  42.34$\pm$1.31 &
+  43.50$\pm$3.29 &
+  52.66$\pm$0.59 \\
+\textit{+TA+WU} &
+  \textbf{35.81$\pm$1.27} &
+  50.12$\pm$2.31 &
+  \textbf{34.73$\pm$0.52} &
+  \textbf{34.64$\pm$1.99} &
+  \textbf{43.91$\pm$5.45} &
+  52.38$\pm$5.54 &
+  \textbf{26.77$\pm$4.76} &
+  40.35$\pm$3.60 \\
+  \midrule
+\textit{} &
+  \multicolumn{4}{c}{24 tasks, 5 classes each, base order} &
+  \multicolumn{4}{c}{24 tasks, 5 classes each, reverse order} \\ \cmidrule{2-9}
+ &
+\multicolumn{1}{c}{$Acc_{Final} \uparrow$} &
+  \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} &
+  \multicolumn{1}{c}{$Forg_{Final} \downarrow$} &
+  \multicolumn{1}{c}{$Forg_{Inc} \downarrow$} &
+  \multicolumn{1}{c}{$Acc_{Final} \uparrow$} &
+  \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} &
+  \multicolumn{1}{c}{$Forg_{Final} \downarrow$} &
+  \multicolumn{1}{c}{$Forg_{Inc} \downarrow$} \\ \midrule
+GKD &
+  9.41$\pm$2.78 &
+  30.14$\pm$4.00 &
+  60.16$\pm$4.76 &
+  51.95$\pm$2.28 &
+  15.33$\pm$2.59 &
+  33.65$\pm$0.76 &
+  64.43$\pm$3.19 &
+  57.18$\pm$2.13 \\
+\textit{+TA} &
+  26.92$\pm$2.31 &
+  42.86$\pm$1.82 &
+  44.80$\pm$3.25 &
+  39.01$\pm$1.55 &
+  29.52$\pm$2.33 &
+  \textbf{48.34$\pm$1.51} &
+  48.32$\pm$2.43 &
+  41.58$\pm$3.30 \\
+\textit{+WU} &
+  7.24$\pm$1.03 &
+  24.91$\pm$1.44 &
+  43.78$\pm$2.98 &
+  51.18$\pm$1.15 &
+  6.15$\pm$1.91 &
+  25.45$\pm$2.08 &
+  39.88$\pm$3.29 &
+  46.36$\pm$1.88 \\
+\textit{+TA+WU} &
+  \textbf{27.30$\pm$1.97} &
+  \textbf{45.28$\pm$2.25} &
+  \textbf{34.75$\pm$4.58} &
+  \textbf{33.67$\pm$2.48} &
+  \textbf{34.14$\pm$9.24} &
+  42.65$\pm$1.21 &
+  \textbf{19.92$\pm$11.23} &
+  \textbf{32.38$\pm$8.24} \\ \midrule
+MKD &
+  11.57$\pm$2.70 &
+  32.61$\pm$0.55 &
+  63.70$\pm$2.58 &
+  55.91$\pm$1.77 &
+  15.53$\pm$2.96 &
+  34.85$\pm$1.40 &
+  62.28$\pm$3.64 &
+  56.57$\pm$2.11 \\
+\textit{+TA} &
+  \textbf{27.88$\pm$1.58} &
+  45.49$\pm$1.82 &
+  37.65$\pm$1.16 &
+  34.48$\pm$0.89 &
+  \textbf{31.82$\pm$1.51} &
+  \textbf{49.47$\pm$1.16} &
+  38.89$\pm$1.18 &
+  35.98$\pm$2.07 \\
+\textit{+WU} &
+  7.52$\pm$4.24 &
+  24.62$\pm$1.56 &
+  44.85$\pm$6.75 &
+  52.59$\pm$2.59 &
+  4.57$\pm$3.36 &
+  21.36$\pm$4.30 &
+  40.82$\pm$4.75 &
+  51.73$\pm$0.78 \\
+\textit{+TA+WU} &
+  26.71$\pm$2.29 &
+  \textbf{45.80$\pm$2.48} &
+  \textbf{33.52$\pm$4.66} &
+  \textbf{32.48$\pm$2.15} &
+  30.63$\pm$6.78 &
+  41.09$\pm$4.04 &
+  \textbf{20.99$\pm$4.34} &
+  \textbf{31.64$\pm$3.87} \\ \midrule
+TKD &
+  9.99$\pm$0.47 &
+  32.17$\pm$2.71 &
+  60.29$\pm$3.39 &
+  51.72$\pm$1.95 &
+  16.28$\pm$2.59 &
+  34.68$\pm$1.62 &
+  59.14$\pm$4.12 &
+  54.83$\pm$1.69 \\
+\textit{+TA} &
+  \textbf{26.24$\pm$3.62} &
+  \textbf{43.95$\pm$2.60} &
+  36.28$\pm$2.17 &
+  33.28$\pm$1.86 &
+  \textbf{30.81$\pm$1.61} &
+  \textbf{48.95$\pm$0.95} &
+  38.10$\pm$1.53 &
+  35.45$\pm$1.59 \\
+\textit{+WU} &
+  3.79$\pm$1.21 &
+  22.99$\pm$1.33 &
+  36.45$\pm$3.12 &
+  42.30$\pm$4.03 &
+  8.62$\pm$4.87 &
+  24.91$\pm$6.55 &
+  39.22$\pm$7.44 &
+  49.71$\pm$2.49 \\
+\textit{+TA+WU} &
+  20.24$\pm$4.08 &
+  37.22$\pm$6.11 &
+  \textbf{23.39$\pm$2.94} &
+  \textbf{24.53$\pm$3.01} &
+  25.21$\pm$3.57 &
+  47.46$\pm$5.21 &
+  \textbf{28.40$\pm$4.04} &
+  \textbf{26.15$\pm$2.93} \\ 
+  \bottomrule
+\end{tabular}%
+}
+\caption{Additional results for the fine-grained classification datasets, extended by the experiments with reversed order of the datasets.}
+\label{tab:app:fg_rev}
+\end{table*}
+
+
+\subsection{DomainNet}
+
+\begin{table*}[t]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}lrrrrrrrr@{}}
+\toprule
+ & \multicolumn{8}{c}{6 tasks 50 classes with $\lambda = 10$}
+ \\ \cmidrule{2-9}
+ &
+  \multicolumn{4}{c}{Trained from scratch} &
+  \multicolumn{4}{c}{Pre-trained on Imagenet}
+  \\ \cmidrule{2-9}
+ &
+  \multicolumn{1}{c}{$Acc_{Final} \uparrow$} &
+  \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} &
+  \multicolumn{1}{c}{$Forg_{Final} \downarrow$} &
+  \multicolumn{1}{c}{$Forg_{Inc} \downarrow$} &
+  \multicolumn{1}{c}{$Acc_{Final} \uparrow$} &
+  \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} &
+  \multicolumn{1}{c}{$Forg_{Final} \downarrow$} &
+  \multicolumn{1}{c}{$Forg_{Inc} \downarrow$} \\ \cmidrule{2-9}
+GKD &
+  3.43$\pm$0.45 &
+  18.63$\pm$0.27 &
+  \textbf{31.05$\pm$0.42} &
+  \textbf{23.27$\pm$0.26} &
+  27.69$\pm$0.09 &
+  43.27$\pm$0.10 &
+  \textbf{41.61$\pm$0.71} &
+  \textbf{36.83$\pm$0.88} \\
+\textit{+TA} &
+  \textbf{6.73$\pm$0.82} &
+  \textbf{19.55$\pm$0.42} &
+  36.26$\pm$0.55 &
+  27.22$\pm$0.21 &
+  \textbf{30.12$\pm$0.23} &
+  \textbf{43.52$\pm$0.17} &
+  43.38$\pm$0.39 &
+  38.33$\pm$0.41 \\
+\textit{+TA+WU} &
+  5.83$\pm$0.70 &
+  18.68$\pm$0.36 &
+  33.00$\pm$0.59 &
+  31.12$\pm$0.38 &
+  28.83$\pm$0.26 &
+  39.00$\pm$0.12 &
+  42.64$\pm$0.56 &
+  49.44$\pm$0.37 \\ 
+\midrule
+ANCL &
+  7.33$\pm$0.91  & 19.58$\pm$0.46 & \textbf{33.28$\pm$0.18} & \textbf{25.63$\pm$0.20} & 25.58$\pm$0.62 & \textbf{42.90$\pm$0.84} & 45.01$\pm$1.19 & \textbf{37.28$\pm$1.86} \\
+\textit{+TA} &
+  8.85$\pm$0.25  & 20.34$\pm$0.40 & 39.70$\pm$0.38 & 30.73$\pm$0.44 & 26.95$\pm$0.07 & 42.67$\pm$0.51 & 41.62$\pm$0.52 & 38.56$\pm$1.24 \\
+\textit{+TA+WU} &
+  \textbf{9.65$\pm$0.40} & \textbf{20.39$\pm$0.09} & 37.57$\pm$0.12 & 32.83$\pm$0.66 & \textbf{29.15$\pm$0.98} & 42.44$\pm$0.80 & \textbf{34.23$\pm$0.85} & 37.09$\pm$1.33 \\
+
+  \midrule
+  & \multicolumn{8}{c}{12 tasks 25 classes with $\lambda = 10$}
+  \\ \cmidrule{2-9}
+  &
+  \multicolumn{4}{c}{Trained from scratch} &
+  \multicolumn{4}{c}{Pre-trained on Imagenet}
+  \\ \cmidrule{2-9}
+  &
+  \multicolumn{1}{c}{$Acc_{Final} \uparrow$} &
+  \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} &
+  \multicolumn{1}{c}{$Forg_{Final} \downarrow$} &
+  \multicolumn{1}{c}{$Forg_{Inc} \downarrow$} &
+  \multicolumn{1}{c}{$Acc_{Final} \uparrow$} &
+  \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} &
+  \multicolumn{1}{c}{$Forg_{Final} \downarrow$} &
+  \multicolumn{1}{c}{$Forg_{Inc} \downarrow$} \\ \cmidrule{2-9}
+  GKD &
+  2.48$\pm$0.41 &
+  14.45$\pm$0.25 &
+  29.01$\pm$0.63 &
+  \textbf{29.04$\pm$0.37} &
+  17.69$\pm$0.84 &
+  35.98$\pm$0.96 &
+  50.12$\pm$1.00 &
+  43.00$\pm$1.66 \\
+\textit{+TA} &
+  4.88$\pm$0.46 &
+  \textbf{16.25$\pm$0.46} &
+  36.47$\pm$1.06 &
+  33.03$\pm$0.19 &
+  \textbf{28.02$\pm$0.68} &
+  \textbf{38.89$\pm$0.52} &
+  40.87$\pm$0.64 &
+  \textbf{41.10$\pm$0.42} \\
+\textit{+TA+WU} &
+  \textbf{6.37$\pm$1.39} &
+  16.22$\pm$0.45 &
+  \textbf{27.45$\pm$0.70} &
+  32.63$\pm$0.11 &
+  27.97$\pm$0.38 &
+  34.24$\pm$0.42 &
+  \textbf{30.86$\pm$0.33} &
+  44.17$\pm$0.37
+ \\ \midrule
+ ANCL &
+  3.97$\pm$0.50  & 14.82$\pm$0.41 & \textbf{32.80$\pm$0.61} & \textbf{33.46$\pm$0.40} & 14.13$\pm$1.35 & 33.34$\pm$0.55 & 55.72$\pm$0.16 & 49.05$\pm$0.65 \\
+\textit{+TA} &
+  6.54$\pm$0.51  & 17.19$\pm$0.06 & 39.77$\pm$0.76 & 37.40$\pm$0.38 & 23.42$\pm$1.03 & \textbf{35.81$\pm$0.18} & 40.86$\pm$0.85 & 43.84$\pm$0.23 \\
+\textit{+TA+WU} &
+  \textbf{8.06$\pm$0.47} & \textbf{18.12$\pm$0.07} & 36.07$\pm$0.13 & 36.71$\pm$0.05 & \textbf{27.83$\pm$1.36} & 36.73$\pm$1.78 & \textbf{31.00$\pm$0.39} & \textbf{39.29$\pm$0.49} \\
+  
+ \midrule
+ 
+ & \multicolumn{8}{c}{6 tasks 50 classes with $\lambda = 1$}
+ \\ \cmidrule{2-9}
+ &
+  \multicolumn{4}{c}{Trained from scratch} &
+  \multicolumn{4}{c}{Pre-trained on Imagenet}
+  \\ \cmidrule{2-9}
+ &
+  \multicolumn{1}{c}{$Acc_{Final} \uparrow$} &
+  \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} &
+  \multicolumn{1}{c}{$Forg_{Final} \downarrow$} &
+  \multicolumn{1}{c}{$Forg_{Inc} \downarrow$} &
+  \multicolumn{1}{c}{$Acc_{Final} \uparrow$} &
+  \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} &
+  \multicolumn{1}{c}{$Forg_{Final} \downarrow$} &
+  \multicolumn{1}{c}{$Forg_{Inc} \downarrow$} \\ \cmidrule{2-9}
+GKD &
+  5.52$\pm$2.11 &
+  18.80$\pm$0.75 &
+  \textbf{39.48$\pm$1.12} &
+  \textbf{32.74$\pm$0.60} &
+  19.93$\pm$0.47 &
+  36.56$\pm$0.12 &
+  58.83$\pm$0.96 &
+  56.75$\pm$0.89
+   \\
+\textit{+TA} &
+  \textbf{11.42$\pm$0.30} &
+  \textbf{20.84$\pm$0.24} &
+  42.92$\pm$0.49 &
+  34.98$\pm$0.19 &
+  \textbf{25.50$\pm$0.86} &
+  \textbf{39.01$\pm$0.60} &
+  \textbf{56.75$\pm$0.90} &
+  \textbf{54.99$\pm$0.93} \\ \midrule
+TKD &
+  4.87$\pm$0.97 &
+  18.94$\pm$0.36 &
+  \textbf{32.95$\pm$0.78} &
+  \textbf{26.60$\pm$0.29} &
+  27.44$\pm$0.15 &
+  42.18$\pm$0.41 &
+  42.47$\pm$0.65 &
+  \textbf{41.23$\pm$1.05} \\
+\textit{+TA} &
+  \textbf{6.76$\pm$1.03} &
+  \textbf{19.67$\pm$0.19} &
+  37.43$\pm$0.57 &
+  29.91$\pm$0.09 &
+  28.96$\pm$0.32 &
+  \textbf{42.51$\pm$0.43} &
+  43.91$\pm$0.16 &
+  42.00$\pm$0.59 \\
+\textit{+TA+WU} &
+  5.88$\pm$0.82 &
+  18.65$\pm$0.27 &
+  33.50$\pm$0.96 &
+  32.33$\pm$0.49 &
+  \textbf{29.55$\pm$0.30} &
+  40.62$\pm$0.07 &
+  \textbf{42.08$\pm$0.55} &
+  46.86$\pm$0.39
+  \\ \midrule
+
+MKD & 3.24$\pm$1.10  & 18.74$\pm$0.52 & \textbf{26.83$\pm$0.83} & \textbf{19.10$\pm$0.40}  & \textbf{30.41$\pm$0.47} & \textbf{45.70$\pm$0.30}   & 32.96$\pm$0.29 & \textbf{27.48$\pm$0.60}  \\
+\textit{+TA} & 3.99$\pm$0.38 & 18.04$\pm$0.16 & 29.16$\pm$0.29 & 22.70$\pm$0.25 & 27.47$\pm$0.22 & 42.91$\pm$0.04 & \textbf{31.05$\pm$0.31} & 29.43$\pm$0.04 \\
+\textit{+TA+WU} & \textbf{6.26$\pm$0.02} & \textbf{19.18$\pm$0.13} & 31.36$\pm$1.04 & 27.81$\pm$0.49 & 30.10$\pm$1.07 & 42.20$\pm$0.65 & 34.50$\pm$0.41 & 38.01$\pm$0.4
+
+  \\ \midrule
+
+ & \multicolumn{8}{c}{12 tasks 25 classes with $\lambda=1$}
+ \\ \cmidrule{2-9}
+ &
+  \multicolumn{4}{c}{Trained from scratch} &
+  \multicolumn{4}{c}{Pre-trained on Imagenet}
+  \\ \cmidrule{2-9}
+ &
+  \multicolumn{1}{c}{$Acc_{Final} \uparrow$} &
+  \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} &
+  \multicolumn{1}{c}{$Forg_{Final} \downarrow$} &
+  \multicolumn{1}{c}{$Forg_{Inc} \downarrow$} &
+  \multicolumn{1}{c}{$Acc_{Final} \uparrow$} &
+  \multicolumn{1}{c}{$Acc_{Inc} \uparrow$} &
+  \multicolumn{1}{c}{$Forg_{Final} \downarrow$} &
+  \multicolumn{1}{c}{$Forg_{Inc} \downarrow$} \\ \cmidrule{2-9}
+GKD &
+  2.88$\pm$0.25 &
+  14.38$\pm$0.82 &
+  \textbf{38.89$\pm$3.42} &
+  \textbf{39.78$\pm$2.23} &
+  9.62$\pm$0.56 &
+  27.99$\pm$0.40 &
+  64.74$\pm$0.21 &
+  59.93$\pm$1.13
+   \\
+\textit{+TA} &
+  \textbf{6.80$\pm$0.28} &
+  \textbf{17.02$\pm$0.19} &
+  47.37$\pm$0.82 &
+  43.44$\pm$0.16 &
+  \textbf{19.00$\pm$0.83} &
+  \textbf{33.90$\pm$0.62} &
+  \textbf{58.20$\pm$0.71} &
+  \textbf{54.97$\pm$0.71} \\ \midrule
+TKD &
+  3.39$\pm$0.43 &
+  12.28$\pm$0.99 &
+  41.22$\pm$0.28 &
+  33.32$\pm$0.33 &
+  22.66$\pm$1.59 &
+  37.56$\pm$1.03 &
+  41.65$\pm$1.73 &
+  41.21$\pm$1.97 \\
+\textit{+TA} &
+  5.10$\pm$0.47 &
+  \textbf{16.84$\pm$0.42} &
+  34.03$\pm$0.61 &
+  33.46$\pm$0.41 &
+  \textbf{29.39$\pm$0.37} &
+  \textbf{38.85$\pm$0.31} &
+  34.51$\pm$0.54 &
+  \textbf{39.91$\pm$0.39} \\
+\textit{+TA+WU} &
+  \textbf{6.27$\pm$0.52} &
+  16.40$\pm$0.56 &
+  \textbf{26.51$\pm$0.57} &
+  \textbf{32.87$\pm$0.34} &
+  29.26$\pm$2.05 &
+  36.81$\pm$0.97 &
+  \textbf{30.00$\pm$1.48} &
+  41.98$\pm$0.95 \\ 
+  
+  \midrule
+MKD & 2.32$\pm$0.39 & 13.45$\pm$0.53 & 23.92$\pm$1.02 & \textbf{27.23$\pm$0.98} & 24.55$\pm$0.20  & \textbf{39.14$\pm$0.21} & 38.09$\pm$1.02 & 36.53$\pm$1.00  \\
+\textit{+TA} & 3.60$\pm$0.51  & 15.30$\pm$0.35  & 27.32$\pm$0.37 & 28.71$\pm$0.26 & 27.49$\pm$0.94 & 37.84$\pm$0.35 & 27.99$\pm$1.16 & \textbf{34.09$\pm$0.39} \\
+\textit{+TA+WU} & \textbf{5.46$\pm$1.20} & \textbf{15.89$\pm$0.96} & \textbf{22.23$\pm$1.98} & 30.62$\pm$0.48 & \textbf{30.34$\pm$1.32}   & 37.79$\pm$1.11  & \textbf{24.81$\pm$1.05}  & 37.00$\pm$1.84 
+  \\
+  \bottomrule
+\end{tabular}%
+}
+\caption{Additional results for DomainNet.}
+\label{tab:app:domainnet}
+\end{table*}
+
+
+We present the full experimental results for DomainNet in \Cref{tab:domainnet_main}. In addition to incremental accuracy and forgetting, we also add final accuracy and forgetting to the metrics in the experiments. Additionally, we analyze the random initialization and impact of starting from pretrained checkpoint on ImageNet. For task-wise knowledge distillation (TKD) we apply $\lambda$ equal to 1, for global knowledge distillation we notice that $\lambda = 10$ works better. We set the learning rate to $0.01$ and use the scheduler with LR decay after 60, 120 and 180 epochs.
+
+\end{appendix}

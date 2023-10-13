@@ -1,0 +1,110 @@
+\documentclass[10pt,twocolumn,letterpaper]{article}
+%\usepackage[rebuttal,applications]{wacv}  % use this for an Applications Track rebuttal
+\usepackage[rebuttal,algorithms]{wacv}  % use this for an Algorithms Track rebuttal
+
+% Include other packages here, before hyperref.
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{xcolor}
+
+
+% If you comment hyperref and then uncomment it, you should delete
+% egpaper.aux before re-running latex.  (Or just hit 'q' on the first latex
+% run, let it finish, and you should be clear).
+\usepackage[pagebackref,breaklinks,colorlinks,bookmarks=false]{hyperref}
+
+% Support for easy cross-referencing
+\usepackage[capitalize]{cleveref}
+\crefname{section}{Sec.}{Secs.}
+\Crefname{section}{Section}{Sections}
+\Crefname{table}{Table}{Tables}
+\crefname{table}{Tab.}{Tabs.}
+
+% If you wish to avoid re-using figure, table, and equation numbers from
+% the main paper, please uncomment the following and change the numbers
+% appropriately.
+%\setcounter{figure}{2}
+%\setcounter{table}{1}
+%\setcounter{equation}{2}
+
+% If you wish to avoid re-using reference numbers from the main paper,
+% please uncomment the following and change the counter for `enumiv' to
+% the number of references you have in the main paper (here, 6).
+%\let\oldthebibliography=\thebibliography
+%\let\oldendthebibliography=\endthebibliography
+%\renewenvironment{thebibliography}[1]{%
+%     \oldthebibliography{#1}%
+%     \setcounter{enumiv}{6}%
+%}{\oldendthebibliography}
+
+
+%%%%%%%%% PAPER ID  - PLEASE UPDATE
+\def\wacvPaperID{0576} % *** Enter the CVPR Paper ID here
+\def\confName{WACV}
+\def\confYear{2024}
+
+\newcommand{\Rfour}{{\bfseries\color{orange} R4}}
+\newcommand{\Rfive}{{\bfseries\color{teal} R5}}
+\newcommand{\Reight}{{\bfseries\color{magenta} R8}}
+\newcommand{\Rnine}{{\bfseries\color{blue} R9}}
+\newcommand\todo[1]{{\color{red} [\bf TODO: #1]}}
+
+\begin{document}
+
+%%%%%%%%% TITLE - PLEASE UPDATE
+\title{Adapt Your Teacher: Improving Knowledge Distillation for Exemplar-free Continual Learning}  % **** Enter the paper title here
+
+\maketitle
+\thispagestyle{empty}
+\appendix
+
+\noindent We thank the Reviewers (\Rfour, \Rfive, \Reight, \Rnine) for their feedback and questions which allowed us to significantly improve the paper. 
+We are pleased that reviewers noticed the significance of this
+work (\Rfive), good experimental results (\Rfive, \Reight, \Rnine) and describe our work as well-written and easy to follow (\Rfour, \Rnine) accompanied by detailed analysis (\Rfour, \Reight).
+%The Reviewers point out that the paper is \textit{characterized by clear, coherent, and easily understandable writing} (\Rnine). Our method \textit{is simple and easy to understand} (\Rfour), while demonstrating \textit{improvements over baseline methods that use "standard" knowledge distillation} (\Rfive). Moreover, the Reviewers point out that \textit{investigating the effect of distribution shifts in teacher-student training models is an important problem} (\Rfive) and that our paper \textit{contributes to the broader discussion on improving continual learning approaches} (\Reight). 
+Below, we address specific comments raised by Reviewers and highlight the updates made to the paper. 
+
+\noindent \textbf{Common concerns.} 
+We expanded our work with \textbf{additional experiments} following the reviewers' requests. Specifically, we added 1) experiments with the recent CVPR 2023 method ANCL~[21], MKD results for large datasets, and experiments on the new dataset TinyImageNet200 (\Rfive, \Reight), 2) experiments with different architectures and batch sizes in Appendices~C.1 and~C.2 respectively (\Reight), 3) an analysis of the distribution of batch normalization statistics over the course of CIL training in Appendix~C.3 (\Reight), and 4) a more detailed analysis of our method in Section~4.4.2 (\Rfive, \Reight).
+We note that Reviewers \Rfour, \Rfive\ and \Reight\ asked for more analysis of the \textbf{warmup} phase. The goal of our paper is to explore the idea of teacher adaptation in CIL, and as the warmup is already known technique we did not want to focus on its analysis. 
+%However, alongside experiments with TA, we still carry out extensive experimental evaluation of this technique in Appendix. 
+We changed the paper to put more emphasis on our contribution and added Appendix B dedicated to the discussion on warmup. For more analysis of this technique, we refer the Reviewers to the papers~[7,26,48].
+Finally, we fixed minor editing issues pointed out by the Reviewers \Rfive ~and \Rnine, and changed the paper layout to accommodate new results and analysis. 
+
+% \noindent\textbf{Additional comments:}
+
+\noindent \Rfour: Thank you for taking the time to review our paper. 
+%\todo{Should we use numbers to refer to concrete points in weaknesses if he does not enumerate his comments?}
+Following your insightful comments, we updated the Method section to more adequately refer to the previous works. We also clarified the distinction between our method and other teacher adaptation approaches such as~[29,63]. 
+Regarding your question about our choice of exemplar-free settings, in Discussion~(L833) we note that the problem addressed by our method is specific to exemplar-free setting and modify this section to better highlight that distinction.
+Additionally, as you noticed, our method is not applicable for architectures without batch normalization, but we would like to point out that batch normalization is still widely used in practical applications, e.g., with ResNet architectures.
+Regarding the lack of novelty, your claims would be more beneficial for us if they were supported by references. 
+In our work, we have done our best to cite the relevant work, and, to our knowledge, we are the first to apply the idea of teacher adaptation to CIL. Please also note that other reviewers indeed found our work novel (\Rfive, \Reight). 
+Regarding \textit{not convincing} method performance, we would also like to point out that \textbf{exemplar-free CIL} is very challenging and the scores reported in our paper for the knowledge distillation methods match the results reported in other works~[31,46]. 
+We hope that these improvements and clarifications will address your concerns.% and contribute to the overall quality of the paper
+
+\noindent \Rfive: We appreciate your feedback and recognition of our paper's thorough analysis of the method and its improvements over the baselines. We address most of the issues pointed out in your review in the Common concerns section. Following your suggestion, we also removed the reference to La-MAML from the Related Works section on the teacher-student methods that modify the teacher model. 
+We hope that our changes improve the quality of our paper and will enhance your perspective on our work.
+
+\noindent \Reight: Thank you for deeming our method \textit{novel and intuitive}. 
+Following your suggestion, in Section~4.4 we added group normalization to the ablation study. However, we would like to point out that our method is not applicable to group normalization, as group normalization does not keep any statistics about the distribution of the data.
+We address some of the issues pointed out in your review in the Common concerns section, and clarify the rest below.
+1) We want to explore the idea of adapting the teacher model, and our experiments show that adapting the normalization statistics performs the best (Section~4.4.1). Therefore, we decided to stick with the name "Teacher Adaptation" for simplicity.
+3) Following your suggestion, we expanded our analysis by adding Appendix~C.3, where we show that our method reduces the KL divergence between normalization statistics in the teacher and student model. Additionally, we show that with our method the normalization statistics computed between the first task model and the models learned after each subsequent task are also less divergent, indicating improved stability of the representations.
+5) We add batch size to the hyperparameters in the experimental section. Additionally, we add an ablation study on the impact of batch size on our method (Appendix~C.1) and show that the gains from our method are consistent regardless of the batch size.
+We are thankful for your remarks and believe that the changes made upon your review increase the quality of our paper and can convince you about the reliability of our method.
+
+% \noindent \Rnine: Thank you for labeling our writing as \textit{clear, coherent, and easily understandable} and noting that we \textit{provide strong evidence of the method's consistent superiority over baseline approaches}. 
+\noindent \Rnine: Thank you for your positive feedback on our paper. 
+Regarding your suggestion about examining datasets with significant domain shifts, we agree that it is beneficial to test the methods on the practical datasets in addition to the academic benchmarks, but we would like to point out that we also conduct our evaluation on DomainNet, fine-grained classification datasets and corrupted CIFAR100 which are designed to test the reliability of machine learning methods under significant data shifts. We hope that the improvements made to the paper will improve your opinion of our work.
+
+%\clearpage
+%%%%%%%%% REFERENCES
+%{\small
+%\bibliographystyle{ieee_fullname}
+%\bibliography{egbib}
+%}
+
+\end{document}
