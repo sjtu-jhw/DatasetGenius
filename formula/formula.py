@@ -14,12 +14,19 @@ from grobid_client.grobid_client import GrobidClient
 from grobid_parser import GParser
 import xml.etree.ElementTree as ET
 import re
+import time
 from datasketch import MinHash, MinHashLSH
+from tqdm import tqdm
 
 # 将tex中的公式tex源码按顺序清洗出来
 def clean_tex(tex_file_path):
-    with open(tex_file_path,'r') as fp:
-        data = fp.read()
+    # 异常处理
+    try:
+        with open(tex_file_path,'r') as fp:
+            data = fp.read()
+    except UnicodeDecodeError:
+        print("Unable to decode the file with UTF-8 encoding.")
+        return [] # 直接返回一个空列表
     # tex中的公式源码list
     equation_latex_list = []
     # 首先去掉注释部分
@@ -107,7 +114,7 @@ def main():  # pragma no cover
         pdf_path = None
         tex_paths = []
         for f in os.listdir(path):
-            if f.endswith('.pdf'):# 这个地方我人为把pdf加到source文件夹里面了，实际上这里面没有
+            if f.endswith('.pdf') and bool(re.match(r'\d+\.\d+\.pdf', f)):# 这个地方我们只取符合arxiv的doi的pdf
                 pdf_path = os.path.join(path, f)
             elif f.endswith('.tex'): # 一个source文件里可能会有好几个.tex文件，全找！
                 tex_paths.append(os.path.join(path, f))
@@ -117,7 +124,8 @@ def main():  # pragma no cover
             continue
                 
     # 由于不能直接对原数据集进行写入操作，这里把数据集中的论文拉到本地
-    for (pdf_path, tex_paths) in workfile_path_tuple_list:
+    print("正在把数据拉到本地...")
+    for (pdf_path, tex_paths) in tqdm(workfile_path_tuple_list):
         make_dir_if_not_exist(pdf_work_dir)
         shutil.copy(pdf_path, os.path.join(pdf_work_dir, os.path.basename(pdf_path)))
         for tex_path in tex_paths:  
@@ -126,7 +134,7 @@ def main():  # pragma no cover
 
     # 使用Grobid进行pdf解析，得到tex文件
     client = GrobidClient(config_path='./config.json')# Grobid配置文件
-    print('正在解析，请等待...')
+    print('Grobid正在解析，请等待...')
     client.process("processFulltextDocument", 
                 input_path=pdf_work_dir, 
                 output=xml_work_dir,
@@ -162,7 +170,9 @@ def main():  # pragma no cover
 
     # data pair list
     data_pair_list = []
-    for (pdf_path,tex_paths,xml_path) in workfile_path_tuple_list_new:
+    print("正在清洗xml和tex，构建数据集...")
+    t1 = time.time()
+    for (pdf_path,tex_paths,xml_path) in tqdm(workfile_path_tuple_list_new):
         equation_xml_list = []
         equation_latex_list = []
         # xml公式list
@@ -193,8 +203,10 @@ def main():  # pragma no cover
                 if jaccard_similarity >= max_simlilarity:# 得到最大相似性的xml-latex公式对
                     max_simlilarity = jaccard_similarity
                     max_sim_xml = equation_xml_list[result]
+            t2 = time.time()
             if max_simlilarity >= 0.5:# 只有相似性大于0.5的pair才考虑，可调
                 data_pair_list.append((max_sim_xml, query_origin))
+            print(f"{os.path.basename(pdf_path)}解析时间：%6.3fs"%(t2-t1))
     with open('./dataset.json','w') as fp:
         json.dump(data_pair_list, fp, indent=4)
 if __name__ == "__main__":  # pragma no cover
