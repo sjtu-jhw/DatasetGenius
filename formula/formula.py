@@ -35,7 +35,8 @@ def clean_tex(tex_file_path):
     pattern = [r'(\\begin{equation}(.*?)\\end{equation})',
                    r'(\\begin{align}.*?\\end{align})',
                    r'(\\begin{math}(.*?)\\end{math})',
-                   r'(\$.*?\$)',
+                   r'(\$.+?\$)',
+                   r'(\\\[.*?\\\])',
                    r'(\\\(.*?\\\))']
     for pattern_ in pattern:
         pattern = re.compile(pattern_, re.DOTALL)
@@ -46,6 +47,9 @@ def clean_tex(tex_file_path):
             content = match.group(1) # 公式
             pre_txt =  clean_data[start-70:end] if start>=70 else clean_data[:end]# 取前后70个character
             post_txt = clean_data[start:end+70]
+            # 规避$$...$$的情况
+            if '$'+content in pre_txt or content+'$' in post_txt:
+                content = '$'+content+'$'
             full_txt = pre_txt.strip(content) + post_txt
             equation_latex_list.append({"pre_txt":pre_txt, "equation_txt":content, "post_txt":post_txt, "full_txt":full_txt})
     # [{"pre_txt":Pre_Formula_Text1$Formula1$, "equation_txt":$Formula1$, "post_txt":$Formula1$Post_Formula_Text1, "full_txt":Full_Text1}, {...}, ...] 
@@ -220,6 +224,8 @@ def main():  # pragma no cover
             sentence = sentence.replace('\\end{align}','') 
             sentence = sentence.replace('\(','') 
             sentence = sentence.replace('\)','')   
+            sentence = sentence.replace('\[','') 
+            sentence = sentence.replace('\]','')  
             sentence = sentence.replace('$','') 
             sentence = sentence.replace('\\begin{math}','')   
             sentence = sentence.replace('\\end{math}','')   
