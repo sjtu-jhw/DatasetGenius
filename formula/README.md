@@ -47,3 +47,26 @@
 
    - `parse_imgs`：是否解析图、表、公式图片
 
+- 数据示例请见/dataset.json
+  - 数据结构如下：
+   <pre>
+   [{
+       "dirty_data": { # 脏文本
+           "pre_txt": "xxx", # 公式之前的内容
+           "equation_txt": "xxx",# 公式内容
+           "similarity_score": "xxx", # 公式之后的内容
+           "full_txt": "xxx" # 全文本
+       },
+       "clean_data": { # 干净文本
+           "pre_txt": "xxx", # 公式之前的内容
+           "equation_txt": "xxx",# 公式内容
+           "similarity_score": "xxx", # 公式之后的内容
+           "full_txt": "xxx" # 全文本
+       },
+       "similarity_score": "xxx" # 相似度打分
+    },
+   ...
+   ]
+
+   </pre>
+
