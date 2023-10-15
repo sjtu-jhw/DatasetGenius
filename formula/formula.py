@@ -108,7 +108,7 @@ def main():  # pragma no cover
     parser.add_argument('--source_data_path', type=str, help='实际数据集位置设置, 所有数据的父路径')
     parser.add_argument('--pdf_work_dir', type=str,  default="./tmp/pdfs/", help='将数据集中的pdf拉到本地的本地pdf路径')
     parser.add_argument('--tex_work_dir', type=str, default="./tmp/tex/", help='将数据集中的tex拉到本地的本地tex路径')
-    parser.add_argument('--xml_work_dir', type=str, default="./tmp/xmls/", help='将数据集中的xml拉到本地的本地xml路径')
+    parser.add_argument('--xml_work_dir', type=str, default="./tmp/xmls/", help='Grobid解析xml输出路径')
     parser.add_argument('--output_path_figures', default="./tmp/figures/", type=str, help='输出figure的路径')
     parser.add_argument('--output_path_jsons', default="./tmp/jsons/", type=str, help='输出json的路径')
     parser.add_argument('--output_path_mds', default="./tmp/mds/", type=str, help='输出markdown的路径')
