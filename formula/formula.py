@@ -18,7 +18,7 @@ import time
 from datasketch import MinHash, MinHashLSH
 from tqdm import tqdm
 
-# 将tex中的公式tex源码按顺序清洗出来
+# 顺序清洗
 def clean_tex(tex_file_path):
     # 异常处理
     try:
@@ -29,28 +29,28 @@ def clean_tex(tex_file_path):
         return [] # 直接返回一个空列表
     # tex中的公式源码list
     equation_latex_list = []
-    # 首先去掉注释部分
+    # 去掉注释
     clean_data = re.sub(r'(?<!\\)%.*', '', data)
-    # 提取公式部分
-    # 使用正则表达式
-    # 提取\begin{equation}和\end{align}之间的内容
-    equations1 = re.findall(r'(\\begin{equation}.*?\\end{equation})', clean_data, re.DOTALL)
-    # 使用正则表达式
-    # 提取\begin{align}和\end{equation}之间的内容
-    equations2 = re.findall(r'(\\begin{align}.*?\\end{align})', clean_data, re.DOTALL)
-    equations = equations1 + equations2
-    # 对每个提取出来公式进行进一步清洗
-    for equation in equations:
-        # 使用正则表达式
-        # 删除\label{...}标签
-        clean_eq = re.sub(r'\\label\{[^\}]*\}', '', equation)
-        # 使用正则表达式
-        # 去除多余的换行和空格
-        clean_eq = re.sub(r'(\n+|\s+)', ' ', clean_eq)
-        equation_latex_list.append(clean_eq)
+    # 提取公式
+    pattern = [r'(\\begin{equation}(.*?)\\end{equation})',
+                   r'(\\begin{align}.*?\\end{align})',
+                   r'(\\begin{math}(.*?)\\end{math})',
+                   r'(\$.*?\$)',
+                   r'(\\\(.*?\\\))']
+    for pattern_ in pattern:
+        pattern = re.compile(pattern_, re.DOTALL)
+        matches = pattern.finditer(clean_data)
+        for match in matches:
+            start = match.start()
+            end = match.end()
+            content = match.group(1) # 公式
+            pre_txt =  clean_data[start-70:end] if start>=70 else clean_data[:end]# 取前后70个character
+            post_txt = clean_data[start:end+70]
+            full_txt = pre_txt.strip(content) + post_txt
+            equation_latex_list.append({"pre_txt":pre_txt, "equation_txt":content, "post_txt":post_txt, "full_txt":full_txt})
+    # [{"pre_txt":Pre_Formula_Text1$Formula1$, "equation_txt":$Formula1$, "post_txt":$Formula1$Post_Formula_Text1, "full_txt":Full_Text1}, {...}, ...] 
     return equation_latex_list
 
-# 将xml中的公式源码按顺序清洗出来
 def clean_xml(pdf_parser, pdf_path, xml_path):
     # xml中的公式ocr list
     equation_xml_list = []
@@ -60,10 +60,33 @@ def clean_xml(pdf_parser, pdf_path, xml_path):
     root = tree.getroot()
     result = pdf_parser.parse_all(root, pdf_name, f"{pdf_name.strip('.pdf')}.json")
     body = result['body']
-    for el in body:
+    pre_txt = ""
+    post_txt = ""
+    for index, el in enumerate(body):
         if el['el_type'] == "formula":
-            equation_xml_list.append(el['txt'])
+            i_forward = 0
+            i_backward = 0
+            # 前向寻找
+            while body[index - i_forward]['el_type'] != "s":
+                pre_txt = body[index - i_forward]['txt'] + pre_txt
+                i_forward += 1
+            pre_txt = body[index - i_forward]['txt'][-70:] + pre_txt# 取个70character
+            # 后向寻找
+            while body[index + i_backward]['el_type'] != "s":
+                post_txt = post_txt + body[index + i_backward]['txt']
+                i_backward += 1
+            post_txt =  post_txt + body[index + i_backward]['txt'][:70]# 取个70character
+            equation_txt = el['txt']
+            full_txt = pre_txt.strip(equation_txt) + post_txt
+            equation_xml_list.append({"pre_txt":pre_txt, "equation_txt":equation_txt, "post_txt":post_txt, "full_txt":full_txt})
+            # 恢复初始态
+            pre_txt = ""
+            post_txt = ""
+            i_forward = 0
+            i_backward = 0
+    # [{"pre_txt":Pre_Formula_Text1$Formula1$, "equation_txt":$Formula1$, "post_txt":$Formula1$Post_Formula_Text1, "full_txt":Full_Text1}, {...}, ...] 
     return equation_xml_list
+
 
 # 创建一个 MinHash 对象
 def create_minhash(data):
@@ -171,8 +194,10 @@ def main():  # pragma no cover
     # data pair list
     data_pair_list = []
     print("正在清洗xml和tex，构建数据集...")
-    t1 = time.time()
+    t0 = time.time()
     for (pdf_path,tex_paths,xml_path) in tqdm(workfile_path_tuple_list_new):
+        t1 = time.time()
+        print(f"正在解析{os.path.basename(pdf_path)}...")
         equation_xml_list = []
         equation_latex_list = []
         # xml公式list
@@ -181,33 +206,53 @@ def main():  # pragma no cover
         for tex_path in tex_paths:
             equation_latex_list += clean_tex(tex_path)
 
+        equation_xml_list_new = [item["full_txt"] for item in equation_xml_list]
+        equation_latex_list_new = [item["full_txt"] for item in equation_latex_list]
+
         # 文本匹配形成pair
         # 创建 MinHash 对象并插入到 LSH 中
         lsh = MinHashLSH(threshold=0, num_perm=128)  # threshold 是相似度阈值，可以根据需要调整
-        for idx, sentence in enumerate(equation_xml_list):
+        for idx, sentence in enumerate(equation_latex_list_new):
+            # 去除无关信息会使相似性分数更加显著
+            sentence = sentence.replace('\\begin{equation}','')
+            sentence = sentence.replace('\\end{equation}','')
+            sentence = sentence.replace('\\begin{align}','')
+            sentence = sentence.replace('\\end{align}','') 
+            sentence = sentence.replace('\(','') 
+            sentence = sentence.replace('\)','')   
+            sentence = sentence.replace('$','') 
+            sentence = sentence.replace('\\begin{math}','')   
+            sentence = sentence.replace('\\end{math}','')   
             minhash = create_minhash(list(sentence))
             lsh.insert(idx, minhash)
-        for query_origin in equation_latex_list:
-            # 去除无关信息会使相似性分数更加显著
-            query = query_origin.strip('\\begin{equation}').strip('\\end{equation}')
-            query = query.strip('\\begin{align}').strip('\\end{align}')
+        for query_id, query_origin in enumerate(equation_xml_list_new):
             # 查找相似的集合
-            query_minhash = create_minhash(list(query))
+            query_minhash = create_minhash(list(query_origin))
             results = lsh.query(query_minhash)
             # 输出最大相似度分数及对应的（xml, latex）对
             max_simlilarity = 0
-            max_sim_xml = None
+            max_sim_latex = None
+            max_sim_latex_id = 0
             for result in results:
-                minhash = create_minhash(list(equation_xml_list[result]))
+                minhash = create_minhash(list(equation_latex_list_new[result]))
                 jaccard_similarity = query_minhash.jaccard(minhash)
                 if jaccard_similarity >= max_simlilarity:# 得到最大相似性的xml-latex公式对
                     max_simlilarity = jaccard_similarity
-                    max_sim_xml = equation_xml_list[result]
-            t2 = time.time()
-            if max_simlilarity >= 0.5:# 只有相似性大于0.5的pair才考虑，可调
-                data_pair_list.append((max_sim_xml, query_origin))
-            print(f"{os.path.basename(pdf_path)}解析时间：%6.3fs"%(t2-t1))
-    with open('./dataset.json','w') as fp:
-        json.dump(data_pair_list, fp, indent=4)
+                    max_sim_latex_id = result
+                    max_sim_latex = equation_latex_list_new[result]
+            if max_simlilarity>=0.65:
+                xml_data = equation_xml_list[query_id]
+                latex_data = equation_latex_list[max_sim_latex_id]
+                data_pair_list.append({"dirty_data": xml_data, "clean_data":latex_data, "similarity_score": max_simlilarity})
+        t2 = time.time()
+        print(f"{os.path.basename(pdf_path)}解析时间：%6.3fs"%(t2-t1))
+        with open('./dataset.json','a+') as fp:
+            json.dump(data_pair_list, fp, indent=4)
+            data_pair_list = []
+    t4 = time.time()
+    total_time = t4 - t0
+    hours, remainder = divmod(total_time, 3600)
+    minutes, seconds = divmod(remainder, 60)
+    print(f"总共用时: {int(hours)} 小时, {int(minutes)} 分钟, {seconds:.2f} 秒")
 if __name__ == "__main__":  # pragma no cover
     main()
