@@ -193,7 +193,7 @@ def main():  # pragma no cover
     data_pair_list = []
     print("正在清洗xml和tex，构建数据集...")
     t0 = time.time()
-    for (pdf_path,tex_paths,xml_path) in tqdm(workfile_path_tuple_list_new):
+    for index, (pdf_path,tex_paths,xml_path) in enumerate(tqdm(workfile_path_tuple_list_new)):
         t1 = time.time()
         print(f"正在清洗{os.path.basename(pdf_path)}...")
         equation_xml_list = []
@@ -246,9 +246,13 @@ def main():  # pragma no cover
                 data_pair_list.append({"dirty_data": xml_data, "clean_data":latex_data, "similarity_score": max_simlilarity})
         t2 = time.time()
         print(f"{os.path.basename(pdf_path)}解析时间：%6.3fs"%(t2-t1))
-        with open('./dataset.json','a+') as fp:
-            json.dump(data_pair_list, fp, indent=4)
-            data_pair_list = []
+        if (index+1) % 10 == 0:
+            print(f"执行到第{index+1}个pdf，保存一次数据。")
+            with open('./dataset.json','w') as fp:
+                json.dump(data_pair_list, fp, indent=4)
+    # 保存最后一次数据
+    with open('./dataset.json','w') as fp:
+        json.dump(data_pair_list, fp, indent=4)
     t4 = time.time()
     total_time = t4 - t0
     hours, remainder = divmod(total_time, 3600)
