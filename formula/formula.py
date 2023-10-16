@@ -35,7 +35,8 @@ def clean_tex(tex_file_path):
     pattern = [r'(\\begin{equation}(.*?)\\end{equation})',
                    r'(\\begin{align}.*?\\end{align})',
                    r'(\\begin{math}(.*?)\\end{math})',
-                   r'(\$.+?\$)',
+                   r'(\$\$.+?\$\$)',
+                    r'(?<!\$)\$([^\$]+)\$(?!\$)',
                    r'(\\\[.*?\\\])',
                    r'(\\\(.*?\\\))']
     for pattern_ in pattern:
@@ -201,7 +202,7 @@ def main():  # pragma no cover
     t0 = time.time()
     for (pdf_path,tex_paths,xml_path) in tqdm(workfile_path_tuple_list_new):
         t1 = time.time()
-        print(f"正在解析{os.path.basename(pdf_path)}...")
+        print(f"正在清洗{os.path.basename(pdf_path)}...")
         equation_xml_list = []
         equation_latex_list = []
         # xml公式list
