@@ -54,13 +54,13 @@
        "dirty_data": { # 脏文本
            "pre_txt": "xxx", # 公式之前的内容
            "equation_txt": "xxx",# 公式内容
-           "similarity_score": "xxx", # 公式之后的内容
+           "post_txt": "xxx", # 公式之后的内容
            "full_txt": "xxx" # 全文本
        },
        "clean_data": { # 干净文本
            "pre_txt": "xxx", # 公式之前的内容
            "equation_txt": "xxx",# 公式内容
-           "similarity_score": "xxx", # 公式之后的内容
+           "post_txt": "xxx", # 公式之后的内容
            "full_txt": "xxx" # 全文本
        },
        "similarity_score": "xxx" # 相似度打分
