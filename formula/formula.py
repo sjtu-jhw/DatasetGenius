@@ -36,7 +36,7 @@ def clean_tex(tex_file_path):
                    r'(\\begin{align}.*?\\end{align})',
                    r'(\\begin{math}(.*?)\\end{math})',
                    r'(\$\$.+?\$\$)',
-                    r'(?<!\$)\$([^\$]+)\$(?!\$)',
+                   r'((?<!\$)\$[^\$]+\$(?!\$))',
                    r'(\\\[.*?\\\])',
                    r'(\\\(.*?\\\))']
     for pattern_ in pattern:
@@ -46,12 +46,9 @@ def clean_tex(tex_file_path):
             start = match.start()
             end = match.end()
             content = match.group(1) # 公式
-            pre_txt =  clean_data[start-70:end] if start>=70 else clean_data[:end]# 取前后70个character
-            post_txt = clean_data[start:end+70]
-            # 规避$$...$$的情况
-            if '$'+content in pre_txt or content+'$' in post_txt:
-                content = '$'+content+'$'
-            full_txt = pre_txt.strip(content) + post_txt
+            pre_txt =  clean_data[start-70:start] if start>=70 else clean_data[:end]# 取前后70个character
+            post_txt = clean_data[end:end+70]
+            full_txt = pre_txt+ content + post_txt
             equation_latex_list.append({"pre_txt":pre_txt, "equation_txt":content, "post_txt":post_txt, "full_txt":full_txt})
     # [{"pre_txt":Pre_Formula_Text1$Formula1$, "equation_txt":$Formula1$, "post_txt":$Formula1$Post_Formula_Text1, "full_txt":Full_Text1}, {...}, ...] 
     return equation_latex_list
@@ -82,7 +79,9 @@ def clean_xml(pdf_parser, pdf_path, xml_path):
                 i_backward += 1
             post_txt =  post_txt + body[index + i_backward]['txt'][:70]# 取个70character
             equation_txt = el['txt']
-            full_txt = pre_txt.strip(equation_txt) + post_txt
+            pre_txt = pre_txt.strip(equation_txt)
+            post_txt = post_txt.strip(equation_txt)
+            full_txt = pre_txt + equation_txt + post_txt
             equation_xml_list.append({"pre_txt":pre_txt, "equation_txt":equation_txt, "post_txt":post_txt, "full_txt":full_txt})
             # 恢复初始态
             pre_txt = ""
@@ -114,9 +113,7 @@ def main():  # pragma no cover
     parser.add_argument('--pdf_work_dir', type=str,  default="./tmp/pdfs/", help='将数据集中的pdf拉到本地的本地pdf路径')
     parser.add_argument('--tex_work_dir', type=str, default="./tmp/tex/", help='将数据集中的tex拉到本地的本地tex路径')
     parser.add_argument('--xml_work_dir', type=str, default="./tmp/xmls/", help='Grobid解析xml输出路径')
-    parser.add_argument('--output_path_figures', default="./tmp/figures/", type=str, help='输出figure的路径')
     parser.add_argument('--output_path_jsons', default="./tmp/jsons/", type=str, help='输出json的路径')
-    parser.add_argument('--output_path_mds', default="./tmp/mds/", type=str, help='输出markdown的路径')
     parser.add_argument('--parse_imgs', type=bool, default=False, help='是否解析图、表、公式图片')
 
     # 解析命令行参数
@@ -127,9 +124,7 @@ def main():  # pragma no cover
     pdf_work_dir = args.pdf_work_dir
     tex_work_dir = args.tex_work_dir
     xml_work_dir = args.xml_work_dir
-    output_path_figures = args.output_path_figures
     output_path_jsons = args.output_path_jsons
-    output_path_mds = args.output_path_mds
     parse_imgs = args.parse_imgs
 
 
@@ -191,9 +186,7 @@ def main():  # pragma no cover
     pdf_parser = GParser(pdf_name="",# pdf的名字
                         input_path=pdf_work_dir,# 输入pdf所在文件夹
                         output_path_xmls=xml_work_dir,# 存储xml所在文件夹
-                        output_path_figures=output_path_figures,# 存储图片所在文件夹，用不上
                         output_path_jsons=output_path_jsons,# 存储json所在文件夹
-                        output_path_mds=output_path_mds,# 存储mardkown所在文件夹，用不上
                         parse_imgs=parse_imgs)# 是否解析图片、表格、公式图片
 
     # data pair list
