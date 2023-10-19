@@ -76,6 +76,10 @@ def clean_xml(pdf_parser, pdf_path, xml_path):
             i_backward = 1
             # 前向寻找
             while len(pre_txt)<=context_len:# equation前面的character在context_len个以内
+                # 是否out of index
+                if index - i_forward <= 0:
+                    pre_txt = pre_txt
+                    break
                 if "txt" not in body[index - i_forward]:
                     i_forward += 1
                     continue
@@ -87,6 +91,10 @@ def clean_xml(pdf_parser, pdf_path, xml_path):
                 i_forward += 1
             # 后向寻找
             while len(post_txt)<=context_len:# equation前面的character在context_len个以内
+                # 是否out of index
+                if index + i_backward >= len(body):
+                    post_txt = post_txt
+                    break
                 if "txt" not in body[index + i_backward]:
                     i_backward += 1
                     continue
