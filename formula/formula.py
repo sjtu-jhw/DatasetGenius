@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 # 本脚本实现了快速构建grobid和latex源码公式数据集功能
 # 其中包括以下几个步骤
 # 1. 获取待处理pdf以及tex文件路径
@@ -17,6 +19,9 @@ import re
 import time
 from datasketch import MinHash, MinHashLSH
 from tqdm import tqdm
+
+context_len = 70
+simliarity_threshold = 0.65
 
 # 顺序清洗
 def clean_tex(tex_file_path):
@@ -46,8 +51,8 @@ def clean_tex(tex_file_path):
             start = match.start()
             end = match.end()
             content = match.group(1) # 公式
-            pre_txt =  clean_data[start-70:start] if start>=70 else clean_data[:end]# 取前后70个character
-            post_txt = clean_data[end:end+70]
+            pre_txt =  clean_data[start-context_len:start] if start>=context_len else clean_data[:end]# 取前后context_len个character
+            post_txt = clean_data[end:end+context_len]
             full_txt = pre_txt+ content + post_txt
             equation_latex_list.append({"pre_txt":pre_txt, "equation_txt":content, "post_txt":post_txt, "full_txt":full_txt})
     # [{"pre_txt":Pre_Formula_Text1$Formula1$, "equation_txt":$Formula1$, "post_txt":$Formula1$Post_Formula_Text1, "full_txt":Full_Text1}, {...}, ...] 
@@ -66,28 +71,41 @@ def clean_xml(pdf_parser, pdf_path, xml_path):
     post_txt = ""
     for index, el in enumerate(body):
         if el['el_type'] == "formula":
-            i_forward = 0
-            i_backward = 0
+            # 跳过当前值
+            i_forward = 1
+            i_backward = 1
             # 前向寻找
-            while body[index - i_forward]['el_type'] != "s":
-                pre_txt = body[index - i_forward]['txt'] + pre_txt
+            while len(pre_txt)<=context_len:# equation前面的character在context_len个以内
+                if "txt" not in body[index - i_forward]:
+                    i_forward += 1
+                    continue
+                elif "tail" in body[index - i_forward]:# 包含"tail"
+                    txt = body[index - i_forward]['txt'] + body[index - i_forward]['tail']
+                else:
+                    txt = body[index - i_forward]['txt']
+                pre_txt = txt + pre_txt
                 i_forward += 1
-            pre_txt = body[index - i_forward]['txt'][-70:] + pre_txt# 取个70character
             # 后向寻找
-            while body[index + i_backward]['el_type'] != "s":
-                post_txt = post_txt + body[index + i_backward]['txt']
+            while len(post_txt)<=context_len:# equation前面的character在context_len个以内
+                if "txt" not in body[index + i_backward]:
+                    i_backward += 1
+                    continue
+                elif "tail" in body[index + i_backward]:# 包含"tail"
+                    txt = body[index + i_backward]['txt'] + body[index + i_backward]['tail']
+                else:
+                    txt = body[index + i_backward]['txt']
+                post_txt = post_txt + txt
                 i_backward += 1
-            post_txt =  post_txt + body[index + i_backward]['txt'][:70]# 取个70character
             equation_txt = el['txt']
-            pre_txt = pre_txt.strip(equation_txt)
-            post_txt = post_txt.strip(equation_txt)
+            pre_txt = pre_txt[-context_len:]
+            post_txt = post_txt[:context_len]
             full_txt = pre_txt + equation_txt + post_txt
             equation_xml_list.append({"pre_txt":pre_txt, "equation_txt":equation_txt, "post_txt":post_txt, "full_txt":full_txt})
             # 恢复初始态
             pre_txt = ""
             post_txt = ""
-            i_forward = 0
-            i_backward = 0
+            i_forward = 1
+            i_backward = 1
     # [{"pre_txt":Pre_Formula_Text1$Formula1$, "equation_txt":$Formula1$, "post_txt":$Formula1$Post_Formula_Text1, "full_txt":Full_Text1}, {...}, ...] 
     return equation_xml_list
 
@@ -240,7 +258,7 @@ def main():  # pragma no cover
                     max_simlilarity = jaccard_similarity
                     max_sim_latex_id = result
                     max_sim_latex = equation_latex_list_new[result]
-            if max_simlilarity>=0.65:
+            if max_simlilarity>=simliarity_threshold:
                 xml_data = equation_xml_list[query_id]
                 latex_data = equation_latex_list[max_sim_latex_id]
                 data_pair_list.append({"dirty_data": xml_data, "clean_data":latex_data, "similarity_score": max_simlilarity})

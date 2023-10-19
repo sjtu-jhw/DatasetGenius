@@ -1,10 +1,10 @@
 [
     {
         "dirty_data": {
-            "pre_txt": "The force on i of a spring between i and j is given as:",
+            "pre_txt": " of the spring.The force on i of a spring between i and j is given as:",
             "equation_txt": "m\u1e8d i = K i,j ( x j \u2212 x i \u2212 d) (x j \u2212 x i ) x j \u2212 x i",
-            "post_txt": "\nx i is used to denote the position vector of node i.",
-            "full_txt": "The force on i of a spring between i and j is given as:m\u1e8d i = K i,j ( x j \u2212 x i \u2212 d) (x j \u2212 x i ) x j \u2212 x i\nx i is used to denote the position vector of node i."
+            "post_txt": "\nx i is used to denote the position vector of node i.K i,j is the spri",
+            "full_txt": " of the spring.The force on i of a spring between i and j is given as:m\u1e8d i = K i,j ( x j \u2212 x i \u2212 d) (x j \u2212 x i ) x j \u2212 x i\nx i is used to denote the position vector of node i.K i,j is the spri"
         },
         "clean_data": {
             "pre_txt": "pring.  The force on $i$ of a spring\nbetween $i$ and $j$ is given as:\n",
@@ -16,10 +16,10 @@
     },
     {
         "dirty_data": {
-            "pre_txt": "Thus K is defined by:",
+            "pre_txt": "spring constant of the spring connecting i and j.Thus K is defined by:",
             "equation_txt": "K i,j = k, if (i, j) \u2208 E \u2228 (j, i) \u2208 E; 0, otherwise.",
-            "post_txt": "\nAs only connected nodes have springs between them each node is endowed",
-            "full_txt": "Thus K is defined by:K i,j = k, if (i, j) \u2208 E \u2228 (j, i) \u2208 E; 0, otherwise.\nAs only connected nodes have springs between them each node is endowed"
+            "post_txt": "\nAs only connected nodes have springs between them each node is endowe",
+            "full_txt": "spring constant of the spring connecting i and j.Thus K is defined by:K i,j = k, if (i, j) \u2208 E \u2228 (j, i) \u2208 E; 0, otherwise.\nAs only connected nodes have springs between them each node is endowe"
         },
         "clean_data": {
             "pre_txt": "nstant of the spring connecting $i$ and $j$.  Thus $K$ is\ndefined by:\n",
@@ -31,25 +31,25 @@
     },
     {
         "dirty_data": {
-            "pre_txt": "The resulting force experienced by i in the presence of j is thus:",
+            "pre_txt": "ces.The resulting force experienced by i in the presence of j is thus:",
             "equation_txt": "m\u1e8d i = \u2212\u03c1 (x j \u2212 x i ) x j \u2212 x i 1+\u03b2",
-            "post_txt": "\nAssuming, that we mimic a Coulomb field, \u03c1 can be interpreted as the e",
-            "full_txt": "The resulting force experienced by i in the presence of j is thus:m\u1e8d i = \u2212\u03c1 (x j \u2212 x i ) x j \u2212 x i 1+\u03b2\nAssuming, that we mimic a Coulomb field, \u03c1 can be interpreted as the e"
+            "post_txt": "\nAssuming, that we mimic a Coulomb field, \u03c1 can be interpreted as the ",
+            "full_txt": "ces.The resulting force experienced by i in the presence of j is thus:m\u1e8d i = \u2212\u03c1 (x j \u2212 x i ) x j \u2212 x i 1+\u03b2\nAssuming, that we mimic a Coulomb field, \u03c1 can be interpreted as the "
         },
         "clean_data": {
-            "pre_txt": "he resulting\nforce experienced by $i$ in the presence of $j$ is thus:\n",
-            "equation_txt": "\\begin{equation}\n  m \\ddot{x}_i = - \\rho{(x_j-x_i)\\over \\|x_j-x_i\\|^{1+\\beta}}\n\\end{equation}",
-            "post_txt": "\nAssuming, that we mimic a Coulomb field, $\\rho$ can be interpreted as",
-            "full_txt": "he resulting\nforce experienced by $i$ in the presence of $j$ is thus:\n\\begin{equation}\n  m \\ddot{x}_i = - \\rho{(x_j-x_i)\\over \\|x_j-x_i\\|^{1+\\beta}}\n\\end{equation}\nAssuming, that we mimic a Coulomb field, $\\rho$ can be interpreted as"
+            "pre_txt": "{i,j} =\n  \\begin{cases}\n    0, &\\text{if $i = j$;}\\\\\n    a, &\\text{if ",
+            "equation_txt": "$(i,j) \\in E \\lor (j,i) \\in E$",
+            "post_txt": ";}\\\\\n    1, &\\text{otherwise.}\n  \\end{cases}\n  \n\\end{equation}\nThe par",
+            "full_txt": "{i,j} =\n  \\begin{cases}\n    0, &\\text{if $i = j$;}\\\\\n    a, &\\text{if $(i,j) \\in E \\lor (j,i) \\in E$;}\\\\\n    1, &\\text{otherwise.}\n  \\end{cases}\n  \n\\end{equation}\nThe par"
         },
-        "similarity_score": 0.6796875
+        "similarity_score": 0.6640625
     },
     {
         "dirty_data": {
-            "pre_txt": "Putting the forces together we get the following equation:",
+            "pre_txt": "n constant.\nPutting the forces together we get the following equation:",
             "equation_txt": "m\u1e8d i = \u2212\u03b3 \u1e8b + j\u2208V K i,j ( x j \u2212 x i \u2212 d) (x j \u2212 x i ) x j \u2212 x i \u2212 \u03c1 j\u2208V (x j \u2212 x i ) x j \u2212 x i 1+\u03b2",
-            "post_txt": "\nunder the assumption that m \u226a \u03b3, \u03c1, K and \u03b3 = 1 we can derive the foll",
-            "full_txt": "Putting the forces together we get the following equation:m\u1e8d i = \u2212\u03b3 \u1e8b + j\u2208V K i,j ( x j \u2212 x i \u2212 d) (x j \u2212 x i ) x j \u2212 x i \u2212 \u03c1 j\u2208V (x j \u2212 x i ) x j \u2212 x i 1+\u03b2\nunder the assumption that m \u226a \u03b3, \u03c1, K and \u03b3 = 1 we can derive the foll"
+            "post_txt": "\nunder the assumption that m \u226a \u03b3, \u03c1, K and \u03b3 = 1 we can derive the fol",
+            "full_txt": "n constant.\nPutting the forces together we get the following equation:m\u1e8d i = \u2212\u03b3 \u1e8b + j\u2208V K i,j ( x j \u2212 x i \u2212 d) (x j \u2212 x i ) x j \u2212 x i \u2212 \u03c1 j\u2208V (x j \u2212 x i ) x j \u2212 x i 1+\u03b2\nunder the assumption that m \u226a \u03b3, \u03c1, K and \u03b3 = 1 we can derive the fol"
         },
         "clean_data": {
             "pre_txt": "nstant.\n\n\n\nPutting the forces together we get the following equation:\n",
@@ -57,14 +57,14 @@
             "post_txt": "\n\nunder the assumption that $m \\ll \\gamma, \\rho, K$ and $\\gamma = 1$ w",
             "full_txt": "nstant.\n\n\n\nPutting the forces together we get the following equation:\n\\begin{equation}\n  \\label{eq:general2f}\n  m \\ddot{x}_i= -\\gamma \\dot{x} + \\sum_{j \\in\n    V}K_{i,j}{(\\|x_j-x_i\\|-d)}{(x_j-x_i)\\over \\|x_j-x_i\\|} - \\rho \\sum_{j \\in V}{(x_j-x_i)\\over \\|x_j-x_i\\|^{1+\\beta}}\n\\end{equation}\n\nunder the assumption that $m \\ll \\gamma, \\rho, K$ and $\\gamma = 1$ w"
         },
-        "similarity_score": 0.65625
+        "similarity_score": 0.6875
     },
     {
         "dirty_data": {
-            "pre_txt": "can derive the following approximation for the movement of the nodes.",
+            "pre_txt": " can derive the following approximation for the movement of the nodes.",
             "equation_txt": "\u1e8bi = j\u2208V K i,j ( x j \u2212 x i \u2212 d) (x j \u2212 x i ) x j \u2212 x i \u2212 \u03c1 j\u2208V (x j \u2212 x i ) x j \u2212 x i 1+\u03b2",
-            "post_txt": "\nHaving presented the general formulas for spring layout we will take a",
-            "full_txt": "can derive the following approximation for the movement of the nodes.\u1e8bi = j\u2208V K i,j ( x j \u2212 x i \u2212 d) (x j \u2212 x i ) x j \u2212 x i \u2212 \u03c1 j\u2208V (x j \u2212 x i ) x j \u2212 x i 1+\u03b2\nHaving presented the general formulas for spring layout we will take a"
+            "post_txt": "\nHaving presented the general formulas for spring layout we will take ",
+            "full_txt": " can derive the following approximation for the movement of the nodes.\u1e8bi = j\u2208V K i,j ( x j \u2212 x i \u2212 d) (x j \u2212 x i ) x j \u2212 x i \u2212 \u03c1 j\u2208V (x j \u2212 x i ) x j \u2212 x i 1+\u03b2\nHaving presented the general formulas for spring layout we will take "
         },
         "clean_data": {
             "pre_txt": "an\nderive the following approximation for the movement of the nodes.\n\n",
@@ -76,10 +76,10 @@
     },
     {
         "dirty_data": {
-            "pre_txt": "The new equation for the spring constant K is defined as follows:",
+            "pre_txt": " one.The new equation for the spring constant K is defined as follows:",
             "equation_txt": "K i,j = \uf8f1 \uf8f4 \uf8f4 \uf8f2 \uf8f4 \uf8f4 \uf8f3 0, if i = j; a, if (i, j) \u2208 E \u2228 (j, i) \u2208 E; 1, otherwise.",
-            "post_txt": "\nThe parameter a gives the strength of springs between connected nod",
-            "full_txt": "The new equation for the spring constant K is defined as follows:K i,j = \uf8f1 \uf8f4 \uf8f4 \uf8f2 \uf8f4 \uf8f4 \uf8f3 0, if i = j; a, if (i, j) \u2208 E \u2228 (j, i) \u2208 E; 1, otherwise.\nThe parameter a gives the strength of springs between connected nod"
+            "post_txt": "\nThe parameter a gives the strength of springs between connected nodes",
+            "full_txt": " one.The new equation for the spring constant K is defined as follows:K i,j = \uf8f1 \uf8f4 \uf8f4 \uf8f2 \uf8f4 \uf8f4 \uf8f3 0, if i = j; a, if (i, j) \u2208 E \u2228 (j, i) \u2208 E; 1, otherwise.\nThe parameter a gives the strength of springs between connected nodes"
         },
         "clean_data": {
             "pre_txt": "  The new\nequation for the spring constant $K$ is defined as follows:\n",
@@ -91,10 +91,10 @@
     },
     {
         "dirty_data": {
-            "pre_txt": "The new equation for the attractive force is simply",
+            "pre_txt": "ly connected nodes.The new equation for the attractive force is simply",
             "equation_txt": "m\u1e8d i = j\u2208(V \\i) K i,j (x j \u2212 x i )",
-            "post_txt": "\n.",
-            "full_txt": "The new equation for the attractive force is simplym\u1e8d i = j\u2208(V \\i) K i,j (x j \u2212 x i )\n."
+            "post_txt": "\n.\nBesides the concern to have connected nodes close together and edge",
+            "full_txt": "ly connected nodes.The new equation for the attractive force is simplym\u1e8d i = j\u2208(V \\i) K i,j (x j \u2212 x i )\n.\nBesides the concern to have connected nodes close together and edge"
         },
         "clean_data": {
             "pre_txt": " connected nodes.\nThe new equation for the attractive force is simply\n",
@@ -102,14 +102,14 @@
             "post_txt": ".\n\n\n\n\n\nBesides the concern to have connected nodes close together and ",
             "full_txt": " connected nodes.\nThe new equation for the attractive force is simply\n\\begin{equation}\n  \\label{eq:attraction}\n  m\\ddot{x}_i= \\sum_{j \\in (V \\setminus i)} \n  {  K_{i,j}({x}_j - {x}_i)  }\n\\end{equation}.\n\n\n\n\n\nBesides the concern to have connected nodes close together and "
         },
-        "similarity_score": 0.7109375
+        "similarity_score": 0.78125
     },
     {
         "dirty_data": {
-            "pre_txt": "The following term is used to calculate repulsion:",
+            "pre_txt": "e by choosing \u03b2 = 0.The following term is used to calculate repulsion:",
             "equation_txt": "m\u1e8d i = \u2212\u03c1 j\u2208(V \\i) x j \u2212 x i x j \u2212 x i",
-            "post_txt": "\nNext, we have to take into account changing graph sizes.",
-            "full_txt": "The following term is used to calculate repulsion:m\u1e8d i = \u2212\u03c1 j\u2208(V \\i) x j \u2212 x i x j \u2212 x i\nNext, we have to take into account changing graph sizes."
+            "post_txt": "\nNext, we have to take into account changing graph sizes.The node dens",
+            "full_txt": "e by choosing \u03b2 = 0.The following term is used to calculate repulsion:m\u1e8d i = \u2212\u03c1 j\u2208(V \\i) x j \u2212 x i x j \u2212 x i\nNext, we have to take into account changing graph sizes.The node dens"
         },
         "clean_data": {
             "pre_txt": "oosing $\\beta=0$.  The following term is used to\ncalculate repulsion:\n",
@@ -121,10 +121,10 @@
     },
     {
         "dirty_data": {
-            "pre_txt": "This is accomplished by defining",
+            "pre_txt": "repulsive force is multiplied by |V |.This is accomplished by defining",
             "equation_txt": "\u03c1 = b |V |",
-            "post_txt": "\nin equation",
-            "full_txt": "This is accomplished by defining\u03c1 = b |V |\nin equation"
+            "post_txt": "\nin equation [(9)].b in equation ( [10]) scales the radius of the layo",
+            "full_txt": "repulsive force is multiplied by |V |.This is accomplished by defining\u03c1 = b |V |\nin equation [(9)].b in equation ( [10]) scales the radius of the layo"
         },
         "clean_data": {
             "pre_txt": "orce is multiplied by $\\sqrt{|V|}$.  This is accomplished by defining\n",
@@ -136,10 +136,10 @@
     },
     {
         "dirty_data": {
-            "pre_txt": "When combining the force equations ( [8][(9][10)]",
+            "pre_txt": "tion we can derive the following movement approximation for the nodes:",
             "equation_txt": "\u1e8bi = j\u2208(V \\i) (K i,j \u2212 b |V | x j \u2212 x i )(x j \u2212 x i )",
             "post_txt": "\nThe equation always leads to a circular layout space for the graph wh",
-            "full_txt": "When combining the force equations ( [8][(9][10)]\u1e8bi = j\u2208(V \\i) (K i,j \u2212 b |V | x j \u2212 x i )(x j \u2212 x i )\nThe equation always leads to a circular layout space for the graph wh"
+            "full_txt": "tion we can derive the following movement approximation for the nodes:\u1e8bi = j\u2208(V \\i) (K i,j \u2212 b |V | x j \u2212 x i )(x j \u2212 x i )\nThe equation always leads to a circular layout space for the graph wh"
         },
         "clean_data": {
             "pre_txt": "ion we can derive the\nfollowing movement approximation for the nodes:\n",
@@ -147,29 +147,14 @@
             "post_txt": "\nThe equation always leads to a circular layout space for the graph wh",
             "full_txt": "ion we can derive the\nfollowing movement approximation for the nodes:\n\\begin{equation}\n  \\label{eq:all}\n  \\dot{x}_i = \\sum_{j \\in (V \\setminus i)}(K_{i,j} - {b \\sqrt{|V|}  \\over\n    { \\|{x}_j - {x}_{i}\\|}}) ({x}_j - {x}_{i})\n\\end{equation}\nThe equation always leads to a circular layout space for the graph wh"
         },
-        "similarity_score": 0.6953125
+        "similarity_score": 0.84375
     },
     {
         "dirty_data": {
-            "pre_txt": "nt of changes in the graph drops beneath a certain threshold \u01eb.",
-            "equation_txt": "Algorithm 1 ARF Layout(G(V, E)) 1: repeat 2:",
-            "post_txt": "\nerror \u2190 0",
-            "full_txt": "nt of changes in the graph drops beneath a certain threshold \u01eb.Algorithm 1 ARF Layout(G(V, E)) 1: repeat 2:\nerror \u2190 0"
-        },
-        "clean_data": {
-            "pre_txt": "1).\n\\begin{algorithm}[htb]\n  \\label{alg:layout}\n  \\caption{ARF Layout(",
-            "equation_txt": "$G(V,E)$",
-            "post_txt": ")}\n  \\begin{algorithmic}[1]\n    \\Repeat \\State $error \\gets 0$ \\For {{",
-            "full_txt": "1).\n\\begin{algorithm}[htb]\n  \\label{alg:layout}\n  \\caption{ARF Layout($G(V,E)$)}\n  \\begin{algorithmic}[1]\n    \\Repeat \\State $error \\gets 0$ \\For {{"
-        },
-        "similarity_score": 0.7734375
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "as well as several other videos of evolving networks.",
+            "pre_txt": "arch/graphlayout/as well as several other videos of evolving networks.",
             "equation_txt": "t = 0 t = 90 t = 180 t = 270 t = 360 t = 450 t = 540 t = 630 t = 720 t = 810",
-            "post_txt": ".3 Exploring Large Networks\nOften networks are too large to be visualized completely.",
-            "full_txt": "as well as several other videos of evolving networks.t = 0 t = 90 t = 180 t = 270 t = 360 t = 450 t = 540 t = 630 t = 720 t = 810.3 Exploring Large Networks\nOften networks are too large to be visualized completely."
+            "post_txt": "5.3 Exploring Large Networks\nOften networks are too large to be visual",
+            "full_txt": "arch/graphlayout/as well as several other videos of evolving networks.t = 0 t = 90 t = 180 t = 270 t = 360 t = 450 t = 540 t = 630 t = 720 t = 8105.3 Exploring Large Networks\nOften networks are too large to be visual"
         },
         "clean_data": {
             "pre_txt": "hics[height=1.8cm]{image0855}\\\\\n     $t=450 $ & $t=540 $ & $t=630 $ & ",
@@ -177,14 +162,14 @@
             "post_txt": " & $t = 810$\\\\\n\n     \\hline\n\n   \\end{tabular}\n   \\caption{A dynamicall",
             "full_txt": "hics[height=1.8cm]{image0855}\\\\\n     $t=450 $ & $t=540 $ & $t=630 $ & $t= 720 $ & $t = 810$\\\\\n\n     \\hline\n\n   \\end{tabular}\n   \\caption{A dynamicall"
         },
-        "similarity_score": 0.6796875
+        "similarity_score": 0.671875
     },
     {
         "dirty_data": {
-            "pre_txt": "We also have the trivial lower bound",
+            "pre_txt": "dent of the order of V 1 and V 2 .We also have the trivial lower bound",
             "equation_txt": "|V 1 |! \u2022 |V 2 |! \u2264 E(G),",
-            "post_txt": "\nby assigning V 2 the |V 2 | largest labels.",
-            "full_txt": "We also have the trivial lower bound|V 1 |! \u2022 |V 2 |! \u2264 E(G),\nby assigning V 2 the |V 2 | largest labels."
+            "post_txt": "\nby assigning V 2 the |V 2 | largest labels.Equality in (1.1) is only ",
+            "full_txt": "dent of the order of V 1 and V 2 .We also have the trivial lower bound|V 1 |! \u2022 |V 2 |! \u2264 E(G),\nby assigning V 2 the |V 2 | largest labels.Equality in (1.1) is only "
         },
         "clean_data": {
             "pre_txt": "he order of $V_{1}$ and $V_{2}$.\nWe also have the trivial lower bound\n",
@@ -192,29 +177,44 @@
             "post_txt": "\nby assigning $V_{2}$ the $|V_{2}|$ largest labels.\nEquality in~(\\ref{",
             "full_txt": "he order of $V_{1}$ and $V_{2}$.\nWe also have the trivial lower bound\n\\begin{equation}\n   |V_{1}|! \\cdot |V_{2}|!  \\leq  {\\cal E}(G)  ,\n\\label{inequality_lower_bound}\n\\end{equation}\nby assigning $V_{2}$ the $|V_{2}|$ largest labels.\nEquality in~(\\ref{"
         },
-        "similarity_score": 0.6796875
+        "similarity_score": 0.71875
+    },
+    {
+        "dirty_data": {
+            "pre_txt": "o graphs G and H we have where G and H have m respectively n vertices.",
+            "equation_txt": "E(G \u222a H) = m + n n \u2022 E(G) \u2022 E(H),",
+            "post_txt": "\nOur interest is to study subgraphs of the Cartesian product of two gr",
+            "full_txt": "o graphs G and H we have where G and H have m respectively n vertices.E(G \u222a H) = m + n n \u2022 E(G) \u2022 E(H),\nOur interest is to study subgraphs of the Cartesian product of two gr"
+        },
+        "clean_data": {
+            "pre_txt": "]{MacMahon},\nfor the disjoint union of two graphs $G$ and $H$\nwe have\n",
+            "equation_txt": "\\begin{equation}\n      {\\cal E}(G \\cup H)\n   = \n        \\binomial{m+n}{n}\n      \\cdot\n        {\\cal E}(G)\n      \\cdot\n        {\\cal E}(H)  ,\n\\label{equation_MacMahon}\n\\end{equation}",
+            "post_txt": "\nwhere $G$ and $H$ have $m$ respectively $n$ vertices.\n\n\n\nOur interest",
+            "full_txt": "]{MacMahon},\nfor the disjoint union of two graphs $G$ and $H$\nwe have\n\\begin{equation}\n      {\\cal E}(G \\cup H)\n   = \n        \\binomial{m+n}{n}\n      \\cdot\n        {\\cal E}(G)\n      \\cdot\n        {\\cal E}(H)  ,\n\\label{equation_MacMahon}\n\\end{equation}\nwhere $G$ and $H$ have $m$ respectively $n$ vertices.\n\n\n\nOur interest"
+        },
+        "similarity_score": 0.71875
     },
     {
         "dirty_data": {
             "pre_txt": "dimensional unit cube [0, 1] V in n-dimensional Euclidean space R V by",
             "equation_txt": "X = { x \u2208 [0, 1] V : x u + x v \u2264 1 for {u, v} \u2208 E}, Y = { x \u2208 [0, 1] V : x u \u2264 x v for u \u2208 V 1 , v \u2208 V 2 , {u, v} \u2208 E}.",
-            "post_txt": "\nLemma",
-            "full_txt": "dimensional unit cube [0, 1] V in n-dimensional Euclidean space R V byX = { x \u2208 [0, 1] V : x u + x v \u2264 1 for {u, v} \u2208 E}, Y = { x \u2208 [0, 1] V : x u \u2264 x v for u \u2208 V 1 , v \u2208 V 2 , {u, v} \u2208 E}.\nLemma"
+            "post_txt": "\nLemma 2.1.The two subsets X and Y have the same volume, which is give",
+            "full_txt": "dimensional unit cube [0, 1] V in n-dimensional Euclidean space R V byX = { x \u2208 [0, 1] V : x u + x v \u2264 1 for {u, v} \u2208 E}, Y = { x \u2208 [0, 1] V : x u \u2264 x v for u \u2208 V 1 , v \u2208 V 2 , {u, v} \u2208 E}.\nLemma 2.1.The two subsets X and Y have the same volume, which is give"
         },
         "clean_data": {
-            "pre_txt": "dimensional unit cube $[0,1]^{V}$ \nin $n$-dimensional Euclidean space ",
-            "equation_txt": "$\\Rrr^{V}$",
-            "post_txt": " by\n\\begin{eqnarray*}\nX & = &\n   \\{ \\vec{x} \\in [0,1]^{V} \\:\\: : \\:\\:\n",
-            "full_txt": "dimensional unit cube $[0,1]^{V}$ \nin $n$-dimensional Euclidean space $\\Rrr^{V}$ by\n\\begin{eqnarray*}\nX & = &\n   \\{ \\vec{x} \\in [0,1]^{V} \\:\\: : \\:\\:\n"
+            "pre_txt": " $L$ to be the linear map\n$L : U \\longrightarrow L^{2}(X)$\ndefined by ",
+            "equation_txt": "$L[g](x,y) = g(x) + g(y)$",
+            "post_txt": ".\nObserve that the map $L$ preserves the inner product,\nthat is, $L$ i",
+            "full_txt": " $L$ to be the linear map\n$L : U \\longrightarrow L^{2}(X)$\ndefined by $L[g](x,y) = g(x) + g(y)$.\nObserve that the map $L$ preserves the inner product,\nthat is, $L$ i"
         },
         "similarity_score": 0.6796875
     },
     {
         "dirty_data": {
-            "pre_txt": "-function \u03c7 be defined on the set X \u00d7",
+            "pre_txt": "of the graph G.\nLet the 0, 1-function \u03c7 be defined on the set X \u00d7 X by",
             "equation_txt": "\u03c7( x, y) = 1 if x v + y v \u2264 1 for all v \u2208 S, 0 otherwise. Definition 2.2. Define the operator T on L 2 (X) by T [f ]( x) = y\u2208X \u03c7( x, y) \u2022 f ( y) d y.",
-            "post_txt": "\nSince \u03c7 is symmetric",
-            "full_txt": "-function \u03c7 be defined on the set X \u00d7\u03c7( x, y) = 1 if x v + y v \u2264 1 for all v \u2208 S, 0 otherwise. Definition 2.2. Define the operator T on L 2 (X) by T [f ]( x) = y\u2208X \u03c7( x, y) \u2022 f ( y) d y.\nSince \u03c7 is symmetric"
+            "post_txt": "\nSince \u03c7 is symmetric, that is, \u03c7( x, y) = \u03c7( y, x), the operator T is",
+            "full_txt": "of the graph G.\nLet the 0, 1-function \u03c7 be defined on the set X \u00d7 X by\u03c7( x, y) = 1 if x v + y v \u2264 1 for all v \u2208 S, 0 otherwise. Definition 2.2. Define the operator T on L 2 (X) by T [f ]( x) = y\u2208X \u03c7( x, y) \u2022 f ( y) d y.\nSince \u03c7 is symmetric, that is, \u03c7( x, y) = \u03c7( y, x), the operator T is"
         },
         "clean_data": {
             "pre_txt": "\n\nLet the $0,1$-function $\\chi$ be defined\non the set $X \\times X$ by\n",
@@ -226,10 +226,25 @@
     },
     {
         "dirty_data": {
+            "pre_txt": "e graph G on n vertices and S a subset of the vertices of the graph G,",
+            "equation_txt": "E(G\u2737 S P m ) (m \u2022 n)! = 1, T m\u22121 [1] .",
+            "post_txt": "\nProof.Expanding the inner product and each of the m \u2212 1 applications ",
+            "full_txt": "e graph G on n vertices and S a subset of the vertices of the graph G,E(G\u2737 S P m ) (m \u2022 n)! = 1, T m\u22121 [1] .\nProof.Expanding the inner product and each of the m \u2212 1 applications "
+        },
+        "clean_data": {
+            "pre_txt": "G$ on $n$ vertices and $S$ a subset of\nthe vertices of the graph~$G$,\n",
+            "equation_txt": "$$     \\frac{{\\cal E}(G \\Box_{S} P_{m})}{(m \\cdot n)!}\n    =\n       \\pair{\\bfo}{T^{m-1}[\\bfo]} .  $$",
+            "post_txt": "\n\\end{proposition}\n\\begin{proof}\nExpanding the inner product and each ",
+            "full_txt": "G$ on $n$ vertices and $S$ a subset of\nthe vertices of the graph~$G$,\n$$     \\frac{{\\cal E}(G \\Box_{S} P_{m})}{(m \\cdot n)!}\n    =\n       \\pair{\\bfo}{T^{m-1}[\\bfo]} .  $$\n\\end{proposition}\n\\begin{proof}\nExpanding the inner product and each "
+        },
+        "similarity_score": 0.65625
+    },
+    {
+        "dirty_data": {
             "pre_txt": "ct and each of the m \u2212 1 applications of the operator T , we have that",
             "equation_txt": "1, T m\u22121 [1] = x 1 T m\u22121 [1]( x 1 ) d x 1 = x 1 x 2 \u03c7( x 1 , x 2 ) \u2022 T m\u22122 [1]( x 2 ) d x 2 d x 1 . . . = x 1 x 2 \u2022 \u2022 \u2022 xm \u03c7( x 1 , x 2 ) \u2022 \u03c7( x 2 , x 3 ) \u2022 \u2022 \u2022 \u03c7( x m\u22121 , x m ) d x m \u2022 \u2022 \u2022 d x 2 d x 1 .",
-            "post_txt": "\n(2.1) Let x i be the vector (x v,i ) v\u2208V",
-            "full_txt": "ct and each of the m \u2212 1 applications of the operator T , we have that1, T m\u22121 [1] = x 1 T m\u22121 [1]( x 1 ) d x 1 = x 1 x 2 \u03c7( x 1 , x 2 ) \u2022 T m\u22122 [1]( x 2 ) d x 2 d x 1 . . . = x 1 x 2 \u2022 \u2022 \u2022 xm \u03c7( x 1 , x 2 ) \u2022 \u03c7( x 2 , x 3 ) \u2022 \u2022 \u2022 \u03c7( x m\u22121 , x m ) d x m \u2022 \u2022 \u2022 d x 2 d x 1 .\n(2.1) Let x i be the vector (x v,i ) v\u2208V"
+            "post_txt": "\n(2.1) Let x i be the vector (x v,i ) v\u2208V .Then the integral in equati",
+            "full_txt": "ct and each of the m \u2212 1 applications of the operator T , we have that1, T m\u22121 [1] = x 1 T m\u22121 [1]( x 1 ) d x 1 = x 1 x 2 \u03c7( x 1 , x 2 ) \u2022 T m\u22122 [1]( x 2 ) d x 2 d x 1 . . . = x 1 x 2 \u2022 \u2022 \u2022 xm \u03c7( x 1 , x 2 ) \u2022 \u03c7( x 2 , x 3 ) \u2022 \u2022 \u2022 \u03c7( x m\u22121 , x m ) d x m \u2022 \u2022 \u2022 d x 2 d x 1 .\n(2.1) Let x i be the vector (x v,i ) v\u2208V .Then the integral in equati"
         },
         "clean_data": {
             "pre_txt": "his operator $T$,\nit will be easier to work in a different space.\nLet ",
@@ -237,14 +252,14 @@
             "post_txt": " be the space of functions $g(x)$\non the interval $[0,1]$ that satisfy",
             "full_txt": "his operator $T$,\nit will be easier to work in a different space.\nLet $U$ be the space of functions $g(x)$\non the interval $[0,1]$ that satisfy"
         },
-        "similarity_score": 0.65625
+        "similarity_score": 0.6875
     },
     {
         "dirty_data": {
-            "pre_txt": "and S a non-empty subset of the vertices of the graph G. Then we have",
+            "pre_txt": " and S a non-empty subset of the vertices of the graph G. Then we have",
             "equation_txt": "E(G\u2737 S P m ) (m \u2022 n)! = k\u22650 \u03d5 k , 1 2 \u03d5 k 2 \u2022 \u03bb m\u22121 k ,",
             "post_txt": "\nwhere the eigenvalues of the operator T are {\u03bb k } k\u22650 and \u03d5 k is the",
-            "full_txt": "and S a non-empty subset of the vertices of the graph G. Then we haveE(G\u2737 S P m ) (m \u2022 n)! = k\u22650 \u03d5 k , 1 2 \u03d5 k 2 \u2022 \u03bb m\u22121 k ,\nwhere the eigenvalues of the operator T are {\u03bb k } k\u22650 and \u03d5 k is the"
+            "full_txt": " and S a non-empty subset of the vertices of the graph G. Then we haveE(G\u2737 S P m ) (m \u2022 n)! = k\u22650 \u03d5 k , 1 2 \u03d5 k 2 \u2022 \u03bb m\u22121 k ,\nwhere the eigenvalues of the operator T are {\u03bb k } k\u22650 and \u03d5 k is the"
         },
         "clean_data": {
             "pre_txt": "$S$ a non-empty subset of the vertices of the graph $G$.\nThen we have\n",
@@ -256,55 +271,100 @@
     },
     {
         "dirty_data": {
-            "pre_txt": "In this case the operator T is given by",
+            "pre_txt": "r number is the classical E m .In this case the operator T is given by",
             "equation_txt": "T [f ](x) = 1\u2212x 0 f (z) dz.",
-            "post_txt": "\nThis operator has eigenvalues",
-            "full_txt": "In this case the operator T is given byT [f ](x) = 1\u2212x 0 f (z) dz.\nThis operator has eigenvalues"
+            "post_txt": "\nThis operator has eigenvalues\u03bb k = 2/(\u03c0 \u2022 k)\nwhere k = . . ., \u22127, \u22123,",
+            "full_txt": "r number is the classical E m .In this case the operator T is given byT [f ](x) = 1\u2212x 0 f (z) dz.\nThis operator has eigenvalues\u03bb k = 2/(\u03c0 \u2022 k)\nwhere k = . . ., \u22127, \u22123,"
         },
         "clean_data": {
-            "pre_txt": "h the four largest (in\n  absolute value) eigenvalues. \n  The function ",
-            "equation_txt": "$f(x)$",
-            "post_txt": ", in $[0, 1]$ is\n  found by using $f(x)$ in $[1/2, 1]$ and $g(1-x)$ in",
-            "full_txt": "h the four largest (in\n  absolute value) eigenvalues. \n  The function $f(x)$, in $[0, 1]$ is\n  found by using $f(x)$ in $[1/2, 1]$ and $g(1-x)$ in"
+            "pre_txt": "r is the classical $E_{m}$.\nIn this case the operator $T$ is given by\n",
+            "equation_txt": "$$   T[f](x) = \\int_{0}^{1-x} f(z) \\: dz  .  $$",
+            "post_txt": "\nThis operator has eigenvalues\n$\\lambda_{k} = 2/(\\pi \\cdot k)$\nwhere $",
+            "full_txt": "r is the classical $E_{m}$.\nIn this case the operator $T$ is given by\n$$   T[f](x) = \\int_{0}^{1-x} f(z) \\: dz  .  $$\nThis operator has eigenvalues\n$\\lambda_{k} = 2/(\\pi \\cdot k)$\nwhere $"
         },
-        "similarity_score": 0.7421875
+        "similarity_score": 0.6953125
     },
     {
         "dirty_data": {
-            "pre_txt": "",
-            "equation_txt": "where j = |k|, that is, k = (\u22121) (j\u22121)/2 \u2022 j. See [2, Section 4].",
-            "post_txt": "\nLet W be the subspace of L 2 (X) consisting of the functions only dep",
-            "full_txt": "where j = |k|, that is, k = (\u22121) (j\u22121)/2 \u2022 j. See [2, Section 4].\nLet W be the subspace of L 2 (X) consisting of the functions only dep"
+            "pre_txt": "T is given byT [f ](x) = 1\u2212x 0 f (z) dz.\nThis operator has eigenvalues",
+            "equation_txt": "\u03bb k = 2/(\u03c0 \u2022 k)",
+            "post_txt": "\nwhere k = . . ., \u22127, \u22123, 1, 5, 9, . . .and eigenfunctions\u03d5 k = cos(x/",
+            "full_txt": "T is given byT [f ](x) = 1\u2212x 0 f (z) dz.\nThis operator has eigenvalues\u03bb k = 2/(\u03c0 \u2022 k)\nwhere k = . . ., \u22127, \u22123, 1, 5, 9, . . .and eigenfunctions\u03d5 k = cos(x/"
         },
         "clean_data": {
-            "pre_txt": "his operator $T$,\nit will be easier to work in a different space.\nLet ",
-            "equation_txt": "$U$",
-            "post_txt": " be the space of functions $g(x)$\non the interval $[0,1]$ that satisfy",
-            "full_txt": "his operator $T$,\nit will be easier to work in a different space.\nLet $U$ be the space of functions $g(x)$\non the interval $[0,1]$ that satisfy"
+            "pre_txt": "](x) = \\int_{0}^{1-x} f(z) \\: dz  .  $$\nThis operator has eigenvalues\n",
+            "equation_txt": "$\\lambda_{k} = 2/(\\pi \\cdot k)$",
+            "post_txt": "\nwhere $k = \\ldots, -7, -3, 1, 5, 9, \\ldots$\nand eigenfunctions\n\\mbox{",
+            "full_txt": "](x) = \\int_{0}^{1-x} f(z) \\: dz  .  $$\nThis operator has eigenvalues\n$\\lambda_{k} = 2/(\\pi \\cdot k)$\nwhere $k = \\ldots, -7, -3, 1, 5, 9, \\ldots$\nand eigenfunctions\n\\mbox{"
         },
-        "similarity_score": 0.671875
+        "similarity_score": 0.703125
     },
     {
         "dirty_data": {
-            "pre_txt": "Furthermore, the associated eigenfunction \u03d5 is positive",
-            "equation_txt": "E m E(Comb m ) \u223c E(Comb m ) E(P 2 \u2737P m ) \u223c E(P 2 \u2737P m ) 1 1 1 0.",
-            "post_txt": "\nProof",
-            "full_txt": "Furthermore, the associated eigenfunction \u03d5 is positiveE m E(Comb m ) \u223c E(Comb m ) E(P 2 \u2737P m ) \u223c E(P 2 \u2737P m ) 1 1 1 0.\nProof"
+            "pre_txt": " = 2/(\u03c0 \u2022 k)\nwhere k = . . ., \u22127, \u22123, 1, 5, 9, . . .and eigenfunctions",
+            "equation_txt": "\u03d5 k = cos(x/\u03bb k ). Calculating \u03d5 k , 1 = \u03bb k and \u03d5 k 2 = \u03d5 k , \u03d5 k = 1/2",
+            "post_txt": "<b>we obtain the following classical asymptotic expansion for the Eule",
+            "full_txt": " = 2/(\u03c0 \u2022 k)\nwhere k = . . ., \u22127, \u22123, 1, 5, 9, . . .and eigenfunctions\u03d5 k = cos(x/\u03bb k ). Calculating \u03d5 k , 1 = \u03bb k and \u03d5 k 2 = \u03d5 k , \u03d5 k = 1/2<b>we obtain the following classical asymptotic expansion for the Eule"
         },
         "clean_data": {
-            "pre_txt": "n order.\nFirst, for the path $P_{n}$ on $n$ vertices\nthe Euler number ",
-            "equation_txt": "${\\cal E}(P_{n})$",
-            "post_txt": " is the number of alternating permutations,\nthat is,\nthe classical Eul",
-            "full_txt": "n order.\nFirst, for the path $P_{n}$ on $n$ vertices\nthe Euler number ${\\cal E}(P_{n})$ is the number of alternating permutations,\nthat is,\nthe classical Eul"
+            "pre_txt": "\nwhere $k = \\ldots, -7, -3, 1, 5, 9, \\ldots$\nand eigenfunctions\n\\mbox{",
+            "equation_txt": "$\\varphi_{k} = \\cos(x/\\lambda_{k})$",
+            "post_txt": "}.\nCalculating\n$\\pair{\\varphi_{k}}{\\bfo} = \\lambda_{k}$\nand\n$\\|\\varphi",
+            "full_txt": "\nwhere $k = \\ldots, -7, -3, 1, 5, 9, \\ldots$\nand eigenfunctions\n\\mbox{$\\varphi_{k} = \\cos(x/\\lambda_{k})$}.\nCalculating\n$\\pair{\\varphi_{k}}{\\bfo} = \\lambda_{k}$\nand\n$\\|\\varphi"
         },
         "similarity_score": 0.6640625
     },
     {
         "dirty_data": {
-            "pre_txt": "In this case the space X is the triangle",
+            "pre_txt": "the following classical asymptotic expansion for the Euler number</b>\n",
+            "equation_txt": "E m = 2 \u2022 m! \u2022 k 2 \u03c0 \u2022 k m+1 = 2 \u2022 m! \u2022 j\u22651 j odd (\u22121) (m+1)\u2022(j\u22121)/2 \u2022 2 \u03c0 \u2022 j (m+1)",
+            "post_txt": "\n,where j = |k|, that is, k = (\u22121) (j\u22121)/2 \u2022 j. See [2, Section 4].\nLe",
+            "full_txt": "the following classical asymptotic expansion for the Euler number</b>\nE m = 2 \u2022 m! \u2022 k 2 \u03c0 \u2022 k m+1 = 2 \u2022 m! \u2022 j\u22651 j odd (\u22121) (m+1)\u2022(j\u22121)/2 \u2022 2 \u03c0 \u2022 j (m+1)\n,where j = |k|, that is, k = (\u22121) (j\u22121)/2 \u2022 j. See [2, Section 4].\nLe"
+        },
+        "clean_data": {
+            "pre_txt": " \\left( \\frac{2}{\\pi \\cdot j}\\right)^{(m+1)}  ,\n\\end{eqnarray*}\nwhere ",
+            "equation_txt": "$j = |k|$",
+            "post_txt": ", that is, $k = (-1)^{(j-1)/2} \\cdot j$.\nSee~\\cite[Section~4]{Ehrenbor",
+            "full_txt": " \\left( \\frac{2}{\\pi \\cdot j}\\right)^{(m+1)}  ,\n\\end{eqnarray*}\nwhere $j = |k|$, that is, $k = (-1)^{(j-1)/2} \\cdot j$.\nSee~\\cite[Section~4]{Ehrenbor"
+        },
+        "similarity_score": 0.6796875
+    },
+    {
+        "dirty_data": {
+            "pre_txt": " 2 \u03c0 \u2022 k m+1 = 2 \u2022 m! \u2022 j\u22651 j odd (\u22121) (m+1)\u2022(j\u22121)/2 \u2022 2 \u03c0 \u2022 j (m+1)\n,",
+            "equation_txt": "where j = |k|, that is, k = (\u22121) (j\u22121)/2 \u2022 j. See [2, Section 4].",
+            "post_txt": "\nLet W be the subspace of L 2 (X) consisting of the functions only dep",
+            "full_txt": " 2 \u03c0 \u2022 k m+1 = 2 \u2022 m! \u2022 j\u22651 j odd (\u22121) (m+1)\u2022(j\u22121)/2 \u2022 2 \u03c0 \u2022 j (m+1)\n,where j = |k|, that is, k = (\u22121) (j\u22121)/2 \u2022 j. See [2, Section 4].\nLet W be the subspace of L 2 (X) consisting of the functions only dep"
+        },
+        "clean_data": {
+            "pre_txt": " \\left( \\frac{2}{\\pi \\cdot j}\\right)^{(m+1)}  ,\n\\end{eqnarray*}\nwhere ",
+            "equation_txt": "$j = |k|$",
+            "post_txt": ", that is, $k = (-1)^{(j-1)/2} \\cdot j$.\nSee~\\cite[Section~4]{Ehrenbor",
+            "full_txt": " \\left( \\frac{2}{\\pi \\cdot j}\\right)^{(m+1)}  ,\n\\end{eqnarray*}\nwhere $j = |k|$, that is, $k = (-1)^{(j-1)/2} \\cdot j$.\nSee~\\cite[Section~4]{Ehrenbor"
+        },
+        "similarity_score": 0.6640625
+    },
+    {
+        "dirty_data": {
+            "pre_txt": "ve and simple.Furthermore, the associated eigenfunction \u03d5 is positive.",
+            "equation_txt": "E m E(Comb m ) \u223c E(Comb m ) E(P 2 \u2737P m ) \u223c E(P 2 \u2737P m ) 1 1 1 0.",
+            "post_txt": "\nProof.Let f be a non-negative, non-zero function in L 2 (X).By the de",
+            "full_txt": "ve and simple.Furthermore, the associated eigenfunction \u03d5 is positive.E m E(Comb m ) \u223c E(Comb m ) E(P 2 \u2737P m ) \u223c E(P 2 \u2737P m ) 1 1 1 0.\nProof.Let f be a non-negative, non-zero function in L 2 (X).By the de"
+        },
+        "clean_data": {
+            "pre_txt": "enfunction $\\varphi$ is positive.\n\\end{proposition}\n\\begin{proof}\nLet ",
+            "equation_txt": "$f$",
+            "post_txt": " be a non-negative, non-zero function  in $L^{2}(X)$.\nBy the definitio",
+            "full_txt": "enfunction $\\varphi$ is positive.\n\\end{proposition}\n\\begin{proof}\nLet $f$ be a non-negative, non-zero function  in $L^{2}(X)$.\nBy the definitio"
+        },
+        "similarity_score": 0.671875
+    },
+    {
+        "dirty_data": {
+            "pre_txt": "by the product P 2 \u2737 {1} P m .In this case the space X is the triangle",
             "equation_txt": "X = {(x, y) : x, y \u2265 0, x + y \u2264 1}.",
-            "post_txt": "\nHowever, following Proposition 2.6 in order to find the eigenvalue and",
-            "full_txt": "In this case the space X is the triangleX = {(x, y) : x, y \u2265 0, x + y \u2264 1}.\nHowever, following Proposition 2.6 in order to find the eigenvalue and"
+            "post_txt": "\nHowever, following Proposition 2.6 in order to find the eigenvalue an",
+            "full_txt": "by the product P 2 \u2737 {1} P m .In this case the space X is the triangleX = {(x, y) : x, y \u2265 0, x + y \u2264 1}.\nHowever, following Proposition 2.6 in order to find the eigenvalue an"
         },
         "clean_data": {
             "pre_txt": "_{2} \\Box_{\\{1\\}} P_{m}$.\nIn this case  the space $X$ is the triangle\n",
@@ -312,14 +372,14 @@
             "post_txt": "\nHowever, \nfollowing\nProposition~\\ref{proposition_subspace}\nin order t",
             "full_txt": "_{2} \\Box_{\\{1\\}} P_{m}$.\nIn this case  the space $X$ is the triangle\n$$   X = \\{(x,y) \\:\\: : \\:\\: x,y \\geq 0,\\, x+y \\leq 1\\}  .  $$\nHowever, \nfollowing\nProposition~\\ref{proposition_subspace}\nin order t"
         },
-        "similarity_score": 0.703125
+        "similarity_score": 0.7109375
     },
     {
         "dirty_data": {
-            "pre_txt": "Observe that W inherits the inner product",
+            "pre_txt": "nding only on the variable x.Observe that W inherits the inner product",
             "equation_txt": "f, g W = 1 0 (1 \u2212 x) \u2022 f (x) \u2022 g(x) dx.",
-            "post_txt": "\nMoreover, the operator T is given by The next step is to find all of t",
-            "full_txt": "Observe that W inherits the inner productf, g W = 1 0 (1 \u2212 x) \u2022 f (x) \u2022 g(x) dx.\nMoreover, the operator T is given by The next step is to find all of t"
+            "post_txt": "\nMoreover, the operator T is given by The next step is to find all of ",
+            "full_txt": "nding only on the variable x.Observe that W inherits the inner productf, g W = 1 0 (1 \u2212 x) \u2022 f (x) \u2022 g(x) dx.\nMoreover, the operator T is given by The next step is to find all of "
         },
         "clean_data": {
             "pre_txt": "four largest (in\n  absolute value) eigenvalues. \n  The whole function ",
@@ -333,8 +393,8 @@
         "dirty_data": {
             "pre_txt": "nd eigenfunctions of the operator T , that is, functions f (x) so that",
             "equation_txt": "T [f ](x) = 1\u2212x 0 (1 \u2212 z) \u2022 f (z) dz.",
-            "post_txt": "\u03bb \u2022 f (x) = T [f ](x) = 1\u2212x 0 (1 \u2212 z) \u2022 f (z) dz.\nWe convert this integral equation into a differential equation by di",
-            "full_txt": "nd eigenfunctions of the operator T , that is, functions f (x) so thatT [f ](x) = 1\u2212x 0 (1 \u2212 z) \u2022 f (z) dz.\u03bb \u2022 f (x) = T [f ](x) = 1\u2212x 0 (1 \u2212 z) \u2022 f (z) dz.\nWe convert this integral equation into a differential equation by di"
+            "post_txt": "\u03bb \u2022 f (x) = T [f ](x) = 1\u2212x 0 (1 \u2212 z) \u2022 f (z) dz.\nWe convert this inte",
+            "full_txt": "nd eigenfunctions of the operator T , that is, functions f (x) so thatT [f ](x) = 1\u2212x 0 (1 \u2212 z) \u2022 f (z) dz.\u03bb \u2022 f (x) = T [f ](x) = 1\u2212x 0 (1 \u2212 z) \u2022 f (z) dz.\nWe convert this inte"
         },
         "clean_data": {
             "pre_txt": "eigenfunctions\nof the operator $T$, that is, functions $f(x)$ so that\n",
@@ -342,14 +402,14 @@
             "post_txt": "\nWe convert this integral equation into a differential equation\nby dif",
             "full_txt": "eigenfunctions\nof the operator $T$, that is, functions $f(x)$ so that\n\\begin{equation}\n\\lambda \\cdot f(x) = T[f](x)=\\int_{0}^{1-x} (1-z) \\cdot f(z) \\: dz  . \n\\label{eq:comb:eig:fun}\n\\end{equation}\nWe convert this integral equation into a differential equation\nby dif"
         },
-        "similarity_score": 0.765625
+        "similarity_score": 0.65625
     },
     {
         "dirty_data": {
-            "pre_txt": "nd eigenfunctions of the operator T , that is, functions f (x) so that",
+            "pre_txt": " that is, functions f (x) so thatT [f ](x) = 1\u2212x 0 (1 \u2212 z) \u2022 f (z) dz.",
             "equation_txt": "\u03bb \u2022 f (x) = T [f ](x) = 1\u2212x 0 (1 \u2212 z) \u2022 f (z) dz.",
-            "post_txt": "\nWe convert this integral equation into a differential equation by di",
-            "full_txt": "nd eigenfunctions of the operator T , that is, functions f (x) so that\u03bb \u2022 f (x) = T [f ](x) = 1\u2212x 0 (1 \u2212 z) \u2022 f (z) dz.\nWe convert this integral equation into a differential equation by di"
+            "post_txt": "\nWe convert this integral equation into a differential equation by dif",
+            "full_txt": " that is, functions f (x) so thatT [f ](x) = 1\u2212x 0 (1 \u2212 z) \u2022 f (z) dz.\u03bb \u2022 f (x) = T [f ](x) = 1\u2212x 0 (1 \u2212 z) \u2022 f (z) dz.\nWe convert this integral equation into a differential equation by dif"
         },
         "clean_data": {
             "pre_txt": "eigenfunctions\nof the operator $T$, that is, functions $f(x)$ so that\n",
@@ -357,14 +417,14 @@
             "post_txt": "\nWe convert this integral equation into a differential equation\nby dif",
             "full_txt": "eigenfunctions\nof the operator $T$, that is, functions $f(x)$ so that\n\\begin{equation}\n\\lambda \\cdot f(x) = T[f](x)=\\int_{0}^{1-x} (1-z) \\cdot f(z) \\: dz  . \n\\label{eq:comb:eig:fun}\n\\end{equation}\nWe convert this integral equation into a differential equation\nby dif"
         },
-        "similarity_score": 0.765625
+        "similarity_score": 0.7578125
     },
     {
         "dirty_data": {
             "pre_txt": "ral equation into a differential equation by differentiating to obtain",
             "equation_txt": "\u03bb \u2022 f \u2032 (x) = \u2212x \u2022 f (1 \u2212 x).",
-            "post_txt": "\nTo convert this into an ordinary differential equation (ODE), we defin",
-            "full_txt": "ral equation into a differential equation by differentiating to obtain\u03bb \u2022 f \u2032 (x) = \u2212x \u2022 f (1 \u2212 x).\nTo convert this into an ordinary differential equation (ODE), we defin"
+            "post_txt": "\nTo convert this into an ordinary differential equation (ODE), we defi",
+            "full_txt": "ral equation into a differential equation by differentiating to obtain\u03bb \u2022 f \u2032 (x) = \u2212x \u2022 f (1 \u2212 x).\nTo convert this into an ordinary differential equation (ODE), we defi"
         },
         "clean_data": {
             "pre_txt": "nd{equation}\nThis is only satisfied for a discrete set of eigenvalues ",
@@ -376,10 +436,10 @@
     },
     {
         "dirty_data": {
-            "pre_txt": "y differential equation (ODE), we define g(x) = f (1 \u2212 x) and thus",
+            "pre_txt": "y differential equation (ODE), we define g(x) = f (1 \u2212 x) and thus f g",
             "equation_txt": "\u2032 = 0 \u2212x/\u03bb (1 \u2212 x)/\u03bb 0 \u2022 f g . (3.3)",
-            "post_txt": "\nTogether with the boundary conditions",
-            "full_txt": "y differential equation (ODE), we define g(x) = f (1 \u2212 x) and thus\u2032 = 0 \u2212x/\u03bb (1 \u2212 x)/\u03bb 0 \u2022 f g . (3.3)\nTogether with the boundary conditions"
+            "post_txt": "\nTogether with the boundary conditionsf (0) = 1, g(0) = 0, f (1/2) = g",
+            "full_txt": "y differential equation (ODE), we define g(x) = f (1 \u2212 x) and thus f g\u2032 = 0 \u2212x/\u03bb (1 \u2212 x)/\u03bb 0 \u2022 f g . (3.3)\nTogether with the boundary conditionsf (0) = 1, g(0) = 0, f (1/2) = g"
         },
         "clean_data": {
             "pre_txt": "nd{equation}\nThis is only satisfied for a discrete set of eigenvalues ",
@@ -391,10 +451,10 @@
     },
     {
         "dirty_data": {
-            "pre_txt": "Together with the boundary conditions",
+            "pre_txt": "0 \u2212x/\u03bb (1 \u2212 x)/\u03bb 0 \u2022 f g . (3.3)\nTogether with the boundary conditions",
             "equation_txt": "f (0) = 1, g(0) = 0, f (1/2) = g(1/2),",
-            "post_txt": "\nwhich come from the integral equation (3.1) and the algebraic relation",
-            "full_txt": "Together with the boundary conditionsf (0) = 1, g(0) = 0, f (1/2) = g(1/2),\nwhich come from the integral equation (3.1) and the algebraic relation"
+            "post_txt": "\nwhich come from the integral equation (3.1) and the algebraic relatio",
+            "full_txt": "0 \u2212x/\u03bb (1 \u2212 x)/\u03bb 0 \u2022 f g . (3.3)\nTogether with the boundary conditionsf (0) = 1, g(0) = 0, f (1/2) = g(1/2),\nwhich come from the integral equation (3.1) and the algebraic relatio"
         },
         "clean_data": {
             "pre_txt": "four largest (in\n  absolute value) eigenvalues. \n  The whole function ",
@@ -402,29 +462,29 @@
             "post_txt": ", from 0 to 1 is\n  found by using $g(x)$ between $1/2$ and $1$ and $h(",
             "full_txt": "four largest (in\n  absolute value) eigenvalues. \n  The whole function $g(x)$, from 0 to 1 is\n  found by using $g(x)$ between $1/2$ and $1$ and $h("
         },
-        "similarity_score": 0.8203125
+        "similarity_score": 0.7734375
     },
     {
         "dirty_data": {
-            "pre_txt": "The resulting norms and constants c n are tabulated in Table",
+            "pre_txt": "re [3].The resulting norms and constants c n are tabulated in Table 2.",
             "equation_txt": "\u03bb f (x), 1 f (x) 2",
-            "post_txt": "\nc n 0.437141117 0.437141151 0.398916677 0.479028320 -0.094330445 0.094",
-            "full_txt": "The resulting norms and constants c n are tabulated in Table\u03bb f (x), 1 f (x) 2\nc n 0.437141117 0.437141151 0.398916677 0.479028320 -0.094330445 0.094"
+            "post_txt": "\nc n 0.437141117 0.437141151 0.398916677 0.479028320 -0.094330445 0.09",
+            "full_txt": "re [3].The resulting norms and constants c n are tabulated in Table 2.\u03bb f (x), 1 f (x) 2\nc n 0.437141117 0.437141151 0.398916677 0.479028320 -0.094330445 0.09"
         },
         "clean_data": {
-            "pre_txt": "egin{tabular}{llll}\n$\\lambda$ & $\\pair{f(x)}{\\bfo}$ & $\\|f(x)\\|^{2}$& ",
-            "equation_txt": "$c_{n}$",
-            "post_txt": "\\\\\\hline\n 0.437141117 & 0.437141151 &0.398916677& 0.479028320\\\\\n -0.09",
-            "full_txt": "egin{tabular}{llll}\n$\\lambda$ & $\\pair{f(x)}{\\bfo}$ & $\\|f(x)\\|^{2}$& $c_{n}$\\\\\\hline\n 0.437141117 & 0.437141151 &0.398916677& 0.479028320\\\\\n -0.09"
+            "pre_txt": ".\n\n\\begin{table}[h!]\n\\begin{center}\n\\begin{tabular}{llll}\n$\\lambda$ & ",
+            "equation_txt": "$\\pair{g(x)}{\\bfo}$",
+            "post_txt": " & $\\|g(x)\\|^{2}$& $c_{n}$\\\\\\hline\n0.364425573038 &   0.59039705924381",
+            "full_txt": ".\n\n\\begin{table}[h!]\n\\begin{center}\n\\begin{tabular}{llll}\n$\\lambda$ & $\\pair{g(x)}{\\bfo}$ & $\\|g(x)\\|^{2}$& $c_{n}$\\\\\\hline\n0.364425573038 &   0.59039705924381"
         },
         "similarity_score": 0.734375
     },
     {
         "dirty_data": {
-            "pre_txt": "The constant c n is the ratio",
+            "pre_txt": " four eigenfunctions shown in Figure [3].The constant c n is the ratio",
             "equation_txt": "f (x), 1 2 W / f (x) 2",
-            "post_txt": "\nW for the n th eigenfunction.",
-            "full_txt": "The constant c n is the ratiof (x), 1 2 W / f (x) 2\nW for the n th eigenfunction."
+            "post_txt": "\nW for the n th eigenfunction.\nThe Euler numbers for the Comb n graphs",
+            "full_txt": " four eigenfunctions shown in Figure [3].The constant c n is the ratiof (x), 1 2 W / f (x) 2\nW for the n th eigenfunction.\nThe Euler numbers for the Comb n graphs"
         },
         "clean_data": {
             "pre_txt": "four largest (in\n  absolute value) eigenvalues. \n  The whole function ",
@@ -432,14 +492,14 @@
             "post_txt": ", from 0 to 1 is\n  found by using $g(x)$ between $1/2$ and $1$ and $h(",
             "full_txt": "four largest (in\n  absolute value) eigenvalues. \n  The whole function $g(x)$, from 0 to 1 is\n  found by using $g(x)$ between $1/2$ and $1$ and $h("
         },
-        "similarity_score": 0.71875
+        "similarity_score": 0.75
     },
     {
         "dirty_data": {
-            "pre_txt": "As before, the space X is the triangle",
+            "pre_txt": "two vertices P 2 and S = {1, 2}.As before, the space X is the triangle",
             "equation_txt": "X = {(x, y) : x, y \u2265 0, x + y \u2264 1}.",
-            "post_txt": "\nObserve that the operator T has the form",
-            "full_txt": "As before, the space X is the triangleX = {(x, y) : x, y \u2265 0, x + y \u2264 1}.\nObserve that the operator T has the form"
+            "post_txt": "\nObserve that the operator T has the formT [f ](x, y) = R f (z, w) dz ",
+            "full_txt": "two vertices P 2 and S = {1, 2}.As before, the space X is the triangleX = {(x, y) : x, y \u2265 0, x + y \u2264 1}.\nObserve that the operator T has the formT [f ](x, y) = R f (z, w) dz "
         },
         "clean_data": {
             "pre_txt": "s $P_{2}$\nand $S = \\{1,2\\}$.\nAs before, the space $X$ is the triangle\n",
@@ -447,29 +507,29 @@
             "post_txt": "\nObserve that the operator $T$ has the form\n$$\nT[f](x,y)\n    =\n\\int_{R",
             "full_txt": "s $P_{2}$\nand $S = \\{1,2\\}$.\nAs before, the space $X$ is the triangle\n$$   X = \\{(x,y) \\:\\: : \\:\\: x,y \\geq 0, x+y \\leq 1\\}  .  $$\nObserve that the operator $T$ has the form\n$$\nT[f](x,y)\n    =\n\\int_{R"
         },
-        "similarity_score": 0.703125
+        "similarity_score": 0.7578125
     },
     {
         "dirty_data": {
-            "pre_txt": "Observe that the operator T has the form",
+            "pre_txt": "x, y) : x, y \u2265 0, x + y \u2264 1}.\nObserve that the operator T has the form",
             "equation_txt": "T [f ](x, y) = R f (z, w) dz dw,",
-            "post_txt": "\nwhere R is the region described by the inequalities 0",
-            "full_txt": "Observe that the operator T has the formT [f ](x, y) = R f (z, w) dz dw,\nwhere R is the region described by the inequalities 0"
+            "post_txt": "\nwhere R is the region described by the inequalities 0\u2264 z \u2264 1 \u2212 x, 0 \u2264",
+            "full_txt": "x, y) : x, y \u2265 0, x + y \u2264 1}.\nObserve that the operator T has the formT [f ](x, y) = R f (z, w) dz dw,\nwhere R is the region described by the inequalities 0\u2264 z \u2264 1 \u2212 x, 0 \u2264"
         },
         "clean_data": {
-            "pre_txt": "ugh to solve the eigenvalue problem\n$\\lambda \\cdot g(x) = T[g](x)$ in ",
-            "equation_txt": "$U$",
-            "post_txt": " for non-zero $\\lambda$, \nthat is,\n\\begin{equation}\n   \\lambda \\cdot g",
-            "full_txt": "ugh to solve the eigenvalue problem\n$\\lambda \\cdot g(x) = T[g](x)$ in $U$ for non-zero $\\lambda$, \nthat is,\n\\begin{equation}\n   \\lambda \\cdot g"
+            "pre_txt": "geq 0, x+y \\leq 1\\}  .  $$\nObserve that the operator $T$ has the form\n",
+            "equation_txt": "$$\nT[f](x,y)\n    =\n\\int_{R} f(z,w) \\: dz\\, dw  ,\n$$",
+            "post_txt": "\nwhere $R$ is the region described by\nthe inequalities\n$0 \\leq z \\leq ",
+            "full_txt": "geq 0, x+y \\leq 1\\}  .  $$\nObserve that the operator $T$ has the form\n$$\nT[f](x,y)\n    =\n\\int_{R} f(z,w) \\: dz\\, dw  ,\n$$\nwhere $R$ is the region described by\nthe inequalities\n$0 \\leq z \\leq "
         },
-        "similarity_score": 0.765625
+        "similarity_score": 0.7734375
     },
     {
         "dirty_data": {
-            "pre_txt": "R is the region described b",
+            "pre_txt": " f (z, w) dz dw,\nwhere R is the region described by the inequalities 0",
             "equation_txt": "\u2264 z \u2264 1 \u2212 x, 0 \u2264 w \u2264 1 \u2212 y and z + w \u2264 1. Since x + y \u2264 1, equivalently (1 \u2212 x) + (1 \u2212 y) \u2265 1, the inequality z + w \u2264 1 cuts off a triangle from the rectangle [0, 1 \u2212 x] \u00d7 [0, 1 \u2212 y].",
-            "post_txt": "\nH",
-            "full_txt": "R is the region described b\u2264 z \u2264 1 \u2212 x, 0 \u2264 w \u2264 1 \u2212 y and z + w \u2264 1. Since x + y \u2264 1, equivalently (1 \u2212 x) + (1 \u2212 y) \u2265 1, the inequality z + w \u2264 1 cuts off a triangle from the rectangle [0, 1 \u2212 x] \u00d7 [0, 1 \u2212 y].\nH"
+            "post_txt": "\nHence we haveT [f ](x, y) = y 0 1\u2212y 0 f (z, w) dw dz + 1\u2212x y 1\u2212z 0 f ",
+            "full_txt": " f (z, w) dz dw,\nwhere R is the region described by the inequalities 0\u2264 z \u2264 1 \u2212 x, 0 \u2264 w \u2264 1 \u2212 y and z + w \u2264 1. Since x + y \u2264 1, equivalently (1 \u2212 x) + (1 \u2212 y) \u2265 1, the inequality z + w \u2264 1 cuts off a triangle from the rectangle [0, 1 \u2212 x] \u00d7 [0, 1 \u2212 y].\nHence we haveT [f ](x, y) = y 0 1\u2212y 0 f (z, w) dw dz + 1\u2212x y 1\u2212z 0 f "
         },
         "clean_data": {
             "pre_txt": "e $x + y \\leq 1$,\nequivalently\n$(1-x) + (1-y) \\geq 1$,\nthe inequality ",
@@ -477,14 +537,14 @@
             "post_txt": "\ncuts off a triangle from the rectangle\n$[0,1-x] \\times [0,1-y]$.\nHenc",
             "full_txt": "e $x + y \\leq 1$,\nequivalently\n$(1-x) + (1-y) \\geq 1$,\nthe inequality $z + w \\leq 1$\ncuts off a triangle from the rectangle\n$[0,1-x] \\times [0,1-y]$.\nHenc"
         },
-        "similarity_score": 0.7734375
+        "similarity_score": 0.7265625
     },
     {
         "dirty_data": {
-            "pre_txt": "Hence we have",
+            "pre_txt": "f a triangle from the rectangle [0, 1 \u2212 x] \u00d7 [0, 1 \u2212 y].\nHence we have",
             "equation_txt": "T [f ](x, y) = y 0 1\u2212y 0 f (z, w) dw dz + 1\u2212x y 1\u2212z 0 f (z, w) dw dz (4.1) = x 0 1\u2212x 0 f (z, w) dz dw + 1\u2212y x 1\u2212w 0 f (z, w) dz dw.",
             "post_txt": "\nIn order to study this operator T , it will be easier to work in a di",
-            "full_txt": "Hence we haveT [f ](x, y) = y 0 1\u2212y 0 f (z, w) dw dz + 1\u2212x y 1\u2212z 0 f (z, w) dw dz (4.1) = x 0 1\u2212x 0 f (z, w) dz dw + 1\u2212y x 1\u2212w 0 f (z, w) dz dw.\nIn order to study this operator T , it will be easier to work in a di"
+            "full_txt": "f a triangle from the rectangle [0, 1 \u2212 x] \u00d7 [0, 1 \u2212 y].\nHence we haveT [f ](x, y) = y 0 1\u2212y 0 f (z, w) dw dz + 1\u2212x y 1\u2212z 0 f (z, w) dw dz (4.1) = x 0 1\u2212x 0 f (z, w) dz dw + 1\u2212y x 1\u2212w 0 f (z, w) dz dw.\nIn order to study this operator T , it will be easier to work in a di"
         },
         "clean_data": {
             "pre_txt": "his operator $T$,\nit will be easier to work in a different space.\nLet ",
@@ -492,14 +552,14 @@
             "post_txt": " be the space of functions $g(x)$\non the interval $[0,1]$ that satisfy",
             "full_txt": "his operator $T$,\nit will be easier to work in a different space.\nLet $U$ be the space of functions $g(x)$\non the interval $[0,1]$ that satisfy"
         },
-        "similarity_score": 0.734375
+        "similarity_score": 0.7421875
     },
     {
         "dirty_data": {
-            "pre_txt": "Enrich the space U with the following inner product",
+            "pre_txt": "+ g(y)) dx dy < \u221e.\nEnrich the space U with the following inner product",
             "equation_txt": "g, h U = X (g(x) + g(y)) \u2022 (h(x) + h(y)) dx dy.",
-            "post_txt": "\nDefine L to be the linear map L : U \u2212\u2192 L 2 (X) defined by L[g]",
-            "full_txt": "Enrich the space U with the following inner productg, h U = X (g(x) + g(y)) \u2022 (h(x) + h(y)) dx dy.\nDefine L to be the linear map L : U \u2212\u2192 L 2 (X) defined by L[g]"
+            "post_txt": "\nDefine L to be the linear map L : U \u2212\u2192 L 2 (X) defined by L[g](x, y) ",
+            "full_txt": "+ g(y)) dx dy < \u221e.\nEnrich the space U with the following inner productg, h U = X (g(x) + g(y)) \u2022 (h(x) + h(y)) dx dy.\nDefine L to be the linear map L : U \u2212\u2192 L 2 (X) defined by L[g](x, y) "
         },
         "clean_data": {
             "pre_txt": "e{(h(x) + h(y))} \\: dx\\, dy\n    .  $$\nDefine $L$ to be the linear map\n",
@@ -507,14 +567,14 @@
             "post_txt": "\ndefined by $L[g](x,y) = g(x) + g(y)$.\nObserve that the map $L$ preser",
             "full_txt": "e{(h(x) + h(y))} \\: dx\\, dy\n    .  $$\nDefine $L$ to be the linear map\n$L : U \\longrightarrow L^{2}(X)$\ndefined by $L[g](x,y) = g(x) + g(y)$.\nObserve that the map $L$ preser"
         },
-        "similarity_score": 0.7734375
+        "similarity_score": 0.7265625
     },
     {
         "dirty_data": {
-            "pre_txt": "Furthermore, define the operator T on U by",
+            "pre_txt": "over, L is an injective map.Furthermore, define the operator T on U by",
             "equation_txt": "T [g](x) = (1 \u2212 x) \u2022 x 0 g(s) ds + 1\u2212x x (1 \u2212 s) \u2022 g(s) ds.",
-            "post_txt": "\nThe reason why we denote this operator also by T will be clear from th",
-            "full_txt": "Furthermore, define the operator T on U byT [g](x) = (1 \u2212 x) \u2022 x 0 g(s) ds + 1\u2212x x (1 \u2212 s) \u2022 g(s) ds.\nThe reason why we denote this operator also by T will be clear from th"
+            "post_txt": "\nThe reason why we denote this operator also by T will be clear from t",
+            "full_txt": "over, L is an injective map.Furthermore, define the operator T on U byT [g](x) = (1 \u2212 x) \u2022 x 0 g(s) ds + 1\u2212x x (1 \u2212 s) \u2022 g(s) ds.\nThe reason why we denote this operator also by T will be clear from t"
         },
         "clean_data": {
             "pre_txt": "his operator $T$,\nit will be easier to work in a different space.\nLet ",
@@ -522,29 +582,44 @@
             "post_txt": " be the space of functions $g(x)$\non the interval $[0,1]$ that satisfy",
             "full_txt": "his operator $T$,\nit will be easier to work in a different space.\nLet $U$ be the space of functions $g(x)$\non the interval $[0,1]$ that satisfy"
         },
-        "similarity_score": 0.765625
+        "similarity_score": 0.78125
     },
     {
         "dirty_data": {
-            "pre_txt": "he isometry L and the operator T commute, that is,",
+            "pre_txt": "n.\nProposition 4.1.The isometry L and the operator T commute, that is,",
             "equation_txt": "T \u2022 L = L \u2022 T .",
-            "post_txt": "\nProof",
-            "full_txt": "he isometry L and the operator T commute, that is,T \u2022 L = L \u2022 T .\nProof"
+            "post_txt": "\nProof.Apply the original operator T to the function L[g](x, y) = g(x)",
+            "full_txt": "n.\nProposition 4.1.The isometry L and the operator T commute, that is,T \u2022 L = L \u2022 T .\nProof.Apply the original operator T to the function L[g](x, y) = g(x)"
         },
         "clean_data": {
-            "pre_txt": "xt proposition.\n\\begin{proposition}\nThe isometry $L$ and the operator ",
-            "equation_txt": "$T$",
-            "post_txt": " commute,\nthat is,\n$T \\circ L = L \\circ T$.\n\n\\end{proposition}\n\\begin{",
-            "full_txt": "xt proposition.\n\\begin{proposition}\nThe isometry $L$ and the operator $T$ commute,\nthat is,\n$T \\circ L = L \\circ T$.\n\n\\end{proposition}\n\\begin{"
+            "pre_txt": "largest (in\n  absolute value) eigenvalues. \n  The function $f(x)$, in ",
+            "equation_txt": "$[0, 1]$",
+            "post_txt": " is\n  found by using $f(x)$ in $[1/2, 1]$ and $g(1-x)$ in $[0, 1/2]$.}",
+            "full_txt": "largest (in\n  absolute value) eigenvalues. \n  The function $f(x)$, in $[0, 1]$ is\n  found by using $f(x)$ in $[1/2, 1]$ and $g(1-x)$ in $[0, 1/2]$.}"
         },
-        "similarity_score": 0.7265625
+        "similarity_score": 0.71875
     },
     {
         "dirty_data": {
-            "pre_txt": "where we used the fact that Hence w",
+            "pre_txt": "quation (4.1) to g(x) and applying equation (4.2) to g(y).We then have",
+            "equation_txt": "T [L[g]](x, y) = y 0 1\u2212y 0 g(z) dw dz + 1\u2212x y 1\u2212z 0 g(z) dw dz + x 0 1\u2212x 0 g(w) dz dw + 1\u2212y x 1\u2212w 0 g(w) dz dw = (1 \u2212 y) \u2022 y 0 g(z) dz + 1\u2212x y (1 \u2212 z) \u2022 g(z) dz +(1 \u2212 x) \u2022 x 0 g(w) dw + 1\u2212y x (1 \u2212 w) \u2022 g(w) dw = L[T [g]](x, y),",
+            "post_txt": "\nwhere we used the fact that Hence we have that1, T m\u22121 [1] L 2 (X) = ",
+            "full_txt": "quation (4.1) to g(x) and applying equation (4.2) to g(y).We then haveT [L[g]](x, y) = y 0 1\u2212y 0 g(z) dw dz + 1\u2212x y 1\u2212z 0 g(z) dw dz + x 0 1\u2212x 0 g(w) dz dw + 1\u2212y x 1\u2212w 0 g(w) dz dw = (1 \u2212 y) \u2022 y 0 g(z) dz + 1\u2212x y (1 \u2212 z) \u2022 g(z) dz +(1 \u2212 x) \u2022 x 0 g(w) dw + 1\u2212y x (1 \u2212 w) \u2022 g(w) dw = L[T [g]](x, y),\nwhere we used the fact that Hence we have that1, T m\u22121 [1] L 2 (X) = "
+        },
+        "clean_data": {
+            "pre_txt": "e $x + y \\leq 1$,\nequivalently\n$(1-x) + (1-y) \\geq 1$,\nthe inequality ",
+            "equation_txt": "$z + w \\leq 1$",
+            "post_txt": "\ncuts off a triangle from the rectangle\n$[0,1-x] \\times [0,1-y]$.\nHenc",
+            "full_txt": "e $x + y \\leq 1$,\nequivalently\n$(1-x) + (1-y) \\geq 1$,\nthe inequality $z + w \\leq 1$\ncuts off a triangle from the rectangle\n$[0,1-x] \\times [0,1-y]$.\nHenc"
+        },
+        "similarity_score": 0.7421875
+    },
+    {
+        "dirty_data": {
+            "pre_txt": "w) dw = L[T [g]](x, y),\nwhere we used the fact that Hence we have that",
             "equation_txt": "1, T m\u22121 [1] L 2 (X) = 1 4 \u2022 1, T m\u22121 [1] U , since L[1/2 \u2022 1] = 1. Thus it is enough to solve the eigenvalue problem \u03bb \u2022 g(x) = T [g](x) in U for non-zero \u03bb, that is, \u03bb \u2022 g(x) = (1 \u2212 x) \u2022 x 0 g(s) ds + 1\u2212x x (1 \u2212 s) \u2022 g(s) ds.",
-            "post_txt": "\nD",
-            "full_txt": "where we used the fact that Hence w1, T m\u22121 [1] L 2 (X) = 1 4 \u2022 1, T m\u22121 [1] U , since L[1/2 \u2022 1] = 1. Thus it is enough to solve the eigenvalue problem \u03bb \u2022 g(x) = T [g](x) in U for non-zero \u03bb, that is, \u03bb \u2022 g(x) = (1 \u2212 x) \u2022 x 0 g(s) ds + 1\u2212x x (1 \u2212 s) \u2022 g(s) ds.\nD"
+            "post_txt": "\nDifferentiate to obtain\u03bb \u2022 g \u2032 (x) = \u2212 x 0 g(s) ds \u2212 x \u2022 g(1 \u2212 x). (4",
+            "full_txt": "w) dw = L[T [g]](x, y),\nwhere we used the fact that Hence we have that1, T m\u22121 [1] L 2 (X) = 1 4 \u2022 1, T m\u22121 [1] U , since L[1/2 \u2022 1] = 1. Thus it is enough to solve the eigenvalue problem \u03bb \u2022 g(x) = T [g](x) in U for non-zero \u03bb, that is, \u03bb \u2022 g(x) = (1 \u2212 x) \u2022 x 0 g(s) ds + 1\u2212x x (1 \u2212 s) \u2022 g(s) ds.\nDifferentiate to obtain\u03bb \u2022 g \u2032 (x) = \u2212 x 0 g(s) ds \u2212 x \u2022 g(1 \u2212 x). (4"
         },
         "clean_data": {
             "pre_txt": "}^{d} = \\int_{a}^{d} + \\int_{c}^{b}$.\n\\end{proof}\n\nHence we have that\n",
@@ -552,14 +627,14 @@
             "post_txt": "\nsince $L[1/2 \\cdot \\bfo] = \\bfo$.\nThus it is enough to solve the eige",
             "full_txt": "}^{d} = \\int_{a}^{d} + \\int_{c}^{b}$.\n\\end{proof}\n\nHence we have that\n$$   \\pair{\\bfo}{T^{m-1}[\\bfo]}_{L^{2}(X)}\n   =\n     \\frac{1}{4} \\cdot \\pair{\\bfo}{T^{m-1}[\\bfo]}_{U}  , $$\nsince $L[1/2 \\cdot \\bfo] = \\bfo$.\nThus it is enough to solve the eige"
         },
-        "similarity_score": 0.703125
+        "similarity_score": 0.6875
     },
     {
         "dirty_data": {
-            "pre_txt": "o ob",
+            "pre_txt": " \u2212 x) \u2022 x 0 g(s) ds + 1\u2212x x (1 \u2212 s) \u2022 g(s) ds.\nDifferentiate to obtain",
             "equation_txt": "\u03bb \u2022 g \u2032 (x) = \u2212 x 0 g(s) ds \u2212 x \u2022 g(1 \u2212 x). (4.5) Differentiate again \u03bb \u2022 g \u2032\u2032 (x) = \u2212g(x) \u2212 g(1 \u2212 x) + x \u2022 g \u2032 (1 \u2212 x).",
-            "post_txt": "\nAs before, we convert this into a linear system of differential equ",
-            "full_txt": "o ob\u03bb \u2022 g \u2032 (x) = \u2212 x 0 g(s) ds \u2212 x \u2022 g(1 \u2212 x). (4.5) Differentiate again \u03bb \u2022 g \u2032\u2032 (x) = \u2212g(x) \u2212 g(1 \u2212 x) + x \u2022 g \u2032 (1 \u2212 x).\nAs before, we convert this into a linear system of differential equ"
+            "post_txt": "\nAs before, we convert this into a linear system of differential equat",
+            "full_txt": " \u2212 x) \u2022 x 0 g(s) ds + 1\u2212x x (1 \u2212 s) \u2022 g(s) ds.\nDifferentiate to obtain\u03bb \u2022 g \u2032 (x) = \u2212 x 0 g(s) ds \u2212 x \u2022 g(1 \u2212 x). (4.5) Differentiate again \u03bb \u2022 g \u2032\u2032 (x) = \u2212g(x) \u2212 g(1 \u2212 x) + x \u2022 g \u2032 (1 \u2212 x).\nAs before, we convert this into a linear system of differential equat"
         },
         "clean_data": {
             "pre_txt": "1-x)  .  \n\\label{equation_g_prime}\n\\end{equation}\nDifferentiate again\n",
@@ -571,40 +646,10 @@
     },
     {
         "dirty_data": {
-            "pre_txt": "find boundary conditions we set x = 1/2 in equations (4.4) and (4.5).",
+            "pre_txt": " find boundary conditions we set x = 1/2 in equations (4.4) and (4.5).",
             "equation_txt": "\u03bb \u2022 g(1/2) = 1/2 \u2022 1/2 0 g(s) ds,",
-            "post_txt": "\u2032 (1/2) = \u2212 1/2 0 g(s) ds \u2212 1/2 \u2022 g(1/2).\nObserve that g(1/2) = h(1/2) = 0, (4.8) and (4.9) imply that g \u2032",
-            "full_txt": "find boundary conditions we set x = 1/2 in equations (4.4) and (4.5).\u03bb \u2022 g(1/2) = 1/2 \u2022 1/2 0 g(s) ds,\u2032 (1/2) = \u2212 1/2 0 g(s) ds \u2212 1/2 \u2022 g(1/2).\nObserve that g(1/2) = h(1/2) = 0, (4.8) and (4.9) imply that g \u2032"
-        },
-        "clean_data": {
-            "pre_txt": "g} (and remembering that $g(x) = h(1-x)$) for $x=0,\\,1$ we find that \n",
-            "equation_txt": "\\begin{equation}\n   h(1) = g(0) = -g(1).\n\\end{equation}",
-            "post_txt": "\nThis is only satisfied for a discrete set of eigenvalues $\\lambda$.\nT",
-            "full_txt": "g} (and remembering that $g(x) = h(1-x)$) for $x=0,\\,1$ we find that \n\\begin{equation}\n   h(1) = g(0) = -g(1).\n\\end{equation}\nThis is only satisfied for a discrete set of eigenvalues $\\lambda$.\nT"
-        },
-        "similarity_score": 0.671875
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "find boundary conditions we set x = 1/2 in equations (4.4) and (4.5).\u03bb \u2022 g(1/2) = 1/2 \u2022 1/2 0 g(s) ds,",
-            "equation_txt": "\u03bb \u2022 g \u2032 (1/2) = \u2212 1/2 0 g(s) ds \u2212 1/2 \u2022 g(1/2).",
-            "post_txt": "\nObserve that g(1/2) = h(1/2) = 0, (4.8) and (4.9) imply that",
-            "full_txt": "find boundary conditions we set x = 1/2 in equations (4.4) and (4.5).\u03bb \u2022 g(1/2) = 1/2 \u2022 1/2 0 g(s) ds,\u03bb \u2022 g \u2032 (1/2) = \u2212 1/2 0 g(s) ds \u2212 1/2 \u2022 g(1/2).\nObserve that g(1/2) = h(1/2) = 0, (4.8) and (4.9) imply that"
-        },
-        "clean_data": {
-            "pre_txt": "g} (and remembering that $g(x) = h(1-x)$) for $x=0,\\,1$ we find that \n",
-            "equation_txt": "\\begin{equation}\n   h(1) = g(0) = -g(1).\n\\end{equation}",
-            "post_txt": "\nThis is only satisfied for a discrete set of eigenvalues $\\lambda$.\nT",
-            "full_txt": "g} (and remembering that $g(x) = h(1-x)$) for $x=0,\\,1$ we find that \n\\begin{equation}\n   h(1) = g(0) = -g(1).\n\\end{equation}\nThis is only satisfied for a discrete set of eigenvalues $\\lambda$.\nT"
-        },
-        "similarity_score": 0.671875
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "Combined with (4.9) this gives two more conditions",
-            "equation_txt": "g \u2032 (1/2) = \u2212h \u2032 (1/2) = \u2212\u03bb \u2212 1 4 .",
-            "post_txt": "\nThus given the parameter \u03bb we can solve the system from x = 1/2 to x",
-            "full_txt": "Combined with (4.9) this gives two more conditionsg \u2032 (1/2) = \u2212h \u2032 (1/2) = \u2212\u03bb \u2212 1 4 .\nThus given the parameter \u03bb we can solve the system from x = 1/2 to x"
+            "post_txt": "\u03bb \u2022 g \u2032 (1/2) = \u2212 1/2 0 g(s) ds \u2212 1/2 \u2022 g(1/2).\nObserve that g(1/2) = ",
+            "full_txt": " find boundary conditions we set x = 1/2 in equations (4.4) and (4.5).\u03bb \u2022 g(1/2) = 1/2 \u2022 1/2 0 g(s) ds,\u03bb \u2022 g \u2032 (1/2) = \u2212 1/2 0 g(s) ds \u2212 1/2 \u2022 g(1/2).\nObserve that g(1/2) = "
         },
         "clean_data": {
             "pre_txt": "four largest (in\n  absolute value) eigenvalues. \n  The whole function ",
@@ -612,14 +657,44 @@
             "post_txt": ", from 0 to 1 is\n  found by using $g(x)$ between $1/2$ and $1$ and $h(",
             "full_txt": "four largest (in\n  absolute value) eigenvalues. \n  The whole function $g(x)$, from 0 to 1 is\n  found by using $g(x)$ between $1/2$ and $1$ and $h("
         },
-        "similarity_score": 0.7578125
+        "similarity_score": 0.6953125
     },
     {
         "dirty_data": {
-            "pre_txt": "x = 1 however, the integral equation (4.5) yields another constraint:",
+            "pre_txt": "x = 1/2 in equations (4.4) and (4.5).\u03bb \u2022 g(1/2) = 1/2 \u2022 1/2 0 g(s) ds,",
+            "equation_txt": "\u03bb \u2022 g \u2032 (1/2) = \u2212 1/2 0 g(s) ds \u2212 1/2 \u2022 g(1/2).",
+            "post_txt": "\nObserve that g(1/2) = h(1/2) = 0, (4.8) and (4.9) imply that g \u2032 (1/2",
+            "full_txt": "x = 1/2 in equations (4.4) and (4.5).\u03bb \u2022 g(1/2) = 1/2 \u2022 1/2 0 g(s) ds,\u03bb \u2022 g \u2032 (1/2) = \u2212 1/2 0 g(s) ds \u2212 1/2 \u2022 g(1/2).\nObserve that g(1/2) = h(1/2) = 0, (4.8) and (4.9) imply that g \u2032 (1/2"
+        },
+        "clean_data": {
+            "pre_txt": "n.}\n\\label{fig:lambda}\n\\end{minipage}\n\\end{figure}\nObserve that \\mbox{",
+            "equation_txt": "$g(1/2) = h(1/2) = 0$",
+            "post_txt": ",}\n\\eqref{equation_g_half}\nand\n\\eqref{equation_g_prime_half}\nimply\ntha",
+            "full_txt": "n.}\n\\label{fig:lambda}\n\\end{minipage}\n\\end{figure}\nObserve that \\mbox{$g(1/2) = h(1/2) = 0$,}\n\\eqref{equation_g_half}\nand\n\\eqref{equation_g_prime_half}\nimply\ntha"
+        },
+        "similarity_score": 0.6875
+    },
+    {
+        "dirty_data": {
+            "pre_txt": "/2 0 g(x) dx = \u03bb 2 .Combined with (4.9) this gives two more conditions",
+            "equation_txt": "g \u2032 (1/2) = \u2212h \u2032 (1/2) = \u2212\u03bb \u2212 1 4 .",
+            "post_txt": "\nThus given the parameter \u03bb we can solve the system from x = 1/2 to x ",
+            "full_txt": "/2 0 g(x) dx = \u03bb 2 .Combined with (4.9) this gives two more conditionsg \u2032 (1/2) = \u2212h \u2032 (1/2) = \u2212\u03bb \u2212 1 4 .\nThus given the parameter \u03bb we can solve the system from x = 1/2 to x "
+        },
+        "clean_data": {
+            "pre_txt": "four largest (in\n  absolute value) eigenvalues. \n  The whole function ",
+            "equation_txt": "$g(x)$",
+            "post_txt": ", from 0 to 1 is\n  found by using $g(x)$ between $1/2$ and $1$ and $h(",
+            "full_txt": "four largest (in\n  absolute value) eigenvalues. \n  The whole function $g(x)$, from 0 to 1 is\n  found by using $g(x)$ between $1/2$ and $1$ and $h("
+        },
+        "similarity_score": 0.765625
+    },
+    {
+        "dirty_data": {
+            "pre_txt": " x = 1 however, the integral equation (4.5) yields another constraint:",
             "equation_txt": "h \u2032 (1) = 0. (4.12)",
-            "post_txt": "\nEquivalently, looking at (4.4) (and remembering that g(x) = h(1 \u2212 x",
-            "full_txt": "x = 1 however, the integral equation (4.5) yields another constraint:h \u2032 (1) = 0. (4.12)\nEquivalently, looking at (4.4) (and remembering that g(x) = h(1 \u2212 x"
+            "post_txt": "\nEquivalently, looking at (4.4) (and remembering that g(x) = h(1 \u2212 x))",
+            "full_txt": " x = 1 however, the integral equation (4.5) yields another constraint:h \u2032 (1) = 0. (4.12)\nEquivalently, looking at (4.4) (and remembering that g(x) = h(1 \u2212 x))"
         },
         "clean_data": {
             "pre_txt": "g} (and remembering that $g(x) = h(1-x)$) for $x=0,\\,1$ we find that \n",
@@ -631,10 +706,10 @@
     },
     {
         "dirty_data": {
-            "pre_txt": "ence we have",
+            "pre_txt": "n extend the theory to obtain the same asymptotic result.Hence we have",
             "equation_txt": "E(H m ) (4 \u2022 m + 2)! = c \u2022 \u03bb m\u22121 + O(\u00b5 m\u22121 ).",
-            "post_txt": "\nThe essential question remaining is can the associated eigenvalue prob",
-            "full_txt": "ence we haveE(H m ) (4 \u2022 m + 2)! = c \u2022 \u03bb m\u22121 + O(\u00b5 m\u22121 ).\nThe essential question remaining is can the associated eigenvalue prob"
+            "post_txt": "\nThe essential question remaining is can the associated eigenvalue pro",
+            "full_txt": "n extend the theory to obtain the same asymptotic result.Hence we haveE(H m ) (4 \u2022 m + 2)! = c \u2022 \u03bb m\u22121 + O(\u00b5 m\u22121 ).\nThe essential question remaining is can the associated eigenvalue pro"
         },
         "clean_data": {
             "pre_txt": "extend the theory to obtain the same\nasymptotic result.\nHence we have\n",
@@ -642,14 +717,14 @@
             "post_txt": "\nThe essential question remaining is can the \nassociated eigenvalue pr",
             "full_txt": "extend the theory to obtain the same\nasymptotic result.\nHence we have\n$$     \\frac{{\\cal E}(H_{m})}\n            {(4 \\cdot m + 2)!}\n     =\n        c\n     \\cdot\n       \\lambda^{m-1} + O(\\mu^{m-1})   .  $$\nThe essential question remaining is can the \nassociated eigenvalue pr"
         },
-        "similarity_score": 0.703125
+        "similarity_score": 0.7421875
     },
     {
         "dirty_data": {
             "pre_txt": "bserve that the relevant integrals to be considered have the structure",
             "equation_txt": "I(k i ) = q 2 dq [F (q 2 )/(k 2 i \u2212 q 2 + i\u01eb)]",
-            "post_txt": "\nin the first sheet of the complex energy plane.",
-            "full_txt": "bserve that the relevant integrals to be considered have the structureI(k i ) = q 2 dq [F (q 2 )/(k 2 i \u2212 q 2 + i\u01eb)]\nin the first sheet of the complex energy plane."
+            "post_txt": "\nin the first sheet of the complex energy plane.To obtain I(k i ) in t",
+            "full_txt": "bserve that the relevant integrals to be considered have the structureI(k i ) = q 2 dq [F (q 2 )/(k 2 i \u2212 q 2 + i\u01eb)]\nin the first sheet of the complex energy plane.To obtain I(k i ) in t"
         },
         "clean_data": {
             "pre_txt": "erve that the relevant integrals to be considered have the structure \n",
@@ -657,29 +732,44 @@
             "post_txt": "\nin the first sheet of the complex energy plane. To obtain ${\\cal I}(k",
             "full_txt": "erve that the relevant integrals to be considered have the structure \n${\\cal I}(k_i) = \\int q^2 dq \\left[{F(q^2)}/{(k_i^2-q^2+{\\rm i}\\epsilon)}\\right]$\nin the first sheet of the complex energy plane. To obtain ${\\cal I}(k"
         },
-        "similarity_score": 0.75
+        "similarity_score": 0.7734375
     },
     {
         "dirty_data": {
-            "pre_txt": "Following this procedure, from Eqs. ( [1][2]",
-            "equation_txt": "k i = \u2212i\u03ba v = 2(A+1)",
-            "post_txt": "\nA+2 (E 3v \u2212 \u03b5 nc ):",
-            "full_txt": "Following this procedure, from Eqs. ( [1][2]k i = \u2212i\u03ba v = 2(A+1)\nA+2 (E 3v \u2212 \u03b5 nc ):"
+            "pre_txt": "of I(k i ) in the second sheet of the complex energy plane is given by",
+            "equation_txt": "I \u2032 (k i ) = I(k i )\u2212i\u03c0k i F (k 2 i",
+            "post_txt": "\n).Following this procedure, from Eqs. ( [1]) and ( [2]) we obtain the",
+            "full_txt": "of I(k i ) in the second sheet of the complex energy plane is given byI \u2032 (k i ) = I(k i )\u2212i\u03c0k i F (k 2 i\n).Following this procedure, from Eqs. ( [1]) and ( [2]) we obtain the"
         },
         "clean_data": {
-            "pre_txt": "\\ell(q,k;{\\cal E}_{3v})$ [See Eq. (\\ref{g1})], where\n$-1 < y < 1$ and ",
-            "equation_txt": "$q=k=-{\\rm i}\\kappa_{cut}$",
-            "post_txt": ".\nWith $|{\\cal E}_{3v}|=|\\varepsilon_{nc}|+\\frac{A+2}{2(A+1)}\\kappa_{c",
-            "full_txt": "\\ell(q,k;{\\cal E}_{3v})$ [See Eq. (\\ref{g1})], where\n$-1 < y < 1$ and $q=k=-{\\rm i}\\kappa_{cut}$.\nWith $|{\\cal E}_{3v}|=|\\varepsilon_{nc}|+\\frac{A+2}{2(A+1)}\\kappa_{c"
+            "pre_txt": "}(k_i)$ in the second sheet \nof the complex energy plane is given by \n",
+            "equation_txt": "${\\cal I^\\prime}(k_i) = {\\cal I}(k_i) - {\\rm i }\\pi k_i F(k_i^2).$",
+            "post_txt": "\nFollowing this procedure, from Eqs. (\\ref{chin}) and (\\ref{chic}) we ",
+            "full_txt": "}(k_i)$ in the second sheet \nof the complex energy plane is given by \n${\\cal I^\\prime}(k_i) = {\\cal I}(k_i) - {\\rm i }\\pi k_i F(k_i^2).$\nFollowing this procedure, from Eqs. (\\ref{chin}) and (\\ref{chic}) we "
+        },
+        "similarity_score": 0.6953125
+    },
+    {
+        "dirty_data": {
+            "pre_txt": "f the complex energy plane, where for the virtual state energy we have",
+            "equation_txt": "k i = \u2212i\u03ba v = 2(A+1)",
+            "post_txt": "\nA+2 (E 3v \u2212 \u03b5 nc ):h \u2113 n (q; E 3v ) = 2(A + 1) A + 2 \u03c4nc (q; E 3v ) \u03c0",
+            "full_txt": "f the complex energy plane, where for the virtual state energy we havek i = \u2212i\u03ba v = 2(A+1)\nA+2 (E 3v \u2212 \u03b5 nc ):h \u2113 n (q; E 3v ) = 2(A + 1) A + 2 \u03c4nc (q; E 3v ) \u03c0"
+        },
+        "clean_data": {
+            "pre_txt": " the complex energy plane, where\nfor the virtual state energy we have ",
+            "equation_txt": "$k_i=-{\\rm i}\\kappa_v=\\sqrt{\\frac{2(A+1)}{A+2}\n\\left({\\cal E}_{3v}-\\varepsilon_{nc}\\right)}$",
+            "post_txt": ":\n{\\small\n\\begin{eqnarray}\n\\label{hn}\n{\\hspace{-.5cm}}h_n^\\ell(q;{\\cal",
+            "full_txt": " the complex energy plane, where\nfor the virtual state energy we have $k_i=-{\\rm i}\\kappa_v=\\sqrt{\\frac{2(A+1)}{A+2}\n\\left({\\cal E}_{3v}-\\varepsilon_{nc}\\right)}$:\n{\\small\n\\begin{eqnarray}\n\\label{hn}\n{\\hspace{-.5cm}}h_n^\\ell(q;{\\cal"
         },
         "similarity_score": 0.6796875
     },
     {
         "dirty_data": {
-            "pre_txt": "en by the zero of the denominator of G \u2113 2 (q, k; E 3v ) [See Eq. ( [4]",
+            "pre_txt": "ominator of G \u2113 2 (q, k; E 3v ) [See Eq. ( [4])], where \u22121 < y < 1 and",
             "equation_txt": "q = k = \u2212i\u03ba cut . With |E 3v | = |\u03b5 nc |+ A+2",
-            "post_txt": "\n2(A+1) \u03ba 2 cut , we obtain the branch points, with the cut given by 2(",
-            "full_txt": "en by the zero of the denominator of G \u2113 2 (q, k; E 3v ) [See Eq. ( [4]q = k = \u2212i\u03ba cut . With |E 3v | = |\u03b5 nc |+ A+2\n2(A+1) \u03ba 2 cut , we obtain the branch points, with the cut given by 2("
+            "post_txt": "\n2(A+1) \u03ba 2 cut , we obtain the branch points, with the cut given by 2",
+            "full_txt": "ominator of G \u2113 2 (q, k; E 3v ) [See Eq. ( [4])], where \u22121 < y < 1 andq = k = \u2212i\u03ba cut . With |E 3v | = |\u03b5 nc |+ A+2\n2(A+1) \u03ba 2 cut , we obtain the branch points, with the cut given by 2"
         },
         "clean_data": {
             "pre_txt": "\\ell(q,k;{\\cal E}_{3v})$ [See Eq. (\\ref{g1})], where\n$-1 < y < 1$ and ",
@@ -687,14 +777,14 @@
             "post_txt": ".\nWith $|{\\cal E}_{3v}|=|\\varepsilon_{nc}|+\\frac{A+2}{2(A+1)}\\kappa_{c",
             "full_txt": "\\ell(q,k;{\\cal E}_{3v})$ [See Eq. (\\ref{g1})], where\n$-1 < y < 1$ and $q=k=-{\\rm i}\\kappa_{cut}$.\nWith $|{\\cal E}_{3v}|=|\\varepsilon_{nc}|+\\frac{A+2}{2(A+1)}\\kappa_{c"
         },
-        "similarity_score": 0.6875
+        "similarity_score": 0.7421875
     },
     {
         "dirty_data": {
-            "pre_txt": "\u03ba 2 cut , we obtain the branch points, with the cut given by",
+            "pre_txt": " \u03ba 2 cut , we obtain the branch points, with the cut given by 2(A + 1)",
             "equation_txt": "A + 2 |\u03b5 nc | < |E 3v | < 2(A + 1) A |\u03b5 nc |.",
-            "post_txt": "\nFor n \u2212 n\u2212 18 C (A = 18), a virtual state energy can be found in the e",
-            "full_txt": "\u03ba 2 cut , we obtain the branch points, with the cut given byA + 2 |\u03b5 nc | < |E 3v | < 2(A + 1) A |\u03b5 nc |.\nFor n \u2212 n\u2212 18 C (A = 18), a virtual state energy can be found in the e"
+            "post_txt": "\nFor n \u2212 n\u2212 18 C (A = 18), a virtual state energy can be found in the ",
+            "full_txt": " \u03ba 2 cut , we obtain the branch points, with the cut given by 2(A + 1)A + 2 |\u03b5 nc | < |E 3v | < 2(A + 1) A |\u03b5 nc |.\nFor n \u2212 n\u2212 18 C (A = 18), a virtual state energy can be found in the "
         },
         "clean_data": {
             "pre_txt": ")}\\kappa_{cut}^2$,\nwe obtain the branch points, with the cut given by\n",
@@ -706,10 +796,40 @@
     },
     {
         "dirty_data": {
-            "pre_txt": "oming and final relative momentum are related to the three-body energ",
+            "pre_txt": "es were found for Eqs. ( [9]) and ( [10]) in the complex energy plane.",
+            "equation_txt": "|\u03b5 nc | < |E 3v | < 1.9 |\u03b5 nc | .",
+            "post_txt": "\nNext, for consistency, we present results for the s\u2212wave elastic cros",
+            "full_txt": "es were found for Eqs. ( [9]) and ( [10]) in the complex energy plane.|\u03b5 nc | < |E 3v | < 1.9 |\u03b5 nc | .\nNext, for consistency, we present results for the s\u2212wave elastic cros"
+        },
+        "clean_data": {
+            "pre_txt": "he elastic\nscattering and the starting of the above cut (\\ref{cut1}):\n",
+            "equation_txt": "\\begin{equation}\n|\\varepsilon_{nc}|\\;<\\;|{\\cal E}_{3v}|\\;<\\;1.9\\;|\\varepsilon_{nc}| \\ .\n\\end{equation}",
+            "post_txt": "\n\\begin{figure}[thb!]\n\\centerline{\\epsfig{figure=C20_virtual.eps,width",
+            "full_txt": "he elastic\nscattering and the starting of the above cut (\\ref{cut1}):\n\\begin{equation}\n|\\varepsilon_{nc}|\\;<\\;|{\\cal E}_{3v}|\\;<\\;1.9\\;|\\varepsilon_{nc}| \\ .\n\\end{equation}\n\\begin{figure}[thb!]\n\\centerline{\\epsfig{figure=C20_virtual.eps,width"
+        },
+        "similarity_score": 0.6875
+    },
+    {
+        "dirty_data": {
+            "pre_txt": "owing boundary condition in the full-wave spectator function \u03c7 n ( q):",
+            "equation_txt": "\u03c7 n ( q) \u2261 (2\u03c0) 3 \u03b4( q \u2212 k i ) + 4\u03c0 h n ( q; E(k i )) q 2 \u2212 k 2 i \u2212 i\u01eb ,",
+            "post_txt": "\nwhere h n ( q; E(k i )) is the scattering amplitude, and the on-energ",
+            "full_txt": "owing boundary condition in the full-wave spectator function \u03c7 n ( q):\u03c7 n ( q) \u2261 (2\u03c0) 3 \u03b4( q \u2212 k i ) + 4\u03c0 h n ( q; E(k i )) q 2 \u2212 k 2 i \u2212 i\u01eb ,\nwhere h n ( q; E(k i )) is the scattering amplitude, and the on-energ"
+        },
+        "clean_data": {
+            "pre_txt": "in the full-wave spectator function $\\chi_n(\\vec q)$:\n\\vspace{-0.3cm}\n",
+            "equation_txt": "\\begin{equation}\n\\chi_n(\\vec q)\\equiv(2\\pi)^3\\delta(\\vec q-\\vec k_i)\n+4\\pi\\frac{h_n(\\vec q;{\\cal E}(k_i))}{q^2-k_i^2-{\\rm i}\\epsilon} ,\n\\end{equation}",
+            "post_txt": "\\vspace{-0.3cm}\nwhere $h_n(\\vec q;{\\cal E}(k_i))$ is the scattering am",
+            "full_txt": "in the full-wave spectator function $\\chi_n(\\vec q)$:\n\\vspace{-0.3cm}\n\\begin{equation}\n\\chi_n(\\vec q)\\equiv(2\\pi)^3\\delta(\\vec q-\\vec k_i)\n+4\\pi\\frac{h_n(\\vec q;{\\cal E}(k_i))}{q^2-k_i^2-{\\rm i}\\epsilon} ,\n\\end{equation}\\vspace{-0.3cm}\nwhere $h_n(\\vec q;{\\cal E}(k_i))$ is the scattering am"
+        },
+        "similarity_score": 0.671875
+    },
+    {
+        "dirty_data": {
+            "pre_txt": "oming and final relative momentum are related to the three-body energy",
             "equation_txt": "E i \u2261 E(k i ) by k i \u2261 | k i | = | k f | = [2(A + 1)/(A + 2)] (E i \u2212 \u03b5 nc ).",
-            "post_txt": "\nWith the same formal expressions",
-            "full_txt": "oming and final relative momentum are related to the three-body energE i \u2261 E(k i ) by k i \u2261 | k i | = | k f | = [2(A + 1)/(A + 2)] (E i \u2212 \u03b5 nc ).\nWith the same formal expressions"
+            "post_txt": "\nWith the same formal expressions ( [7]) and ( [6]) for \u03c4nc and \u03c4 nn ,",
+            "full_txt": "oming and final relative momentum are related to the three-body energyE i \u2261 E(k i ) by k i \u2261 | k i | = | k f | = [2(A + 1)/(A + 2)] (E i \u2212 \u03b5 nc ).\nWith the same formal expressions ( [7]) and ( [6]) for \u03c4nc and \u03c4 nn ,"
         },
         "clean_data": {
             "pre_txt": "e\nrelated to the three-body energy ${\\cal E}_i\\equiv{\\cal E}(k_i)$ by\n",
@@ -717,14 +837,14 @@
             "post_txt": "\nWith the same formal expressions (\\ref{tauncbar}) and (\\ref{taunc})\nf",
             "full_txt": "e\nrelated to the three-body energy ${\\cal E}_i\\equiv{\\cal E}(k_i)$ by\n$ k_i\\equiv |\\vec k_i|=|\\vec k_f| =\n \\sqrt{[2(A+1)/(A+2)]\\left({\\cal E}_i-\\varepsilon_{nc}\\right)}.\n$\nWith the same formal expressions (\\ref{tauncbar}) and (\\ref{taunc})\nf"
         },
-        "similarity_score": 0.78125
+        "similarity_score": 0.7578125
     },
     {
         "dirty_data": {
-            "pre_txt": "he corresponding inhomogeneous equation with on-energyshell momentum",
+            "pre_txt": " the corresponding inhomogeneous equation with on-energyshell momentum",
             "equation_txt": "k i = +i\u03ba b (bound state, E i = \u2212|E 3b |) and k i = \u2212i\u03ba v (virtual state, E i = \u2212|E 3v |)[8].",
-            "post_txt": "\nBy comparing the results of both approaches, we checked that they g",
-            "full_txt": "he corresponding inhomogeneous equation with on-energyshell momentumk i = +i\u03ba b (bound state, E i = \u2212|E 3b |) and k i = \u2212i\u03ba v (virtual state, E i = \u2212|E 3v |)[8].\nBy comparing the results of both approaches, we checked that they g"
+            "post_txt": "\nBy comparing the results of both approaches, we checked that they giv",
+            "full_txt": " the corresponding inhomogeneous equation with on-energyshell momentumk i = +i\u03ba b (bound state, E i = \u2212|E 3b |) and k i = \u2212i\u03ba v (virtual state, E i = \u2212|E 3v |)[8].\nBy comparing the results of both approaches, we checked that they giv"
         },
         "clean_data": {
             "pre_txt": "l E}_i= -|{\\cal E}_{3b}|$) and $k_i=-{\\rm i}\\kappa_v$\n(virtual state, ",
@@ -736,40 +856,40 @@
     },
     {
         "dirty_data": {
-            "pre_txt": "nd the plaquette term with its coefficient",
+            "pre_txt": "a (a = 1, . . ., N ) and the plaquette term with its coefficient c 2 ,",
             "equation_txt": "S = 1 2 x,\u00b5 N a=1 c 1a \u03c6 \u2020 x+\u00b5,a U x\u00b5 \u03c6 xa + H.c. + c 2 2 x,\u00b5<\u03bd (U \u2020 x\u03bd U \u2020 x+\u03bd,\u00b5 U x+\u00b5,\u03bd U x\u00b5 + H.c),",
-            "post_txt": "\nwhere",
-            "full_txt": "nd the plaquette term with its coefficientS = 1 2 x,\u00b5 N a=1 c 1a \u03c6 \u2020 x+\u00b5,a U x\u00b5 \u03c6 xa + H.c. + c 2 2 x,\u00b5<\u03bd (U \u2020 x\u03bd U \u2020 x+\u03bd,\u00b5 U x+\u00b5,\u03bd U x\u00b5 + H.c),\nwhere"
+            "post_txt": "\nwhereU x\u00b5 [= exp(i\u03b8 x\u00b5 )]\nis the compact U(1) gauge field, \u00b5, \u03bd(= 1, ",
+            "full_txt": "a (a = 1, . . ., N ) and the plaquette term with its coefficient c 2 ,S = 1 2 x,\u00b5 N a=1 c 1a \u03c6 \u2020 x+\u00b5,a U x\u00b5 \u03c6 xa + H.c. + c 2 2 x,\u00b5<\u03bd (U \u2020 x\u03bd U \u2020 x+\u03bd,\u00b5 U x+\u00b5,\u03bd U x\u00b5 + H.c),\nwhereU x\u00b5 [= exp(i\u03b8 x\u00b5 )]\nis the compact U(1) gauge field, \u00b5, \u03bd(= 1, "
         },
         "clean_data": {
-            "pre_txt": ",\nwhich has a $N=2J+1$-component order parameter. \nAt large repulsion ",
-            "equation_txt": "$U$",
-            "post_txt": " and at the filling factor $n=1/N$,\nthe model becomes the U(1) gauge m",
-            "full_txt": ",\nwhich has a $N=2J+1$-component order parameter. \nAt large repulsion $U$ and at the filling factor $n=1/N$,\nthe model becomes the U(1) gauge m"
+            "pre_txt": "{x+\\mu,\\nu}U_{x\\mu}\n+\\mbox{H.c}),\n\\label{action}\n\\end{eqnarray}\nwhere ",
+            "equation_txt": "$U_{x\\mu}[=\\exp(i\\theta_{x\\mu})]$",
+            "post_txt": " is the compact U(1) \ngauge field,\n$\\mu,\\nu(=1,2,3)$ are direction ind",
+            "full_txt": "{x+\\mu,\\nu}U_{x\\mu}\n+\\mbox{H.c}),\n\\label{action}\n\\end{eqnarray}\nwhere $U_{x\\mu}[=\\exp(i\\theta_{x\\mu})]$ is the compact U(1) \ngauge field,\n$\\mu,\\nu(=1,2,3)$ are direction ind"
         },
-        "similarity_score": 0.6953125
+        "similarity_score": 0.7265625
     },
     {
         "dirty_data": {
-            "pre_txt": "wher",
+            "pre_txt": "\u03c6 xa + H.c. + c 2 2 x,\u00b5<\u03bd (U \u2020 x\u03bd U \u2020 x+\u03bd,\u00b5 U x+\u00b5,\u03bd U x\u00b5 + H.c),\nwhere",
             "equation_txt": "U x\u00b5 [= exp(i\u03b8 x\u00b5 )]",
-            "post_txt": "\nis the compact U(1) gauge field, \u00b5, \u03bd(= 1, 2, 3) are direction indices",
-            "full_txt": "wherU x\u00b5 [= exp(i\u03b8 x\u00b5 )]\nis the compact U(1) gauge field, \u00b5, \u03bd(= 1, 2, 3) are direction indices"
+            "post_txt": "\nis the compact U(1) gauge field, \u00b5, \u03bd(= 1, 2, 3) are direction indice",
+            "full_txt": "\u03c6 xa + H.c. + c 2 2 x,\u00b5<\u03bd (U \u2020 x\u03bd U \u2020 x+\u03bd,\u00b5 U x+\u00b5,\u03bd U x\u00b5 + H.c),\nwhereU x\u00b5 [= exp(i\u03b8 x\u00b5 )]\nis the compact U(1) gauge field, \u00b5, \u03bd(= 1, 2, 3) are direction indice"
         },
         "clean_data": {
-            "pre_txt": "e $U_{x\\mu}[=\\exp(i\\theta_{x\\mu})]$ is the compact U(1) \ngauge field,\n",
-            "equation_txt": "$\\mu,\\nu(=1,2,3)$",
-            "post_txt": " are direction indices (we use them \nalso as the unit vectors).\n\nWe fi",
-            "full_txt": "e $U_{x\\mu}[=\\exp(i\\theta_{x\\mu})]$ is the compact U(1) \ngauge field,\n$\\mu,\\nu(=1,2,3)$ are direction indices (we use them \nalso as the unit vectors).\n\nWe fi"
+            "pre_txt": "{x+\\mu,\\nu}U_{x\\mu}\n+\\mbox{H.c}),\n\\label{action}\n\\end{eqnarray}\nwhere ",
+            "equation_txt": "$U_{x\\mu}[=\\exp(i\\theta_{x\\mu})]$",
+            "post_txt": " is the compact U(1) \ngauge field,\n$\\mu,\\nu(=1,2,3)$ are direction ind",
+            "full_txt": "{x+\\mu,\\nu}U_{x\\mu}\n+\\mbox{H.c}),\n\\label{action}\n\\end{eqnarray}\nwhere $U_{x\\mu}[=\\exp(i\\theta_{x\\mu})]$ is the compact U(1) \ngauge field,\n$\\mu,\\nu(=1,2,3)$ are direction ind"
         },
-        "similarity_score": 0.7890625
+        "similarity_score": 0.7265625
     },
     {
         "dirty_data": {
-            "pre_txt": "applying the finite-size-scaling (FSS) hypothesis to C in the form of",
+            "pre_txt": " applying the finite-size-scaling (FSS) hypothesis to C in the form of",
             "equation_txt": "C(c 1 , L) = L \u03c3/\u03bd \u03b7(L 1/\u03bd \u01eb), where \u01eb = (c 1 \u2212 c 1\u221e )/c 1\u221e",
-            "post_txt": "\nand c 1\u221e is the critical coupling at L \u2192 \u221e, we obtained \u03bd = 0.67",
-            "full_txt": "applying the finite-size-scaling (FSS) hypothesis to C in the form ofC(c 1 , L) = L \u03c3/\u03bd \u03b7(L 1/\u03bd \u01eb), where \u01eb = (c 1 \u2212 c 1\u221e )/c 1\u221e\nand c 1\u221e is the critical coupling at L \u2192 \u221e, we obtained \u03bd = 0.67"
+            "post_txt": "\nand c 1\u221e is the critical coupling at L \u2192 \u221e, we obtained \u03bd = 0.67, \u03c3 =",
+            "full_txt": " applying the finite-size-scaling (FSS) hypothesis to C in the form ofC(c 1 , L) = L \u03c3/\u03bd \u03b7(L 1/\u03bd \u01eb), where \u01eb = (c 1 \u2212 c 1\u221e )/c 1\u221e\nand c 1\u221e is the critical coupling at L \u2192 \u221e, we obtained \u03bd = 0.67, \u03c3 ="
         },
         "clean_data": {
             "pre_txt": "ying the finite-size-scaling (FSS) hypothesis \nto $C$ in the form of \n",
@@ -781,63 +901,63 @@
     },
     {
         "dirty_data": {
-            "pre_txt": "However, our investigation below will show that this is not the case.",
+            "pre_txt": ".However, our investigation below will show that this is not the case.",
             "equation_txt": "F k Q S F k P U F k W C c 1 F k Q S F k P U F k W (a) (b)",
-            "post_txt": "\nLet us consider the case c 12 = c 13 = 2c 11 , which we call the c 1 =",
-            "full_txt": "However, our investigation below will show that this is not the case.F k Q S F k P U F k W C c 1 F k Q S F k P U F k W (a) (b)\nLet us consider the case c 12 = c 13 = 2c 11 , which we call the c 1 ="
+            "post_txt": "F k Q S F k P U F k W F k Q S F k P U F k W (a)\nLet us consider the ca",
+            "full_txt": ".However, our investigation below will show that this is not the case.F k Q S F k P U F k W C c 1 F k Q S F k P U F k W (a) (b)F k Q S F k P U F k W F k Q S F k P U F k W (a)\nLet us consider the ca"
         },
         "clean_data": {
-            "pre_txt": ".0$.\n(b,c) Close-up views of $C$ near (b) $c_{11} \\sim 0.35$ \nand (c) ",
-            "equation_txt": "$c_{11}\\sim 0.52$",
-            "post_txt": ".}\n\\end{figure}\n\n\n\n\n\n\n\nLet us turn to the opposite case, $c_{12}=c_{13",
-            "full_txt": ".0$.\n(b,c) Close-up views of $C$ near (b) $c_{11} \\sim 0.35$ \nand (c) $c_{11}\\sim 0.52$.}\n\\end{figure}\n\n\n\n\n\n\n\nLet us turn to the opposite case, $c_{12}=c_{13"
+            "pre_txt": " and $0.52$.\nFigs.\\ref{fig7}(b),(c) present the detailed behavior \nof ",
+            "equation_txt": "$C$",
+            "post_txt": " near these peaks, which show \nthat the both peaks develop as $L$ is i",
+            "full_txt": " and $0.52$.\nFigs.\\ref{fig7}(b),(c) present the detailed behavior \nof $C$ near these peaks, which show \nthat the both peaks develop as $L$ is i"
         },
         "similarity_score": 0.6953125
     },
     {
         "dirty_data": {
-            "pre_txt": "However, our investigation below will show that this is not the case.F k Q S F k P U F k W C c 1 F k Q S F k P U F k W (a) (b",
+            "pre_txt": "not the case.F k Q S F k P U F k W C c 1 F k Q S F k P U F k W (a) (b)",
             "equation_txt": "F k Q S F k P U F k W F k Q S F k P U F k W (a)",
-            "post_txt": "\nLet us consider the case c 12 = c 13 = 2c 11 , which we call the c 1 =",
-            "full_txt": "However, our investigation below will show that this is not the case.F k Q S F k P U F k W C c 1 F k Q S F k P U F k W (a) (bF k Q S F k P U F k W F k Q S F k P U F k W (a)\nLet us consider the case c 12 = c 13 = 2c 11 , which we call the c 1 ="
+            "post_txt": "\nLet us consider the case c 12 = c 13 = 2c 11 , which we call the c 1 ",
+            "full_txt": "not the case.F k Q S F k P U F k W C c 1 F k Q S F k P U F k W (a) (b)F k Q S F k P U F k W F k Q S F k P U F k W (a)\nLet us consider the case c 12 = c 13 = 2c 11 , which we call the c 1 "
         },
         "clean_data": {
-            "pre_txt": ".0$.\n(b,c) Close-up views of $C$ near (b) $c_{11} \\sim 0.35$ \nand (c) ",
-            "equation_txt": "$c_{11}\\sim 0.52$",
-            "post_txt": ".}\n\\end{figure}\n\n\n\n\n\n\n\nLet us turn to the opposite case, $c_{12}=c_{13",
-            "full_txt": ".0$.\n(b,c) Close-up views of $C$ near (b) $c_{11} \\sim 0.35$ \nand (c) $c_{11}\\sim 0.52$.}\n\\end{figure}\n\n\n\n\n\n\n\nLet us turn to the opposite case, $c_{12}=c_{13"
+            "pre_txt": "below \nwill show that this is not the case.\n\nLet us consider the case ",
+            "equation_txt": "$c_{12}=c_{13}=2c_{11}$",
+            "post_txt": ",\nwhich we call the $c_1=(1,2,2)$ model, and focus on the case\n$c_2=1.",
+            "full_txt": "below \nwill show that this is not the case.\n\nLet us consider the case $c_{12}=c_{13}=2c_{11}$,\nwhich we call the $c_1=(1,2,2)$ model, and focus on the case\n$c_2=1."
+        },
+        "similarity_score": 0.703125
+    },
+    {
+        "dirty_data": {
+            "pre_txt": " or uncoupled to the wire, one defines the density change in site j as",
+            "equation_txt": "\u2206N j = N j \u2212 N 0 j ,",
+            "post_txt": "\nand studies the dependence of \u2206N j on j for different parameters.A ty",
+            "full_txt": " or uncoupled to the wire, one defines the density change in site j as\u2206N j = N j \u2212 N 0 j ,\nand studies the dependence of \u2206N j on j for different parameters.A ty"
+        },
+        "clean_data": {
+            "pre_txt": " parameters.\nA typical result of $N_j$ vs. $N^0_j$, and the resulting ",
+            "equation_txt": "$\\Delta N_j$",
+            "post_txt": ", \nshowing the $2k_F$ oscillations caused by the dot orbital at $j=0$,",
+            "full_txt": " parameters.\nA typical result of $N_j$ vs. $N^0_j$, and the resulting $\\Delta N_j$, \nshowing the $2k_F$ oscillations caused by the dot orbital at $j=0$,"
+        },
+        "similarity_score": 0.6796875
+    },
+    {
+        "dirty_data": {
+            "pre_txt": "n 3.2 Convolutive Mixture and BSS\nLet a real discrete time signal be s",
+            "equation_txt": "(k) = [s 1 (k), s 2 (k), \u2022 \u2022 \u2022 , s n (k)], k a discrete time index, such that the components s i (k) (i = 1, 2, \u2022 \u2022 \u2022 , n),",
+            "post_txt": "\nare zero-mean and mutually independent random processes.For simplicit",
+            "full_txt": "n 3.2 Convolutive Mixture and BSS\nLet a real discrete time signal be s(k) = [s 1 (k), s 2 (k), \u2022 \u2022 \u2022 , s n (k)], k a discrete time index, such that the components s i (k) (i = 1, 2, \u2022 \u2022 \u2022 , n),\nare zero-mean and mutually independent random processes.For simplicit"
+        },
+        "clean_data": {
+            "pre_txt": "ction{Convolutive Mixture and BSS}\nLet a real discrete time signal be\n",
+            "equation_txt": "$s(k) = [s_1(k),s_2(k),\\cdots,s_{n}(k)]$",
+            "post_txt": ", $k$ a discrete time index,\nsuch that the components $s_i(k)$ ($i=1,2",
+            "full_txt": "ction{Convolutive Mixture and BSS}\nLet a real discrete time signal be\n$s(k) = [s_1(k),s_2(k),\\cdots,s_{n}(k)]$, $k$ a discrete time index,\nsuch that the components $s_i(k)$ ($i=1,2"
         },
         "similarity_score": 0.6953125
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "or uncoupled to the wire, one defines the density change in site j as",
-            "equation_txt": "\u2206N j = N j \u2212 N 0 j ,",
-            "post_txt": "\nand studies the dependence of \u2206N j on j for different parameters.",
-            "full_txt": "or uncoupled to the wire, one defines the density change in site j as\u2206N j = N j \u2212 N 0 j ,\nand studies the dependence of \u2206N j on j for different parameters."
-        },
-        "clean_data": {
-            "pre_txt": " of such a state, \nin the $j$-th site of the wire, will be denoted by ",
-            "equation_txt": "$N^0_j$",
-            "post_txt": ". \nWhen the pinning impurity is replaced by a dot level with $\\epsilon",
-            "full_txt": " of such a state, \nin the $j$-th site of the wire, will be denoted by $N^0_j$. \nWhen the pinning impurity is replaced by a dot level with $\\epsilon"
-        },
-        "similarity_score": 0.6640625
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "Let a real discrete time signal b",
-            "equation_txt": "(k) = [s 1 (k), s 2 (k), \u2022 \u2022 \u2022 , s n (k)], k a discrete time index, such that the components s i (k) (i = 1, 2, \u2022 \u2022 \u2022 , n),",
-            "post_txt": "\nare zero-mean and mutually independent random processes.",
-            "full_txt": "Let a real discrete time signal b(k) = [s 1 (k), s 2 (k), \u2022 \u2022 \u2022 , s n (k)], k a discrete time index, such that the components s i (k) (i = 1, 2, \u2022 \u2022 \u2022 , n),\nare zero-mean and mutually independent random processes."
-        },
-        "clean_data": {
-            "pre_txt": "}(k)]$, $k$ a discrete time index,\nsuch that the components $s_i(k)$ (",
-            "equation_txt": "$i=1,2,\\cdots,n$",
-            "post_txt": "), are\nzero-mean and mutually independent random processes. For simpli",
-            "full_txt": "}(k)]$, $k$ a discrete time index,\nsuch that the components $s_i(k)$ ($i=1,2,\\cdots,n$), are\nzero-mean and mutually independent random processes. For simpli"
-        },
-        "similarity_score": 0.75
     },
     {
         "dirty_data": {
@@ -856,25 +976,25 @@
     },
     {
         "dirty_data": {
-            "pre_txt": "w",
+            "pre_txt": " \u226a T , then to a good approximation [17]:X(\u03c9, t) \u2248 H(\u03c9) S(\u03c9, t),\nwhere",
             "equation_txt": "X = [X 1 , \u2022 \u2022 \u2022 , X n ] T r , S = [s 1 , \u2022 \u2022 \u2022 , s n ] T r , T r is short for transpose.",
-            "post_txt": "\nThe components of S remains independent of each other, the problem",
-            "full_txt": "wX = [X 1 , \u2022 \u2022 \u2022 , X n ] T r , S = [s 1 , \u2022 \u2022 \u2022 , s n ] T r , T r is short for transpose.\nThe components of S remains independent of each other, the problem"
+            "post_txt": "\nThe components of S remains independent of each other, the problem is",
+            "full_txt": " \u226a T , then to a good approximation [17]:X(\u03c9, t) \u2248 H(\u03c9) S(\u03c9, t),\nwhereX = [X 1 , \u2022 \u2022 \u2022 , X n ] T r , S = [s 1 , \u2022 \u2022 \u2022 , s n ] T r , T r is short for transpose.\nThe components of S remains independent of each other, the problem is"
         },
         "clean_data": {
-            "pre_txt": "{bs2}\n\\ee\nwhere $X=[X_1,\\cdots,X_n]^{Tr}$, $S=[s_1,\\cdots,s_n]^{Tr}$, ",
-            "equation_txt": "$Tr$",
-            "post_txt": " is short for transpose.\nThe components of $S$ remains independent of\n",
-            "full_txt": "{bs2}\n\\ee\nwhere $X=[X_1,\\cdots,X_n]^{Tr}$, $S=[s_1,\\cdots,s_n]^{Tr}$, $Tr$ is short for transpose.\nThe components of $S$ remains independent of\n"
+            "pre_txt": "be\nX(\\omega,t)\\approx H(\\omega)\\, S(\\omega, t), \\label{bs2}\n\\ee\nwhere ",
+            "equation_txt": "$X=[X_1,\\cdots,X_n]^{Tr}$",
+            "post_txt": ", $S=[s_1,\\cdots,s_n]^{Tr}$, $Tr$ is short for transpose.\nThe componen",
+            "full_txt": "be\nX(\\omega,t)\\approx H(\\omega)\\, S(\\omega, t), \\label{bs2}\n\\ee\nwhere $X=[X_1,\\cdots,X_n]^{Tr}$, $S=[s_1,\\cdots,s_n]^{Tr}$, $Tr$ is short for transpose.\nThe componen"
         },
-        "similarity_score": 0.734375
+        "similarity_score": 0.7578125
     },
     {
         "dirty_data": {
-            "pre_txt": "First assume that by proper scaling",
+            "pre_txt": "on of t, and suppress \u03c9 dependence.First assume that by proper scaling",
             "equation_txt": "E[|S j (t)| 2 ] = 1, j = 1, \u2022 \u2022 \u2022 , n.",
-            "post_txt": "\nIt follows from independence of sources that ( \u2032 conjugate transpose):",
-            "full_txt": "First assume that by proper scalingE[|S j (t)| 2 ] = 1, j = 1, \u2022 \u2022 \u2022 , n.\nIt follows from independence of sources that ( \u2032 conjugate transpose):"
+            "post_txt": "\nIt follows from independence of sources that ( \u2032 conjugate transpose)",
+            "full_txt": "on of t, and suppress \u03c9 dependence.First assume that by proper scalingE[|S j (t)| 2 ] = 1, j = 1, \u2022 \u2022 \u2022 , n.\nIt follows from independence of sources that ( \u2032 conjugate transpose)"
         },
         "clean_data": {
             "pre_txt": "a$ dependence.\nFirst assume that by proper scaling $E[|S_j(t)|^2]=1$, ",
@@ -886,25 +1006,25 @@
     },
     {
         "dirty_data": {
-            "pre_txt": "Let W be a matrix su",
+            "pre_txt": " any t; (3) the process S(t) is stationary.Let W be a matrix such that",
             "equation_txt": "I n = W R X W \u2032 = W HH \u2032 W \u2032 , W is called a whitening matrix.",
-            "post_txt": "\nThen W H is an orthogonal matrix, denoted by U",
-            "full_txt": "Let W be a matrix suI n = W R X W \u2032 = W HH \u2032 W \u2032 , W is called a whitening matrix.\nThen W H is an orthogonal matrix, denoted by U"
+            "post_txt": "\nThen W H is an orthogonal matrix, denoted by U .Multiplying W from th",
+            "full_txt": " any t; (3) the process S(t) is stationary.Let W be a matrix such thatI n = W R X W \u2032 = W HH \u2032 W \u2032 , W is called a whitening matrix.\nThen W H is an orthogonal matrix, denoted by U .Multiplying W from th"
         },
         "clean_data": {
-            "pre_txt": "ionary. Let $W$ be a matrix\nsuch that $I_n = W R_X W^{'} = WH H' W'$, ",
-            "equation_txt": "$W$",
-            "post_txt": " is called a whitening matrix. Then\n$WH$ is an orthogonal matrix, deno",
-            "full_txt": "ionary. Let $W$ be a matrix\nsuch that $I_n = W R_X W^{'} = WH H' W'$, $W$ is called a whitening matrix. Then\n$WH$ is an orthogonal matrix, deno"
+            "pre_txt": ";\n(3) the process $S(t)$ is stationary. Let $W$ be a matrix\nsuch that ",
+            "equation_txt": "$I_n = W R_X W^{'} = WH H' W'$",
+            "post_txt": ", $W$ is called a whitening matrix. Then\n$WH$ is an orthogonal matrix,",
+            "full_txt": ";\n(3) the process $S(t)$ is stationary. Let $W$ be a matrix\nsuch that $I_n = W R_X W^{'} = WH H' W'$, $W$ is called a whitening matrix. Then\n$WH$ is an orthogonal matrix,"
         },
-        "similarity_score": 0.8515625
+        "similarity_score": 0.84375
     },
     {
         "dirty_data": {
-            "pre_txt": "Multiplying W from the left onto (2.2), one finds that:",
+            "pre_txt": " denoted by U .Multiplying W from the left onto (2.2), one finds that:",
             "equation_txt": "Z(t) \u2261 W X(t) = U S(t).",
-            "post_txt": "\n(2.4",
-            "full_txt": "Multiplying W from the left onto (2.2), one finds that:Z(t) \u2261 W X(t) = U S(t).\n(2.4"
+            "post_txt": "\n(2.4)\nThe 4th order statistics are needed to determine U .The 4th-ord",
+            "full_txt": " denoted by U .Multiplying W from the left onto (2.2), one finds that:Z(t) \u2261 W X(t) = U S(t).\n(2.4)\nThe 4th order statistics are needed to determine U .The 4th-ord"
         },
         "clean_data": {
             "pre_txt": "atrix. Then\n$WH$ is an orthogonal matrix, denoted by $U$. Multiplying ",
@@ -912,14 +1032,14 @@
             "post_txt": " from the left onto (\\ref{bs2}),\none finds that:\n\\be\nZ(t)\\equiv W X(t)",
             "full_txt": "atrix. Then\n$WH$ is an orthogonal matrix, denoted by $U$. Multiplying $W$ from the left onto (\\ref{bs2}),\none finds that:\n\\be\nZ(t)\\equiv W X(t)"
         },
-        "similarity_score": 0.65625
+        "similarity_score": 0.703125
     },
     {
         "dirty_data": {
-            "pre_txt": "The 4th-order cumulant of four mean zero random variables is:",
+            "pre_txt": "rmine U .The 4th-order cumulant of four mean zero random variables is:",
             "equation_txt": "Cum[a, b, c, d] = E(abcd) \u2212 E(ab)E(cd) \u2212 E(ac)E(bd) \u2212 E(ad)E(bc),",
-            "post_txt": "\nwhich is zero if a, b, c, d split into two mutually independent groups",
-            "full_txt": "The 4th-order cumulant of four mean zero random variables is:Cum[a, b, c, d] = E(abcd) \u2212 E(ab)E(cd) \u2212 E(ac)E(bd) \u2212 E(ad)E(bc),\nwhich is zero if a, b, c, d split into two mutually independent groups"
+            "post_txt": "\nwhich is zero if a, b, c, d split into two mutually independent group",
+            "full_txt": "rmine U .The 4th-order cumulant of four mean zero random variables is:Cum[a, b, c, d] = E(abcd) \u2212 E(ab)E(cd) \u2212 E(ac)E(bd) \u2212 E(ad)E(bc),\nwhich is zero if a, b, c, d split into two mutually independent group"
         },
         "clean_data": {
             "pre_txt": ".,n$.\nThen we determine the permutation $\\sigma$ of the components of ",
@@ -927,14 +1047,14 @@
             "post_txt": "\nby minimization:\n\\begin{equation} \\label{t-permutation}\n   \\sigma = {",
             "full_txt": ".,n$.\nThen we determine the permutation $\\sigma$ of the components of $\\tilde{s}^{(1)}(t)$\nby minimization:\n\\begin{equation} \\label{t-permutation}\n   \\sigma = {"
         },
-        "similarity_score": 0.671875
+        "similarity_score": 0.71875
     },
     {
         "dirty_data": {
-            "pre_txt": "the Hermitian matrices Q = (q ij ) satisfying ( * complex conjugate):",
+            "pre_txt": " the Hermitian matrices Q = (q ij ) satisfying ( * complex conjugate):",
             "equation_txt": "q ij = n k,l=1 Cum(Z i , Z * j , Z k , Z * l ) m lk , 1 \u2264 i, j \u2264 n,",
             "post_txt": "\nwhere matrix M = (m ij ) = e l e \u2032 k , e l being the unit vector with",
-            "full_txt": "the Hermitian matrices Q = (q ij ) satisfying ( * complex conjugate):q ij = n k,l=1 Cum(Z i , Z * j , Z k , Z * l ) m lk , 1 \u2264 i, j \u2264 n,\nwhere matrix M = (m ij ) = e l e \u2032 k , e l being the unit vector with"
+            "full_txt": " the Hermitian matrices Q = (q ij ) satisfying ( * complex conjugate):q ij = n k,l=1 Cum(Z i , Z * j , Z k , Z * l ) m lk , 1 \u2264 i, j \u2264 n,\nwhere matrix M = (m ij ) = e l e \u2032 k , e l being the unit vector with"
         },
         "clean_data": {
             "pre_txt": "as the linear span of the\nHermitian matrices $Q=(q_{ij})$ satisfying (",
@@ -946,10 +1066,25 @@
     },
     {
         "dirty_data": {
-            "pre_txt": "o",
+            "pre_txt": "e.Equations (2.4) and (2.6) imply that (u p is the p-th column of U ):",
+            "equation_txt": "Q = n p=1 (kurt p u \u2032 p M u p ) u p u \u2032 p , \u2200 M,",
+            "post_txt": "\norQ = U DU \u2032 , D = diag(kurt 1 u \u2032 1 M u 1 , \u2022 \u2022 \u2022 , kurt n u \u2032 n M u",
+            "full_txt": "e.Equations (2.4) and (2.6) imply that (u p is the p-th column of U ):Q = n p=1 (kurt p u \u2032 p M u p ) u p u \u2032 p , \u2200 M,\norQ = U DU \u2032 , D = diag(kurt 1 u \u2032 1 M u 1 , \u2022 \u2022 \u2022 , kurt n u \u2032 n M u"
+        },
+        "clean_data": {
+            "pre_txt": "onent equal to one. Equations (\\ref{bs4}) and (\\ref{bs6})\nimply that (",
+            "equation_txt": "$u_p$",
+            "post_txt": " is the p-th column of $U$):\n\\be\nQ= \\sum_{p=1}^{n}\\, ({\\rm kurt}_{p}\\,",
+            "full_txt": "onent equal to one. Equations (\\ref{bs4}) and (\\ref{bs6})\nimply that ($u_p$ is the p-th column of $U$):\n\\be\nQ= \\sum_{p=1}^{n}\\, ({\\rm kurt}_{p}\\,"
+        },
+        "similarity_score": 0.6875
+    },
+    {
+        "dirty_data": {
+            "pre_txt": "p-th column of U ):Q = n p=1 (kurt p u \u2032 p M u p ) u p u \u2032 p , \u2200 M,\nor",
             "equation_txt": "Q = U DU \u2032 , D = diag(kurt 1 u \u2032 1 M u 1 , \u2022 \u2022 \u2022 , kurt n u \u2032 n M u n ).",
-            "post_txt": "\nHence, U is the joint diagonalizer of the matrix set Q Z",
-            "full_txt": "oQ = U DU \u2032 , D = diag(kurt 1 u \u2032 1 M u 1 , \u2022 \u2022 \u2022 , kurt n u \u2032 n M u n ).\nHence, U is the joint diagonalizer of the matrix set Q Z"
+            "post_txt": "\nHence, U is the joint diagonalizer of the matrix set Q Z (M ).Once U ",
+            "full_txt": "p-th column of U ):Q = n p=1 (kurt p u \u2032 p M u p ) u p u \u2032 p , \u2200 M,\norQ = U DU \u2032 , D = diag(kurt 1 u \u2032 1 M u 1 , \u2022 \u2022 \u2022 , kurt n u \u2032 n M u n ).\nHence, U is the joint diagonalizer of the matrix set Q Z (M ).Once U "
         },
         "clean_data": {
             "pre_txt": "_{p}u_{p}^{'}, \\;\\; \\forall \\; M,\n\\label{bs7}\n\\ee\nor $Q = U D U^{'}$, ",
@@ -957,14 +1092,14 @@
             "post_txt": ".\nHence, $U$ is the joint diagonalizer of the matrix set $Q_{Z}(M)$.  ",
             "full_txt": "_{p}u_{p}^{'}, \\;\\; \\forall \\; M,\n\\label{bs7}\n\\ee\nor $Q = U D U^{'}$, $D= {\\rm diag}({\\rm kurt}_{1}u_{1}^{'}Mu_{1},\\cdots,{\\rm kurt}_{n}u_{n}^{'}Mu_{n})$.\nHence, $U$ is the joint diagonalizer of the matrix set $Q_{Z}(M)$.  "
         },
-        "similarity_score": 0.7734375
+        "similarity_score": 0.7265625
     },
     {
         "dirty_data": {
-            "pre_txt": "lizer, an orthogonal matrix V , is sought to maximize the quantity:",
+            "pre_txt": "onalizer, an orthogonal matrix V , is sought to maximize the quantity:",
             "equation_txt": "C(V, B) = n 2 r=1 |diag(V \u2032 B r V )| 2 , where B = {B 1 , B 2 , \u2022 \u2022 \u2022 , B n 2 } is a set of basis (or eigen) matrices of Q Z (M ), |diag(A)| 2",
-            "post_txt": "\nis the sum of squares of diagonals of a matrix A. Maximiz",
-            "full_txt": "lizer, an orthogonal matrix V , is sought to maximize the quantity:C(V, B) = n 2 r=1 |diag(V \u2032 B r V )| 2 , where B = {B 1 , B 2 , \u2022 \u2022 \u2022 , B n 2 } is a set of basis (or eigen) matrices of Q Z (M ), |diag(A)| 2\nis the sum of squares of diagonals of a matrix A. Maximiz"
+            "post_txt": "\nis the sum of squares of diagonals of a matrix A. Maximizing C(V, B) ",
+            "full_txt": "onalizer, an orthogonal matrix V , is sought to maximize the quantity:C(V, B) = n 2 r=1 |diag(V \u2032 B r V )| 2 , where B = {B 1 , B 2 , \u2022 \u2022 \u2022 , B n 2 } is a set of basis (or eigen) matrices of Q Z (M ), |diag(A)| 2\nis the sum of squares of diagonals of a matrix A. Maximizing C(V, B) "
         },
         "clean_data": {
             "pre_txt": "\\cdots, B_{n^2}\\}$ is a set of basis (or eigen)\nmatrices of $Q_Z(M)$, ",
@@ -976,10 +1111,10 @@
     },
     {
         "dirty_data": {
-            "pre_txt": "4) At other frequenc",
+            "pre_txt": "e \u03c9 1 serves as a reference point for sorting.(4) At other frequencies",
             "equation_txt": "\u03c9 k (k = 2, 3, \u2022 \u2022 \u2022), find a permutation \u03c3 to maxi- mize n i=1 \u03c1(Env(\u03c9 k , t, \u03c3(i)), k\u22121 j=1 Env s (\u03c9 j , t, i)), among all permutations of 1, 2, \u2022 \u2022 \u2022 , n.",
-            "post_txt": "\nHere Env s denotes the sorted envelopes in previous frequenc",
-            "full_txt": "4) At other frequenc\u03c9 k (k = 2, 3, \u2022 \u2022 \u2022), find a permutation \u03c3 to maxi- mize n i=1 \u03c1(Env(\u03c9 k , t, \u03c3(i)), k\u22121 j=1 Env s (\u03c9 j , t, i)), among all permutations of 1, 2, \u2022 \u2022 \u2022 , n.\nHere Env s denotes the sorted envelopes in previous frequenc"
+            "post_txt": "\nHere Env s denotes the sorted envelopes in previous frequencies.( 5) ",
+            "full_txt": "e \u03c9 1 serves as a reference point for sorting.(4) At other frequencies\u03c9 k (k = 2, 3, \u2022 \u2022 \u2022), find a permutation \u03c3 to maxi- mize n i=1 \u03c1(Env(\u03c9 k , t, \u03c3(i)), k\u22121 j=1 Env s (\u03c9 j , t, i)), among all permutations of 1, 2, \u2022 \u2022 \u2022 , n.\nHere Env s denotes the sorted envelopes in previous frequencies.( 5) "
         },
         "clean_data": {
             "pre_txt": "$\\omega_k$ ($k =2,3,\\cdots$),\nfind a permutation $\\sigma$ to maximize ",
@@ -991,10 +1126,10 @@
     },
     {
         "dirty_data": {
-            "pre_txt": "2.8) and the (normalized) correlation coefficient is:",
+            "pre_txt": " b * (\u03c9 \u2032 , t),\n(2.8) and the (normalized) correlation coefficient is:",
             "equation_txt": "\u03c1(a(\u03c9, t), b(\u03c9 \u2032 , t)) = cov(a(\u03c9, t), b(\u03c9 \u2032 , t)) cov(a(\u03c9, t), a(\u03c9, t)) cov(b(\u03c9 \u2032 , t), b(\u03c9 \u2032 , t)) .",
-            "post_txt": "\nFrom speech production viewpoint, frequency components of a speech sig",
-            "full_txt": "2.8) and the (normalized) correlation coefficient is:\u03c1(a(\u03c9, t), b(\u03c9 \u2032 , t)) = cov(a(\u03c9, t), b(\u03c9 \u2032 , t)) cov(a(\u03c9, t), a(\u03c9, t)) cov(b(\u03c9 \u2032 , t), b(\u03c9 \u2032 , t)) .\nFrom speech production viewpoint, frequency components of a speech sig"
+            "post_txt": "\nFrom speech production viewpoint, frequency components of a speech si",
+            "full_txt": " b * (\u03c9 \u2032 , t),\n(2.8) and the (normalized) correlation coefficient is:\u03c1(a(\u03c9, t), b(\u03c9 \u2032 , t)) = cov(a(\u03c9, t), b(\u03c9 \u2032 , t)) cov(a(\u03c9, t), a(\u03c9, t)) cov(b(\u03c9 \u2032 , t), b(\u03c9 \u2032 , t)) .\nFrom speech production viewpoint, frequency components of a speech si"
         },
         "clean_data": {
             "pre_txt": ".,n$.\nThen we determine the permutation $\\sigma$ of the components of ",
@@ -1002,14 +1137,14 @@
             "post_txt": "\nby minimization:\n\\begin{equation} \\label{t-permutation}\n   \\sigma = {",
             "full_txt": ".,n$.\nThen we determine the permutation $\\sigma$ of the components of $\\tilde{s}^{(1)}(t)$\nby minimization:\n\\begin{equation} \\label{t-permutation}\n   \\sigma = {"
         },
-        "similarity_score": 0.703125
+        "similarity_score": 0.6640625
     },
     {
         "dirty_data": {
-            "pre_txt": "Now with M = n T in (2.8), define",
+            "pre_txt": "roduced from cavities of instruments.Now with M = n T in (2.8), define",
             "equation_txt": "C(\u03c9) = i =j max k\u2208{\u2212K 0 ,...,K 0 } |\u03c1(|\u015d i (\u03c9, t)|, |\u015d j (\u03c9, t \u2212 k)|)|, for \u03c9 \u2208 [\u03c9 L , \u03c9 U ]",
-            "post_txt": "\n(2.10) with some positive intege",
-            "full_txt": "Now with M = n T in (2.8), defineC(\u03c9) = i =j max k\u2208{\u2212K 0 ,...,K 0 } |\u03c1(|\u015d i (\u03c9, t)|, |\u015d j (\u03c9, t \u2212 k)|)|, for \u03c9 \u2208 [\u03c9 L , \u03c9 U ]\n(2.10) with some positive intege"
+            "post_txt": "\n(2.10) with some positive integer K 0 .Find \u03c9 1 between \u03c9 L and \u03c9 U t",
+            "full_txt": "roduced from cavities of instruments.Now with M = n T in (2.8), defineC(\u03c9) = i =j max k\u2208{\u2212K 0 ,...,K 0 } |\u03c1(|\u015d i (\u03c9, t)|, |\u015d j (\u03c9, t \u2212 k)|)|, for \u03c9 \u2208 [\u03c9 L , \u03c9 U ]\n(2.10) with some positive integer K 0 .Find \u03c9 1 between \u03c9 L and \u03c9 U t"
         },
         "clean_data": {
             "pre_txt": "m cavities of instruments.\n\nNow with $M =n_T$ in (\\ref{bs10}), define\n",
@@ -1017,14 +1152,29 @@
             "post_txt": "\nwith some positive integer $K_0$.\nFind $\\omega_1$ between $\\omg_L$ an",
             "full_txt": "m cavities of instruments.\n\nNow with $M =n_T$ in (\\ref{bs10}), define\n\\begin{equation} \\label{C-omg}\n  C(\\omega)= \\sum_{i\\not = j} \\,\\max_{k\\in \\{-K_0,...,K_0\\} } \\,\n  |\\rho(|\\hat{s}_{i}(\\omega,t)|,|\\hat{s}_{j}(\\omega, t -k)|)|, \\quad \\mbox{for } \\omg\\in[\\omg_L,\\omg_U]\n\\end{equation}\nwith some positive integer $K_0$.\nFind $\\omega_1$ between $\\omg_L$ an"
         },
-        "similarity_score": 0.6640625
+        "similarity_score": 0.7421875
+    },
+    {
+        "dirty_data": {
+            "pre_txt": " \u03c9 1 as reference, at any other \u03c9, find the permutation \u03c3 to maximize:",
+            "equation_txt": "\u03c3 = argmax n i=1 max k\u2208{\u2212K 0 ,...,K 0 } |\u03c1(|\u015d i (\u03c9 1 , t)|, |\u015d \u03c3(i) (\u03c9, t \u2212 k)|)|.",
+            "post_txt": "\n(2.11)\nNotice that the objective functions in (2.10)-(2.11)are exactl",
+            "full_txt": " \u03c9 1 as reference, at any other \u03c9, find the permutation \u03c3 to maximize:\u03c3 = argmax n i=1 max k\u2208{\u2212K 0 ,...,K 0 } |\u03c1(|\u015d i (\u03c9 1 , t)|, |\u015d \u03c3(i) (\u03c9, t \u2212 k)|)|.\n(2.11)\nNotice that the objective functions in (2.10)-(2.11)are exactl"
+        },
+        "clean_data": {
+            "pre_txt": "e, at any other\n$\\omega$, find the permutation $\\sigma $ to maximize:\n",
+            "equation_txt": "\\begin{equation} \\label{f-permutation}\n  \\sigma ={\\rm argmax}\\, \\sum_{i=1}^{n}\\,\\max_{k\\in \\{-K_0,...,K_0\\}}\\,\n  |\\rho(|\\hat{s}_{i}(\\omega_1,t)|, |\\hat{s}_{\\sigma(i)}(\\omega,t-k)|)|.\n\\end{equation}",
+            "post_txt": "\nNotice that the objective functions in (\\ref{C-omg})-(\\ref{f-permutat",
+            "full_txt": "e, at any other\n$\\omega$, find the permutation $\\sigma $ to maximize:\n\\begin{equation} \\label{f-permutation}\n  \\sigma ={\\rm argmax}\\, \\sum_{i=1}^{n}\\,\\max_{k\\in \\{-K_0,...,K_0\\}}\\,\n  |\\rho(|\\hat{s}_{i}(\\omega_1,t)|, |\\hat{s}_{\\sigma(i)}(\\omega,t-k)|)|.\n\\end{equation}\nNotice that the objective functions in (\\ref{C-omg})-(\\ref{f-permutat"
+        },
+        "similarity_score": 0.7265625
     },
     {
         "dirty_data": {
             "pre_txt": "n explicitly write the equation to shorten the support of inverse FFT:",
             "equation_txt": "ifft(\u03bb i (\u03c9)H \u22121 0,i (\u03c9))(\u03c4 ) = 0 (2.12)",
-            "post_txt": "\nin terms of the real and imaginary parts of \u03bb i (\u03c9) for \u03c9 = 0, 1/T",
-            "full_txt": "n explicitly write the equation to shorten the support of inverse FFT:ifft(\u03bb i (\u03c9)H \u22121 0,i (\u03c9))(\u03c4 ) = 0 (2.12)\nin terms of the real and imaginary parts of \u03bb i (\u03c9) for \u03c9 = 0, 1/T"
+            "post_txt": "\nin terms of the real and imaginary parts of \u03bb i (\u03c9) for \u03c9 = 0, 1/T, .",
+            "full_txt": "n explicitly write the equation to shorten the support of inverse FFT:ifft(\u03bb i (\u03c9)H \u22121 0,i (\u03c9))(\u03c4 ) = 0 (2.12)\nin terms of the real and imaginary parts of \u03bb i (\u03c9) for \u03c9 = 0, 1/T, ."
         },
         "clean_data": {
             "pre_txt": "to fix the overall scaling and\nrender the solution nontrivial, we set ",
@@ -1038,8 +1188,8 @@
         "dirty_data": {
             "pre_txt": "or some \u03b2 > 1, then the above process can be mathematically written as",
             "equation_txt": "[\u03bb i (0), ..., \u03bb i ((T \u2212 1)/T )] = argmin T \u22121 \u03c4 =q |\u03b2 \u03c4 ifft(\u03bb i (\u03c9)H \u22121 0,i (\u03c9))(\u03c4 )| 2 (2.13)",
-            "post_txt": "\nwhere H \u22121 0,i (\u03c9) is the i-th row vector o",
-            "full_txt": "or some \u03b2 > 1, then the above process can be mathematically written as[\u03bb i (0), ..., \u03bb i ((T \u2212 1)/T )] = argmin T \u22121 \u03c4 =q |\u03b2 \u03c4 ifft(\u03bb i (\u03c9)H \u22121 0,i (\u03c9))(\u03c4 )| 2 (2.13)\nwhere H \u22121 0,i (\u03c9) is the i-th row vector o"
+            "post_txt": "\nwhere H \u22121 0,i (\u03c9) is the i-th row vector of H \u22121 0 (\u03c9).A few comment",
+            "full_txt": "or some \u03b2 > 1, then the above process can be mathematically written as[\u03bb i (0), ..., \u03bb i ((T \u2212 1)/T )] = argmin T \u22121 \u03c4 =q |\u03b2 \u03c4 ifft(\u03bb i (\u03c9)H \u22121 0,i (\u03c9))(\u03c4 )| 2 (2.13)\nwhere H \u22121 0,i (\u03c9) is the i-th row vector of H \u22121 0 (\u03c9).A few comment"
         },
         "clean_data": {
             "pre_txt": "caling-1}) with $\\tau=q,...,T-1$,\nthere are $T-1$ variables including ",
@@ -1047,14 +1197,14 @@
             "post_txt": ", the real and imaginary parts of\n$\\lam_i(\\omg)$ for $\\omg=1/T,...,1/2",
             "full_txt": "caling-1}) with $\\tau=q,...,T-1$,\nthere are $T-1$ variables including $\\lam_i(1/2)$, the real and imaginary parts of\n$\\lam_i(\\omg)$ for $\\omg=1/T,...,1/2"
         },
-        "similarity_score": 0.671875
+        "similarity_score": 0.65625
     },
     {
         "dirty_data": {
-            "pre_txt": "e the permutation \u03c3 of the components of s(1) (t) by minimization:",
+            "pre_txt": "rmine the permutation \u03c3 of the components of s(1) (t) by minimization:",
             "equation_txt": "\u03c3 = argmax n i=1 max k\u2208{\u2212K 1 ,...,K 1 } \u03c1 s (0) i (\u03c4 ), s",
-            "post_txt": "2.14)\nwith some constant",
-            "full_txt": "e the permutation \u03c3 of the components of s(1) (t) by minimization:\u03c3 = argmax n i=1 max k\u2208{\u2212K 1 ,...,K 1 } \u03c1 s (0) i (\u03c4 ), s2.14)\nwith some constant"
+            "post_txt": "\u03c3(i) (\u03c4 \u2212 k) (2.14)\nwith some constant K 1 .After doing the necessary ",
+            "full_txt": "rmine the permutation \u03c3 of the components of s(1) (t) by minimization:\u03c3 = argmax n i=1 max k\u2208{\u2212K 1 ,...,K 1 } \u03c1 s (0) i (\u03c4 ), s\u03c3(i) (\u03c4 \u2212 k) (2.14)\nwith some constant K 1 .After doing the necessary "
         },
         "clean_data": {
             "pre_txt": "n $\\sigma$ of the components of $\\tilde{s}^{(1)}(t)$\nby minimization:\n",
@@ -1062,14 +1212,14 @@
             "post_txt": "\nwith some constant $K_1$. After doing the necessary permutation of $\\",
             "full_txt": "n $\\sigma$ of the components of $\\tilde{s}^{(1)}(t)$\nby minimization:\n\\begin{equation} \\label{t-permutation}\n   \\sigma = {\\rm argmax}\\, \\sum_{i=1}^{n} \\max_{k\\in\\{-K_1,...,K_1 \\}} \\,\n   \\left|\\rho\\left( s_{i}^{(0)}(\\tau), \\tilde{s}^{(1)}_{\\sigma(i)}(\\tau-k)\\right)\\right|\n\\end{equation}\nwith some constant $K_1$. After doing the necessary permutation of $\\"
         },
-        "similarity_score": 0.703125
+        "similarity_score": 0.7109375
     },
     {
         "dirty_data": {
-            "pre_txt": "rmine the permutation \u03c3 of the components of s(1) (t) by minimization:\u03c3 = argmax n i=1 max k\u2208{\u2212K 1 ,...,K 1 } \u03c1 s (0) i (\u03c4 ), s",
+            "pre_txt": "minimization:\u03c3 = argmax n i=1 max k\u2208{\u2212K 1 ,...,K 1 } \u03c1 s (0) i (\u03c4 ), s",
             "equation_txt": "\u03c3(i) (\u03c4 \u2212 k) (2.14)",
-            "post_txt": "\nwith some constant K",
-            "full_txt": "rmine the permutation \u03c3 of the components of s(1) (t) by minimization:\u03c3 = argmax n i=1 max k\u2208{\u2212K 1 ,...,K 1 } \u03c1 s (0) i (\u03c4 ), s\u03c3(i) (\u03c4 \u2212 k) (2.14)\nwith some constant K"
+            "post_txt": "\nwith some constant K 1 .After doing the necessary permutation of s(1)",
+            "full_txt": "minimization:\u03c3 = argmax n i=1 max k\u2208{\u2212K 1 ,...,K 1 } \u03c1 s (0) i (\u03c4 ), s\u03c3(i) (\u03c4 \u2212 k) (2.14)\nwith some constant K 1 .After doing the necessary permutation of s(1)"
         },
         "clean_data": {
             "pre_txt": "n $\\sigma$ of the components of $\\tilde{s}^{(1)}(t)$\nby minimization:\n",
@@ -1077,14 +1227,14 @@
             "post_txt": "\nwith some constant $K_1$. After doing the necessary permutation of $\\",
             "full_txt": "n $\\sigma$ of the components of $\\tilde{s}^{(1)}(t)$\nby minimization:\n\\begin{equation} \\label{t-permutation}\n   \\sigma = {\\rm argmax}\\, \\sum_{i=1}^{n} \\max_{k\\in\\{-K_1,...,K_1 \\}} \\,\n   \\left|\\rho\\left( s_{i}^{(0)}(\\tau), \\tilde{s}^{(1)}_{\\sigma(i)}(\\tau-k)\\right)\\right|\n\\end{equation}\nwith some constant $K_1$. After doing the necessary permutation of $\\"
         },
-        "similarity_score": 0.703125
+        "similarity_score": 0.6875
     },
     {
         "dirty_data": {
-            "pre_txt": "continuity of concatenation is maintained by requiring that max \u03c4 |h",
+            "pre_txt": "e continuity of concatenation is maintained by requiring that max \u03c4 |h",
             "equation_txt": "(k) ii (\u03c4 )|'s (i = 1, 2, \u2022 \u2022 \u2022 , n) are invariant in k,",
-            "post_txt": "\nwhere k = 1, 2, \u2022 \u2022 \u2022, labels the updated filter matrix in time.",
-            "full_txt": "continuity of concatenation is maintained by requiring that max \u03c4 |h(k) ii (\u03c4 )|'s (i = 1, 2, \u2022 \u2022 \u2022 , n) are invariant in k,\nwhere k = 1, 2, \u2022 \u2022 \u2022, labels the updated filter matrix in time."
+            "post_txt": "\nwhere k = 1, 2, \u2022 \u2022 \u2022, labels the updated filter matrix in time.The p",
+            "full_txt": "e continuity of concatenation is maintained by requiring that max \u03c4 |h(k) ii (\u03c4 )|'s (i = 1, 2, \u2022 \u2022 \u2022 , n) are invariant in k,\nwhere k = 1, 2, \u2022 \u2022 \u2022, labels the updated filter matrix in time.The p"
         },
         "clean_data": {
             "pre_txt": "0)}$. The continuity of concatenation is maintained\nby requiring that ",
@@ -1092,14 +1242,14 @@
             "post_txt": "'s ($i=1,2,\\cdots,n$) are invariant\nin $k$, where $k=1,2,\\cdots$, labe",
             "full_txt": "0)}$. The continuity of concatenation is maintained\nby requiring that $\\max_{\\tau}\\, |h_{ii}^{(k)}(\\tau)|$'s ($i=1,2,\\cdots,n$) are invariant\nin $k$, where $k=1,2,\\cdots$, labe"
         },
-        "similarity_score": 0.78125
+        "similarity_score": 0.8125
     },
     {
         "dirty_data": {
-            "pre_txt": "e compute the maximal correlation coefficient over multiple time lags:<b>case T overlap n</b>\n",
+            "pre_txt": "rrelation coefficient over multiple time lags:<b>case T overlap n</b>\n",
             "equation_txt": "T \u03b4n T \u2206n T K 0 K 1 \u03b2 q n T (dyn.) (bat.)",
-            "post_txt": "\u03c1(a, b) = max k\u2208{\u2212K 2 ,...,K 2 } |\u03c1(a(\u03c4 ), b(\u03c4 + k))|\nwith \u03c1 defined in (2.9",
-            "full_txt": "e compute the maximal correlation coefficient over multiple time lags:<b>case T overlap n</b>\nT \u03b4n T \u2206n T K 0 K 1 \u03b2 q n T (dyn.) (bat.)\u03c1(a, b) = max k\u2208{\u2212K 2 ,...,K 2 } |\u03c1(a(\u03c4 ), b(\u03c4 + k))|\nwith \u03c1 defined in (2.9"
+            "post_txt": "\u03c1(a, b) = max k\u2208{\u2212K 2 ,...,K 2 } |\u03c1(a(\u03c4 ), b(\u03c4 + k))|\nwith \u03c1 defined i",
+            "full_txt": "rrelation coefficient over multiple time lags:<b>case T overlap n</b>\nT \u03b4n T \u2206n T K 0 K 1 \u03b2 q n T (dyn.) (bat.)\u03c1(a, b) = max k\u2208{\u2212K 2 ,...,K 2 } |\u03c1(a(\u03c4 ), b(\u03c4 + k))|\nwith \u03c1 defined i"
         },
         "clean_data": {
             "pre_txt": " compute\nthe maximal correlation coefficient over multiple time lags:\n",
@@ -1107,14 +1257,14 @@
             "post_txt": "\nwith $\\rho$ defined in (\\ref{bs11}). The $\\bar{\\rho}$ is computed for",
             "full_txt": " compute\nthe maximal correlation coefficient over multiple time lags:\n\\begin{equation}\n   \\bar{\\rho}(a,b)=\\max_{k \\in \\{ -K_2,...,K_2 \\} } \\left| \\rho(a(\\tau),b(\\tau+k)) \\right|\n\\end{equation}\nwith $\\rho$ defined in (\\ref{bs11}). The $\\bar{\\rho}$ is computed for"
         },
-        "similarity_score": 0.6875
+        "similarity_score": 0.703125
     },
     {
         "dirty_data": {
-            "pre_txt": "e compute the maximal correlation coefficient over multiple time lags:<b>case T overlap n</b>\nT \u03b4n T \u2206n T K 0 K 1 \u03b2 q n T (dyn.) (bat",
+            "pre_txt": "lags:<b>case T overlap n</b>\nT \u03b4n T \u2206n T K 0 K 1 \u03b2 q n T (dyn.) (bat.)",
             "equation_txt": "\u03c1(a, b) = max k\u2208{\u2212K 2 ,...,K 2 } |\u03c1(a(\u03c4 ), b(\u03c4 + k))|",
-            "post_txt": "\nwith \u03c1 defined in (2.9",
-            "full_txt": "e compute the maximal correlation coefficient over multiple time lags:<b>case T overlap n</b>\nT \u03b4n T \u2206n T K 0 K 1 \u03b2 q n T (dyn.) (bat\u03c1(a, b) = max k\u2208{\u2212K 2 ,...,K 2 } |\u03c1(a(\u03c4 ), b(\u03c4 + k))|\nwith \u03c1 defined in (2.9"
+            "post_txt": "\nwith \u03c1 defined in (2.9).The \u03c1 is computed for the mixtures, the sourc",
+            "full_txt": "lags:<b>case T overlap n</b>\nT \u03b4n T \u2206n T K 0 K 1 \u03b2 q n T (dyn.) (bat.)\u03c1(a, b) = max k\u2208{\u2212K 2 ,...,K 2 } |\u03c1(a(\u03c4 ), b(\u03c4 + k))|\nwith \u03c1 defined in (2.9).The \u03c1 is computed for the mixtures, the sourc"
         },
         "clean_data": {
             "pre_txt": " compute\nthe maximal correlation coefficient over multiple time lags:\n",
