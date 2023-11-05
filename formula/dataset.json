@@ -1,1277 +1,1002 @@
 [
-    {
-        "dirty_data": {
-            "pre_txt": " of the spring.The force on i of a spring between i and j is given as:",
-            "equation_txt": "m\u1e8d i = K i,j ( x j \u2212 x i \u2212 d) (x j \u2212 x i ) x j \u2212 x i",
-            "post_txt": "\nx i is used to denote the position vector of node i.K i,j is the spri",
-            "full_txt": " of the spring.The force on i of a spring between i and j is given as:m\u1e8d i = K i,j ( x j \u2212 x i \u2212 d) (x j \u2212 x i ) x j \u2212 x i\nx i is used to denote the position vector of node i.K i,j is the spri"
-        },
-        "clean_data": {
-            "pre_txt": "pring.  The force on $i$ of a spring\nbetween $i$ and $j$ is given as:\n",
-            "equation_txt": "\\begin{equation}\n  \\label{eq:spring}\n  m \\ddot{x}_i=   K_{i,j}{(\\|x_j-x_i\\|-d)}{(x_j-x_i)\\over \\|x_j-x_i\\|} \n\\end{equation}",
-            "post_txt": "\n$x_i$ is used to denote the position vector of node $i$.  $K_{i,j}$ i",
-            "full_txt": "pring.  The force on $i$ of a spring\nbetween $i$ and $j$ is given as:\n\\begin{equation}\n  \\label{eq:spring}\n  m \\ddot{x}_i=   K_{i,j}{(\\|x_j-x_i\\|-d)}{(x_j-x_i)\\over \\|x_j-x_i\\|} \n\\end{equation}\n$x_i$ is used to denote the position vector of node $i$.  $K_{i,j}$ i"
-        },
-        "similarity_score": 0.703125
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "spring constant of the spring connecting i and j.Thus K is defined by:",
-            "equation_txt": "K i,j = k, if (i, j) \u2208 E \u2228 (j, i) \u2208 E; 0, otherwise.",
-            "post_txt": "\nAs only connected nodes have springs between them each node is endowe",
-            "full_txt": "spring constant of the spring connecting i and j.Thus K is defined by:K i,j = k, if (i, j) \u2208 E \u2228 (j, i) \u2208 E; 0, otherwise.\nAs only connected nodes have springs between them each node is endowe"
-        },
-        "clean_data": {
-            "pre_txt": "nstant of the spring connecting $i$ and $j$.  Thus $K$ is\ndefined by:\n",
-            "equation_txt": "\\begin{equation}\n  \\label{eq:kspring}\n  K_{i,j} = \n  \\begin{cases}\n    k, &\\text{if $(i,j) \\in E \\lor (j,i) \\in E$;}\\\\\n    0, &\\text{otherwise.}\n  \\end{cases}\n\\end{equation}",
-            "post_txt": "\n\nAs only connected nodes have springs between them each node is endow",
-            "full_txt": "nstant of the spring connecting $i$ and $j$.  Thus $K$ is\ndefined by:\n\\begin{equation}\n  \\label{eq:kspring}\n  K_{i,j} = \n  \\begin{cases}\n    k, &\\text{if $(i,j) \\in E \\lor (j,i) \\in E$;}\\\\\n    0, &\\text{otherwise.}\n  \\end{cases}\n\\end{equation}\n\nAs only connected nodes have springs between them each node is endow"
-        },
-        "similarity_score": 0.7734375
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "ces.The resulting force experienced by i in the presence of j is thus:",
-            "equation_txt": "m\u1e8d i = \u2212\u03c1 (x j \u2212 x i ) x j \u2212 x i 1+\u03b2",
-            "post_txt": "\nAssuming, that we mimic a Coulomb field, \u03c1 can be interpreted as the ",
-            "full_txt": "ces.The resulting force experienced by i in the presence of j is thus:m\u1e8d i = \u2212\u03c1 (x j \u2212 x i ) x j \u2212 x i 1+\u03b2\nAssuming, that we mimic a Coulomb field, \u03c1 can be interpreted as the "
-        },
-        "clean_data": {
-            "pre_txt": "{i,j} =\n  \\begin{cases}\n    0, &\\text{if $i = j$;}\\\\\n    a, &\\text{if ",
-            "equation_txt": "$(i,j) \\in E \\lor (j,i) \\in E$",
-            "post_txt": ";}\\\\\n    1, &\\text{otherwise.}\n  \\end{cases}\n  \n\\end{equation}\nThe par",
-            "full_txt": "{i,j} =\n  \\begin{cases}\n    0, &\\text{if $i = j$;}\\\\\n    a, &\\text{if $(i,j) \\in E \\lor (j,i) \\in E$;}\\\\\n    1, &\\text{otherwise.}\n  \\end{cases}\n  \n\\end{equation}\nThe par"
-        },
-        "similarity_score": 0.6640625
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "n constant.\nPutting the forces together we get the following equation:",
-            "equation_txt": "m\u1e8d i = \u2212\u03b3 \u1e8b + j\u2208V K i,j ( x j \u2212 x i \u2212 d) (x j \u2212 x i ) x j \u2212 x i \u2212 \u03c1 j\u2208V (x j \u2212 x i ) x j \u2212 x i 1+\u03b2",
-            "post_txt": "\nunder the assumption that m \u226a \u03b3, \u03c1, K and \u03b3 = 1 we can derive the fol",
-            "full_txt": "n constant.\nPutting the forces together we get the following equation:m\u1e8d i = \u2212\u03b3 \u1e8b + j\u2208V K i,j ( x j \u2212 x i \u2212 d) (x j \u2212 x i ) x j \u2212 x i \u2212 \u03c1 j\u2208V (x j \u2212 x i ) x j \u2212 x i 1+\u03b2\nunder the assumption that m \u226a \u03b3, \u03c1, K and \u03b3 = 1 we can derive the fol"
-        },
-        "clean_data": {
-            "pre_txt": "nstant.\n\n\n\nPutting the forces together we get the following equation:\n",
-            "equation_txt": "\\begin{equation}\n  \\label{eq:general2f}\n  m \\ddot{x}_i= -\\gamma \\dot{x} + \\sum_{j \\in\n    V}K_{i,j}{(\\|x_j-x_i\\|-d)}{(x_j-x_i)\\over \\|x_j-x_i\\|} - \\rho \\sum_{j \\in V}{(x_j-x_i)\\over \\|x_j-x_i\\|^{1+\\beta}}\n\\end{equation}",
-            "post_txt": "\n\nunder the assumption that $m \\ll \\gamma, \\rho, K$ and $\\gamma = 1$ w",
-            "full_txt": "nstant.\n\n\n\nPutting the forces together we get the following equation:\n\\begin{equation}\n  \\label{eq:general2f}\n  m \\ddot{x}_i= -\\gamma \\dot{x} + \\sum_{j \\in\n    V}K_{i,j}{(\\|x_j-x_i\\|-d)}{(x_j-x_i)\\over \\|x_j-x_i\\|} - \\rho \\sum_{j \\in V}{(x_j-x_i)\\over \\|x_j-x_i\\|^{1+\\beta}}\n\\end{equation}\n\nunder the assumption that $m \\ll \\gamma, \\rho, K$ and $\\gamma = 1$ w"
-        },
-        "similarity_score": 0.6875
-    },
-    {
-        "dirty_data": {
-            "pre_txt": " can derive the following approximation for the movement of the nodes.",
-            "equation_txt": "\u1e8bi = j\u2208V K i,j ( x j \u2212 x i \u2212 d) (x j \u2212 x i ) x j \u2212 x i \u2212 \u03c1 j\u2208V (x j \u2212 x i ) x j \u2212 x i 1+\u03b2",
-            "post_txt": "\nHaving presented the general formulas for spring layout we will take ",
-            "full_txt": " can derive the following approximation for the movement of the nodes.\u1e8bi = j\u2208V K i,j ( x j \u2212 x i \u2212 d) (x j \u2212 x i ) x j \u2212 x i \u2212 \u03c1 j\u2208V (x j \u2212 x i ) x j \u2212 x i 1+\u03b2\nHaving presented the general formulas for spring layout we will take "
-        },
-        "clean_data": {
-            "pre_txt": "an\nderive the following approximation for the movement of the nodes.\n\n",
-            "equation_txt": "\\begin{equation}\n  \\label{eq:general2v}\n  \\dot{x}_i  =  \\sum_{j \\in\n    V}K_{i,j}{(\\|x_j-x_i\\|-d)}{(x_j-x_i)\\over \\|x_j-x_i\\|} - \\rho \\sum_{j \\in V}{(x_j-x_i)\\over \\|x_j-x_i\\|^{1+\\beta}}\n\\end{equation}",
-            "post_txt": "\n\n\n\nHaving presented the general formulas for spring layout we will ta",
-            "full_txt": "an\nderive the following approximation for the movement of the nodes.\n\n\\begin{equation}\n  \\label{eq:general2v}\n  \\dot{x}_i  =  \\sum_{j \\in\n    V}K_{i,j}{(\\|x_j-x_i\\|-d)}{(x_j-x_i)\\over \\|x_j-x_i\\|} - \\rho \\sum_{j \\in V}{(x_j-x_i)\\over \\|x_j-x_i\\|^{1+\\beta}}\n\\end{equation}\n\n\n\nHaving presented the general formulas for spring layout we will ta"
-        },
-        "similarity_score": 0.6875
-    },
-    {
-        "dirty_data": {
-            "pre_txt": " one.The new equation for the spring constant K is defined as follows:",
-            "equation_txt": "K i,j = \uf8f1 \uf8f4 \uf8f4 \uf8f2 \uf8f4 \uf8f4 \uf8f3 0, if i = j; a, if (i, j) \u2208 E \u2228 (j, i) \u2208 E; 1, otherwise.",
-            "post_txt": "\nThe parameter a gives the strength of springs between connected nodes",
-            "full_txt": " one.The new equation for the spring constant K is defined as follows:K i,j = \uf8f1 \uf8f4 \uf8f4 \uf8f2 \uf8f4 \uf8f4 \uf8f3 0, if i = j; a, if (i, j) \u2208 E \u2228 (j, i) \u2208 E; 1, otherwise.\nThe parameter a gives the strength of springs between connected nodes"
-        },
-        "clean_data": {
-            "pre_txt": "  The new\nequation for the spring constant $K$ is defined as follows:\n",
-            "equation_txt": "\\begin{equation}\n  \\label{eq:omega}\n  \n  K_{i,j} =\n  \\begin{cases}\n    0, &\\text{if $i = j$;}\\\\\n    a, &\\text{if $(i,j) \\in E \\lor (j,i) \\in E$;}\\\\\n    1, &\\text{otherwise.}\n  \\end{cases}\n  \n\\end{equation}",
-            "post_txt": "\nThe parameter $a$ gives the strength of springs between connected nod",
-            "full_txt": "  The new\nequation for the spring constant $K$ is defined as follows:\n\\begin{equation}\n  \\label{eq:omega}\n  \n  K_{i,j} =\n  \\begin{cases}\n    0, &\\text{if $i = j$;}\\\\\n    a, &\\text{if $(i,j) \\in E \\lor (j,i) \\in E$;}\\\\\n    1, &\\text{otherwise.}\n  \\end{cases}\n  \n\\end{equation}\nThe parameter $a$ gives the strength of springs between connected nod"
-        },
-        "similarity_score": 0.7578125
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "ly connected nodes.The new equation for the attractive force is simply",
-            "equation_txt": "m\u1e8d i = j\u2208(V \\i) K i,j (x j \u2212 x i )",
-            "post_txt": "\n.\nBesides the concern to have connected nodes close together and edge",
-            "full_txt": "ly connected nodes.The new equation for the attractive force is simplym\u1e8d i = j\u2208(V \\i) K i,j (x j \u2212 x i )\n.\nBesides the concern to have connected nodes close together and edge"
-        },
-        "clean_data": {
-            "pre_txt": " connected nodes.\nThe new equation for the attractive force is simply\n",
-            "equation_txt": "\\begin{equation}\n  \\label{eq:attraction}\n  m\\ddot{x}_i= \\sum_{j \\in (V \\setminus i)} \n  {  K_{i,j}({x}_j - {x}_i)  }\n\\end{equation}",
-            "post_txt": ".\n\n\n\n\n\nBesides the concern to have connected nodes close together and ",
-            "full_txt": " connected nodes.\nThe new equation for the attractive force is simply\n\\begin{equation}\n  \\label{eq:attraction}\n  m\\ddot{x}_i= \\sum_{j \\in (V \\setminus i)} \n  {  K_{i,j}({x}_j - {x}_i)  }\n\\end{equation}.\n\n\n\n\n\nBesides the concern to have connected nodes close together and "
-        },
-        "similarity_score": 0.78125
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "e by choosing \u03b2 = 0.The following term is used to calculate repulsion:",
-            "equation_txt": "m\u1e8d i = \u2212\u03c1 j\u2208(V \\i) x j \u2212 x i x j \u2212 x i",
-            "post_txt": "\nNext, we have to take into account changing graph sizes.The node dens",
-            "full_txt": "e by choosing \u03b2 = 0.The following term is used to calculate repulsion:m\u1e8d i = \u2212\u03c1 j\u2208(V \\i) x j \u2212 x i x j \u2212 x i\nNext, we have to take into account changing graph sizes.The node dens"
-        },
-        "clean_data": {
-            "pre_txt": "oosing $\\beta=0$.  The following term is used to\ncalculate repulsion:\n",
-            "equation_txt": "\\begin{equation}\n  \\label{eq:repulsion}\n  m\\ddot{x}_{i}= \n   - \\rho \\sum_{j \\in (V \\setminus i)} { \n    { {x}_j - {x}_i \\over { \\|{x}_j -\n        {x}_i} \\|}}  \n\\end{equation}",
-            "post_txt": "\n\n\nNext, we have to take into account changing graph sizes. The node d",
-            "full_txt": "oosing $\\beta=0$.  The following term is used to\ncalculate repulsion:\n\\begin{equation}\n  \\label{eq:repulsion}\n  m\\ddot{x}_{i}= \n   - \\rho \\sum_{j \\in (V \\setminus i)} { \n    { {x}_j - {x}_i \\over { \\|{x}_j -\n        {x}_i} \\|}}  \n\\end{equation}\n\n\nNext, we have to take into account changing graph sizes. The node d"
-        },
-        "similarity_score": 0.703125
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "repulsive force is multiplied by |V |.This is accomplished by defining",
-            "equation_txt": "\u03c1 = b |V |",
-            "post_txt": "\nin equation [(9)].b in equation ( [10]) scales the radius of the layo",
-            "full_txt": "repulsive force is multiplied by |V |.This is accomplished by defining\u03c1 = b |V |\nin equation [(9)].b in equation ( [10]) scales the radius of the layo"
-        },
-        "clean_data": {
-            "pre_txt": "orce is multiplied by $\\sqrt{|V|}$.  This is accomplished by defining\n",
-            "equation_txt": "\\begin{equation}\n  \\label{eq:rho}\n  \\rho = b\\sqrt{|V|}\n\\end{equation}",
-            "post_txt": " in equation (\\ref{eq:repulsion}).\n$b$ in equation (\\ref{eq:rho}) scal",
-            "full_txt": "orce is multiplied by $\\sqrt{|V|}$.  This is accomplished by defining\n\\begin{equation}\n  \\label{eq:rho}\n  \\rho = b\\sqrt{|V|}\n\\end{equation} in equation (\\ref{eq:repulsion}).\n$b$ in equation (\\ref{eq:rho}) scal"
-        },
-        "similarity_score": 0.7109375
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "tion we can derive the following movement approximation for the nodes:",
-            "equation_txt": "\u1e8bi = j\u2208(V \\i) (K i,j \u2212 b |V | x j \u2212 x i )(x j \u2212 x i )",
-            "post_txt": "\nThe equation always leads to a circular layout space for the graph wh",
-            "full_txt": "tion we can derive the following movement approximation for the nodes:\u1e8bi = j\u2208(V \\i) (K i,j \u2212 b |V | x j \u2212 x i )(x j \u2212 x i )\nThe equation always leads to a circular layout space for the graph wh"
-        },
-        "clean_data": {
-            "pre_txt": "ion we can derive the\nfollowing movement approximation for the nodes:\n",
-            "equation_txt": "\\begin{equation}\n  \\label{eq:all}\n  \\dot{x}_i = \\sum_{j \\in (V \\setminus i)}(K_{i,j} - {b \\sqrt{|V|}  \\over\n    { \\|{x}_j - {x}_{i}\\|}}) ({x}_j - {x}_{i})\n\\end{equation}",
-            "post_txt": "\nThe equation always leads to a circular layout space for the graph wh",
-            "full_txt": "ion we can derive the\nfollowing movement approximation for the nodes:\n\\begin{equation}\n  \\label{eq:all}\n  \\dot{x}_i = \\sum_{j \\in (V \\setminus i)}(K_{i,j} - {b \\sqrt{|V|}  \\over\n    { \\|{x}_j - {x}_{i}\\|}}) ({x}_j - {x}_{i})\n\\end{equation}\nThe equation always leads to a circular layout space for the graph wh"
-        },
-        "similarity_score": 0.84375
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "arch/graphlayout/as well as several other videos of evolving networks.",
-            "equation_txt": "t = 0 t = 90 t = 180 t = 270 t = 360 t = 450 t = 540 t = 630 t = 720 t = 810",
-            "post_txt": "5.3 Exploring Large Networks\nOften networks are too large to be visual",
-            "full_txt": "arch/graphlayout/as well as several other videos of evolving networks.t = 0 t = 90 t = 180 t = 270 t = 360 t = 450 t = 540 t = 630 t = 720 t = 8105.3 Exploring Large Networks\nOften networks are too large to be visual"
-        },
-        "clean_data": {
-            "pre_txt": "hics[height=1.8cm]{image0855}\\\\\n     $t=450 $ & $t=540 $ & $t=630 $ & ",
-            "equation_txt": "$t= 720 $",
-            "post_txt": " & $t = 810$\\\\\n\n     \\hline\n\n   \\end{tabular}\n   \\caption{A dynamicall",
-            "full_txt": "hics[height=1.8cm]{image0855}\\\\\n     $t=450 $ & $t=540 $ & $t=630 $ & $t= 720 $ & $t = 810$\\\\\n\n     \\hline\n\n   \\end{tabular}\n   \\caption{A dynamicall"
-        },
-        "similarity_score": 0.671875
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "dent of the order of V 1 and V 2 .We also have the trivial lower bound",
-            "equation_txt": "|V 1 |! \u2022 |V 2 |! \u2264 E(G),",
-            "post_txt": "\nby assigning V 2 the |V 2 | largest labels.Equality in (1.1) is only ",
-            "full_txt": "dent of the order of V 1 and V 2 .We also have the trivial lower bound|V 1 |! \u2022 |V 2 |! \u2264 E(G),\nby assigning V 2 the |V 2 | largest labels.Equality in (1.1) is only "
-        },
-        "clean_data": {
-            "pre_txt": "he order of $V_{1}$ and $V_{2}$.\nWe also have the trivial lower bound\n",
-            "equation_txt": "\\begin{equation}\n   |V_{1}|! \\cdot |V_{2}|!  \\leq  {\\cal E}(G)  ,\n\\label{inequality_lower_bound}\n\\end{equation}",
-            "post_txt": "\nby assigning $V_{2}$ the $|V_{2}|$ largest labels.\nEquality in~(\\ref{",
-            "full_txt": "he order of $V_{1}$ and $V_{2}$.\nWe also have the trivial lower bound\n\\begin{equation}\n   |V_{1}|! \\cdot |V_{2}|!  \\leq  {\\cal E}(G)  ,\n\\label{inequality_lower_bound}\n\\end{equation}\nby assigning $V_{2}$ the $|V_{2}|$ largest labels.\nEquality in~(\\ref{"
-        },
-        "similarity_score": 0.71875
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "o graphs G and H we have where G and H have m respectively n vertices.",
-            "equation_txt": "E(G \u222a H) = m + n n \u2022 E(G) \u2022 E(H),",
-            "post_txt": "\nOur interest is to study subgraphs of the Cartesian product of two gr",
-            "full_txt": "o graphs G and H we have where G and H have m respectively n vertices.E(G \u222a H) = m + n n \u2022 E(G) \u2022 E(H),\nOur interest is to study subgraphs of the Cartesian product of two gr"
-        },
-        "clean_data": {
-            "pre_txt": "]{MacMahon},\nfor the disjoint union of two graphs $G$ and $H$\nwe have\n",
-            "equation_txt": "\\begin{equation}\n      {\\cal E}(G \\cup H)\n   = \n        \\binomial{m+n}{n}\n      \\cdot\n        {\\cal E}(G)\n      \\cdot\n        {\\cal E}(H)  ,\n\\label{equation_MacMahon}\n\\end{equation}",
-            "post_txt": "\nwhere $G$ and $H$ have $m$ respectively $n$ vertices.\n\n\n\nOur interest",
-            "full_txt": "]{MacMahon},\nfor the disjoint union of two graphs $G$ and $H$\nwe have\n\\begin{equation}\n      {\\cal E}(G \\cup H)\n   = \n        \\binomial{m+n}{n}\n      \\cdot\n        {\\cal E}(G)\n      \\cdot\n        {\\cal E}(H)  ,\n\\label{equation_MacMahon}\n\\end{equation}\nwhere $G$ and $H$ have $m$ respectively $n$ vertices.\n\n\n\nOur interest"
-        },
-        "similarity_score": 0.71875
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "dimensional unit cube [0, 1] V in n-dimensional Euclidean space R V by",
-            "equation_txt": "X = { x \u2208 [0, 1] V : x u + x v \u2264 1 for {u, v} \u2208 E}, Y = { x \u2208 [0, 1] V : x u \u2264 x v for u \u2208 V 1 , v \u2208 V 2 , {u, v} \u2208 E}.",
-            "post_txt": "\nLemma 2.1.The two subsets X and Y have the same volume, which is give",
-            "full_txt": "dimensional unit cube [0, 1] V in n-dimensional Euclidean space R V byX = { x \u2208 [0, 1] V : x u + x v \u2264 1 for {u, v} \u2208 E}, Y = { x \u2208 [0, 1] V : x u \u2264 x v for u \u2208 V 1 , v \u2208 V 2 , {u, v} \u2208 E}.\nLemma 2.1.The two subsets X and Y have the same volume, which is give"
-        },
-        "clean_data": {
-            "pre_txt": " $L$ to be the linear map\n$L : U \\longrightarrow L^{2}(X)$\ndefined by ",
-            "equation_txt": "$L[g](x,y) = g(x) + g(y)$",
-            "post_txt": ".\nObserve that the map $L$ preserves the inner product,\nthat is, $L$ i",
-            "full_txt": " $L$ to be the linear map\n$L : U \\longrightarrow L^{2}(X)$\ndefined by $L[g](x,y) = g(x) + g(y)$.\nObserve that the map $L$ preserves the inner product,\nthat is, $L$ i"
-        },
-        "similarity_score": 0.6796875
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "of the graph G.\nLet the 0, 1-function \u03c7 be defined on the set X \u00d7 X by",
-            "equation_txt": "\u03c7( x, y) = 1 if x v + y v \u2264 1 for all v \u2208 S, 0 otherwise. Definition 2.2. Define the operator T on L 2 (X) by T [f ]( x) = y\u2208X \u03c7( x, y) \u2022 f ( y) d y.",
-            "post_txt": "\nSince \u03c7 is symmetric, that is, \u03c7( x, y) = \u03c7( y, x), the operator T is",
-            "full_txt": "of the graph G.\nLet the 0, 1-function \u03c7 be defined on the set X \u00d7 X by\u03c7( x, y) = 1 if x v + y v \u2264 1 for all v \u2208 S, 0 otherwise. Definition 2.2. Define the operator T on L 2 (X) by T [f ]( x) = y\u2208X \u03c7( x, y) \u2022 f ( y) d y.\nSince \u03c7 is symmetric, that is, \u03c7( x, y) = \u03c7( y, x), the operator T is"
-        },
-        "clean_data": {
-            "pre_txt": "\n\nLet the $0,1$-function $\\chi$ be defined\non the set $X \\times X$ by\n",
-            "equation_txt": "$$     \\chi(\\vec{x}, \\vec{y})\n    =\n       \\left\\{ \\begin{array}{c l}\n               1 & \\mbox{ if } x_{v} + y_{v} \\leq 1\n                   \\mbox{ for all } v \\in S, \\\\\n               0 & \\mbox{ otherwise. }\n               \\end{array} \\right.      $$",
-            "post_txt": "\n\\begin{definition}\nDefine the operator $T$ on  $L^{2}(X)$ by\n$$\n     ",
-            "full_txt": "\n\nLet the $0,1$-function $\\chi$ be defined\non the set $X \\times X$ by\n$$     \\chi(\\vec{x}, \\vec{y})\n    =\n       \\left\\{ \\begin{array}{c l}\n               1 & \\mbox{ if } x_{v} + y_{v} \\leq 1\n                   \\mbox{ for all } v \\in S, \\\\\n               0 & \\mbox{ otherwise. }\n               \\end{array} \\right.      $$\n\\begin{definition}\nDefine the operator $T$ on  $L^{2}(X)$ by\n$$\n     "
-        },
-        "similarity_score": 0.671875
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "e graph G on n vertices and S a subset of the vertices of the graph G,",
-            "equation_txt": "E(G\u2737 S P m ) (m \u2022 n)! = 1, T m\u22121 [1] .",
-            "post_txt": "\nProof.Expanding the inner product and each of the m \u2212 1 applications ",
-            "full_txt": "e graph G on n vertices and S a subset of the vertices of the graph G,E(G\u2737 S P m ) (m \u2022 n)! = 1, T m\u22121 [1] .\nProof.Expanding the inner product and each of the m \u2212 1 applications "
-        },
-        "clean_data": {
-            "pre_txt": "G$ on $n$ vertices and $S$ a subset of\nthe vertices of the graph~$G$,\n",
-            "equation_txt": "$$     \\frac{{\\cal E}(G \\Box_{S} P_{m})}{(m \\cdot n)!}\n    =\n       \\pair{\\bfo}{T^{m-1}[\\bfo]} .  $$",
-            "post_txt": "\n\\end{proposition}\n\\begin{proof}\nExpanding the inner product and each ",
-            "full_txt": "G$ on $n$ vertices and $S$ a subset of\nthe vertices of the graph~$G$,\n$$     \\frac{{\\cal E}(G \\Box_{S} P_{m})}{(m \\cdot n)!}\n    =\n       \\pair{\\bfo}{T^{m-1}[\\bfo]} .  $$\n\\end{proposition}\n\\begin{proof}\nExpanding the inner product and each "
-        },
-        "similarity_score": 0.65625
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "ct and each of the m \u2212 1 applications of the operator T , we have that",
-            "equation_txt": "1, T m\u22121 [1] = x 1 T m\u22121 [1]( x 1 ) d x 1 = x 1 x 2 \u03c7( x 1 , x 2 ) \u2022 T m\u22122 [1]( x 2 ) d x 2 d x 1 . . . = x 1 x 2 \u2022 \u2022 \u2022 xm \u03c7( x 1 , x 2 ) \u2022 \u03c7( x 2 , x 3 ) \u2022 \u2022 \u2022 \u03c7( x m\u22121 , x m ) d x m \u2022 \u2022 \u2022 d x 2 d x 1 .",
-            "post_txt": "\n(2.1) Let x i be the vector (x v,i ) v\u2208V .Then the integral in equati",
-            "full_txt": "ct and each of the m \u2212 1 applications of the operator T , we have that1, T m\u22121 [1] = x 1 T m\u22121 [1]( x 1 ) d x 1 = x 1 x 2 \u03c7( x 1 , x 2 ) \u2022 T m\u22122 [1]( x 2 ) d x 2 d x 1 . . . = x 1 x 2 \u2022 \u2022 \u2022 xm \u03c7( x 1 , x 2 ) \u2022 \u03c7( x 2 , x 3 ) \u2022 \u2022 \u2022 \u03c7( x m\u22121 , x m ) d x m \u2022 \u2022 \u2022 d x 2 d x 1 .\n(2.1) Let x i be the vector (x v,i ) v\u2208V .Then the integral in equati"
-        },
-        "clean_data": {
-            "pre_txt": "his operator $T$,\nit will be easier to work in a different space.\nLet ",
-            "equation_txt": "$U$",
-            "post_txt": " be the space of functions $g(x)$\non the interval $[0,1]$ that satisfy",
-            "full_txt": "his operator $T$,\nit will be easier to work in a different space.\nLet $U$ be the space of functions $g(x)$\non the interval $[0,1]$ that satisfy"
-        },
-        "similarity_score": 0.6875
-    },
-    {
-        "dirty_data": {
-            "pre_txt": " and S a non-empty subset of the vertices of the graph G. Then we have",
-            "equation_txt": "E(G\u2737 S P m ) (m \u2022 n)! = k\u22650 \u03d5 k , 1 2 \u03d5 k 2 \u2022 \u03bb m\u22121 k ,",
-            "post_txt": "\nwhere the eigenvalues of the operator T are {\u03bb k } k\u22650 and \u03d5 k is the",
-            "full_txt": " and S a non-empty subset of the vertices of the graph G. Then we haveE(G\u2737 S P m ) (m \u2022 n)! = k\u22650 \u03d5 k , 1 2 \u03d5 k 2 \u2022 \u03bb m\u22121 k ,\nwhere the eigenvalues of the operator T are {\u03bb k } k\u22650 and \u03d5 k is the"
-        },
-        "clean_data": {
-            "pre_txt": "$S$ a non-empty subset of the vertices of the graph $G$.\nThen we have\n",
-            "equation_txt": "$$     \\frac{{\\cal E}(G \\Box_{S} P_{m})}{(m \\cdot n)!}\n     =\n       \\sum_{k \\geq 0}\n           \\frac{\\pair{\\varphi_{k}}{\\bfo}^{2}}\n                {\\|\\varphi_{k}\\|^{2}}\n         \\cdot\n           \\lambda_{k}^{m-1} ,  $$",
-            "post_txt": "\nwhere the eigenvalues of the operator $T$ are\n$\\{\\lambda_{k}\\}_{k \\ge",
-            "full_txt": "$S$ a non-empty subset of the vertices of the graph $G$.\nThen we have\n$$     \\frac{{\\cal E}(G \\Box_{S} P_{m})}{(m \\cdot n)!}\n     =\n       \\sum_{k \\geq 0}\n           \\frac{\\pair{\\varphi_{k}}{\\bfo}^{2}}\n                {\\|\\varphi_{k}\\|^{2}}\n         \\cdot\n           \\lambda_{k}^{m-1} ,  $$\nwhere the eigenvalues of the operator $T$ are\n$\\{\\lambda_{k}\\}_{k \\ge"
-        },
-        "similarity_score": 0.671875
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "r number is the classical E m .In this case the operator T is given by",
-            "equation_txt": "T [f ](x) = 1\u2212x 0 f (z) dz.",
-            "post_txt": "\nThis operator has eigenvalues\u03bb k = 2/(\u03c0 \u2022 k)\nwhere k = . . ., \u22127, \u22123,",
-            "full_txt": "r number is the classical E m .In this case the operator T is given byT [f ](x) = 1\u2212x 0 f (z) dz.\nThis operator has eigenvalues\u03bb k = 2/(\u03c0 \u2022 k)\nwhere k = . . ., \u22127, \u22123,"
-        },
-        "clean_data": {
-            "pre_txt": "r is the classical $E_{m}$.\nIn this case the operator $T$ is given by\n",
-            "equation_txt": "$$   T[f](x) = \\int_{0}^{1-x} f(z) \\: dz  .  $$",
-            "post_txt": "\nThis operator has eigenvalues\n$\\lambda_{k} = 2/(\\pi \\cdot k)$\nwhere $",
-            "full_txt": "r is the classical $E_{m}$.\nIn this case the operator $T$ is given by\n$$   T[f](x) = \\int_{0}^{1-x} f(z) \\: dz  .  $$\nThis operator has eigenvalues\n$\\lambda_{k} = 2/(\\pi \\cdot k)$\nwhere $"
-        },
-        "similarity_score": 0.6953125
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "T is given byT [f ](x) = 1\u2212x 0 f (z) dz.\nThis operator has eigenvalues",
-            "equation_txt": "\u03bb k = 2/(\u03c0 \u2022 k)",
-            "post_txt": "\nwhere k = . . ., \u22127, \u22123, 1, 5, 9, . . .and eigenfunctions\u03d5 k = cos(x/",
-            "full_txt": "T is given byT [f ](x) = 1\u2212x 0 f (z) dz.\nThis operator has eigenvalues\u03bb k = 2/(\u03c0 \u2022 k)\nwhere k = . . ., \u22127, \u22123, 1, 5, 9, . . .and eigenfunctions\u03d5 k = cos(x/"
-        },
-        "clean_data": {
-            "pre_txt": "](x) = \\int_{0}^{1-x} f(z) \\: dz  .  $$\nThis operator has eigenvalues\n",
-            "equation_txt": "$\\lambda_{k} = 2/(\\pi \\cdot k)$",
-            "post_txt": "\nwhere $k = \\ldots, -7, -3, 1, 5, 9, \\ldots$\nand eigenfunctions\n\\mbox{",
-            "full_txt": "](x) = \\int_{0}^{1-x} f(z) \\: dz  .  $$\nThis operator has eigenvalues\n$\\lambda_{k} = 2/(\\pi \\cdot k)$\nwhere $k = \\ldots, -7, -3, 1, 5, 9, \\ldots$\nand eigenfunctions\n\\mbox{"
-        },
-        "similarity_score": 0.703125
-    },
-    {
-        "dirty_data": {
-            "pre_txt": " = 2/(\u03c0 \u2022 k)\nwhere k = . . ., \u22127, \u22123, 1, 5, 9, . . .and eigenfunctions",
-            "equation_txt": "\u03d5 k = cos(x/\u03bb k ). Calculating \u03d5 k , 1 = \u03bb k and \u03d5 k 2 = \u03d5 k , \u03d5 k = 1/2",
-            "post_txt": "<b>we obtain the following classical asymptotic expansion for the Eule",
-            "full_txt": " = 2/(\u03c0 \u2022 k)\nwhere k = . . ., \u22127, \u22123, 1, 5, 9, . . .and eigenfunctions\u03d5 k = cos(x/\u03bb k ). Calculating \u03d5 k , 1 = \u03bb k and \u03d5 k 2 = \u03d5 k , \u03d5 k = 1/2<b>we obtain the following classical asymptotic expansion for the Eule"
-        },
-        "clean_data": {
-            "pre_txt": "\nwhere $k = \\ldots, -7, -3, 1, 5, 9, \\ldots$\nand eigenfunctions\n\\mbox{",
-            "equation_txt": "$\\varphi_{k} = \\cos(x/\\lambda_{k})$",
-            "post_txt": "}.\nCalculating\n$\\pair{\\varphi_{k}}{\\bfo} = \\lambda_{k}$\nand\n$\\|\\varphi",
-            "full_txt": "\nwhere $k = \\ldots, -7, -3, 1, 5, 9, \\ldots$\nand eigenfunctions\n\\mbox{$\\varphi_{k} = \\cos(x/\\lambda_{k})$}.\nCalculating\n$\\pair{\\varphi_{k}}{\\bfo} = \\lambda_{k}$\nand\n$\\|\\varphi"
-        },
-        "similarity_score": 0.6640625
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "the following classical asymptotic expansion for the Euler number</b>\n",
-            "equation_txt": "E m = 2 \u2022 m! \u2022 k 2 \u03c0 \u2022 k m+1 = 2 \u2022 m! \u2022 j\u22651 j odd (\u22121) (m+1)\u2022(j\u22121)/2 \u2022 2 \u03c0 \u2022 j (m+1)",
-            "post_txt": "\n,where j = |k|, that is, k = (\u22121) (j\u22121)/2 \u2022 j. See [2, Section 4].\nLe",
-            "full_txt": "the following classical asymptotic expansion for the Euler number</b>\nE m = 2 \u2022 m! \u2022 k 2 \u03c0 \u2022 k m+1 = 2 \u2022 m! \u2022 j\u22651 j odd (\u22121) (m+1)\u2022(j\u22121)/2 \u2022 2 \u03c0 \u2022 j (m+1)\n,where j = |k|, that is, k = (\u22121) (j\u22121)/2 \u2022 j. See [2, Section 4].\nLe"
-        },
-        "clean_data": {
-            "pre_txt": " \\left( \\frac{2}{\\pi \\cdot j}\\right)^{(m+1)}  ,\n\\end{eqnarray*}\nwhere ",
-            "equation_txt": "$j = |k|$",
-            "post_txt": ", that is, $k = (-1)^{(j-1)/2} \\cdot j$.\nSee~\\cite[Section~4]{Ehrenbor",
-            "full_txt": " \\left( \\frac{2}{\\pi \\cdot j}\\right)^{(m+1)}  ,\n\\end{eqnarray*}\nwhere $j = |k|$, that is, $k = (-1)^{(j-1)/2} \\cdot j$.\nSee~\\cite[Section~4]{Ehrenbor"
-        },
-        "similarity_score": 0.6796875
-    },
-    {
-        "dirty_data": {
-            "pre_txt": " 2 \u03c0 \u2022 k m+1 = 2 \u2022 m! \u2022 j\u22651 j odd (\u22121) (m+1)\u2022(j\u22121)/2 \u2022 2 \u03c0 \u2022 j (m+1)\n,",
-            "equation_txt": "where j = |k|, that is, k = (\u22121) (j\u22121)/2 \u2022 j. See [2, Section 4].",
-            "post_txt": "\nLet W be the subspace of L 2 (X) consisting of the functions only dep",
-            "full_txt": " 2 \u03c0 \u2022 k m+1 = 2 \u2022 m! \u2022 j\u22651 j odd (\u22121) (m+1)\u2022(j\u22121)/2 \u2022 2 \u03c0 \u2022 j (m+1)\n,where j = |k|, that is, k = (\u22121) (j\u22121)/2 \u2022 j. See [2, Section 4].\nLet W be the subspace of L 2 (X) consisting of the functions only dep"
-        },
-        "clean_data": {
-            "pre_txt": " \\left( \\frac{2}{\\pi \\cdot j}\\right)^{(m+1)}  ,\n\\end{eqnarray*}\nwhere ",
-            "equation_txt": "$j = |k|$",
-            "post_txt": ", that is, $k = (-1)^{(j-1)/2} \\cdot j$.\nSee~\\cite[Section~4]{Ehrenbor",
-            "full_txt": " \\left( \\frac{2}{\\pi \\cdot j}\\right)^{(m+1)}  ,\n\\end{eqnarray*}\nwhere $j = |k|$, that is, $k = (-1)^{(j-1)/2} \\cdot j$.\nSee~\\cite[Section~4]{Ehrenbor"
-        },
-        "similarity_score": 0.6640625
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "ve and simple.Furthermore, the associated eigenfunction \u03d5 is positive.",
-            "equation_txt": "E m E(Comb m ) \u223c E(Comb m ) E(P 2 \u2737P m ) \u223c E(P 2 \u2737P m ) 1 1 1 0.",
-            "post_txt": "\nProof.Let f be a non-negative, non-zero function in L 2 (X).By the de",
-            "full_txt": "ve and simple.Furthermore, the associated eigenfunction \u03d5 is positive.E m E(Comb m ) \u223c E(Comb m ) E(P 2 \u2737P m ) \u223c E(P 2 \u2737P m ) 1 1 1 0.\nProof.Let f be a non-negative, non-zero function in L 2 (X).By the de"
-        },
-        "clean_data": {
-            "pre_txt": "enfunction $\\varphi$ is positive.\n\\end{proposition}\n\\begin{proof}\nLet ",
-            "equation_txt": "$f$",
-            "post_txt": " be a non-negative, non-zero function  in $L^{2}(X)$.\nBy the definitio",
-            "full_txt": "enfunction $\\varphi$ is positive.\n\\end{proposition}\n\\begin{proof}\nLet $f$ be a non-negative, non-zero function  in $L^{2}(X)$.\nBy the definitio"
-        },
-        "similarity_score": 0.671875
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "by the product P 2 \u2737 {1} P m .In this case the space X is the triangle",
-            "equation_txt": "X = {(x, y) : x, y \u2265 0, x + y \u2264 1}.",
-            "post_txt": "\nHowever, following Proposition 2.6 in order to find the eigenvalue an",
-            "full_txt": "by the product P 2 \u2737 {1} P m .In this case the space X is the triangleX = {(x, y) : x, y \u2265 0, x + y \u2264 1}.\nHowever, following Proposition 2.6 in order to find the eigenvalue an"
-        },
-        "clean_data": {
-            "pre_txt": "_{2} \\Box_{\\{1\\}} P_{m}$.\nIn this case  the space $X$ is the triangle\n",
-            "equation_txt": "$$   X = \\{(x,y) \\:\\: : \\:\\: x,y \\geq 0,\\, x+y \\leq 1\\}  .  $$",
-            "post_txt": "\nHowever, \nfollowing\nProposition~\\ref{proposition_subspace}\nin order t",
-            "full_txt": "_{2} \\Box_{\\{1\\}} P_{m}$.\nIn this case  the space $X$ is the triangle\n$$   X = \\{(x,y) \\:\\: : \\:\\: x,y \\geq 0,\\, x+y \\leq 1\\}  .  $$\nHowever, \nfollowing\nProposition~\\ref{proposition_subspace}\nin order t"
-        },
-        "similarity_score": 0.7109375
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "nding only on the variable x.Observe that W inherits the inner product",
-            "equation_txt": "f, g W = 1 0 (1 \u2212 x) \u2022 f (x) \u2022 g(x) dx.",
-            "post_txt": "\nMoreover, the operator T is given by The next step is to find all of ",
-            "full_txt": "nding only on the variable x.Observe that W inherits the inner productf, g W = 1 0 (1 \u2212 x) \u2022 f (x) \u2022 g(x) dx.\nMoreover, the operator T is given by The next step is to find all of "
-        },
-        "clean_data": {
-            "pre_txt": "four largest (in\n  absolute value) eigenvalues. \n  The whole function ",
-            "equation_txt": "$g(x)$",
-            "post_txt": ", from 0 to 1 is\n  found by using $g(x)$ between $1/2$ and $1$ and $h(",
-            "full_txt": "four largest (in\n  absolute value) eigenvalues. \n  The whole function $g(x)$, from 0 to 1 is\n  found by using $g(x)$ between $1/2$ and $1$ and $h("
-        },
-        "similarity_score": 0.6953125
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "nd eigenfunctions of the operator T , that is, functions f (x) so that",
-            "equation_txt": "T [f ](x) = 1\u2212x 0 (1 \u2212 z) \u2022 f (z) dz.",
-            "post_txt": "\u03bb \u2022 f (x) = T [f ](x) = 1\u2212x 0 (1 \u2212 z) \u2022 f (z) dz.\nWe convert this inte",
-            "full_txt": "nd eigenfunctions of the operator T , that is, functions f (x) so thatT [f ](x) = 1\u2212x 0 (1 \u2212 z) \u2022 f (z) dz.\u03bb \u2022 f (x) = T [f ](x) = 1\u2212x 0 (1 \u2212 z) \u2022 f (z) dz.\nWe convert this inte"
-        },
-        "clean_data": {
-            "pre_txt": "eigenfunctions\nof the operator $T$, that is, functions $f(x)$ so that\n",
-            "equation_txt": "\\begin{equation}\n\\lambda \\cdot f(x) = T[f](x)=\\int_{0}^{1-x} (1-z) \\cdot f(z) \\: dz  . \n\\label{eq:comb:eig:fun}\n\\end{equation}",
-            "post_txt": "\nWe convert this integral equation into a differential equation\nby dif",
-            "full_txt": "eigenfunctions\nof the operator $T$, that is, functions $f(x)$ so that\n\\begin{equation}\n\\lambda \\cdot f(x) = T[f](x)=\\int_{0}^{1-x} (1-z) \\cdot f(z) \\: dz  . \n\\label{eq:comb:eig:fun}\n\\end{equation}\nWe convert this integral equation into a differential equation\nby dif"
-        },
-        "similarity_score": 0.65625
-    },
-    {
-        "dirty_data": {
-            "pre_txt": " that is, functions f (x) so thatT [f ](x) = 1\u2212x 0 (1 \u2212 z) \u2022 f (z) dz.",
-            "equation_txt": "\u03bb \u2022 f (x) = T [f ](x) = 1\u2212x 0 (1 \u2212 z) \u2022 f (z) dz.",
-            "post_txt": "\nWe convert this integral equation into a differential equation by dif",
-            "full_txt": " that is, functions f (x) so thatT [f ](x) = 1\u2212x 0 (1 \u2212 z) \u2022 f (z) dz.\u03bb \u2022 f (x) = T [f ](x) = 1\u2212x 0 (1 \u2212 z) \u2022 f (z) dz.\nWe convert this integral equation into a differential equation by dif"
-        },
-        "clean_data": {
-            "pre_txt": "eigenfunctions\nof the operator $T$, that is, functions $f(x)$ so that\n",
-            "equation_txt": "\\begin{equation}\n\\lambda \\cdot f(x) = T[f](x)=\\int_{0}^{1-x} (1-z) \\cdot f(z) \\: dz  . \n\\label{eq:comb:eig:fun}\n\\end{equation}",
-            "post_txt": "\nWe convert this integral equation into a differential equation\nby dif",
-            "full_txt": "eigenfunctions\nof the operator $T$, that is, functions $f(x)$ so that\n\\begin{equation}\n\\lambda \\cdot f(x) = T[f](x)=\\int_{0}^{1-x} (1-z) \\cdot f(z) \\: dz  . \n\\label{eq:comb:eig:fun}\n\\end{equation}\nWe convert this integral equation into a differential equation\nby dif"
-        },
-        "similarity_score": 0.7578125
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "ral equation into a differential equation by differentiating to obtain",
-            "equation_txt": "\u03bb \u2022 f \u2032 (x) = \u2212x \u2022 f (1 \u2212 x).",
-            "post_txt": "\nTo convert this into an ordinary differential equation (ODE), we defi",
-            "full_txt": "ral equation into a differential equation by differentiating to obtain\u03bb \u2022 f \u2032 (x) = \u2212x \u2022 f (1 \u2212 x).\nTo convert this into an ordinary differential equation (ODE), we defi"
-        },
-        "clean_data": {
-            "pre_txt": "nd{equation}\nThis is only satisfied for a discrete set of eigenvalues ",
-            "equation_txt": "$\\lambda$",
-            "post_txt": ".\nTo find this set we (numerically) solve the ODE starting from $x=1/2",
-            "full_txt": "nd{equation}\nThis is only satisfied for a discrete set of eigenvalues $\\lambda$.\nTo find this set we (numerically) solve the ODE starting from $x=1/2"
-        },
-        "similarity_score": 0.765625
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "y differential equation (ODE), we define g(x) = f (1 \u2212 x) and thus f g",
-            "equation_txt": "\u2032 = 0 \u2212x/\u03bb (1 \u2212 x)/\u03bb 0 \u2022 f g . (3.3)",
-            "post_txt": "\nTogether with the boundary conditionsf (0) = 1, g(0) = 0, f (1/2) = g",
-            "full_txt": "y differential equation (ODE), we define g(x) = f (1 \u2212 x) and thus f g\u2032 = 0 \u2212x/\u03bb (1 \u2212 x)/\u03bb 0 \u2022 f g . (3.3)\nTogether with the boundary conditionsf (0) = 1, g(0) = 0, f (1/2) = g"
-        },
-        "clean_data": {
-            "pre_txt": "nd{equation}\nThis is only satisfied for a discrete set of eigenvalues ",
-            "equation_txt": "$\\lambda$",
-            "post_txt": ".\nTo find this set we (numerically) solve the ODE starting from $x=1/2",
-            "full_txt": "nd{equation}\nThis is only satisfied for a discrete set of eigenvalues $\\lambda$.\nTo find this set we (numerically) solve the ODE starting from $x=1/2"
-        },
-        "similarity_score": 0.765625
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "0 \u2212x/\u03bb (1 \u2212 x)/\u03bb 0 \u2022 f g . (3.3)\nTogether with the boundary conditions",
-            "equation_txt": "f (0) = 1, g(0) = 0, f (1/2) = g(1/2),",
-            "post_txt": "\nwhich come from the integral equation (3.1) and the algebraic relatio",
-            "full_txt": "0 \u2212x/\u03bb (1 \u2212 x)/\u03bb 0 \u2022 f g . (3.3)\nTogether with the boundary conditionsf (0) = 1, g(0) = 0, f (1/2) = g(1/2),\nwhich come from the integral equation (3.1) and the algebraic relatio"
-        },
-        "clean_data": {
-            "pre_txt": "four largest (in\n  absolute value) eigenvalues. \n  The whole function ",
-            "equation_txt": "$g(x)$",
-            "post_txt": ", from 0 to 1 is\n  found by using $g(x)$ between $1/2$ and $1$ and $h(",
-            "full_txt": "four largest (in\n  absolute value) eigenvalues. \n  The whole function $g(x)$, from 0 to 1 is\n  found by using $g(x)$ between $1/2$ and $1$ and $h("
-        },
-        "similarity_score": 0.7734375
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "re [3].The resulting norms and constants c n are tabulated in Table 2.",
-            "equation_txt": "\u03bb f (x), 1 f (x) 2",
-            "post_txt": "\nc n 0.437141117 0.437141151 0.398916677 0.479028320 -0.094330445 0.09",
-            "full_txt": "re [3].The resulting norms and constants c n are tabulated in Table 2.\u03bb f (x), 1 f (x) 2\nc n 0.437141117 0.437141151 0.398916677 0.479028320 -0.094330445 0.09"
-        },
-        "clean_data": {
-            "pre_txt": ".\n\n\\begin{table}[h!]\n\\begin{center}\n\\begin{tabular}{llll}\n$\\lambda$ & ",
-            "equation_txt": "$\\pair{g(x)}{\\bfo}$",
-            "post_txt": " & $\\|g(x)\\|^{2}$& $c_{n}$\\\\\\hline\n0.364425573038 &   0.59039705924381",
-            "full_txt": ".\n\n\\begin{table}[h!]\n\\begin{center}\n\\begin{tabular}{llll}\n$\\lambda$ & $\\pair{g(x)}{\\bfo}$ & $\\|g(x)\\|^{2}$& $c_{n}$\\\\\\hline\n0.364425573038 &   0.59039705924381"
-        },
-        "similarity_score": 0.734375
-    },
-    {
-        "dirty_data": {
-            "pre_txt": " four eigenfunctions shown in Figure [3].The constant c n is the ratio",
-            "equation_txt": "f (x), 1 2 W / f (x) 2",
-            "post_txt": "\nW for the n th eigenfunction.\nThe Euler numbers for the Comb n graphs",
-            "full_txt": " four eigenfunctions shown in Figure [3].The constant c n is the ratiof (x), 1 2 W / f (x) 2\nW for the n th eigenfunction.\nThe Euler numbers for the Comb n graphs"
-        },
-        "clean_data": {
-            "pre_txt": "four largest (in\n  absolute value) eigenvalues. \n  The whole function ",
-            "equation_txt": "$g(x)$",
-            "post_txt": ", from 0 to 1 is\n  found by using $g(x)$ between $1/2$ and $1$ and $h(",
-            "full_txt": "four largest (in\n  absolute value) eigenvalues. \n  The whole function $g(x)$, from 0 to 1 is\n  found by using $g(x)$ between $1/2$ and $1$ and $h("
-        },
-        "similarity_score": 0.75
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "two vertices P 2 and S = {1, 2}.As before, the space X is the triangle",
-            "equation_txt": "X = {(x, y) : x, y \u2265 0, x + y \u2264 1}.",
-            "post_txt": "\nObserve that the operator T has the formT [f ](x, y) = R f (z, w) dz ",
-            "full_txt": "two vertices P 2 and S = {1, 2}.As before, the space X is the triangleX = {(x, y) : x, y \u2265 0, x + y \u2264 1}.\nObserve that the operator T has the formT [f ](x, y) = R f (z, w) dz "
-        },
-        "clean_data": {
-            "pre_txt": "s $P_{2}$\nand $S = \\{1,2\\}$.\nAs before, the space $X$ is the triangle\n",
-            "equation_txt": "$$   X = \\{(x,y) \\:\\: : \\:\\: x,y \\geq 0, x+y \\leq 1\\}  .  $$",
-            "post_txt": "\nObserve that the operator $T$ has the form\n$$\nT[f](x,y)\n    =\n\\int_{R",
-            "full_txt": "s $P_{2}$\nand $S = \\{1,2\\}$.\nAs before, the space $X$ is the triangle\n$$   X = \\{(x,y) \\:\\: : \\:\\: x,y \\geq 0, x+y \\leq 1\\}  .  $$\nObserve that the operator $T$ has the form\n$$\nT[f](x,y)\n    =\n\\int_{R"
-        },
-        "similarity_score": 0.7578125
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "x, y) : x, y \u2265 0, x + y \u2264 1}.\nObserve that the operator T has the form",
-            "equation_txt": "T [f ](x, y) = R f (z, w) dz dw,",
-            "post_txt": "\nwhere R is the region described by the inequalities 0\u2264 z \u2264 1 \u2212 x, 0 \u2264",
-            "full_txt": "x, y) : x, y \u2265 0, x + y \u2264 1}.\nObserve that the operator T has the formT [f ](x, y) = R f (z, w) dz dw,\nwhere R is the region described by the inequalities 0\u2264 z \u2264 1 \u2212 x, 0 \u2264"
-        },
-        "clean_data": {
-            "pre_txt": "geq 0, x+y \\leq 1\\}  .  $$\nObserve that the operator $T$ has the form\n",
-            "equation_txt": "$$\nT[f](x,y)\n    =\n\\int_{R} f(z,w) \\: dz\\, dw  ,\n$$",
-            "post_txt": "\nwhere $R$ is the region described by\nthe inequalities\n$0 \\leq z \\leq ",
-            "full_txt": "geq 0, x+y \\leq 1\\}  .  $$\nObserve that the operator $T$ has the form\n$$\nT[f](x,y)\n    =\n\\int_{R} f(z,w) \\: dz\\, dw  ,\n$$\nwhere $R$ is the region described by\nthe inequalities\n$0 \\leq z \\leq "
-        },
-        "similarity_score": 0.7734375
-    },
-    {
-        "dirty_data": {
-            "pre_txt": " f (z, w) dz dw,\nwhere R is the region described by the inequalities 0",
-            "equation_txt": "\u2264 z \u2264 1 \u2212 x, 0 \u2264 w \u2264 1 \u2212 y and z + w \u2264 1. Since x + y \u2264 1, equivalently (1 \u2212 x) + (1 \u2212 y) \u2265 1, the inequality z + w \u2264 1 cuts off a triangle from the rectangle [0, 1 \u2212 x] \u00d7 [0, 1 \u2212 y].",
-            "post_txt": "\nHence we haveT [f ](x, y) = y 0 1\u2212y 0 f (z, w) dw dz + 1\u2212x y 1\u2212z 0 f ",
-            "full_txt": " f (z, w) dz dw,\nwhere R is the region described by the inequalities 0\u2264 z \u2264 1 \u2212 x, 0 \u2264 w \u2264 1 \u2212 y and z + w \u2264 1. Since x + y \u2264 1, equivalently (1 \u2212 x) + (1 \u2212 y) \u2265 1, the inequality z + w \u2264 1 cuts off a triangle from the rectangle [0, 1 \u2212 x] \u00d7 [0, 1 \u2212 y].\nHence we haveT [f ](x, y) = y 0 1\u2212y 0 f (z, w) dw dz + 1\u2212x y 1\u2212z 0 f "
-        },
-        "clean_data": {
-            "pre_txt": "e $x + y \\leq 1$,\nequivalently\n$(1-x) + (1-y) \\geq 1$,\nthe inequality ",
-            "equation_txt": "$z + w \\leq 1$",
-            "post_txt": "\ncuts off a triangle from the rectangle\n$[0,1-x] \\times [0,1-y]$.\nHenc",
-            "full_txt": "e $x + y \\leq 1$,\nequivalently\n$(1-x) + (1-y) \\geq 1$,\nthe inequality $z + w \\leq 1$\ncuts off a triangle from the rectangle\n$[0,1-x] \\times [0,1-y]$.\nHenc"
-        },
-        "similarity_score": 0.7265625
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "f a triangle from the rectangle [0, 1 \u2212 x] \u00d7 [0, 1 \u2212 y].\nHence we have",
-            "equation_txt": "T [f ](x, y) = y 0 1\u2212y 0 f (z, w) dw dz + 1\u2212x y 1\u2212z 0 f (z, w) dw dz (4.1) = x 0 1\u2212x 0 f (z, w) dz dw + 1\u2212y x 1\u2212w 0 f (z, w) dz dw.",
-            "post_txt": "\nIn order to study this operator T , it will be easier to work in a di",
-            "full_txt": "f a triangle from the rectangle [0, 1 \u2212 x] \u00d7 [0, 1 \u2212 y].\nHence we haveT [f ](x, y) = y 0 1\u2212y 0 f (z, w) dw dz + 1\u2212x y 1\u2212z 0 f (z, w) dw dz (4.1) = x 0 1\u2212x 0 f (z, w) dz dw + 1\u2212y x 1\u2212w 0 f (z, w) dz dw.\nIn order to study this operator T , it will be easier to work in a di"
-        },
-        "clean_data": {
-            "pre_txt": "his operator $T$,\nit will be easier to work in a different space.\nLet ",
-            "equation_txt": "$U$",
-            "post_txt": " be the space of functions $g(x)$\non the interval $[0,1]$ that satisfy",
-            "full_txt": "his operator $T$,\nit will be easier to work in a different space.\nLet $U$ be the space of functions $g(x)$\non the interval $[0,1]$ that satisfy"
-        },
-        "similarity_score": 0.7421875
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "+ g(y)) dx dy < \u221e.\nEnrich the space U with the following inner product",
-            "equation_txt": "g, h U = X (g(x) + g(y)) \u2022 (h(x) + h(y)) dx dy.",
-            "post_txt": "\nDefine L to be the linear map L : U \u2212\u2192 L 2 (X) defined by L[g](x, y) ",
-            "full_txt": "+ g(y)) dx dy < \u221e.\nEnrich the space U with the following inner productg, h U = X (g(x) + g(y)) \u2022 (h(x) + h(y)) dx dy.\nDefine L to be the linear map L : U \u2212\u2192 L 2 (X) defined by L[g](x, y) "
-        },
-        "clean_data": {
-            "pre_txt": "e{(h(x) + h(y))} \\: dx\\, dy\n    .  $$\nDefine $L$ to be the linear map\n",
-            "equation_txt": "$L : U \\longrightarrow L^{2}(X)$",
-            "post_txt": "\ndefined by $L[g](x,y) = g(x) + g(y)$.\nObserve that the map $L$ preser",
-            "full_txt": "e{(h(x) + h(y))} \\: dx\\, dy\n    .  $$\nDefine $L$ to be the linear map\n$L : U \\longrightarrow L^{2}(X)$\ndefined by $L[g](x,y) = g(x) + g(y)$.\nObserve that the map $L$ preser"
-        },
-        "similarity_score": 0.7265625
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "over, L is an injective map.Furthermore, define the operator T on U by",
-            "equation_txt": "T [g](x) = (1 \u2212 x) \u2022 x 0 g(s) ds + 1\u2212x x (1 \u2212 s) \u2022 g(s) ds.",
-            "post_txt": "\nThe reason why we denote this operator also by T will be clear from t",
-            "full_txt": "over, L is an injective map.Furthermore, define the operator T on U byT [g](x) = (1 \u2212 x) \u2022 x 0 g(s) ds + 1\u2212x x (1 \u2212 s) \u2022 g(s) ds.\nThe reason why we denote this operator also by T will be clear from t"
-        },
-        "clean_data": {
-            "pre_txt": "his operator $T$,\nit will be easier to work in a different space.\nLet ",
-            "equation_txt": "$U$",
-            "post_txt": " be the space of functions $g(x)$\non the interval $[0,1]$ that satisfy",
-            "full_txt": "his operator $T$,\nit will be easier to work in a different space.\nLet $U$ be the space of functions $g(x)$\non the interval $[0,1]$ that satisfy"
-        },
-        "similarity_score": 0.78125
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "n.\nProposition 4.1.The isometry L and the operator T commute, that is,",
-            "equation_txt": "T \u2022 L = L \u2022 T .",
-            "post_txt": "\nProof.Apply the original operator T to the function L[g](x, y) = g(x)",
-            "full_txt": "n.\nProposition 4.1.The isometry L and the operator T commute, that is,T \u2022 L = L \u2022 T .\nProof.Apply the original operator T to the function L[g](x, y) = g(x)"
-        },
-        "clean_data": {
-            "pre_txt": "largest (in\n  absolute value) eigenvalues. \n  The function $f(x)$, in ",
-            "equation_txt": "$[0, 1]$",
-            "post_txt": " is\n  found by using $f(x)$ in $[1/2, 1]$ and $g(1-x)$ in $[0, 1/2]$.}",
-            "full_txt": "largest (in\n  absolute value) eigenvalues. \n  The function $f(x)$, in $[0, 1]$ is\n  found by using $f(x)$ in $[1/2, 1]$ and $g(1-x)$ in $[0, 1/2]$.}"
-        },
-        "similarity_score": 0.71875
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "quation (4.1) to g(x) and applying equation (4.2) to g(y).We then have",
-            "equation_txt": "T [L[g]](x, y) = y 0 1\u2212y 0 g(z) dw dz + 1\u2212x y 1\u2212z 0 g(z) dw dz + x 0 1\u2212x 0 g(w) dz dw + 1\u2212y x 1\u2212w 0 g(w) dz dw = (1 \u2212 y) \u2022 y 0 g(z) dz + 1\u2212x y (1 \u2212 z) \u2022 g(z) dz +(1 \u2212 x) \u2022 x 0 g(w) dw + 1\u2212y x (1 \u2212 w) \u2022 g(w) dw = L[T [g]](x, y),",
-            "post_txt": "\nwhere we used the fact that Hence we have that1, T m\u22121 [1] L 2 (X) = ",
-            "full_txt": "quation (4.1) to g(x) and applying equation (4.2) to g(y).We then haveT [L[g]](x, y) = y 0 1\u2212y 0 g(z) dw dz + 1\u2212x y 1\u2212z 0 g(z) dw dz + x 0 1\u2212x 0 g(w) dz dw + 1\u2212y x 1\u2212w 0 g(w) dz dw = (1 \u2212 y) \u2022 y 0 g(z) dz + 1\u2212x y (1 \u2212 z) \u2022 g(z) dz +(1 \u2212 x) \u2022 x 0 g(w) dw + 1\u2212y x (1 \u2212 w) \u2022 g(w) dw = L[T [g]](x, y),\nwhere we used the fact that Hence we have that1, T m\u22121 [1] L 2 (X) = "
-        },
-        "clean_data": {
-            "pre_txt": "e $x + y \\leq 1$,\nequivalently\n$(1-x) + (1-y) \\geq 1$,\nthe inequality ",
-            "equation_txt": "$z + w \\leq 1$",
-            "post_txt": "\ncuts off a triangle from the rectangle\n$[0,1-x] \\times [0,1-y]$.\nHenc",
-            "full_txt": "e $x + y \\leq 1$,\nequivalently\n$(1-x) + (1-y) \\geq 1$,\nthe inequality $z + w \\leq 1$\ncuts off a triangle from the rectangle\n$[0,1-x] \\times [0,1-y]$.\nHenc"
-        },
-        "similarity_score": 0.7421875
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "w) dw = L[T [g]](x, y),\nwhere we used the fact that Hence we have that",
-            "equation_txt": "1, T m\u22121 [1] L 2 (X) = 1 4 \u2022 1, T m\u22121 [1] U , since L[1/2 \u2022 1] = 1. Thus it is enough to solve the eigenvalue problem \u03bb \u2022 g(x) = T [g](x) in U for non-zero \u03bb, that is, \u03bb \u2022 g(x) = (1 \u2212 x) \u2022 x 0 g(s) ds + 1\u2212x x (1 \u2212 s) \u2022 g(s) ds.",
-            "post_txt": "\nDifferentiate to obtain\u03bb \u2022 g \u2032 (x) = \u2212 x 0 g(s) ds \u2212 x \u2022 g(1 \u2212 x). (4",
-            "full_txt": "w) dw = L[T [g]](x, y),\nwhere we used the fact that Hence we have that1, T m\u22121 [1] L 2 (X) = 1 4 \u2022 1, T m\u22121 [1] U , since L[1/2 \u2022 1] = 1. Thus it is enough to solve the eigenvalue problem \u03bb \u2022 g(x) = T [g](x) in U for non-zero \u03bb, that is, \u03bb \u2022 g(x) = (1 \u2212 x) \u2022 x 0 g(s) ds + 1\u2212x x (1 \u2212 s) \u2022 g(s) ds.\nDifferentiate to obtain\u03bb \u2022 g \u2032 (x) = \u2212 x 0 g(s) ds \u2212 x \u2022 g(1 \u2212 x). (4"
-        },
-        "clean_data": {
-            "pre_txt": "}^{d} = \\int_{a}^{d} + \\int_{c}^{b}$.\n\\end{proof}\n\nHence we have that\n",
-            "equation_txt": "$$   \\pair{\\bfo}{T^{m-1}[\\bfo]}_{L^{2}(X)}\n   =\n     \\frac{1}{4} \\cdot \\pair{\\bfo}{T^{m-1}[\\bfo]}_{U}  , $$",
-            "post_txt": "\nsince $L[1/2 \\cdot \\bfo] = \\bfo$.\nThus it is enough to solve the eige",
-            "full_txt": "}^{d} = \\int_{a}^{d} + \\int_{c}^{b}$.\n\\end{proof}\n\nHence we have that\n$$   \\pair{\\bfo}{T^{m-1}[\\bfo]}_{L^{2}(X)}\n   =\n     \\frac{1}{4} \\cdot \\pair{\\bfo}{T^{m-1}[\\bfo]}_{U}  , $$\nsince $L[1/2 \\cdot \\bfo] = \\bfo$.\nThus it is enough to solve the eige"
-        },
-        "similarity_score": 0.6875
-    },
-    {
-        "dirty_data": {
-            "pre_txt": " \u2212 x) \u2022 x 0 g(s) ds + 1\u2212x x (1 \u2212 s) \u2022 g(s) ds.\nDifferentiate to obtain",
-            "equation_txt": "\u03bb \u2022 g \u2032 (x) = \u2212 x 0 g(s) ds \u2212 x \u2022 g(1 \u2212 x). (4.5) Differentiate again \u03bb \u2022 g \u2032\u2032 (x) = \u2212g(x) \u2212 g(1 \u2212 x) + x \u2022 g \u2032 (1 \u2212 x).",
-            "post_txt": "\nAs before, we convert this into a linear system of differential equat",
-            "full_txt": " \u2212 x) \u2022 x 0 g(s) ds + 1\u2212x x (1 \u2212 s) \u2022 g(s) ds.\nDifferentiate to obtain\u03bb \u2022 g \u2032 (x) = \u2212 x 0 g(s) ds \u2212 x \u2022 g(1 \u2212 x). (4.5) Differentiate again \u03bb \u2022 g \u2032\u2032 (x) = \u2212g(x) \u2212 g(1 \u2212 x) + x \u2022 g \u2032 (1 \u2212 x).\nAs before, we convert this into a linear system of differential equat"
-        },
-        "clean_data": {
-            "pre_txt": "1-x)  .  \n\\label{equation_g_prime}\n\\end{equation}\nDifferentiate again\n",
-            "equation_txt": "\\begin{equation}\n   \\lambda \\cdot g''(x) \n      =\n- g(x)\n  -\n  g(1-x)  \n  +\n  x \\cdot g'(1-x)  .  \n\\label{equation_g_prime_prime}\n\\end{equation}",
-            "post_txt": "\nAs before, we convert this into a linear system of differential\nequat",
-            "full_txt": "1-x)  .  \n\\label{equation_g_prime}\n\\end{equation}\nDifferentiate again\n\\begin{equation}\n   \\lambda \\cdot g''(x) \n      =\n- g(x)\n  -\n  g(1-x)  \n  +\n  x \\cdot g'(1-x)  .  \n\\label{equation_g_prime_prime}\n\\end{equation}\nAs before, we convert this into a linear system of differential\nequat"
-        },
-        "similarity_score": 0.75
-    },
-    {
-        "dirty_data": {
-            "pre_txt": " find boundary conditions we set x = 1/2 in equations (4.4) and (4.5).",
-            "equation_txt": "\u03bb \u2022 g(1/2) = 1/2 \u2022 1/2 0 g(s) ds,",
-            "post_txt": "\u03bb \u2022 g \u2032 (1/2) = \u2212 1/2 0 g(s) ds \u2212 1/2 \u2022 g(1/2).\nObserve that g(1/2) = ",
-            "full_txt": " find boundary conditions we set x = 1/2 in equations (4.4) and (4.5).\u03bb \u2022 g(1/2) = 1/2 \u2022 1/2 0 g(s) ds,\u03bb \u2022 g \u2032 (1/2) = \u2212 1/2 0 g(s) ds \u2212 1/2 \u2022 g(1/2).\nObserve that g(1/2) = "
-        },
-        "clean_data": {
-            "pre_txt": "four largest (in\n  absolute value) eigenvalues. \n  The whole function ",
-            "equation_txt": "$g(x)$",
-            "post_txt": ", from 0 to 1 is\n  found by using $g(x)$ between $1/2$ and $1$ and $h(",
-            "full_txt": "four largest (in\n  absolute value) eigenvalues. \n  The whole function $g(x)$, from 0 to 1 is\n  found by using $g(x)$ between $1/2$ and $1$ and $h("
-        },
-        "similarity_score": 0.6953125
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "x = 1/2 in equations (4.4) and (4.5).\u03bb \u2022 g(1/2) = 1/2 \u2022 1/2 0 g(s) ds,",
-            "equation_txt": "\u03bb \u2022 g \u2032 (1/2) = \u2212 1/2 0 g(s) ds \u2212 1/2 \u2022 g(1/2).",
-            "post_txt": "\nObserve that g(1/2) = h(1/2) = 0, (4.8) and (4.9) imply that g \u2032 (1/2",
-            "full_txt": "x = 1/2 in equations (4.4) and (4.5).\u03bb \u2022 g(1/2) = 1/2 \u2022 1/2 0 g(s) ds,\u03bb \u2022 g \u2032 (1/2) = \u2212 1/2 0 g(s) ds \u2212 1/2 \u2022 g(1/2).\nObserve that g(1/2) = h(1/2) = 0, (4.8) and (4.9) imply that g \u2032 (1/2"
-        },
-        "clean_data": {
-            "pre_txt": "n.}\n\\label{fig:lambda}\n\\end{minipage}\n\\end{figure}\nObserve that \\mbox{",
-            "equation_txt": "$g(1/2) = h(1/2) = 0$",
-            "post_txt": ",}\n\\eqref{equation_g_half}\nand\n\\eqref{equation_g_prime_half}\nimply\ntha",
-            "full_txt": "n.}\n\\label{fig:lambda}\n\\end{minipage}\n\\end{figure}\nObserve that \\mbox{$g(1/2) = h(1/2) = 0$,}\n\\eqref{equation_g_half}\nand\n\\eqref{equation_g_prime_half}\nimply\ntha"
-        },
-        "similarity_score": 0.6875
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "/2 0 g(x) dx = \u03bb 2 .Combined with (4.9) this gives two more conditions",
-            "equation_txt": "g \u2032 (1/2) = \u2212h \u2032 (1/2) = \u2212\u03bb \u2212 1 4 .",
-            "post_txt": "\nThus given the parameter \u03bb we can solve the system from x = 1/2 to x ",
-            "full_txt": "/2 0 g(x) dx = \u03bb 2 .Combined with (4.9) this gives two more conditionsg \u2032 (1/2) = \u2212h \u2032 (1/2) = \u2212\u03bb \u2212 1 4 .\nThus given the parameter \u03bb we can solve the system from x = 1/2 to x "
-        },
-        "clean_data": {
-            "pre_txt": "four largest (in\n  absolute value) eigenvalues. \n  The whole function ",
-            "equation_txt": "$g(x)$",
-            "post_txt": ", from 0 to 1 is\n  found by using $g(x)$ between $1/2$ and $1$ and $h(",
-            "full_txt": "four largest (in\n  absolute value) eigenvalues. \n  The whole function $g(x)$, from 0 to 1 is\n  found by using $g(x)$ between $1/2$ and $1$ and $h("
-        },
-        "similarity_score": 0.765625
-    },
-    {
-        "dirty_data": {
-            "pre_txt": " x = 1 however, the integral equation (4.5) yields another constraint:",
-            "equation_txt": "h \u2032 (1) = 0. (4.12)",
-            "post_txt": "\nEquivalently, looking at (4.4) (and remembering that g(x) = h(1 \u2212 x))",
-            "full_txt": " x = 1 however, the integral equation (4.5) yields another constraint:h \u2032 (1) = 0. (4.12)\nEquivalently, looking at (4.4) (and remembering that g(x) = h(1 \u2212 x))"
-        },
-        "clean_data": {
-            "pre_txt": "g} (and remembering that $g(x) = h(1-x)$) for $x=0,\\,1$ we find that \n",
-            "equation_txt": "\\begin{equation}\n   h(1) = g(0) = -g(1).\n\\end{equation}",
-            "post_txt": "\nThis is only satisfied for a discrete set of eigenvalues $\\lambda$.\nT",
-            "full_txt": "g} (and remembering that $g(x) = h(1-x)$) for $x=0,\\,1$ we find that \n\\begin{equation}\n   h(1) = g(0) = -g(1).\n\\end{equation}\nThis is only satisfied for a discrete set of eigenvalues $\\lambda$.\nT"
-        },
-        "similarity_score": 0.734375
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "n extend the theory to obtain the same asymptotic result.Hence we have",
-            "equation_txt": "E(H m ) (4 \u2022 m + 2)! = c \u2022 \u03bb m\u22121 + O(\u00b5 m\u22121 ).",
-            "post_txt": "\nThe essential question remaining is can the associated eigenvalue pro",
-            "full_txt": "n extend the theory to obtain the same asymptotic result.Hence we haveE(H m ) (4 \u2022 m + 2)! = c \u2022 \u03bb m\u22121 + O(\u00b5 m\u22121 ).\nThe essential question remaining is can the associated eigenvalue pro"
-        },
-        "clean_data": {
-            "pre_txt": "extend the theory to obtain the same\nasymptotic result.\nHence we have\n",
-            "equation_txt": "$$     \\frac{{\\cal E}(H_{m})}\n            {(4 \\cdot m + 2)!}\n     =\n        c\n     \\cdot\n       \\lambda^{m-1} + O(\\mu^{m-1})   .  $$",
-            "post_txt": "\nThe essential question remaining is can the \nassociated eigenvalue pr",
-            "full_txt": "extend the theory to obtain the same\nasymptotic result.\nHence we have\n$$     \\frac{{\\cal E}(H_{m})}\n            {(4 \\cdot m + 2)!}\n     =\n        c\n     \\cdot\n       \\lambda^{m-1} + O(\\mu^{m-1})   .  $$\nThe essential question remaining is can the \nassociated eigenvalue pr"
-        },
-        "similarity_score": 0.7421875
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "bserve that the relevant integrals to be considered have the structure",
-            "equation_txt": "I(k i ) = q 2 dq [F (q 2 )/(k 2 i \u2212 q 2 + i\u01eb)]",
-            "post_txt": "\nin the first sheet of the complex energy plane.To obtain I(k i ) in t",
-            "full_txt": "bserve that the relevant integrals to be considered have the structureI(k i ) = q 2 dq [F (q 2 )/(k 2 i \u2212 q 2 + i\u01eb)]\nin the first sheet of the complex energy plane.To obtain I(k i ) in t"
-        },
-        "clean_data": {
-            "pre_txt": "erve that the relevant integrals to be considered have the structure \n",
-            "equation_txt": "${\\cal I}(k_i) = \\int q^2 dq \\left[{F(q^2)}/{(k_i^2-q^2+{\\rm i}\\epsilon)}\\right]$",
-            "post_txt": "\nin the first sheet of the complex energy plane. To obtain ${\\cal I}(k",
-            "full_txt": "erve that the relevant integrals to be considered have the structure \n${\\cal I}(k_i) = \\int q^2 dq \\left[{F(q^2)}/{(k_i^2-q^2+{\\rm i}\\epsilon)}\\right]$\nin the first sheet of the complex energy plane. To obtain ${\\cal I}(k"
-        },
-        "similarity_score": 0.7734375
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "of I(k i ) in the second sheet of the complex energy plane is given by",
-            "equation_txt": "I \u2032 (k i ) = I(k i )\u2212i\u03c0k i F (k 2 i",
-            "post_txt": "\n).Following this procedure, from Eqs. ( [1]) and ( [2]) we obtain the",
-            "full_txt": "of I(k i ) in the second sheet of the complex energy plane is given byI \u2032 (k i ) = I(k i )\u2212i\u03c0k i F (k 2 i\n).Following this procedure, from Eqs. ( [1]) and ( [2]) we obtain the"
-        },
-        "clean_data": {
-            "pre_txt": "}(k_i)$ in the second sheet \nof the complex energy plane is given by \n",
-            "equation_txt": "${\\cal I^\\prime}(k_i) = {\\cal I}(k_i) - {\\rm i }\\pi k_i F(k_i^2).$",
-            "post_txt": "\nFollowing this procedure, from Eqs. (\\ref{chin}) and (\\ref{chic}) we ",
-            "full_txt": "}(k_i)$ in the second sheet \nof the complex energy plane is given by \n${\\cal I^\\prime}(k_i) = {\\cal I}(k_i) - {\\rm i }\\pi k_i F(k_i^2).$\nFollowing this procedure, from Eqs. (\\ref{chin}) and (\\ref{chic}) we "
-        },
-        "similarity_score": 0.6953125
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "f the complex energy plane, where for the virtual state energy we have",
-            "equation_txt": "k i = \u2212i\u03ba v = 2(A+1)",
-            "post_txt": "\nA+2 (E 3v \u2212 \u03b5 nc ):h \u2113 n (q; E 3v ) = 2(A + 1) A + 2 \u03c4nc (q; E 3v ) \u03c0",
-            "full_txt": "f the complex energy plane, where for the virtual state energy we havek i = \u2212i\u03ba v = 2(A+1)\nA+2 (E 3v \u2212 \u03b5 nc ):h \u2113 n (q; E 3v ) = 2(A + 1) A + 2 \u03c4nc (q; E 3v ) \u03c0"
-        },
-        "clean_data": {
-            "pre_txt": " the complex energy plane, where\nfor the virtual state energy we have ",
-            "equation_txt": "$k_i=-{\\rm i}\\kappa_v=\\sqrt{\\frac{2(A+1)}{A+2}\n\\left({\\cal E}_{3v}-\\varepsilon_{nc}\\right)}$",
-            "post_txt": ":\n{\\small\n\\begin{eqnarray}\n\\label{hn}\n{\\hspace{-.5cm}}h_n^\\ell(q;{\\cal",
-            "full_txt": " the complex energy plane, where\nfor the virtual state energy we have $k_i=-{\\rm i}\\kappa_v=\\sqrt{\\frac{2(A+1)}{A+2}\n\\left({\\cal E}_{3v}-\\varepsilon_{nc}\\right)}$:\n{\\small\n\\begin{eqnarray}\n\\label{hn}\n{\\hspace{-.5cm}}h_n^\\ell(q;{\\cal"
-        },
-        "similarity_score": 0.6796875
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "ominator of G \u2113 2 (q, k; E 3v ) [See Eq. ( [4])], where \u22121 < y < 1 and",
-            "equation_txt": "q = k = \u2212i\u03ba cut . With |E 3v | = |\u03b5 nc |+ A+2",
-            "post_txt": "\n2(A+1) \u03ba 2 cut , we obtain the branch points, with the cut given by 2",
-            "full_txt": "ominator of G \u2113 2 (q, k; E 3v ) [See Eq. ( [4])], where \u22121 < y < 1 andq = k = \u2212i\u03ba cut . With |E 3v | = |\u03b5 nc |+ A+2\n2(A+1) \u03ba 2 cut , we obtain the branch points, with the cut given by 2"
-        },
-        "clean_data": {
-            "pre_txt": "\\ell(q,k;{\\cal E}_{3v})$ [See Eq. (\\ref{g1})], where\n$-1 < y < 1$ and ",
-            "equation_txt": "$q=k=-{\\rm i}\\kappa_{cut}$",
-            "post_txt": ".\nWith $|{\\cal E}_{3v}|=|\\varepsilon_{nc}|+\\frac{A+2}{2(A+1)}\\kappa_{c",
-            "full_txt": "\\ell(q,k;{\\cal E}_{3v})$ [See Eq. (\\ref{g1})], where\n$-1 < y < 1$ and $q=k=-{\\rm i}\\kappa_{cut}$.\nWith $|{\\cal E}_{3v}|=|\\varepsilon_{nc}|+\\frac{A+2}{2(A+1)}\\kappa_{c"
-        },
-        "similarity_score": 0.7421875
-    },
-    {
-        "dirty_data": {
-            "pre_txt": " \u03ba 2 cut , we obtain the branch points, with the cut given by 2(A + 1)",
-            "equation_txt": "A + 2 |\u03b5 nc | < |E 3v | < 2(A + 1) A |\u03b5 nc |.",
-            "post_txt": "\nFor n \u2212 n\u2212 18 C (A = 18), a virtual state energy can be found in the ",
-            "full_txt": " \u03ba 2 cut , we obtain the branch points, with the cut given by 2(A + 1)A + 2 |\u03b5 nc | < |E 3v | < 2(A + 1) A |\u03b5 nc |.\nFor n \u2212 n\u2212 18 C (A = 18), a virtual state energy can be found in the "
-        },
-        "clean_data": {
-            "pre_txt": ")}\\kappa_{cut}^2$,\nwe obtain the branch points, with the cut given by\n",
-            "equation_txt": "\\begin{equation}\n\\frac{2(A+1)}{A+2}|\\varepsilon_{nc}|<|{\\cal E}_{3v}|<\\frac{2(A+1)}{A}|\\varepsilon_{nc}|. \\label{cut1}\n\\end{equation}",
-            "post_txt": "\nFor $n-n-^{18}$C ($A=18$), a virtual state\nenergy can be found in the",
-            "full_txt": ")}\\kappa_{cut}^2$,\nwe obtain the branch points, with the cut given by\n\\begin{equation}\n\\frac{2(A+1)}{A+2}|\\varepsilon_{nc}|<|{\\cal E}_{3v}|<\\frac{2(A+1)}{A}|\\varepsilon_{nc}|. \\label{cut1}\n\\end{equation}\nFor $n-n-^{18}$C ($A=18$), a virtual state\nenergy can be found in the"
-        },
-        "similarity_score": 0.765625
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "es were found for Eqs. ( [9]) and ( [10]) in the complex energy plane.",
-            "equation_txt": "|\u03b5 nc | < |E 3v | < 1.9 |\u03b5 nc | .",
-            "post_txt": "\nNext, for consistency, we present results for the s\u2212wave elastic cros",
-            "full_txt": "es were found for Eqs. ( [9]) and ( [10]) in the complex energy plane.|\u03b5 nc | < |E 3v | < 1.9 |\u03b5 nc | .\nNext, for consistency, we present results for the s\u2212wave elastic cros"
-        },
-        "clean_data": {
-            "pre_txt": "he elastic\nscattering and the starting of the above cut (\\ref{cut1}):\n",
-            "equation_txt": "\\begin{equation}\n|\\varepsilon_{nc}|\\;<\\;|{\\cal E}_{3v}|\\;<\\;1.9\\;|\\varepsilon_{nc}| \\ .\n\\end{equation}",
-            "post_txt": "\n\\begin{figure}[thb!]\n\\centerline{\\epsfig{figure=C20_virtual.eps,width",
-            "full_txt": "he elastic\nscattering and the starting of the above cut (\\ref{cut1}):\n\\begin{equation}\n|\\varepsilon_{nc}|\\;<\\;|{\\cal E}_{3v}|\\;<\\;1.9\\;|\\varepsilon_{nc}| \\ .\n\\end{equation}\n\\begin{figure}[thb!]\n\\centerline{\\epsfig{figure=C20_virtual.eps,width"
-        },
-        "similarity_score": 0.6875
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "owing boundary condition in the full-wave spectator function \u03c7 n ( q):",
-            "equation_txt": "\u03c7 n ( q) \u2261 (2\u03c0) 3 \u03b4( q \u2212 k i ) + 4\u03c0 h n ( q; E(k i )) q 2 \u2212 k 2 i \u2212 i\u01eb ,",
-            "post_txt": "\nwhere h n ( q; E(k i )) is the scattering amplitude, and the on-energ",
-            "full_txt": "owing boundary condition in the full-wave spectator function \u03c7 n ( q):\u03c7 n ( q) \u2261 (2\u03c0) 3 \u03b4( q \u2212 k i ) + 4\u03c0 h n ( q; E(k i )) q 2 \u2212 k 2 i \u2212 i\u01eb ,\nwhere h n ( q; E(k i )) is the scattering amplitude, and the on-energ"
-        },
-        "clean_data": {
-            "pre_txt": "in the full-wave spectator function $\\chi_n(\\vec q)$:\n\\vspace{-0.3cm}\n",
-            "equation_txt": "\\begin{equation}\n\\chi_n(\\vec q)\\equiv(2\\pi)^3\\delta(\\vec q-\\vec k_i)\n+4\\pi\\frac{h_n(\\vec q;{\\cal E}(k_i))}{q^2-k_i^2-{\\rm i}\\epsilon} ,\n\\end{equation}",
-            "post_txt": "\\vspace{-0.3cm}\nwhere $h_n(\\vec q;{\\cal E}(k_i))$ is the scattering am",
-            "full_txt": "in the full-wave spectator function $\\chi_n(\\vec q)$:\n\\vspace{-0.3cm}\n\\begin{equation}\n\\chi_n(\\vec q)\\equiv(2\\pi)^3\\delta(\\vec q-\\vec k_i)\n+4\\pi\\frac{h_n(\\vec q;{\\cal E}(k_i))}{q^2-k_i^2-{\\rm i}\\epsilon} ,\n\\end{equation}\\vspace{-0.3cm}\nwhere $h_n(\\vec q;{\\cal E}(k_i))$ is the scattering am"
-        },
-        "similarity_score": 0.671875
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "oming and final relative momentum are related to the three-body energy",
-            "equation_txt": "E i \u2261 E(k i ) by k i \u2261 | k i | = | k f | = [2(A + 1)/(A + 2)] (E i \u2212 \u03b5 nc ).",
-            "post_txt": "\nWith the same formal expressions ( [7]) and ( [6]) for \u03c4nc and \u03c4 nn ,",
-            "full_txt": "oming and final relative momentum are related to the three-body energyE i \u2261 E(k i ) by k i \u2261 | k i | = | k f | = [2(A + 1)/(A + 2)] (E i \u2212 \u03b5 nc ).\nWith the same formal expressions ( [7]) and ( [6]) for \u03c4nc and \u03c4 nn ,"
-        },
-        "clean_data": {
-            "pre_txt": "e\nrelated to the three-body energy ${\\cal E}_i\\equiv{\\cal E}(k_i)$ by\n",
-            "equation_txt": "$ k_i\\equiv |\\vec k_i|=|\\vec k_f| =\n \\sqrt{[2(A+1)/(A+2)]\\left({\\cal E}_i-\\varepsilon_{nc}\\right)}.\n$",
-            "post_txt": "\nWith the same formal expressions (\\ref{tauncbar}) and (\\ref{taunc})\nf",
-            "full_txt": "e\nrelated to the three-body energy ${\\cal E}_i\\equiv{\\cal E}(k_i)$ by\n$ k_i\\equiv |\\vec k_i|=|\\vec k_f| =\n \\sqrt{[2(A+1)/(A+2)]\\left({\\cal E}_i-\\varepsilon_{nc}\\right)}.\n$\nWith the same formal expressions (\\ref{tauncbar}) and (\\ref{taunc})\nf"
-        },
-        "similarity_score": 0.7578125
-    },
-    {
-        "dirty_data": {
-            "pre_txt": " the corresponding inhomogeneous equation with on-energyshell momentum",
-            "equation_txt": "k i = +i\u03ba b (bound state, E i = \u2212|E 3b |) and k i = \u2212i\u03ba v (virtual state, E i = \u2212|E 3v |)[8].",
-            "post_txt": "\nBy comparing the results of both approaches, we checked that they giv",
-            "full_txt": " the corresponding inhomogeneous equation with on-energyshell momentumk i = +i\u03ba b (bound state, E i = \u2212|E 3b |) and k i = \u2212i\u03ba v (virtual state, E i = \u2212|E 3v |)[8].\nBy comparing the results of both approaches, we checked that they giv"
-        },
-        "clean_data": {
-            "pre_txt": "l E}_i= -|{\\cal E}_{3b}|$) and $k_i=-{\\rm i}\\kappa_v$\n(virtual state, ",
-            "equation_txt": "${\\cal E}_i= -|{\\cal E}_{3v}|$",
-            "post_txt": ")\\cite{adhprc82}.\n\nBy comparing the results of both approaches, we che",
-            "full_txt": "l E}_i= -|{\\cal E}_{3b}|$) and $k_i=-{\\rm i}\\kappa_v$\n(virtual state, ${\\cal E}_i= -|{\\cal E}_{3v}|$)\\cite{adhprc82}.\n\nBy comparing the results of both approaches, we che"
-        },
-        "similarity_score": 0.7578125
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "a (a = 1, . . ., N ) and the plaquette term with its coefficient c 2 ,",
-            "equation_txt": "S = 1 2 x,\u00b5 N a=1 c 1a \u03c6 \u2020 x+\u00b5,a U x\u00b5 \u03c6 xa + H.c. + c 2 2 x,\u00b5<\u03bd (U \u2020 x\u03bd U \u2020 x+\u03bd,\u00b5 U x+\u00b5,\u03bd U x\u00b5 + H.c),",
-            "post_txt": "\nwhereU x\u00b5 [= exp(i\u03b8 x\u00b5 )]\nis the compact U(1) gauge field, \u00b5, \u03bd(= 1, ",
-            "full_txt": "a (a = 1, . . ., N ) and the plaquette term with its coefficient c 2 ,S = 1 2 x,\u00b5 N a=1 c 1a \u03c6 \u2020 x+\u00b5,a U x\u00b5 \u03c6 xa + H.c. + c 2 2 x,\u00b5<\u03bd (U \u2020 x\u03bd U \u2020 x+\u03bd,\u00b5 U x+\u00b5,\u03bd U x\u00b5 + H.c),\nwhereU x\u00b5 [= exp(i\u03b8 x\u00b5 )]\nis the compact U(1) gauge field, \u00b5, \u03bd(= 1, "
-        },
-        "clean_data": {
-            "pre_txt": "{x+\\mu,\\nu}U_{x\\mu}\n+\\mbox{H.c}),\n\\label{action}\n\\end{eqnarray}\nwhere ",
-            "equation_txt": "$U_{x\\mu}[=\\exp(i\\theta_{x\\mu})]$",
-            "post_txt": " is the compact U(1) \ngauge field,\n$\\mu,\\nu(=1,2,3)$ are direction ind",
-            "full_txt": "{x+\\mu,\\nu}U_{x\\mu}\n+\\mbox{H.c}),\n\\label{action}\n\\end{eqnarray}\nwhere $U_{x\\mu}[=\\exp(i\\theta_{x\\mu})]$ is the compact U(1) \ngauge field,\n$\\mu,\\nu(=1,2,3)$ are direction ind"
-        },
-        "similarity_score": 0.7265625
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "\u03c6 xa + H.c. + c 2 2 x,\u00b5<\u03bd (U \u2020 x\u03bd U \u2020 x+\u03bd,\u00b5 U x+\u00b5,\u03bd U x\u00b5 + H.c),\nwhere",
-            "equation_txt": "U x\u00b5 [= exp(i\u03b8 x\u00b5 )]",
-            "post_txt": "\nis the compact U(1) gauge field, \u00b5, \u03bd(= 1, 2, 3) are direction indice",
-            "full_txt": "\u03c6 xa + H.c. + c 2 2 x,\u00b5<\u03bd (U \u2020 x\u03bd U \u2020 x+\u03bd,\u00b5 U x+\u00b5,\u03bd U x\u00b5 + H.c),\nwhereU x\u00b5 [= exp(i\u03b8 x\u00b5 )]\nis the compact U(1) gauge field, \u00b5, \u03bd(= 1, 2, 3) are direction indice"
-        },
-        "clean_data": {
-            "pre_txt": "{x+\\mu,\\nu}U_{x\\mu}\n+\\mbox{H.c}),\n\\label{action}\n\\end{eqnarray}\nwhere ",
-            "equation_txt": "$U_{x\\mu}[=\\exp(i\\theta_{x\\mu})]$",
-            "post_txt": " is the compact U(1) \ngauge field,\n$\\mu,\\nu(=1,2,3)$ are direction ind",
-            "full_txt": "{x+\\mu,\\nu}U_{x\\mu}\n+\\mbox{H.c}),\n\\label{action}\n\\end{eqnarray}\nwhere $U_{x\\mu}[=\\exp(i\\theta_{x\\mu})]$ is the compact U(1) \ngauge field,\n$\\mu,\\nu(=1,2,3)$ are direction ind"
-        },
-        "similarity_score": 0.7265625
-    },
-    {
-        "dirty_data": {
-            "pre_txt": " applying the finite-size-scaling (FSS) hypothesis to C in the form of",
-            "equation_txt": "C(c 1 , L) = L \u03c3/\u03bd \u03b7(L 1/\u03bd \u01eb), where \u01eb = (c 1 \u2212 c 1\u221e )/c 1\u221e",
-            "post_txt": "\nand c 1\u221e is the critical coupling at L \u2192 \u221e, we obtained \u03bd = 0.67, \u03c3 =",
-            "full_txt": " applying the finite-size-scaling (FSS) hypothesis to C in the form ofC(c 1 , L) = L \u03c3/\u03bd \u03b7(L 1/\u03bd \u01eb), where \u01eb = (c 1 \u2212 c 1\u221e )/c 1\u221e\nand c 1\u221e is the critical coupling at L \u2192 \u221e, we obtained \u03bd = 0.67, \u03c3 ="
-        },
-        "clean_data": {
-            "pre_txt": "ying the finite-size-scaling (FSS) hypothesis \nto $C$ in the form of \n",
-            "equation_txt": "$C(c_1,L)=L^{\\sigma/\\nu}\\eta(L^{1/\\nu}\\epsilon)$",
-            "post_txt": ", where \n$\\epsilon=(c_1-c_{1\\infty})/c_{1\\infty}$ and $c_{1\\infty}$ \ni",
-            "full_txt": "ying the finite-size-scaling (FSS) hypothesis \nto $C$ in the form of \n$C(c_1,L)=L^{\\sigma/\\nu}\\eta(L^{1/\\nu}\\epsilon)$, where \n$\\epsilon=(c_1-c_{1\\infty})/c_{1\\infty}$ and $c_{1\\infty}$ \ni"
-        },
-        "similarity_score": 0.6796875
-    },
-    {
-        "dirty_data": {
-            "pre_txt": ".However, our investigation below will show that this is not the case.",
-            "equation_txt": "F k Q S F k P U F k W C c 1 F k Q S F k P U F k W (a) (b)",
-            "post_txt": "F k Q S F k P U F k W F k Q S F k P U F k W (a)\nLet us consider the ca",
-            "full_txt": ".However, our investigation below will show that this is not the case.F k Q S F k P U F k W C c 1 F k Q S F k P U F k W (a) (b)F k Q S F k P U F k W F k Q S F k P U F k W (a)\nLet us consider the ca"
-        },
-        "clean_data": {
-            "pre_txt": " and $0.52$.\nFigs.\\ref{fig7}(b),(c) present the detailed behavior \nof ",
-            "equation_txt": "$C$",
-            "post_txt": " near these peaks, which show \nthat the both peaks develop as $L$ is i",
-            "full_txt": " and $0.52$.\nFigs.\\ref{fig7}(b),(c) present the detailed behavior \nof $C$ near these peaks, which show \nthat the both peaks develop as $L$ is i"
-        },
-        "similarity_score": 0.6953125
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "not the case.F k Q S F k P U F k W C c 1 F k Q S F k P U F k W (a) (b)",
-            "equation_txt": "F k Q S F k P U F k W F k Q S F k P U F k W (a)",
-            "post_txt": "\nLet us consider the case c 12 = c 13 = 2c 11 , which we call the c 1 ",
-            "full_txt": "not the case.F k Q S F k P U F k W C c 1 F k Q S F k P U F k W (a) (b)F k Q S F k P U F k W F k Q S F k P U F k W (a)\nLet us consider the case c 12 = c 13 = 2c 11 , which we call the c 1 "
-        },
-        "clean_data": {
-            "pre_txt": "below \nwill show that this is not the case.\n\nLet us consider the case ",
-            "equation_txt": "$c_{12}=c_{13}=2c_{11}$",
-            "post_txt": ",\nwhich we call the $c_1=(1,2,2)$ model, and focus on the case\n$c_2=1.",
-            "full_txt": "below \nwill show that this is not the case.\n\nLet us consider the case $c_{12}=c_{13}=2c_{11}$,\nwhich we call the $c_1=(1,2,2)$ model, and focus on the case\n$c_2=1."
-        },
-        "similarity_score": 0.703125
-    },
-    {
-        "dirty_data": {
-            "pre_txt": " or uncoupled to the wire, one defines the density change in site j as",
-            "equation_txt": "\u2206N j = N j \u2212 N 0 j ,",
-            "post_txt": "\nand studies the dependence of \u2206N j on j for different parameters.A ty",
-            "full_txt": " or uncoupled to the wire, one defines the density change in site j as\u2206N j = N j \u2212 N 0 j ,\nand studies the dependence of \u2206N j on j for different parameters.A ty"
-        },
-        "clean_data": {
-            "pre_txt": " parameters.\nA typical result of $N_j$ vs. $N^0_j$, and the resulting ",
-            "equation_txt": "$\\Delta N_j$",
-            "post_txt": ", \nshowing the $2k_F$ oscillations caused by the dot orbital at $j=0$,",
-            "full_txt": " parameters.\nA typical result of $N_j$ vs. $N^0_j$, and the resulting $\\Delta N_j$, \nshowing the $2k_F$ oscillations caused by the dot orbital at $j=0$,"
-        },
-        "similarity_score": 0.6796875
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "n 3.2 Convolutive Mixture and BSS\nLet a real discrete time signal be s",
-            "equation_txt": "(k) = [s 1 (k), s 2 (k), \u2022 \u2022 \u2022 , s n (k)], k a discrete time index, such that the components s i (k) (i = 1, 2, \u2022 \u2022 \u2022 , n),",
-            "post_txt": "\nare zero-mean and mutually independent random processes.For simplicit",
-            "full_txt": "n 3.2 Convolutive Mixture and BSS\nLet a real discrete time signal be s(k) = [s 1 (k), s 2 (k), \u2022 \u2022 \u2022 , s n (k)], k a discrete time index, such that the components s i (k) (i = 1, 2, \u2022 \u2022 \u2022 , n),\nare zero-mean and mutually independent random processes.For simplicit"
-        },
-        "clean_data": {
-            "pre_txt": "ction{Convolutive Mixture and BSS}\nLet a real discrete time signal be\n",
-            "equation_txt": "$s(k) = [s_1(k),s_2(k),\\cdots,s_{n}(k)]$",
-            "post_txt": ", $k$ a discrete time index,\nsuch that the components $s_i(k)$ ($i=1,2",
-            "full_txt": "ction{Convolutive Mixture and BSS}\nLet a real discrete time signal be\n$s(k) = [s_1(k),s_2(k),\\cdots,s_{n}(k)]$, $k$ a discrete time index,\nsuch that the components $s_i(k)$ ($i=1,2"
-        },
-        "similarity_score": 0.6953125
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "components are transmitted and mixed to give the observations x i (k):",
-            "equation_txt": "x i (k) = n j=1 P \u22121 p=0 a ij (p) s j (k \u2212 p), i = 1, 2, \u2022 \u2022 \u2022 , n;",
-            "post_txt": "\nwhere a ij (p) denote mixing filter coefficients, the p-th element of",
-            "full_txt": "components are transmitted and mixed to give the observations x i (k):x i (k) = n j=1 P \u22121 p=0 a ij (p) s j (k \u2212 p), i = 1, 2, \u2022 \u2022 \u2022 , n;\nwhere a ij (p) denote mixing filter coefficients, the p-th element of"
-        },
-        "clean_data": {
-            "pre_txt": "\\, a_{ij}(p)\\, s_{j}(k -p), \\; i=1,2,\\cdots, n; \\label{bs1}\n\\ee\nwhere ",
-            "equation_txt": "$a_{ij}(p)$",
-            "post_txt": " denote mixing filter coefficients, the $p$-th element of the $P$-poin",
-            "full_txt": "\\, a_{ij}(p)\\, s_{j}(k -p), \\; i=1,2,\\cdots, n; \\label{bs1}\n\\ee\nwhere $a_{ij}(p)$ denote mixing filter coefficients, the $p$-th element of the $P$-poin"
-        },
-        "similarity_score": 0.7421875
-    },
-    {
-        "dirty_data": {
-            "pre_txt": " \u226a T , then to a good approximation [17]:X(\u03c9, t) \u2248 H(\u03c9) S(\u03c9, t),\nwhere",
-            "equation_txt": "X = [X 1 , \u2022 \u2022 \u2022 , X n ] T r , S = [s 1 , \u2022 \u2022 \u2022 , s n ] T r , T r is short for transpose.",
-            "post_txt": "\nThe components of S remains independent of each other, the problem is",
-            "full_txt": " \u226a T , then to a good approximation [17]:X(\u03c9, t) \u2248 H(\u03c9) S(\u03c9, t),\nwhereX = [X 1 , \u2022 \u2022 \u2022 , X n ] T r , S = [s 1 , \u2022 \u2022 \u2022 , s n ] T r , T r is short for transpose.\nThe components of S remains independent of each other, the problem is"
-        },
-        "clean_data": {
-            "pre_txt": "be\nX(\\omega,t)\\approx H(\\omega)\\, S(\\omega, t), \\label{bs2}\n\\ee\nwhere ",
-            "equation_txt": "$X=[X_1,\\cdots,X_n]^{Tr}$",
-            "post_txt": ", $S=[s_1,\\cdots,s_n]^{Tr}$, $Tr$ is short for transpose.\nThe componen",
-            "full_txt": "be\nX(\\omega,t)\\approx H(\\omega)\\, S(\\omega, t), \\label{bs2}\n\\ee\nwhere $X=[X_1,\\cdots,X_n]^{Tr}$, $S=[s_1,\\cdots,s_n]^{Tr}$, $Tr$ is short for transpose.\nThe componen"
-        },
-        "similarity_score": 0.7578125
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "on of t, and suppress \u03c9 dependence.First assume that by proper scaling",
-            "equation_txt": "E[|S j (t)| 2 ] = 1, j = 1, \u2022 \u2022 \u2022 , n.",
-            "post_txt": "\nIt follows from independence of sources that ( \u2032 conjugate transpose)",
-            "full_txt": "on of t, and suppress \u03c9 dependence.First assume that by proper scalingE[|S j (t)| 2 ] = 1, j = 1, \u2022 \u2022 \u2022 , n.\nIt follows from independence of sources that ( \u2032 conjugate transpose)"
-        },
-        "clean_data": {
-            "pre_txt": "a$ dependence.\nFirst assume that by proper scaling $E[|S_j(t)|^2]=1$, ",
-            "equation_txt": "$j=1,\\cdots,n$",
-            "post_txt": ".\nIt follows from independence of\nsources that ($'$ conjugate transpos",
-            "full_txt": "a$ dependence.\nFirst assume that by proper scaling $E[|S_j(t)|^2]=1$, $j=1,\\cdots,n$.\nIt follows from independence of\nsources that ($'$ conjugate transpos"
-        },
-        "similarity_score": 0.8203125
-    },
-    {
-        "dirty_data": {
-            "pre_txt": " any t; (3) the process S(t) is stationary.Let W be a matrix such that",
-            "equation_txt": "I n = W R X W \u2032 = W HH \u2032 W \u2032 , W is called a whitening matrix.",
-            "post_txt": "\nThen W H is an orthogonal matrix, denoted by U .Multiplying W from th",
-            "full_txt": " any t; (3) the process S(t) is stationary.Let W be a matrix such thatI n = W R X W \u2032 = W HH \u2032 W \u2032 , W is called a whitening matrix.\nThen W H is an orthogonal matrix, denoted by U .Multiplying W from th"
-        },
-        "clean_data": {
-            "pre_txt": ";\n(3) the process $S(t)$ is stationary. Let $W$ be a matrix\nsuch that ",
-            "equation_txt": "$I_n = W R_X W^{'} = WH H' W'$",
-            "post_txt": ", $W$ is called a whitening matrix. Then\n$WH$ is an orthogonal matrix,",
-            "full_txt": ";\n(3) the process $S(t)$ is stationary. Let $W$ be a matrix\nsuch that $I_n = W R_X W^{'} = WH H' W'$, $W$ is called a whitening matrix. Then\n$WH$ is an orthogonal matrix,"
-        },
-        "similarity_score": 0.84375
-    },
-    {
-        "dirty_data": {
-            "pre_txt": " denoted by U .Multiplying W from the left onto (2.2), one finds that:",
-            "equation_txt": "Z(t) \u2261 W X(t) = U S(t).",
-            "post_txt": "\n(2.4)\nThe 4th order statistics are needed to determine U .The 4th-ord",
-            "full_txt": " denoted by U .Multiplying W from the left onto (2.2), one finds that:Z(t) \u2261 W X(t) = U S(t).\n(2.4)\nThe 4th order statistics are needed to determine U .The 4th-ord"
-        },
-        "clean_data": {
-            "pre_txt": "atrix. Then\n$WH$ is an orthogonal matrix, denoted by $U$. Multiplying ",
-            "equation_txt": "$W$",
-            "post_txt": " from the left onto (\\ref{bs2}),\none finds that:\n\\be\nZ(t)\\equiv W X(t)",
-            "full_txt": "atrix. Then\n$WH$ is an orthogonal matrix, denoted by $U$. Multiplying $W$ from the left onto (\\ref{bs2}),\none finds that:\n\\be\nZ(t)\\equiv W X(t)"
-        },
-        "similarity_score": 0.703125
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "rmine U .The 4th-order cumulant of four mean zero random variables is:",
-            "equation_txt": "Cum[a, b, c, d] = E(abcd) \u2212 E(ab)E(cd) \u2212 E(ac)E(bd) \u2212 E(ad)E(bc),",
-            "post_txt": "\nwhich is zero if a, b, c, d split into two mutually independent group",
-            "full_txt": "rmine U .The 4th-order cumulant of four mean zero random variables is:Cum[a, b, c, d] = E(abcd) \u2212 E(ab)E(cd) \u2212 E(ac)E(bd) \u2212 E(ad)E(bc),\nwhich is zero if a, b, c, d split into two mutually independent group"
-        },
-        "clean_data": {
-            "pre_txt": ".,n$.\nThen we determine the permutation $\\sigma$ of the components of ",
-            "equation_txt": "$\\tilde{s}^{(1)}(t)$",
-            "post_txt": "\nby minimization:\n\\begin{equation} \\label{t-permutation}\n   \\sigma = {",
-            "full_txt": ".,n$.\nThen we determine the permutation $\\sigma$ of the components of $\\tilde{s}^{(1)}(t)$\nby minimization:\n\\begin{equation} \\label{t-permutation}\n   \\sigma = {"
-        },
-        "similarity_score": 0.71875
-    },
-    {
-        "dirty_data": {
-            "pre_txt": " the Hermitian matrices Q = (q ij ) satisfying ( * complex conjugate):",
-            "equation_txt": "q ij = n k,l=1 Cum(Z i , Z * j , Z k , Z * l ) m lk , 1 \u2264 i, j \u2264 n,",
-            "post_txt": "\nwhere matrix M = (m ij ) = e l e \u2032 k , e l being the unit vector with",
-            "full_txt": " the Hermitian matrices Q = (q ij ) satisfying ( * complex conjugate):q ij = n k,l=1 Cum(Z i , Z * j , Z k , Z * l ) m lk , 1 \u2264 i, j \u2264 n,\nwhere matrix M = (m ij ) = e l e \u2032 k , e l being the unit vector with"
-        },
-        "clean_data": {
-            "pre_txt": "as the linear span of the\nHermitian matrices $Q=(q_{ij})$ satisfying (",
-            "equation_txt": "$*$",
-            "post_txt": " complex conjugate):\n\\be\nq_{ij} = \\sum_{k,l=1}^{n}\\, {\\rm Cum}(Z_i,Z_{",
-            "full_txt": "as the linear span of the\nHermitian matrices $Q=(q_{ij})$ satisfying ($*$ complex conjugate):\n\\be\nq_{ij} = \\sum_{k,l=1}^{n}\\, {\\rm Cum}(Z_i,Z_{"
-        },
-        "similarity_score": 0.7265625
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "e.Equations (2.4) and (2.6) imply that (u p is the p-th column of U ):",
-            "equation_txt": "Q = n p=1 (kurt p u \u2032 p M u p ) u p u \u2032 p , \u2200 M,",
-            "post_txt": "\norQ = U DU \u2032 , D = diag(kurt 1 u \u2032 1 M u 1 , \u2022 \u2022 \u2022 , kurt n u \u2032 n M u",
-            "full_txt": "e.Equations (2.4) and (2.6) imply that (u p is the p-th column of U ):Q = n p=1 (kurt p u \u2032 p M u p ) u p u \u2032 p , \u2200 M,\norQ = U DU \u2032 , D = diag(kurt 1 u \u2032 1 M u 1 , \u2022 \u2022 \u2022 , kurt n u \u2032 n M u"
-        },
-        "clean_data": {
-            "pre_txt": "onent equal to one. Equations (\\ref{bs4}) and (\\ref{bs6})\nimply that (",
-            "equation_txt": "$u_p$",
-            "post_txt": " is the p-th column of $U$):\n\\be\nQ= \\sum_{p=1}^{n}\\, ({\\rm kurt}_{p}\\,",
-            "full_txt": "onent equal to one. Equations (\\ref{bs4}) and (\\ref{bs6})\nimply that ($u_p$ is the p-th column of $U$):\n\\be\nQ= \\sum_{p=1}^{n}\\, ({\\rm kurt}_{p}\\,"
-        },
-        "similarity_score": 0.6875
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "p-th column of U ):Q = n p=1 (kurt p u \u2032 p M u p ) u p u \u2032 p , \u2200 M,\nor",
-            "equation_txt": "Q = U DU \u2032 , D = diag(kurt 1 u \u2032 1 M u 1 , \u2022 \u2022 \u2022 , kurt n u \u2032 n M u n ).",
-            "post_txt": "\nHence, U is the joint diagonalizer of the matrix set Q Z (M ).Once U ",
-            "full_txt": "p-th column of U ):Q = n p=1 (kurt p u \u2032 p M u p ) u p u \u2032 p , \u2200 M,\norQ = U DU \u2032 , D = diag(kurt 1 u \u2032 1 M u 1 , \u2022 \u2022 \u2022 , kurt n u \u2032 n M u n ).\nHence, U is the joint diagonalizer of the matrix set Q Z (M ).Once U "
-        },
-        "clean_data": {
-            "pre_txt": "_{p}u_{p}^{'}, \\;\\; \\forall \\; M,\n\\label{bs7}\n\\ee\nor $Q = U D U^{'}$, ",
-            "equation_txt": "$D= {\\rm diag}({\\rm kurt}_{1}u_{1}^{'}Mu_{1},\\cdots,{\\rm kurt}_{n}u_{n}^{'}Mu_{n})$",
-            "post_txt": ".\nHence, $U$ is the joint diagonalizer of the matrix set $Q_{Z}(M)$.  ",
-            "full_txt": "_{p}u_{p}^{'}, \\;\\; \\forall \\; M,\n\\label{bs7}\n\\ee\nor $Q = U D U^{'}$, $D= {\\rm diag}({\\rm kurt}_{1}u_{1}^{'}Mu_{1},\\cdots,{\\rm kurt}_{n}u_{n}^{'}Mu_{n})$.\nHence, $U$ is the joint diagonalizer of the matrix set $Q_{Z}(M)$.  "
-        },
-        "similarity_score": 0.7265625
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "onalizer, an orthogonal matrix V , is sought to maximize the quantity:",
-            "equation_txt": "C(V, B) = n 2 r=1 |diag(V \u2032 B r V )| 2 , where B = {B 1 , B 2 , \u2022 \u2022 \u2022 , B n 2 } is a set of basis (or eigen) matrices of Q Z (M ), |diag(A)| 2",
-            "post_txt": "\nis the sum of squares of diagonals of a matrix A. Maximizing C(V, B) ",
-            "full_txt": "onalizer, an orthogonal matrix V , is sought to maximize the quantity:C(V, B) = n 2 r=1 |diag(V \u2032 B r V )| 2 , where B = {B 1 , B 2 , \u2022 \u2022 \u2022 , B n 2 } is a set of basis (or eigen) matrices of Q Z (M ), |diag(A)| 2\nis the sum of squares of diagonals of a matrix A. Maximizing C(V, B) "
-        },
-        "clean_data": {
-            "pre_txt": "\\cdots, B_{n^2}\\}$ is a set of basis (or eigen)\nmatrices of $Q_Z(M)$, ",
-            "equation_txt": "$|{\\rm diag}(A)|^2$",
-            "post_txt": " is the sum of squares of diagonals of a matrix $A$.\nMaximizing $C(V,B",
-            "full_txt": "\\cdots, B_{n^2}\\}$ is a set of basis (or eigen)\nmatrices of $Q_Z(M)$, $|{\\rm diag}(A)|^2$ is the sum of squares of diagonals of a matrix $A$.\nMaximizing $C(V,B"
-        },
-        "similarity_score": 0.734375
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "e \u03c9 1 serves as a reference point for sorting.(4) At other frequencies",
-            "equation_txt": "\u03c9 k (k = 2, 3, \u2022 \u2022 \u2022), find a permutation \u03c3 to maxi- mize n i=1 \u03c1(Env(\u03c9 k , t, \u03c3(i)), k\u22121 j=1 Env s (\u03c9 j , t, i)), among all permutations of 1, 2, \u2022 \u2022 \u2022 , n.",
-            "post_txt": "\nHere Env s denotes the sorted envelopes in previous frequencies.( 5) ",
-            "full_txt": "e \u03c9 1 serves as a reference point for sorting.(4) At other frequencies\u03c9 k (k = 2, 3, \u2022 \u2022 \u2022), find a permutation \u03c3 to maxi- mize n i=1 \u03c1(Env(\u03c9 k , t, \u03c3(i)), k\u22121 j=1 Env s (\u03c9 j , t, i)), among all permutations of 1, 2, \u2022 \u2022 \u2022 , n.\nHere Env s denotes the sorted envelopes in previous frequencies.( 5) "
-        },
-        "clean_data": {
-            "pre_txt": "$\\omega_k$ ($k =2,3,\\cdots$),\nfind a permutation $\\sigma$ to maximize ",
-            "equation_txt": "$\n \\sum_{i=1}^{n}\\, \\rho({\\rm Env}(\\omega_k,t,\\sigma(i)),\n\\sum_{j=1}^{k-1} {\\rm Env}_s(\\omega_j,t,i))$",
-            "post_txt": ",\namong all permutations of $1,2,\\cdots,n$. Here ${\\rm Env_s}$ denotes",
-            "full_txt": "$\\omega_k$ ($k =2,3,\\cdots$),\nfind a permutation $\\sigma$ to maximize $\n \\sum_{i=1}^{n}\\, \\rho({\\rm Env}(\\omega_k,t,\\sigma(i)),\n\\sum_{j=1}^{k-1} {\\rm Env}_s(\\omega_j,t,i))$,\namong all permutations of $1,2,\\cdots,n$. Here ${\\rm Env_s}$ denotes"
-        },
-        "similarity_score": 0.65625
-    },
-    {
-        "dirty_data": {
-            "pre_txt": " b * (\u03c9 \u2032 , t),\n(2.8) and the (normalized) correlation coefficient is:",
-            "equation_txt": "\u03c1(a(\u03c9, t), b(\u03c9 \u2032 , t)) = cov(a(\u03c9, t), b(\u03c9 \u2032 , t)) cov(a(\u03c9, t), a(\u03c9, t)) cov(b(\u03c9 \u2032 , t), b(\u03c9 \u2032 , t)) .",
-            "post_txt": "\nFrom speech production viewpoint, frequency components of a speech si",
-            "full_txt": " b * (\u03c9 \u2032 , t),\n(2.8) and the (normalized) correlation coefficient is:\u03c1(a(\u03c9, t), b(\u03c9 \u2032 , t)) = cov(a(\u03c9, t), b(\u03c9 \u2032 , t)) cov(a(\u03c9, t), a(\u03c9, t)) cov(b(\u03c9 \u2032 , t), b(\u03c9 \u2032 , t)) .\nFrom speech production viewpoint, frequency components of a speech si"
-        },
-        "clean_data": {
-            "pre_txt": ".,n$.\nThen we determine the permutation $\\sigma$ of the components of ",
-            "equation_txt": "$\\tilde{s}^{(1)}(t)$",
-            "post_txt": "\nby minimization:\n\\begin{equation} \\label{t-permutation}\n   \\sigma = {",
-            "full_txt": ".,n$.\nThen we determine the permutation $\\sigma$ of the components of $\\tilde{s}^{(1)}(t)$\nby minimization:\n\\begin{equation} \\label{t-permutation}\n   \\sigma = {"
-        },
-        "similarity_score": 0.6640625
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "roduced from cavities of instruments.Now with M = n T in (2.8), define",
-            "equation_txt": "C(\u03c9) = i =j max k\u2208{\u2212K 0 ,...,K 0 } |\u03c1(|\u015d i (\u03c9, t)|, |\u015d j (\u03c9, t \u2212 k)|)|, for \u03c9 \u2208 [\u03c9 L , \u03c9 U ]",
-            "post_txt": "\n(2.10) with some positive integer K 0 .Find \u03c9 1 between \u03c9 L and \u03c9 U t",
-            "full_txt": "roduced from cavities of instruments.Now with M = n T in (2.8), defineC(\u03c9) = i =j max k\u2208{\u2212K 0 ,...,K 0 } |\u03c1(|\u015d i (\u03c9, t)|, |\u015d j (\u03c9, t \u2212 k)|)|, for \u03c9 \u2208 [\u03c9 L , \u03c9 U ]\n(2.10) with some positive integer K 0 .Find \u03c9 1 between \u03c9 L and \u03c9 U t"
-        },
-        "clean_data": {
-            "pre_txt": "m cavities of instruments.\n\nNow with $M =n_T$ in (\\ref{bs10}), define\n",
-            "equation_txt": "\\begin{equation} \\label{C-omg}\n  C(\\omega)= \\sum_{i\\not = j} \\,\\max_{k\\in \\{-K_0,...,K_0\\} } \\,\n  |\\rho(|\\hat{s}_{i}(\\omega,t)|,|\\hat{s}_{j}(\\omega, t -k)|)|, \\quad \\mbox{for } \\omg\\in[\\omg_L,\\omg_U]\n\\end{equation}",
-            "post_txt": "\nwith some positive integer $K_0$.\nFind $\\omega_1$ between $\\omg_L$ an",
-            "full_txt": "m cavities of instruments.\n\nNow with $M =n_T$ in (\\ref{bs10}), define\n\\begin{equation} \\label{C-omg}\n  C(\\omega)= \\sum_{i\\not = j} \\,\\max_{k\\in \\{-K_0,...,K_0\\} } \\,\n  |\\rho(|\\hat{s}_{i}(\\omega,t)|,|\\hat{s}_{j}(\\omega, t -k)|)|, \\quad \\mbox{for } \\omg\\in[\\omg_L,\\omg_U]\n\\end{equation}\nwith some positive integer $K_0$.\nFind $\\omega_1$ between $\\omg_L$ an"
-        },
-        "similarity_score": 0.7421875
-    },
-    {
-        "dirty_data": {
-            "pre_txt": " \u03c9 1 as reference, at any other \u03c9, find the permutation \u03c3 to maximize:",
-            "equation_txt": "\u03c3 = argmax n i=1 max k\u2208{\u2212K 0 ,...,K 0 } |\u03c1(|\u015d i (\u03c9 1 , t)|, |\u015d \u03c3(i) (\u03c9, t \u2212 k)|)|.",
-            "post_txt": "\n(2.11)\nNotice that the objective functions in (2.10)-(2.11)are exactl",
-            "full_txt": " \u03c9 1 as reference, at any other \u03c9, find the permutation \u03c3 to maximize:\u03c3 = argmax n i=1 max k\u2208{\u2212K 0 ,...,K 0 } |\u03c1(|\u015d i (\u03c9 1 , t)|, |\u015d \u03c3(i) (\u03c9, t \u2212 k)|)|.\n(2.11)\nNotice that the objective functions in (2.10)-(2.11)are exactl"
-        },
-        "clean_data": {
-            "pre_txt": "e, at any other\n$\\omega$, find the permutation $\\sigma $ to maximize:\n",
-            "equation_txt": "\\begin{equation} \\label{f-permutation}\n  \\sigma ={\\rm argmax}\\, \\sum_{i=1}^{n}\\,\\max_{k\\in \\{-K_0,...,K_0\\}}\\,\n  |\\rho(|\\hat{s}_{i}(\\omega_1,t)|, |\\hat{s}_{\\sigma(i)}(\\omega,t-k)|)|.\n\\end{equation}",
-            "post_txt": "\nNotice that the objective functions in (\\ref{C-omg})-(\\ref{f-permutat",
-            "full_txt": "e, at any other\n$\\omega$, find the permutation $\\sigma $ to maximize:\n\\begin{equation} \\label{f-permutation}\n  \\sigma ={\\rm argmax}\\, \\sum_{i=1}^{n}\\,\\max_{k\\in \\{-K_0,...,K_0\\}}\\,\n  |\\rho(|\\hat{s}_{i}(\\omega_1,t)|, |\\hat{s}_{\\sigma(i)}(\\omega,t-k)|)|.\n\\end{equation}\nNotice that the objective functions in (\\ref{C-omg})-(\\ref{f-permutat"
-        },
-        "similarity_score": 0.7265625
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "n explicitly write the equation to shorten the support of inverse FFT:",
-            "equation_txt": "ifft(\u03bb i (\u03c9)H \u22121 0,i (\u03c9))(\u03c4 ) = 0 (2.12)",
-            "post_txt": "\nin terms of the real and imaginary parts of \u03bb i (\u03c9) for \u03c9 = 0, 1/T, .",
-            "full_txt": "n explicitly write the equation to shorten the support of inverse FFT:ifft(\u03bb i (\u03c9)H \u22121 0,i (\u03c9))(\u03c4 ) = 0 (2.12)\nin terms of the real and imaginary parts of \u03bb i (\u03c9) for \u03c9 = 0, 1/T, ."
-        },
-        "clean_data": {
-            "pre_txt": "to fix the overall scaling and\nrender the solution nontrivial, we set ",
-            "equation_txt": "$\\lam(0) = 1$",
-            "post_txt": ".\nThird, the weighted least square problem (\\ref{bs12}) can be solved ",
-            "full_txt": "to fix the overall scaling and\nrender the solution nontrivial, we set $\\lam(0) = 1$.\nThird, the weighted least square problem (\\ref{bs12}) can be solved "
-        },
-        "similarity_score": 0.7109375
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "or some \u03b2 > 1, then the above process can be mathematically written as",
-            "equation_txt": "[\u03bb i (0), ..., \u03bb i ((T \u2212 1)/T )] = argmin T \u22121 \u03c4 =q |\u03b2 \u03c4 ifft(\u03bb i (\u03c9)H \u22121 0,i (\u03c9))(\u03c4 )| 2 (2.13)",
-            "post_txt": "\nwhere H \u22121 0,i (\u03c9) is the i-th row vector of H \u22121 0 (\u03c9).A few comment",
-            "full_txt": "or some \u03b2 > 1, then the above process can be mathematically written as[\u03bb i (0), ..., \u03bb i ((T \u2212 1)/T )] = argmin T \u22121 \u03c4 =q |\u03b2 \u03c4 ifft(\u03bb i (\u03c9)H \u22121 0,i (\u03c9))(\u03c4 )| 2 (2.13)\nwhere H \u22121 0,i (\u03c9) is the i-th row vector of H \u22121 0 (\u03c9).A few comment"
-        },
-        "clean_data": {
-            "pre_txt": "caling-1}) with $\\tau=q,...,T-1$,\nthere are $T-1$ variables including ",
-            "equation_txt": "$\\lam_i(1/2)$",
-            "post_txt": ", the real and imaginary parts of\n$\\lam_i(\\omg)$ for $\\omg=1/T,...,1/2",
-            "full_txt": "caling-1}) with $\\tau=q,...,T-1$,\nthere are $T-1$ variables including $\\lam_i(1/2)$, the real and imaginary parts of\n$\\lam_i(\\omg)$ for $\\omg=1/T,...,1/2"
-        },
-        "similarity_score": 0.65625
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "rmine the permutation \u03c3 of the components of s(1) (t) by minimization:",
-            "equation_txt": "\u03c3 = argmax n i=1 max k\u2208{\u2212K 1 ,...,K 1 } \u03c1 s (0) i (\u03c4 ), s",
-            "post_txt": "\u03c3(i) (\u03c4 \u2212 k) (2.14)\nwith some constant K 1 .After doing the necessary ",
-            "full_txt": "rmine the permutation \u03c3 of the components of s(1) (t) by minimization:\u03c3 = argmax n i=1 max k\u2208{\u2212K 1 ,...,K 1 } \u03c1 s (0) i (\u03c4 ), s\u03c3(i) (\u03c4 \u2212 k) (2.14)\nwith some constant K 1 .After doing the necessary "
-        },
-        "clean_data": {
-            "pre_txt": "n $\\sigma$ of the components of $\\tilde{s}^{(1)}(t)$\nby minimization:\n",
-            "equation_txt": "\\begin{equation} \\label{t-permutation}\n   \\sigma = {\\rm argmax}\\, \\sum_{i=1}^{n} \\max_{k\\in\\{-K_1,...,K_1 \\}} \\,\n   \\left|\\rho\\left( s_{i}^{(0)}(\\tau), \\tilde{s}^{(1)}_{\\sigma(i)}(\\tau-k)\\right)\\right|\n\\end{equation}",
-            "post_txt": "\nwith some constant $K_1$. After doing the necessary permutation of $\\",
-            "full_txt": "n $\\sigma$ of the components of $\\tilde{s}^{(1)}(t)$\nby minimization:\n\\begin{equation} \\label{t-permutation}\n   \\sigma = {\\rm argmax}\\, \\sum_{i=1}^{n} \\max_{k\\in\\{-K_1,...,K_1 \\}} \\,\n   \\left|\\rho\\left( s_{i}^{(0)}(\\tau), \\tilde{s}^{(1)}_{\\sigma(i)}(\\tau-k)\\right)\\right|\n\\end{equation}\nwith some constant $K_1$. After doing the necessary permutation of $\\"
-        },
-        "similarity_score": 0.7109375
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "minimization:\u03c3 = argmax n i=1 max k\u2208{\u2212K 1 ,...,K 1 } \u03c1 s (0) i (\u03c4 ), s",
-            "equation_txt": "\u03c3(i) (\u03c4 \u2212 k) (2.14)",
-            "post_txt": "\nwith some constant K 1 .After doing the necessary permutation of s(1)",
-            "full_txt": "minimization:\u03c3 = argmax n i=1 max k\u2208{\u2212K 1 ,...,K 1 } \u03c1 s (0) i (\u03c4 ), s\u03c3(i) (\u03c4 \u2212 k) (2.14)\nwith some constant K 1 .After doing the necessary permutation of s(1)"
-        },
-        "clean_data": {
-            "pre_txt": "n $\\sigma$ of the components of $\\tilde{s}^{(1)}(t)$\nby minimization:\n",
-            "equation_txt": "\\begin{equation} \\label{t-permutation}\n   \\sigma = {\\rm argmax}\\, \\sum_{i=1}^{n} \\max_{k\\in\\{-K_1,...,K_1 \\}} \\,\n   \\left|\\rho\\left( s_{i}^{(0)}(\\tau), \\tilde{s}^{(1)}_{\\sigma(i)}(\\tau-k)\\right)\\right|\n\\end{equation}",
-            "post_txt": "\nwith some constant $K_1$. After doing the necessary permutation of $\\",
-            "full_txt": "n $\\sigma$ of the components of $\\tilde{s}^{(1)}(t)$\nby minimization:\n\\begin{equation} \\label{t-permutation}\n   \\sigma = {\\rm argmax}\\, \\sum_{i=1}^{n} \\max_{k\\in\\{-K_1,...,K_1 \\}} \\,\n   \\left|\\rho\\left( s_{i}^{(0)}(\\tau), \\tilde{s}^{(1)}_{\\sigma(i)}(\\tau-k)\\right)\\right|\n\\end{equation}\nwith some constant $K_1$. After doing the necessary permutation of $\\"
-        },
-        "similarity_score": 0.6875
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "e continuity of concatenation is maintained by requiring that max \u03c4 |h",
-            "equation_txt": "(k) ii (\u03c4 )|'s (i = 1, 2, \u2022 \u2022 \u2022 , n) are invariant in k,",
-            "post_txt": "\nwhere k = 1, 2, \u2022 \u2022 \u2022, labels the updated filter matrix in time.The p",
-            "full_txt": "e continuity of concatenation is maintained by requiring that max \u03c4 |h(k) ii (\u03c4 )|'s (i = 1, 2, \u2022 \u2022 \u2022 , n) are invariant in k,\nwhere k = 1, 2, \u2022 \u2022 \u2022, labels the updated filter matrix in time.The p"
-        },
-        "clean_data": {
-            "pre_txt": "0)}$. The continuity of concatenation is maintained\nby requiring that ",
-            "equation_txt": "$\\max_{\\tau}\\, |h_{ii}^{(k)}(\\tau)|$",
-            "post_txt": "'s ($i=1,2,\\cdots,n$) are invariant\nin $k$, where $k=1,2,\\cdots$, labe",
-            "full_txt": "0)}$. The continuity of concatenation is maintained\nby requiring that $\\max_{\\tau}\\, |h_{ii}^{(k)}(\\tau)|$'s ($i=1,2,\\cdots,n$) are invariant\nin $k$, where $k=1,2,\\cdots$, labe"
-        },
-        "similarity_score": 0.8125
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "rrelation coefficient over multiple time lags:<b>case T overlap n</b>\n",
-            "equation_txt": "T \u03b4n T \u2206n T K 0 K 1 \u03b2 q n T (dyn.) (bat.)",
-            "post_txt": "\u03c1(a, b) = max k\u2208{\u2212K 2 ,...,K 2 } |\u03c1(a(\u03c4 ), b(\u03c4 + k))|\nwith \u03c1 defined i",
-            "full_txt": "rrelation coefficient over multiple time lags:<b>case T overlap n</b>\nT \u03b4n T \u2206n T K 0 K 1 \u03b2 q n T (dyn.) (bat.)\u03c1(a, b) = max k\u2208{\u2212K 2 ,...,K 2 } |\u03c1(a(\u03c4 ), b(\u03c4 + k))|\nwith \u03c1 defined i"
-        },
-        "clean_data": {
-            "pre_txt": " compute\nthe maximal correlation coefficient over multiple time lags:\n",
-            "equation_txt": "\\begin{equation}\n   \\bar{\\rho}(a,b)=\\max_{k \\in \\{ -K_2,...,K_2 \\} } \\left| \\rho(a(\\tau),b(\\tau+k)) \\right|\n\\end{equation}",
-            "post_txt": "\nwith $\\rho$ defined in (\\ref{bs11}). The $\\bar{\\rho}$ is computed for",
-            "full_txt": " compute\nthe maximal correlation coefficient over multiple time lags:\n\\begin{equation}\n   \\bar{\\rho}(a,b)=\\max_{k \\in \\{ -K_2,...,K_2 \\} } \\left| \\rho(a(\\tau),b(\\tau+k)) \\right|\n\\end{equation}\nwith $\\rho$ defined in (\\ref{bs11}). The $\\bar{\\rho}$ is computed for"
-        },
-        "similarity_score": 0.703125
-    },
-    {
-        "dirty_data": {
-            "pre_txt": "lags:<b>case T overlap n</b>\nT \u03b4n T \u2206n T K 0 K 1 \u03b2 q n T (dyn.) (bat.)",
-            "equation_txt": "\u03c1(a, b) = max k\u2208{\u2212K 2 ,...,K 2 } |\u03c1(a(\u03c4 ), b(\u03c4 + k))|",
-            "post_txt": "\nwith \u03c1 defined in (2.9).The \u03c1 is computed for the mixtures, the sourc",
-            "full_txt": "lags:<b>case T overlap n</b>\nT \u03b4n T \u2206n T K 0 K 1 \u03b2 q n T (dyn.) (bat.)\u03c1(a, b) = max k\u2208{\u2212K 2 ,...,K 2 } |\u03c1(a(\u03c4 ), b(\u03c4 + k))|\nwith \u03c1 defined in (2.9).The \u03c1 is computed for the mixtures, the sourc"
-        },
-        "clean_data": {
-            "pre_txt": " compute\nthe maximal correlation coefficient over multiple time lags:\n",
-            "equation_txt": "\\begin{equation}\n   \\bar{\\rho}(a,b)=\\max_{k \\in \\{ -K_2,...,K_2 \\} } \\left| \\rho(a(\\tau),b(\\tau+k)) \\right|\n\\end{equation}",
-            "post_txt": "\nwith $\\rho$ defined in (\\ref{bs11}). The $\\bar{\\rho}$ is computed for",
-            "full_txt": " compute\nthe maximal correlation coefficient over multiple time lags:\n\\begin{equation}\n   \\bar{\\rho}(a,b)=\\max_{k \\in \\{ -K_2,...,K_2 \\} } \\left| \\rho(a(\\tau),b(\\tau+k)) \\right|\n\\end{equation}\nwith $\\rho$ defined in (\\ref{bs11}). The $\\bar{\\rho}$ is computed for"
-        },
-        "similarity_score": 0.6875
-    }
+    [
+        "When the sample reservoir has a finite size, a second depletion region propagates inward from the outer wall, and the capture rate starts decreasing when it reaches the capture radius \u03bb e .",
+        "When the sample reservoir has a finite size, a second depletion region propagates inward from the outer wall, and the capture rate starts decreasing when it reaches the capture radius $\\lambda_e$.",
+        98
+    ],
+    [
+        "To establish our analogy, we have described a 2D Weyl-Dirac material where the parity anomaly is manifested through the mass term m \u00b1 in the Lagrangian.",
+        "To establish our analogy, we have described a 2D Weyl-Dirac material where the parity anomaly is manifested through the mass term $m_\\pm$ in the Lagrangian.",
+        99
+    ],
+    [
+        "In general only the 2j + 1 dimensional permutation symmetric subspace of the full 2 2j dimensional space is relevant to the kicked top.",
+        "In general only the $2j+1$ dimensional permutation symmetric subspace of the full $2^{2j}$ dimensional space is relevant to the kicked top.",
+        97
+    ],
+    [
+        "In sections 4 and 5 we carry out this process in complete detail for the trivalent case (\u03bd = 1).",
+        "In sections and we carry out this process in complete detail for the trivalent case ($\\nu = 1$).",
+        95
+    ],
+    [
+        "If player 2's probability of guessing the right answer is at least 3/14b more than that of player 1 at round b , then clearly player 2's probability of guessing the right answer at round b is at least 3/14b more than player 1's probability of guessing the right answer at b \u2212 1; otherwise, player 1's probability of guessing the right answer at round b + 1 is at least 3/14b more than player 2's probability of guessing it at round b .) Suppose, without loss of generality, that b is such that player 1's probability of guessing the right answer at round b + 1 is at least 3/14b more than player 2's probability of guessing the right answer at round b .",
+        "If player 2's probability of guessing the right answer is at least $3/14b$ more than that of player 1 at round $b'$, then clearly player 2's probability of guessing the right answer at round $b'$ is at least $3/14b$ more than player 1's probability of guessing the right answer at $b'-1$; otherwise, player 1's probability of guessing the right answer at round $b'+1$ is at least $3/14b$ more than player 2's probability of guessing it at round $b'$.) Suppose, without loss of generality, that $b'$ is such that player 1's probability of guessing the right answer at round $b'+1$ is at least $3/14b$ more than player 2's probability of guessing the right answer at round $b'$.",
+        98
+    ],
+    [
+        "( ) This gives O(\u03b1 1+n ) corrections.",
+        "This gives ${\\cal O}(\\al^{1+n})$ corrections.",
+        82
+    ],
+    [
+        "( 17 ) that we get by imposing x(t + 2) = x(t) = x, i.e., the period-2 stable trajectories.",
+        "() that we get by imposing $x(t+2)=x(t)=x$, \\textit{i.e.}, the period-2 stable trajectories.",
+        89
+    ],
+    [
+        "If p is even, T top p is a singlet which shares the same symmetries as H p .",
+        "If $p$ is even, $\\ket{T^{\\rm \\tiny top}_p}$ is a singlet which shares the same symmetries as $H_p$.",
+        87
+    ],
+    [
+        "As discussed in that section, we can twist the action of R on V by an automorphism \u03d5 of R, we call the resulting module still a universal Verma module.",
+        "As discussed in that section, we can twist the action of $R$ on $V$ by an automorphism $\\varphi$ of $R$, we call the resulting module still a universal Verma module.",
+        95
+    ],
+    [
+        "Readers who are familiar with ordered fields will certainly recognize the validity of Proposition 3.4 and Corollary 3.5 below in that setting because the properties of R being used in their proofs are those of an ordered field.",
+        "Readers who are familiar with ordered fields will certainly recognize the validity of Proposition~ and Corollary~ below in that setting because the properties of $\\Rr$ being used in their proofs are those of an ordered field.",
+        98
+    ],
+    [
+        "Let F t be a semi-linear, but not linear, affine one-parameter family.",
+        "Let $F_t$ be a semi-linear, but not linear, affine one-parameter family.",
+        99
+    ],
+    [
+        "Let W 1 = 1.",
+        "Let $W_1 = 1$.",
+        96
+    ],
+    [
+        "Since P 0 and P are conjugate, the proof of (1) shows that there is a b \u2208 P 0 ( F ) such that [b] \u2208 B(G) is basic and such that G b is quasi-split.",
+        "Since $P_0$ and $P$ are conjugate, the proof of (1) shows that there is a $b\\in P_0(\\breve F)$ such that $[b]\\in B(G)$ is basic and such that $G_b$ is quasi-split.",
+        94
+    ],
+    [
+        "The existence of this minimum clearly shows that the formation of this hairpin is a non-Arrhenius process with an apparent activation enthalpy H a = d(ln \u03c4 c )/d(1/T) that changes sign at T \u2248 300 K and becomes larger in magnitude as the temperature deviates more from T \u2248 300 K.",
+        "The existence of this minimum clearly shows that the formation of this hairpin is a non-Arrhenius process with an apparent activation enthalpy $H_a=\\rm d (\\ln \\tau_c) / \\rm d (1/T)$ that changes sign at $T\\approx300$~\\SI{}{\\kelvin} and becomes larger in magnitude as the temperature deviates more from $T\\approx300$~\\SI{}{\\kelvin}.",
+        90
+    ],
+    [
+        "In order to prove that the second diagram commutes, let D be an augmented stable double category.",
+        "In order to prove that the second diagram commutes, let $\\cD$ be an augmented stable double category.",
+        98
+    ],
+    [
+        "In this section we show that in the particular case of a Weyl-Heisenberg covariant SIC-POVM, and with the appropriate choice of gauge, the Gram projector (defined in Eq.",
+        "In this section we show that in the particular case of a Weyl-Heisenberg covariant SIC-POVM, and with the appropriate choice of gauge, the Gram projector (defined in Eq.~()) has an analogous property, which we call the $\\ggrm$-$\\ggrm^{T}$ property.",
+        81
+    ],
+    [
+        "According to the Theorems 4.1 and 4.2, one can continue u c from A 0 to B along \u03c3.",
+        "According to the Theorems~ and , one can continue $u_{\\rm c}$ from $A_0$ to $B$ along~$\\sigma$.",
+        85
+    ],
+    [
+        "We color d by adding the genus of T to the number of preimages of \u2202 0 in \u2202 T and reducing (mod g).",
+        "We color $d$ by adding the genus of $\\widetilde{T}$ to the number of preimages of $\\del_0$ in $\\del \\widetilde{T}$ and reducing$\\pmod g$.",
+        83
+    ],
+    [
+        "According to [CDH10] , G (resp.",
+        "According to , $G$ (resp.",
+        85
+    ],
+    [
+        "Since s, h is chosen arbitrarily, it follows that the entailment in the rule's conclusion is valid.",
+        "Since $s,h$ is chosen arbitrarily, it follows that the entailment in the rule's conclusion is valid.",
+        98
+    ],
+    [
+        "Hence it is an invariant of k.",
+        "Hence it is an invariant of $k$.",
+        98
+    ],
+    [
+        "Plane approximation As we show below, the boundary term \u03c11 depends on k E as well as on the boundary length of the system, in a manner distinctly different from that of Schr\u00f6dinger billiards.",
+        "\\subsection{Boundary term} \\subsubsection{Plane approximation} As we show below, the boundary term $\\bar{\\rho}_1$ depends on $\\kE$ as well as on the boundary length of the system, in a manner distinctly different from that of Schr\\\"odinger billiards.",
+        85
+    ],
+    [
+        "Suppose that (Q, Q * ) is a critical pair between A and B.",
+        "We conclude that $(Q,Q^*)$ is a critical pair between $u$ and $J(u)$.",
+        80
+    ],
+    [
+        "In fact, this V 2 /L 2 model has been studied extensively as a model for one-dimensional SPT [13] [14] .",
+        "\\ea In fact, this $V_2 /L_2$ model has been studied extensively as a model for one-dimensional SPT~.",
+        93
+    ],
+    [
+        "Thus, all vertices of R 1 are occluded, and p sees at most two edges of R 1 .",
+        "Thus, all vertices of $R_1$ are occluded, and $p$ sees at most two edges of $R_1$.",
+        97
+    ],
+    [
+        "(2.17) We choose as a length scale L = 10 \u22123 m, which corresponds to the typical length of a libriform fiber [3] .",
+        "We choose as a length scale $L=10^{-3}\\;\\units{m}$, which corresponds to the typical length of a libriform fiber .",
+        89
+    ],
+    [
+        "3) A K-choose-1 method (denoted MAX in the fig- ures): This is the method that selects the contract with the highest expected profit over the set {max 1 , max 2 , \u2022 \u2022 \u2022 , max K }: maximize maxi,i=1...K E[U (max i )].",
+        "A $K$-choose-1 method (denoted MAX in the figures): This is the method that selects the contract with the highest expected profit over the set $\\{max_1, \\max_2, \\cdots, \\max_K\\}$: $\\underset{max_i, i=1...K}{\\mbox{maximize}} ~ E[U(max_i)]$.",
+        88
+    ],
+    [
+        "For the hyperbolic components in the disconnectedness locus, consisting of the maps for which the Julia sets are disconnected, Makienko [Ma] showed that each of them is unbounded in the moduli space M d .",
+        "For the hyperbolic components in the {\\it disconnectedness locus}, consisting of the maps for which the Julia sets are disconnected, Makienko showed that each of them is unbounded in the moduli space $M_d$.",
+        97
+    ],
+    [
+        "Remark 3.7 Results on joint continuity can be viewed as results on triples (G, H, L) of convergence or topological groups.",
+        "{\\rm Results on joint continuity can be viewed as results on triples $(G,H,L)$ of convergence or topological groups.",
+        95
+    ],
+    [
+        "The wavelength of the incoming signal in the vacuum is \u03bb = c/f = 0.15m, so that \u03bb > L.",
+        "The wavelength of the incoming signal in the vacuum is $\\lambda = c/f = 0.15 m$, so that $\\lambda > L$.",
+        89
+    ],
+    [
+        "A distributed learning approach (i) reduces computation complexity, since each thread has only m available choices (instead of m N available group choices), and (ii) allows for an immediate response to changes observed in the environment (e.g., available computing bandwidth), thus increasing the adaptivity and robustness of the resource allocation mechanism.",
+        "A distributed learning approach (i) \\emph{reduces computation complexity}, since each thread has only $m$ available choices (instead of $m^{N}$ available group choices), and (ii) \\emph{allows for an immediate response to changes observed in the environment} (e.g., available computing bandwidth), thus increasing the adaptivity and robustness of the resource allocation mechanism.",
+        97
+    ],
+    [
+        "In short, N is the Burnside semiring of F, which is categorification in its purest form.",
+        "In short, {\\em $\\N$ is the Burnside semiring of $\\F$}, which is categorification in its purest form.",
+        94
+    ],
+    [
+        "This makes a general derivation of the results in Appendix B, for generic p and q, more accessible.",
+        "This makes a general derivation of the results in Appendix , for generic $p$ and $q$, more accessible.",
+        97
+    ],
+    [
+        "In view of Corollary 1.5, the assumption that the G i 's are of nonaffine type implies that n = 2 in the above, and that any irreducible lattice \u0393 of G is virtually simple.",
+        "[Proof of Corollary~] In view of Corollary~, the assumption that the $G_i$'s are of non-affine type implies that $n=2$ in the above, and that any irreducible lattice $\\Gamma$ of $G$ is virtually simple.",
+        89
+    ],
+    [
+        "Letting U sc \u221e = v * + w t * on T , we then obtain w \u2265 \u03b3 * on T in the sense of trace.",
+        "Letting $U^{sc}_\\infty = v_* + w\\h{1pt}t_*$ on $T$, we then obtain $w \\geq \\gamma_*$ on $T$ in the sense of trace.",
+        85
+    ],
+    [
+        "<b>B. Leading-order effective action</b> If one ignores entirely the corrections coming from the non-zero frequencies \u03c7, then it is clear from the original action (S13) that the effective action is given by S eff [M ] = L 3 N g [m 2 tr(M 2 ) + tr(M 4 )] , where the mass counter-term is absent because no dynamics from \u03c7 is included.",
+        "\\subsection{Leading-order effective action} If one ignores entirely the corrections coming from the non-zero frequencies $\\chi$, then it is clear from the original action~() that the effective action is given by \\begin{equation} S_{\\mathrm{eff}}[M]=\\frac{L^3N}{g}[m^2\\tr(M^2)+\\tr(M^4)]\\,, \\end{equation} where the mass counter-term is absent because no dynamics from $\\chi$ is included.",
+        88
+    ],
+    [
+        "Since when we change s i only a few terms of the energy function change (the ones containing spin s i and its first neighbors), this is a fast and easy computation.",
+        "Since when we change $s_i$ only a few terms of the energy function change (the ones containing spin $s_i$ and its first neighbors), this is a fast and easy computation.",
+        99
+    ],
+    [
+        "The welfare gain from an additional driver at (B, 2) would now be 4, thus the driver's new payment would be 4, and this is a useful deviation.",
+        "The welfare gain from an additional driver at $(B,2)$ would now be $4$, thus the driver's new payment would be $4$, and this is a useful deviation.",
+        98
+    ],
+    [
+        "Here the term dM c in the second equation is the proposed self-feedback.",
+        "Here the term $d Mc$ in the second equation is the proposed self-feedback.",
+        97
+    ],
+    [
+        "This is basically the geometrical content of the fact that, besides the energy E, a complete integral depends in an essential way on n \u2212 1 additional parameters.",
+        "This is basically the geometrical content of the fact that, besides the energy $E$, a complete integral depends in an essential way on $n-1$ additional parameters.",
+        98
+    ],
+    [
+        "In particular, L c (X) \u22ca S has a faithful non-degenerate representation.",
+        "In particular, $\\Lcs$ has a faithful non-degenerate representation.",
+        92
+    ],
+    [
+        "In [AVEH22] , Vir 3,4 = L(1/2, 0) was studied.",
+        "In , $\\Vir_{3, 4} = L(1/2, 0)$ was studied.",
+        87
+    ],
+    [
+        "<b>Proof:</b> The probability that x r+1 lies in a small interval [x, x + dx] is given as the probability that some point is in the interval times the probability that there are exactly r of the remaining n \u2212 1 points in [0, x].",
+        "\\bprfThe probability that $x_{r+1}$ lies in a small interval $[x,x+dx]$ is given as the probability that {\\em some} point is in the interval times the probability that there are exactly $r$ of the remaining $n-1$ points in $[0,x]$.",
+        93
+    ],
+    [
+        "We wish to point out that there is a close relationship to the problem of finding pattern avoiding words, see e.g. [5] [7] [23] [22] [3] [2] : Consider a graph G = (V, E) and an ordered list (e 1 , .",
+        "We wish to point out that there is a close relationship to the problem of finding pattern avoiding words, see e.g.\\ : Consider a graph $G=(V,E)$ and an ordered list $(e_1,\\dots,e_m)$ of the edges $e_i\\in E$.",
+        84
+    ],
+    [
+        "This proves the existence of the disk D n .",
+        "This proves the existence of the disk $D_n$.",
+        99
+    ],
+    [
+        "For magnetic dipoles with moment d, C dd = \u00b5 0 d 2 , where \u00b5 0 is the permeability of free space.",
+        "For magnetic dipoles with moment $d$, $C_{\\rm dd}=\\mu_0 d^2$, where $\\mu_0$ is the permeability of free space.",
+        92
+    ],
+    [
+        "Let x denote the projection of x onto this convex hull.",
+        "Let $x'$ denote the projection of $x$ onto this convex hull.",
+        96
+    ],
+    [
+        "A fortiori, J intersects M .",
+        "A fortiori, $J$ intersects $M$.",
+        95
+    ],
+    [
+        "Then, \u0393 x (J) is an ideal in KG x .",
+        "Then, $\\Gamma_x(J)$ is an ideal in $KG_x$.",
+        85
+    ],
+    [
+        "We have already noted that the 2-index Q-function is exactly the function \u2118 ij .",
+        "\\tag*{\\qed} \\renewcommand{\\qed}{} We have already noted that the 2-index $Q$-function is exactly the function $\\wp_{ij}$.",
+        80
+    ],
+    [
+        "( ) Now by the assumption that |C j | g j = r (t) 2 + f j (r(t)) 2 | \u03b8 j (t)| 2 = 1 a.e. and r (t) > 0 we find that 0 < r (t) \u2264 1 which yields \u0398(C j ) \u2264 L j (C j ) 0 | \u03b8 (t)| 2 dt 1/2 .",
+        "Now by the assumption that $|C_j'|_{g_j}=\\sqrt{r'(t)^2+f_j(r(t))^2|\\vec{\\theta}_j'(t)|^2}=1$ a.e. and $r'(t) >0$ we find that $0 <r'(t) \\le 1 $ which yields \\Theta(C_j)&\\le\\left (\\int_0^{L_j(C_j)}|\\vec{\\theta}'(t)|^2 dt \\right )^{1/2} .",
+        82
+    ],
+    [
+        "If Y has maximal rank, then we have an exact sequence</b> 0 \u2192 coker(Q) \u2192 A(\u03b4) \u2192 A(\u03b4) \u2192 0.",
+        "If $Y$ has maximal rank, then we have an exact sequence 0 \\to \\coker(Q) \\to B(\\delta) \\to \\overline{B(\\delta)} \\to 0.",
+        80
+    ],
+    [
+        "The form of the K x-ray line of medium and heavy atoms was studied by Polasik et al.",
+        "The form of the $K$ x-ray line of medium and heavy atoms was studied by Polasik \\etal in 2006.",
+        93
+    ],
+    [
+        "Using the metric g we form the unit tangent bundle \u03c0 : SX \u2192 X.",
+        "Using the metric $g$ we form the unit tangent bundle $\\pi: SX \\to X$.",
+        94
+    ],
+    [
+        "Hence, the 2-monad for symmetric monoidal categories distributes over F am.",
+        "Hence, the $2$-monad for symmetric monoidal categories distributes over $\\family$.",
+        95
+    ],
+    [
+        "The posterior measure \u03c1 \u03b4 (du) = P(du|\u03b4) given data \u03b4 is absolutely continuous with respect to the prior measure \u03c1(du) and has the Radon-Nikodym derivative (2) with \u03a6 given by (3).",
+        "The posterior measure $\\rho^\\delta(du) = \\IP(du|\\delta)$ given data $\\delta$ is absolutely continuous with respect to the prior measure $\\rho(du)$ and has the Radon-Nikodym derivative \\eref{eq:posterior} with $\\Phi$ given by \\eref{eq:phi}.",
+        82
+    ],
+    [
+        "This gives a diagram of Theorem 8.12 Bl \u03b445,\u03b434,\u03b435 Pic 3 H (R) \u039b \u2212 \u2212\u2212\u2212 \u2192 \u2243 M 0,5 (R) \uf8e6 \uf8e6 \uf8e6 \uf8e6 1345 2345 Pic 3 H (R) \u2243 \u2212 \u2212\u2212\u2212 \u2192 (M 0,4 (R)) 2 where horizontal arrows are real-analytic isomorphisms.",
+        "This gives a diagram of Theorem~ $$ \\Bl_{\\delta_{45}, \\delta_{34}, \\delta_{35}}\\Pic^3_H(\\bR) @>\\bLa>\\simeq> \\oM_{0,5}(\\bR)\\\\ @VVV @VV{1345\\atop 2345}V \\\\ \\Pic^3_H(\\bR) @>\\simeq>> (\\oM_{0,4}(\\bR))^2 $$ where horizontal arrows are real-analytic isomorphisms.",
+        80
+    ],
+    [
+        "The quantum mobility \u00b5 is much smaller than the mobility \u00b5 \u2032 obtained from the transition point.",
+        "The quantum mobility $\\mu$ is much smaller than the mobility $\\mu ^{\\prime}$ obtained from the transition point.",
+        90
+    ],
+    [
+        "Hence we can \"shrink\" the circles to P j , and the integrals over the two circles become zero and do not contribute to (5.5).",
+        "Hence we can ``shrink'' the circles to $P_j$, and the integrals over the two circles become zero and do not contribute to ().",
+        97
+    ],
+    [
+        "In the figure, we show the results for two different values of the thickness: L = 1.5 \u00d7 10 \u22127 m (blue lines) and L = 6 \u00d7 10 \u22127 m (red lines).",
+        "In the figure, we show the results for two different values of the thickness: $L=1.5\\times 10^{-7}\\, \\mbox{m}$ (blue lines) and $L=6\\times 10^{-7}\\, \\mbox{m}$ (red lines).",
+        86
+    ],
+    [
+        "y \u2208 \u2206 [m] ) with its barycentric coordinates (\u03b1 j ) j\u2208{0,...,n} (resp.",
+        "$y \\in \\Delta_{[m]}$) with its barycentric coordinates $(\\alpha_j)_{j \\in \\{0, \\dots , n\\}}$ (resp.",
+        82
+    ],
+    [
+        "For span scores, we continuously apply the approach and hinge loss J 1 (\u03b8) in the previous section.",
+        "For span scores, we continuously apply the approach and hinge loss $J_1(\\theta)$ in the previous section.",
+        96
+    ],
+    [
+        "But at present we do not know how to lift these known bimodules to S p ; it seems to be a difficult problem.",
+        "But at present we do not know how to lift these known bimodules to $\\bS_p$; it seems to be a difficult problem.",
+        99
+    ],
+    [
+        "Then \u03a0 S (Spec(K)) is not rigid in SH(S).",
+        "Then $\\Pi_S(\\Spec(K))$ is not rigid in $\\SH(S)$.",
+        90
+    ],
+    [
+        "We often assume that X is equipped with a complex structure J and that L is a holomorphic line bundle.",
+        "We often assume that $X$ is equipped with a complex structure $J$ and that $L$ is a holomorphic line bundle.",
+        97
+    ],
+    [
+        "We are looking for a functorial bijection h X (A) = Hom (sschemes) (SpecA, X) = F (A), for all A \u2208 (salg) .",
+        "We are looking for a functorial bijection $h_X(A)=\\Hom_{\\sschemes} (\\uspec A , X )= F(A)$, for all $ A \\in \\salg$.",
+        94
+    ],
+    [
+        "There is an ample line bundle L \u2192 T 2 whose holomorphic sections are theta functions.",
+        "There is an ample line bundle $L \\to \\T^2$ whose holomorphic sections are theta functions.",
+        97
+    ],
+    [
+        "This limit is also equivalent to assuming a holographic CFT with a large central charge c, which is related to bulk quantities through the Brown-Henneaux formula c = 3R 2G N , with R being the curvature radius of AdS [67] .",
+        "This limit is also equivalent to assuming a holographic CFT with a large central charge $c$, which is related to bulk quantities through the Brown-Henneaux formula $c=\\frac{3R}{2G_N}$, with $R$ being the curvature radius of AdS .",
+        97
+    ],
+    [
+        "Within such a cluster, the contacts are highly correlated (i.e., on average |\u03c1 ij,kl | \u2265 \u03b3), while the correlation between different clusters is comparatively low (i.e., |\u03c1 ij,kl | < \u03b3).",
+        "Within such a cluster, the contacts are highly correlated (i.e., on average $|\\rho_{ij,kl}| \\ge \\gamma$), while the correlation between different clusters is comparatively low (i.e., $|\\rho_{ij,kl}| < \\gamma$).",
+        92
+    ],
+    [
+        "Consider any cell C.",
+        "Consider any cell $C$.",
+        97
+    ],
+    [
+        "The paper [OSz05] also makes this vector space into a chain complex, denoted X, by counting pseudo-holomorphic polygons [OSz05, Section 4.2].",
+        "The paper~ also makes this vector space into a chain complex, denoted $X$, by counting pseudo-holomorphic polygons~\\cite[Section 4.2]{BrDCov}.",
+        90
+    ],
+    [
+        "It is known that the group SO(3) is not simply connected, and its (double) covering group is SU (2).",
+        "It is known that the group $SO(3)$ is not simply connected, and its (double) covering group is $SU(2)$.",
+        98
+    ],
+    [
+        "To not overburden the notation, in this subsection we denote (A, H) as a generic solution of the equations that follows.",
+        "\\hfill$\\Box$ \\subsection{Proof of Proposition } To not overburden the notation, in this subsection we denote $(A,H)$ as a generic solution of the equations that follows.",
+        83
+    ],
+    [
+        "(6.20) Now using the fact that \u03b3 \u2212j+1+s (a) \u2264 j s (b) =j\u22121\u2212s (a) \u03b3 \u2212s (b) \u2264 \u03b3 \u2212j+1+s (a) 1 \u2212 \u03b3 \u2212(1+s (a) ) 1 \u2212 \u03b3 \u22121 , we conclude that there exists another positive constant c 2 > c 1 , also independent of j, such that c 1 |\u03bb|j\u03b3 \u2212j \u2264 |T j | \u2264 c 2 |\u03bb|j\u03b3 \u2212j .",
+        "Now using the fact that \\be \\g^{-j+1+s^{(a)}}\\le\\sum_{s^{(b)}=j-1-s^{(a)}}^{j} \\g^{-s^{(b)}}\\le \\g^{-j+1+s^{(a)}}\\frac{1-\\g^{-(1+s^{(a)})}}{1-\\g^{-1}}, we conclude that there exists another positive constant $c_2>c_1$, also independent of $j$, such that \\bea c_1|\\lambda|j\\g^{-j}\\le\\vert T^j\\vert\\le c_2|\\lambda|j\\g^{-j}.",
+        82
+    ],
+    [
+        "It is seen that the P majority current has a large peak at V = 0.1 Volt, present for both values of m.",
+        "It is seen that the P majority current has a large peak at $V=0.1$~Volt, present for both values of $m$.",
+        98
+    ],
+    [
+        "We denote this directed and acyclic process by \u03c6.",
+        "We denote this directed and acyclic process by $\\phi$.",
+        94
+    ],
+    [
+        "Thus p i (y) \u2264 pi(x) + t(f (x)) \u2212 t(f (y)) and so t(f (x)) + p i (x) \u2265 t(f (y)) + p i (y) for any two profiles x, y connected by an edge labelled by type t.",
+        "Thus $p_i(y) \\le pi(x) + t(f(x)) - t(f(y))$ and so $t(f(x)) + p_i(x) \\ge t(f(y)) + p_i(y)$ for any two profiles $x,y$ connected by an edge labelled by type $t$.",
+        94
+    ],
+    [
+        "If we assume that d \u2113 (A, B) = 0, we want that A = B.",
+        "If we assume that $d_\\ell(A,B)=0$, we want that $A=B$.",
+        88
+    ],
+    [
+        "As I explain in [145] , I was led to define the ring K[\u2206] (which I denoted R \u2206 ) by my previous work [133] on \"magic squares.\" Specifically, let H n (r) denote the number of n \u00d7 n matrices of nonnegative integers for which every row and column sums to r.",
+        "As I explain in , I was led to define the ring $K[\\Delta]$ (which I denoted $R_\\Delta$) by my previous work on ``magic squares.'' Specifically, let $H_n(r)$ denote the number of $n\\times n$ matrices of nonnegative integers for which every row and column sums to $r$.",
+        92
+    ],
+    [
+        "Then (i) I \u2032 is an ideal of KG x ; (ii) I \u2032 \u2286 I; (iii) Ind x (I \u2032 ) = Ind x (I).",
+        "Then [(i)] $I'$ is an ideal of $KG_x$; $I' \\subseteq I$; $\\ind_x(I')=\\ind_x(I)$.",
+        84
+    ],
+    [
+        "The Eremenko-Lyubich class B consists of functions such that S(f ) is a bounded set (such functions are also called bounded-type).",
+        "The Eremenko-Lyubich class $\\classB$ consists of functions such that $S(f)$ is a bounded set (such functions are also called bounded-type).",
+        97
+    ],
+    [
+        "Ho\u0159ava made an important assumption about the lapse function which simplified the HL gravitational action, the so-called \"projectability condition,\" as N \u2261 N (t).",
+        "Ho\\v{r}ava made an important assumption about the lapse function which simplified the HL gravitational action, the so-called ``projectability condition,'' as $N\\equiv N(t)$.",
+        95
+    ],
+    [
+        "Intuitively, these values represent wealth (positive or negative) for which losses/gains from the interest dominate gains/losses from the gain function F .",
+        "Intuitively, these values represent wealth (positive or negative) for which losses/gains from the interest dominate gains/losses from the gain function $\\gain$.",
+        98
+    ],
+    [
+        "The Nutilin then degrades with rate constant k 38 .",
+        "The Nutilin then degrades with rate constant $k_{38}$.",
+        98
+    ],
+    [
+        "<b>VII. THE TIME-ASYMPTOTIC STATE OF THE YARD-SALE MODEL</b> It is well known that the equilibrium solution of the molecular Boltzmann equation, namely the Maxwell-Boltzmann distribution, may be found by setting the variation of Boltzmann's H function to zero, under the constraints of fixed mass, momentum and energy.",
+        "\\section{The time-asymptotic state of the Yard-Sale Model} It is well known that the equilibrium solution of the molecular Boltzmann equation, namely the Maxwell-Boltzmann distribution, may be found by setting the variation of Boltzmann's $H$ function to zero, under the constraints of fixed mass, momentum and energy.",
+        97
+    ],
+    [
+        "Specifically, we consider graphs with linear connectivity 3 \u2264 c \u2264 4.",
+        "Specifically, we consider graphs with linear connectivity $3\\le\\langle c\\rangle\\le 4$.",
+        89
+    ],
+    [
+        "A setup similar to our model is the tensionless limit of string theory on AdS 3 \u00d7 S 3 \u00d7 T 4 studied in [92] .",
+        "A setup similar to our model is the tensionless limit of string theory on $\\text{AdS}_3 \\times S^3\\times \\mathbb{T}^4$ studied in .",
+        87
+    ],
+    [
+        "Proof : Based on the BS configuration and the single UT scenario, the ergodic received gain is expressed in (18a), (18b) and (18c).",
+        "${\\textbf{\\emph{Proof}}}$: Based on the BS configuration and the single UT scenario, the ergodic received gain is expressed in (18a), (18b) and (18c).",
+        94
+    ],
+    [
+        "The ground-state spin increases as a function of J s in steps of \u2206S = 1.",
+        "The ground-state spin increases as a function of $J_s$ in steps of $\\Delta S=1$.",
+        94
+    ],
+    [
+        "A left R-module equipped with a multi-grading is called a multigraded left R-module.",
+        "A left $R$-module equipped with a multi-grading is called a {\\bf multi-graded left $R$-module}.",
+        94
+    ],
+    [
+        "Numerical applications to the set of atoms illustrate usage of S 2 and N 2 quantities as diagnostic tools, providing an insight into the underlying electronic structure.",
+        "Numerical applications to the set of atoms illustrate usage of $\\braket{S^2}$ and $\\braket{N^2}$ quantities as diagnostic tools, providing an insight into the underlying electronic structure.",
+        94
+    ],
+    [
+        "x and y are also named as target and anchor, since x will be optimized and y is fixed during the optimization.",
+        "\\(x\\) and \\(y\\) are also named as target and anchor, since \\(x\\) will be optimized and \\(y\\) is fixed during the optimization.",
+        94
+    ],
+    [
+        "The constant f in the above formula stands for the pion decay constant in the chiral limit, which we take to be f = 120 MeV.",
+        "The constant $f$ in the above formula stands for the pion decay constant in the chiral limit, which we take to be $f=120$~MeV.",
+        98
+    ],
+    [
+        "The symbol k V stands for a set of three numbers labelling the kinematical modes of the confined states (e.g. discrete wavevectors, or energy and angular momenta) and the set |k V form a complete set of states for the wavefunctions vanishing out of V .",
+        "The symbol $k_V$ stands for a set of three numbers labelling the kinematical modes of the confined states (e.g. discrete wavevectors, or energy and angular momenta) and the set $\\ket{k_V}$ form a complete set of states for the wavefunctions vanishing out of $V$.",
+        98
+    ],
+    [
+        "This takes O(n 2 ) time.",
+        "This takes~$\\Oh(n^2)$~time.",
+        94
+    ],
+    [
+        "The cases [X j , \u03c7 k ] = 0 and [\u03c7 l , \u03c7 k ] = 0 follow by using the same argument above.",
+        "The cases $[X_j, \\chi_k] = 0$ and $[\\chi_l, \\chi_k] = 0$ follow by using the same argument above.",
+        90
+    ],
+    [
+        "Note that if we were to map those bits to {0, 1} (where \u22121 \u2192 0 and +1 \u2192 1), then the bit-string b 1 b 2 b 3 would correspond to the number associated with the interval and would thus be the correct corresponding input to the circuit.",
+        "Note that if we were to map those bits to $\\{0,1\\}$ (where $-1 \\mapsto 0$ and $+1 \\mapsto 1$), then the bit-string $b_1b_2b_3$ would correspond to the number associated with the interval and would thus be the correct corresponding input to the circuit.",
+        95
+    ],
+    [
+        "Given P \u2192 M and s, the pair of E 8 -bundles (\u03c0 * P, \u03c0 * P ) \u2192 S 1 \u00d7 M are exchanged by the deck transformation for S 1 \u00d7 M \u2192 RP 1 \u00d7 M , and (c 1 + c 2 ) evaluated on the pair (\u03c0 * P, \u03c0 * P ) is 2c(P ) \u2208 H 4 (RP 1 \u00d7 M ; Z/2).",
+        "Given $P\\to M$ and $\\mathfrak s$, the pair of $\\rE_8$-bundles $(\\pi^*P, \\pi^*P)\\to S^1\\times M$ are exchanged by the deck transformation for $S^1\\times M\\to\\RP^1\\times M$, and $(c_1+c_2)$ evaluated on the pair $(\\pi^*P, \\pi^*P)$ is $2c(P)\\in H^4(\\RP^1\\times M;\\Z/2)$.",
+        85
+    ],
+    [
+        "For each strict edge e, replace its weight w(e) by w \u2032 (e) = w(e) \u2212 \u01eb for a sufficiently small \u01eb > 0 (we can treat \u01eb symbolically), and let G(\u01eb) be the resulting weighted graph.",
+        "For each strict edge $e$, replace its weight $w(e)$ by $w'(e)=w(e) - \\epsilon$ for a sufficiently small $\\epsilon>0$ (we can treat $\\epsilon$ symbolically), and let $G(\\epsilon)$ be the resulting weighted graph.",
+        87
+    ],
+    [
+        "We use our result for single-parameter agents to characterise the monotone restriction of an allocation function f guaranteeing efficiency and BNOM (WNOM, respectively) for both the buyer and the seller.",
+        "We use our result for single-parameter agents to characterise the monotone restriction of an allocation function $f$ guaranteeing efficiency and BNOM (WNOM, respectively) for both the buyer and the seller.",
+        100
+    ],
+    [
+        "Using the power of randomized Byzantine agreement lower bounds we strengthen his result and show in Theorem 4 that we cannot even get an -implementation in this setting.",
+        "Using the power of randomized Byzantine agreement lower bounds we strengthen his result and show in \\theoremref{thm:lowerbound-3} that we cannot even get an $\\epsilon$-implementation in this setting.",
+        91
+    ],
+    [
+        "Extend q to an algebra homomorphism Q : CG \u2192 CH in the natural way.",
+        "Extend $q$ to an algebra homomorphism $Q:\\Cplx G \\to \\Cplx H$ in the natural way.",
+        89
+    ],
+    [
+        "2001)] , together with the background model based on measurements in energy bands adjacent to the 60 Fe lines and on background tracers (see above).",
+        "2001), together with the background model based on measurements in energy bands adjacent to the $^{60}$Fe lines and on background tracers (see above).",
+        98
+    ],
+    [
+        "The average rate of photons scattered by each atom from the lattice is \u223c 10 4 s \u22121 , much larger than the initial maximal average elastic collisions rate of 190s \u22121 .",
+        "The average rate of photons scattered by each atom from the lattice is $\\sim 10^4 s^{-1}$, much larger than the initial maximal average elastic collisions rate of $190 s^{-1}$.",
+        97
+    ],
+    [
+        "For a fixed t \u2265 0, let Z t = {|x| \u2264 t, |y| \u2264 t} be a square in the (x, y)plane {z = t} and let Z = t\u22650 Z t .",
+        "For a fixed $t\\ge 0$, let $Z_t=\\{|x|\\le t,\\;|y|\\le t\\}$ be a square in the $(x,y)$-plane $\\{z=t\\}$ and let $Z=\\bigcup_{t\\ge 0}Z_t$.",
+        85
+    ],
+    [
+        "By the definition of \u03b4 j , (170) 2 j \u03b4 j = 2 j (1/2 2j ) \u2192 0.",
+        "By the definition of $\\delta_j$, \\be 2^j \\delta_j=2^j (1/2^{2j}) \\to 0.",
+        80
+    ],
+    [
+        "Figure [10] compares the performance on square matrices of our implementations of Goto's algorithm and C 4 A 2 C 0 .",
+        "Figure~ compares the performance on square matrices of our implementations of Goto's algorithm and $C_4 A_2 C_0$.",
+        98
+    ],
+    [
+        "We parameterize the parabolic arc tangent to the imaginary axis as \u0393 0 left = {ia \u2212 ca 2 : a \u2208 [\u2212\u03b4, \u03b4]} for some \u03b4, c > 0 sufficiently small.",
+        "We parameterize the parabolic arc tangent to the imaginary axis as \\Gamma_\\mathrm{left}^0 = \\{ i a - c a^2 : a \\in [-\\delta, \\delta]\\} for some $\\delta, c > 0$ sufficiently small.",
+        85
+    ],
+    [
+        "We start from a D 3 -type quiver with an additional condition, N 4 > N 3 , N 3 > N 1 \u2265 1, N 3 > N 2 \u2265 1, N 4 = N 1 + N 2 .",
+        "We start from a $D_3$-type quiver with an additional condition, N_4> N_3,\\,N_3> N_1\\geq 1,\\,N_3> N_2\\geq 1,\\,N_4= N_1+N_2\\,.",
+        93
+    ],
+    [
+        "4.1. Learning of new memories Training patterns {p 1 , .., p Z } presented to the system externally via r i \u2192 r i + f w (\u03d5 i )b (ext) i (t), for i \u2208 {p 1 , .., p Z }, are learned by the network via the activation of the short term memory for the corresponding intra-pattern links.",
+        "\\subsection{Learning of new memories} Training patterns $\\{p_1,..,p_Z\\}$ presented to the system externally via $r_i \\to r_i +f_w(\\varphi_i)b_i^{(ext)}(t)$, for $i\\in\\{p_1,..,p_Z\\}$, are learned by the network via the activation of the short term memory for the corresponding intra-pattern links.",
+        92
+    ],
+    [
+        "(2) The augmentation space is the simplicial set N pe Q \u22121 \u2282 J(Q) spanned by all the zero objects of Q.",
+        "The augmentation space is the simplicial set \\[ N^{pe}\\cQ_{-1}\\subset J(\\cQ) \\] spanned by all the zero objects of $\\cQ$.",
+        89
+    ],
+    [
+        "If one of dim(M B 1 ) or dim(M B 2 ) is negative, Property (cl-3) ensures that M B 1 or M B 2 (respectively) is empty, and hence, by Lemma 3.45 M B is empty.",
+        "If one of $\\dim(\\cM^{B'_1})$ or $\\dim(\\cM^{B'_2})$ is negative, Property~ ensures that $\\cM^{B_1}$ or $\\cM^{B_2}$ (respectively) is empty, and hence, by Lemma~ $\\cM^B$ is empty.",
+        89
+    ],
+    [
+        "(We are using \"free\" boundary conditions.) One of the basic features of the formalism is that the free energy density, F n (\u03b2, \u00b5) = ln[Z n (\u03b2, \u00b5)]/n d , contains all ways to interact with or influence the system, so that \"all\" physically significant quantities can be obtained by differentiating it with respect to \u03b2 and \u00b5.",
+        "(We are using ``free'' boundary conditions.) One of the basic features of the formalism is that the free energy density, $F_n(\\beta,\\mu)=\\ln[\\Z_n(\\beta,\\mu)]/n^d$, contains all ways to interact with or influence the system, so that ``all'' physically significant quantities can be obtained by differentiating it with respect to $\\beta$ and $\\mu$.",
+        95
+    ],
+    [
+        "As a consequence, the price for the trip (A, B, 1) cannot exceed 2 either, since otherwise, driver 2 would have incentive to take the path ((B, A, 0), (A, B, 1)) instead.",
+        "As a consequence, the price for the trip $(A,B,1)$ cannot exceed $2$ either, since otherwise, driver $2$ would have incentive to take the path $((B,A,0),~(A,B,1))$ instead.",
+        96
+    ],
+    [
+        "Although the tensile forcing stress due to the porosity and normal-strain rate perturbations are maximum at \u03b8 = 45 \u2022 (solid and dashed curves), that due to the enhanced shear strain rate \u0117(1) XY has peaks at \u03b8 \u2243 10 \u2022 and 80 \u2022 (dotted curve).",
+        "Although the tensile forcing stress due to the porosity and normal-strain rate perturbations are maximum at $\\theta=45^\\circ$ (solid and dashed curves), that due to the enhanced shear strain rate $\\strr^{(1)}_{XY}$ has peaks at $\\theta\\simeq 10^\\circ$ and $80^\\circ$ (dotted curve).",
+        91
+    ],
+    [
+        "We first recognize the right-hand side of ( [10] ) as an upper bound on the secrecy capacity, then exploit properties of the saddle point solution to establish R + ( KP , K\u03a6 ) = R \u2212 ( KP ), where R \u2212 ( KP ) is the lower bound (achievable rate) given in [(15)] .",
+        "We first recognize the right-hand side of as an upper bound on the secrecy capacity, then exploit properties of the saddle point solution to establish \\begin{equation} \\Rp(\\obK_P,\\obK_\\bPh)=\\Rm(\\obK_P), \\end{equation} where $\\Rm(\\obK_P)$ is the lower bound (achievable rate) given in .",
+        87
+    ],
+    [
+        "Figs.7(b),(c) present the detailed behavior of C near these peaks, which show that the both peaks develop as L is increased.",
+        "Figs.(b),(c) present the detailed behavior of $C$ near these peaks, which show that the both peaks develop as $L$ is increased.",
+        98
+    ],
+    [
+        "Thus (x, p) \u2208 E if and only if p = P (x \u2032 , p \u2032 , x) for some other (x \u2032 , p \u2032 ) \u2208 E.",
+        "Thus $(x, p) \\in E$ if and only if $p=P(x', p', x)$ for some other $(x', p')\\in E$.",
+        87
+    ],
+    [
+        "Proof. Let f be a non-negative, non-zero function in L 2 (X).",
+        "Let $f$ be a non-negative, non-zero function in $L^{2}(X)$.",
+        90
+    ],
+    [
+        "(One does need to slightly change the argument in Section 5.1.2, where the rotation symmetry only holds after decomposing the surface S t to two parts.) However, in order to obtain the upper bound 3\u03b1 \u00b43 for \u03b1 \u011b 7 4 , the argument fails to be sufficient.",
+        "(One does need to slightly change the argument in Section , where the rotation symmetry only holds after decomposing the surface $S_{\\vec{t}}$ to two parts.) However, in order to obtain the upper bound $3\\alpha-3$ for $\\alpha\\geq \\frac{7}{4}$, the argument fails to be sufficient.",
+        92
+    ],
+    [
+        "\u2022 The higher the number of switch nodes S, the higher the number of hops and the higher the average latency.",
+        "The higher the number of switch nodes $S$, the higher the number of hops and the higher the average latency.",
+        99
+    ],
+    [
+        "For estimating the proximity of \u03b8 0 to any singularity or boundary, one might use the Mahalanobis distances from \u03b8 n or Zn to singularities/boundaries (equivalently, the Euclidean distance from \u00b5 n or zn ), which can be estimated by parametric or non-parametric bootstrapping.",
+        "For estimating the proximity of $\\theta_0$ to any singularity or boundary, one might use the Mahalanobis distances from $\\widehat{\\theta}_n$ or $\\bar{\\mathcal{Z}}_n$ to singularities/boundaries (equivalently, the Euclidean distance from $\\widehat{\\mu}_n$ or $\\bar{z}_n$), which can be estimated by parametric or non-parametric bootstrapping.",
+        88
+    ],
+    [
+        "The inequality L(V)(s, p) \u2265 L(M, s) can be established in a similar way.",
+        "The inequality $\\calL(\\vec{V}){(s,p)} \\geq L(M,s)$ can be established in a similar way.",
+        88
+    ],
+    [
+        "The minimal polynomial of sequence c is the characteristic polynomial of the shortest LFSR capable of producing c.",
+        "Moreover, the minimal-polynomial$ is the characteristic polynomial of the shortest LFSR capable of producing $\\mathbf{c}$.",
+        86
+    ],
+    [
+        "( [9] ) we know that 2 + sin(\u03b1 \u2212 \u03b2) < 0 is a necessary condition to have such equally-sized (n 1 = 1/2) clusters.",
+        "Indeed, from Eq.~ we know that $2\\epsilon+\\sin(\\alpha-\\beta)<0$ is a necessary condition to have such equally-sized ($n_{1}=1/2$) clusters.",
+        83
+    ],
+    [
+        "From Theorem 4.4 (i) follows that D > 0 in the space-like case, too.",
+        "From Theorem (i) follows that $D>0$ in the space--like case, too.",
+        93
+    ],
+    [
+        "To be precise we will enumerate all k-noncrossing digraphs with j 1-arcs by relating them to a family whose cardinality we can easily compute.",
+        "To be precise we will enumerate all $k$-noncrossing digraphs with $j$ $1$-arcs by relating them to a {\\it family} whose cardinality we can easily compute.",
+        96
+    ],
+    [
+        "They occur precisely when \u00b5 coincides with the top of the lowest band and the bottom of the first excited band at q = q B , respectively.",
+        "They occur precisely when $\\mu$ coincides with the top of the lowest band and the bottom of the first excited band at $q=q_{\\rm B}$, respectively.",
+        95
+    ],
+    [
+        "Using Eq. ( [92] ), we can calculate \u03c7 in the paramagnetic phase.",
+        "Using Eq.~(), we can calculate $\\chi $ in the paramagnetic phase.",
+        89
+    ],
+    [
+        "4 by subdividing according to the connected components of 0's of the potential.",
+        "\\onlinecite{Bishop} by subdividing according to the connected components of $0$'s of the potential.",
+        88
+    ],
+    [
+        "By definition of \u00db L, we have a short exact sequence 0 \u2192 H \u2192 L 3 \u2192 \u00db L 3 \u2192 0 and, since \u00db L 3 is torsion-free, this sequence remains exact after tensorization with Z 2 .",
+        "By definition of $\\clo{\\frakL}$, we have a short exact sequence $0 \\to H \\to \\frakL_3 \\to \\clo{\\frakL}_3 \\to 0$ and, since $\\clo{\\frakL}_3$ is torsion-free, this sequence remains exact after tensorization with $\\Z_2$.",
+        86
+    ],
+    [
+        "By the same Theorem 2.1 in Constantin & Escher [3] , for every t \u2208 [0, T ), there exists at least one point \u03b7(t) \u2208 S such that M (t) = u x (t, \u03b7(t)) and u xx (t, \u03b7(t)) = 0.",
+        "By the same Theorem 2.1 in Constantin \\& Escher , for every $t\\in [0,T)$, there exists at least one point $\\eta(t)\\in \\mathbb{S}$ such that $M(t) = u_x(t,\\eta(t))$ and $u_{xx}(t,\\eta(t))=0$.",
+        88
+    ],
+    [
+        "We now collect the next order terms in e \u03c4 /2 resulting from inserting the ansatz (3.49)-(3.50) into the system (3.41)-(3.42), which are terms of order 1.",
+        "We now collect the next order terms in $e^{\\tau/2}$ resulting from inserting the ansatz - into the system -, which are terms of order 1.",
+        89
+    ],
+    [
+        "In most of these models, a single parameter p determines the probability that a signal is locally transmitted.",
+        "In most of these models, a single parameter $p$ determines the probability that a signal is locally transmitted.",
+        99
+    ],
+    [
+        "Analoguosly to the betwennees, also the inf ormation centrality can be defined for lines, giving origin to the quantity I ij .",
+        "Analoguosly to the $betwennees$, also the $information$ centrality can be defined for lines, giving origin to the quantity $I_{ij}$.",
+        97
+    ],
+    [
+        "The constants of ACP \u01eb can be explained as follows (a \u2208 A): \u03b4 denotes the process that cannot do anything; -\u01eb denotes the process that can only terminate successfully; -a denotes the process that can first perform action a and after that terminate successfully.",
+        "The constants of \\ACPe\\ can be explained as follows ($a \\in \\Act$): $\\dead$ denotes the process that cannot do anything; $\\ep$ denotes the process that can only terminate successfully; $a$ denotes the process that can first perform action $a$ and after that terminate successfully.",
+        95
+    ],
+    [
+        "We say a functional Z := (z, Z) defined by Z s,t := 1 + z s,t + Z s,t \u2208 T 2 (V ) , \u2200 (s, t) \u2208 \u2206 [0,T ] is an almost rough path if it satisfies the requirements of Definition 2.4 except identity (2.1) , but instead Z s,u \u2212 Z s,t \u2212 Z t,u \u2212 z s,t \u2297 z t,u \u2243 0, holds, i.e. it approximately satisfies the multiplicative identity (2.1) .The following theorem due to Lyons is a cornerstone for the development of the integration for rough paths.",
+        "We say a functional $\\mathbf{Z:=}\\left( z,\\mathbb{Z}\\right) $ defined by \\[ \\mathbf{Z}_{s,t}:=1+z_{s,t}+\\mathbb{Z}_{s,t}\\in T_{2}\\left( V\\right) ,~\\forall~\\left( s,t\\right) \\in\\Delta_{\\left[ 0,T\\right] }\\] is an \\textbf{almost rough path} if it satisfies the requirements of Definition except identity $\\left( \\right) ,$ but instead \\[ \\mathbb{Z}_{s,u}-\\mathbb{Z}_{s,t}-\\mathbb{Z}_{t,u}-z_{s,t}\\otimes z_{t,u}\\simeq0, \\] holds, i.e. it approximately satisfies the multiplicative identity $\\left( \\right) .$The following theorem due to Lyons is a cornerstone for the development of the integration for rough paths.",
+        81
+    ],
+    [
+        "\u03c0 t * (p k ) \u2212 \u03c0 t * ((v (j) T ) k ) \u2264 \u03c0 t * (p i ) \u2212 \u03c0 u * ((v (j) T ) i ) , for all k \u2208 supp(v (j) T ) and (i, j) \u2208 S, with equality if and only if (k, j) \u2208 S.",
+        "\\pi_{t*}(p_k) - \\pi_{t*}((v_T^{(j)})_k) \\leq \\pi_{t*}(p_i) - \\pi_{u*}((v_T^{(j)})_i) \\enspace , for all $k \\in \\supp(v_T^{(j)})$ and $(i,j) \\in S$, with equality if and only if $(k,j) \\in S$.",
+        83
+    ],
+    [
+        "It is easy to see that \u03c3 is a (1, 0)-robust equilibrium (i.e., a Nash equilibrium).",
+        "It is easy to see that $\\sigma$ is a $(1,0)$-robust equilibrium (i.e., a Nash equilibrium).",
+        93
+    ],
+    [
+        "The simplicity condition for \u03c6 ensures that each component of B m`1 is homeomorphic to the 3-ball, and that the canonical extension of \u03a6 to B m`1 is simple.",
+        "The simplicity condition for $\\phi$ ensures that each component of $B_{m+1}$ is homeomorphic to the 3-ball, and that the canonical extension of $\\Phi$ to $B_{m+1}$ is simple.",
+        93
+    ],
+    [
+        "The integral runs over the Brillouin zone when the Fermi energy lies between the energies of the initial and final states, denoted by E i and E j , respectively, where E i is an eigenvalue of the Hamiltonian Eq.",
+        "The integral runs over the Brillouin zone when the Fermi energy lies between the energies of the initial and final states, denoted by $E_i$ and $E_j$, respectively, where $E_i$ is an eigenvalue of the Hamiltonian Eq.~() corresponding to the eigenstate $|i\\rangle$.",
+        89
+    ],
+    [
+        "Specifically, for each input code snippet = { 1 , ..., }, we keep tokens if their frequency is among the top ( = | |) of all tokens in the input, namely, \ud835\udc36 \ud835\udc5d = {\ud835\udc64 |\ud835\udc64 \u2208 \ud835\udc36, \ud835\udc53 (\ud835\udc64) \u2208 top\u2212\ud835\udc58 (\ud835\udc53 (\ud835\udc64 1 ), ..., \ud835\udc53 (\ud835\udc64 \ud835\udc5b )), \ud835\udc58 = |\ud835\udc36 \ud835\udc5d |) (5) where () denotes the frequency of in the whole code corpora.",
+        "Specifically, for each input code snippet $C = \\{w_1,...,w_n\\}$, we keep tokens if their frequency is among the top $k$ ($k=|C_p|$) of all tokens in the input, namely, \\begin{equation} C_p = \\{w|w\\in C, f(w)\\in\\mathrm{top-}k(f(w_1),...,f(w_n)), k=|C_p|) \\end{equation} where $f(w)$ denotes the frequency of $w$ in the whole code corpora.",
+        84
+    ],
+    [
+        "a) Let e 1 , e 2 be positive elliptic zeroes of Z, and h a hyperbolic zero.",
+        "[a)] Let $e_1,e_2$ be positive elliptic zeroes of $Z$, and $h$ a hyperbolic zero.",
+        94
+    ],
+    [
+        "In fact, if u \u2208 gr G (M) and \u03bb is a partition, then lm(u) = u \u03bb implies lm((L \u22122 ) (0) (u)) = u [\u03bb,1] .",
+        "In fact, if $u \\in \\gr^G(M)$ and $\\lambda$ is a partition, then \\lm(u) = u_{\\lambda}\\text{ implies }\\lm((L_{-2})_{(0)}(u)) = u_{[\\lambda, 1]}.",
+        80
+    ],
+    [
+        "The elements of \u2126 String * (BE 8 ) coming from \u2126 String * (pt) are represented by string manifolds with trivial E 8 -bundle; these vacuously satisfy the condition 2c = \u03bb, so define classes in \u2126 \u03be CHL * representing the same elements under the abstract isomorphism with \u2126 String * (BE 8 ).",
+        "The elements of $\\Omega_*^\\String(B\\rE_8)$ coming from $\\Omega_*^\\String(\\pt)$ are represented by string manifolds with trivial $\\rE_8$-bundle; these vacuously satisfy the condition $2c = \\lambda$, so define classes in $\\Omega_\\ast^\\xiCHL$ representing the same elements under the abstract isomorphism with $\\Omega_\\ast^\\String(B\\rE_8)$.",
+        87
+    ],
+    [
+        "We consider all the pairs {p, q}, classified by the index m introduced in ( [69] ), finding that all the modulations induced by \u03c3 {p,q} on XXX chain are relevant, while on the XX chain they are marginal.",
+        "We consider all the pairs \\pq{p}{q}, classified by the index $m$ introduced in (), finding that all the modulations induced by $\\sigma_{\\{p,q\\}}$ on XXX chain are relevant, while on the XX chain they are marginal.",
+        94
+    ],
+    [
+        "Let F be a characteristic foliation on S, \u03c6 its special taming function with an enrichment pj, hq, and f : S \u00d1 R 3 \" C \u02c6R a compatible immersion.",
+        "Let $\\FF$ be a characteristic foliation on $S$, $\\phi$ its special taming function with an enrichment $(j,h)$, and $f:S\\to\\R^3=\\C\\times\\R$ a compatible immersion.",
+        89
+    ],
+    [
+        "We consider the case when the graph [6] G is either a k-nearest neighbor graph (k-NNG) or the \u03c1-random geometric graph (\u03c1-RGG) with threshold radius \u03c1, where k, \u03c1 are some fixed constants, independent of the number of nodes n.",
+        "See for details and examples.} is either a $k$-nearest neighbor graph ($k$-NNG) or the $\\rho$-random geometric graph ($\\rho$-RGG) with threshold radius $\\rho$, where $k,\\rho$ are some fixed constants, independent of the number of nodes $n$.",
+        85
+    ],
+    [
+        "In order to illustrate the result of Lemma 3.1 we present Figure [1] which displays the functions \u03c1 D (\u03c4 |t) and \u03c1 S (\u03c4 |t) defined in ( [18] ) and ( [20] ), respectively, obtained by application of R D and R S to a certain smooth density function \u03d5.",
+        "In order to illustrate the result of Lemma~ we present Figure~ which displays the functions $\\rho_D(\\tau|t)$ and $\\rho_S(\\tau|t)$ defined in~ and~, respectively, obtained by application of $R_D$ and $R_S$ to a certain smooth density function~$\\varphi$.",
+        88
+    ],
+    [
+        "Any 4-dimensional division algebra D over a field F with char F = 2 is isomorphic to H \u03b1,\u03b2 for some non-squares \u03b1, \u03b2 \u2208 F \u00d7 .",
+        "Any 4-dimensional division algebra $D$ over a field $F$ with $\\ch F\\ne 2$ is isomorphic to $\\HH_{\\alpha,\\beta}$ for some non-squares $\\alpha,\\beta\\in F^\\times$.",
+        81
+    ],
+    [
+        "\u2022 If n \u2212 (k + t) or more players choose G and output PUNISH or all players choose B, then we call this a punishment outcome; the utility is \u22121 for all players.",
+        "If $n-(k+t)$ or more players choose G and output $\\punish$ or all players choose B, then we call this a \\emph{punishment outcome}; the utility is $-1$ for all players.",
+        94
+    ],
+    [
+        "3) X \u2032 K,i and X \u2032 K,j are semialgebraic ambient bi-Lipschitz equivalent only when i = j.",
+        "$3) \\ $ $ X'_{K,i}$ and $X'_{K,j}$ are semialgebraic ambient bi-Lipschitz equivalent only when $i=j$.",
+        92
+    ],
+    [
+        "Let y 0 \u2208 X and y \u2032 0 \u2208 X \u2032 .",
+        "Let $y_0\\in X$ and $y_0'\\in X'$.",
+        81
+    ],
+    [
+        "Presented are equations for all avoidable colors and equal frequencies, but the breaking of site and bond universality will be the case in any instance mentioned in table I for regime \u03b3 \u2208 2, 3 .",
+        "Presented are equations for all avoidable colors and equal frequencies, but the breaking of site and bond universality will be the case in any instance mentioned in table~ for regime $\\gamma \\in \\left\\langle 2,3 \\right\\rangle$.",
+        91
+    ],
+    [
+        "Proof. As val 2 is a homomorphism of semirings if restricted to positive Hahn series it follows that val 2 (K) is a rank two tropical cone.",
+        "As $\\val_2$ is a homomorphism of semirings if restricted to positive Hahn series it follows that $\\val_2(K)$ is a rank two tropical cone.",
+        95
+    ],
+    [
+        "Moreover r \u2022 \u03b4 is then total and, by the rules of composition, \u03b4 is total as well.",
+        "Moreover $r \\cdot \\delta$ is then total and, by the rules of composition, $\\delta$ is total as well.",
+        88
+    ],
+    [
+        "(4.15) Our conjecture says that g , (L) belongs to Z[\u03bd \u00b11 , z], i.e. it has no negative powers of z.",
+        "\\ea Our conjecture says that $g_{\\tableau{1}, \\tableau{1}}(\\CL)$ belongs to $\\IZ[\\nu^{\\pm1}, z]$, i.e. it has no negative powers of $z$.",
+        80
+    ],
+    [
+        "f (i) 0 and f (i) 1 are termed as the measurement fidelities of the bases states |0 and |1 respectively of the i th qubit.",
+        "$f_0^{(i)}$ and $f_1^{(i)}$ are termed as the measurement fidelities of the bases states $|0\\rangle$ and $|1\\rangle$ respectively of the $i^{th}$ qubit.",
+        88
+    ],
+    [
+        "Since the polynomial a \u03b8 0 is not the null polynomial, this implies that c p+q+1 = 0 and then c k for 1 \u2264 k \u2264 p.",
+        "Since the polynomial $a_{\\theta_0}$ is not the null polynomial, this implies that $c_{p+q+1}=0$ and then $c_k$ for $1\\le k\\le p$.",
+        90
+    ],
+    [
+        "Therefore, R in the electronic BO equation can be treated as constants [29] , or in other words, as parameters.",
+        "Therefore, $\\vec{R}$ in the electronic BO equation can be treated as constants , or in other words, as parameters.",
+        94
+    ],
+    [
+        "G (h) Q1,...,Qs,T ;B (t)), and (i, j) \u2032 is the label immediately preceding (i, j) in the lexicographic order (if (i, j) = (1, 2), we interpret A (1,2) \u2032 \u2261 G (h) Q1,...,Qs,T ;B (t)).",
+        "$G^{(h)}_{Q_1,\\ldots,Q_s,T;\\B} (\\bs t)$), and $(i,j)'$ is the label immediately preceding $(i,j)$ in the lexicographic order (if $(i,j)=(1,2)$, we interpret $A^{(1,2)'}\\equiv G^{(h)}_{Q_1,\\ldots,Q_s,T;\\B} (\\bs t)$).",
+        86
+    ],
+    [
+        "8 . The figure shows the critical value c depending on the parameter \u03b3 for different values of n 1 .",
+        "The figure shows the critical value $\\epsilon_{c}$ depending on the parameter $\\gamma$ for different values of $n_{1}$.",
+        87
+    ],
+    [
+        "It is not hard to see that this is the functor of points of an affine supergroup GL(m|n) represented by the Hopf superalgebra k[GL(m|n)] = k[x ij , \u03be kl ][T ]/(T Ber \u2212 1), where x ij 's and \u03be kl 's are respectively even and odd variables with 1 \u2264 i, j \u2264 m or m + 1 \u2264 i, j \u2264 m + n, 1 \u2264 k \u2264 m, m + 1 \u2264 l \u2264 m + n or m + 1 \u2264 k \u2264 m + n, 1 \u2264 l \u2264 m and Ber denotes the Berezinian.",
+        "\\medskip It is not hard to see that this is the functor of points of an affine supergroup $\\rGL(m|n)$ represented by the Hopf superalgebra $$ k[\\rGL(m|n)]=k[x_{ij},\\xi_{kl}][T]/(T \\Ber-1), $$ where $x_{ij}$'s and $\\xi_{kl}$'s are respectively even and odd variables with $1 \\leq i,j \\leq m$ or $m+1 \\leq i,j \\leq m+n$, $1 \\leq k \\leq m$, $m+1 \\leq l \\leq m+n$ or $m+1 \\leq k \\leq m+n$, $1 \\leq l \\leq m$ and $\\Ber$ denotes the Berezinian.",
+        88
+    ],
+    [
+        "We now perform a Lorentz transformation to the S frame moving with v p = \u03b2c along y (so that \u03b3 = (1 \u2212 \u03b2 2 ) \u22121/2 = (\u03c9 2 p /\u03c9 2 \u2212 1) 1/2 ).",
+        "We now perform a Lorentz transformation to the $S'$ frame moving with $v_p=\\beta c$ along $y$ (so that $\\gamma=(1-\\beta^2)^{-1/2}=(\\omega_p^2/\\omega^2-1)^{1/2}$).",
+        85
+    ],
+    [
+        "A typical example of such approximation performs an integration of the long-ranged tail of Lennard-Jones 1/r 6 potentials between infinitesimal constituents of the interacting macroscopic objects [22] .",
+        "A typical example of such approximation performs an integration of the long-ranged tail of Lennard-Jones $1/r^6$ potentials between infinitesimal constituents of the interacting macroscopic objects .",
+        98
+    ],
+    [
+        "The divergence of the series P (s, x, x) for s = h and the discreteness of \u0393 yields that the support of \u03bd p is contained in the limit set.",
+        "The divergence of the series $P(s,x,x)$ for $s = h$ and the discreteness of $\\Gamma$ yields that the support of $\\nu_{p}$ is contained in the limit set.",
+        92
+    ],
+    [
+        "However, all corrections are built up of a finite number of trans-series in the variable B, appearing in (5.27) .",
+        "However, all corrections are built up of a finite number of trans-series in the variable $B$, appearing in ().",
+        96
+    ],
+    [
+        "A CQ is atomic iff \u03a6(X, Y) is a single atom and Y = \u2205 (i.e., there are no existentially quantified variables).",
+        "A CQ is \\emph{atomic} iff $\\Phi(\\vett{X},\\vett{Y})$ is a single atom and $\\vett{Y}\\eqs \\emptyset$ (i.e., there are no existentially quantified variables).",
+        82
+    ],
+    [
+        "For instance, we expect that a singular perturbation approach may be useful in verifiying our assumptions in the large r limit, which would then allow one to rigorously determine the asymptotics of the pushed-pulled transition curve \u039b(r).",
+        "For instance, we expect that a singular perturbation approach may be useful in verifiying our assumptions in the large $r$ limit, which would then allow one to rigorously determine the asymptotics of the pushed-pulled transition curve $\\Lambda(r)$.",
+        98
+    ],
+    [
+        "The exact answer can be understood as the median resummation of a non-trivial trans-series which can be obtained analytically and has an infinite number of IR renormalon singularities (in contrast to the solution of [46] [47] , which has a single IR renormalon singularity, and similar to the numerical results obtained in [25] [26] for the O(4) NLSM).",
+        "The exact answer can be understood as the median resummation of a non-trivial trans-series which can be obtained analytically and has an infinite number of IR renormalon singularities (in contrast to the solution of , which has a single IR renormalon singularity, and similar to the numerical results obtained in for the $O(4)$ NLSM).",
+        97
+    ],
+    [
+        "Indeed, its coefficients are given by c n = \u03c6 n , g = \u03c6 n , U(x; 1, \u03b4)\u03c6 0 , i.e., the proportional to the first row of the interaction matrix.",
+        "Indeed, its coefficients are given by \\[ c_n = \\langle \\phi_n, g \\rangle = \\langle \\phi_n, U(x; 1, \\delta) \\phi_0 \\rangle, \\] i.e., the proportional to the first row of the interaction matrix.",
+        83
+    ],
+    [
+        "At time 1, when the mechanism recomputes a driver-pessimal plan, both drivers would take the trip (A, A, 1) and pick up riders 2 and 3 respectively.",
+        "At time $1$, when the mechanism recomputes a driver-pessimal plan, both drivers would take the trip $(A,A,1)$ and pick up riders $2$ and $3$ respectively.",
+        97
+    ],
+    [
+        "Similarly, f [V 1 ] is contained in either V 0 or V 1 .",
+        "Similarly, $f[V_1]$ is contained in either $V_0$ or $V_1$.",
+        95
+    ],
+    [
+        "Our goal is to show how they can be put to use in a few concrete examples: the torus Z m \u00d7 Z n (where m and n are sufficiently large even numbers), the hypercube Z m 2 , tree-like graphs and the doubled versions of these (see Fig.",
+        "Our goal is to show how they can be put to use in a few concrete examples: the torus $\\ZZ_m\\times\\ZZ_n$ (where $m$ and $n$ are sufficiently large even numbers), the hypercube $\\ZZ_2^m$, tree-like graphs and the doubled versions of these (see Fig.~--).",
+        95
+    ],
+    [
+        "Fix \u03b8 \u2265 1/2 and let \u03b5 > 0 be a small parameter.",
+        "Fix $\\theta\\ge 1/2$ and let $\\eps>0$ be a small parameter.",
+        85
+    ],
+    [
+        "In such a case the parameter a does not have an effect and the output is always the same as the input.",
+        "In such a case the parameter $a$ does not have an effect and the output is always the same as the input.",
+        99
+    ],
+    [
+        "\u2022 If X is right bounded, then we have B r,s n = B r,s \u221e , for n \u226b 0, and Fil r H m (F X) = H m (F X), for fixed m \u2208 Z and all r \u226a 0.",
+        "If $X$ is right bounded, then we have $B_n^{r,s} = B_\\infty^{r,s}$, for $n\\gg0$, and $\\Fil^r\\H^{m}(FX) = \\H^{m}(FX)$, for fixed $m\\in\\Z$ and all $r\\ll0$.",
+        86
+    ],
+    [
+        "First, our result can be related to the Csisz\u00e1r-K\u00f6rner characterization of the secrecy capacity for a nondegraded discrete memoryless broadcast channel p yr,ye|x in the form [2] C = max pu ,p x|u I(u; y r ) \u2212 I(u; y e ), ( ) where u is an auxiliary random variable (over some alphabet with bounded cardinality) that satisfies the Markov constraint u \u2194 x \u2194 (y r , y e ).",
+        "First, our result can be related to the Csisz\\'{a}r-K\\\"{o}rner characterization of the secrecy capacity for a nondegraded discrete memoryless broadcast channel $p_{\\rvyr,\\rvye|\\rvx}$ in the form C = \\max_{p_{\\rvu},p_{\\rvx|\\rvu}} I(\\rvu;\\rvyr)-I(\\rvu;\\rvye), where $\\rvu$ is an auxiliary random variable (over some alphabet with bounded cardinality) that satisfies the Markov constraint $\\rvu \\leftrightarrow \\rvx \\leftrightarrow (\\rvyr,\\rvye)$.",
+        86
+    ],
+    [
+        "Let G be any graph containing a three-valent vertex (left), and let G \u2032 be the graph obtained by splitting that vertex in two (right).",
+        "\\subsubsection{Split Vertices} Let $G$ be any graph containing a three-valent vertex (left), and let $G'$ be the graph obtained by splitting that vertex in two (right).",
+        89
+    ],
+    [
+        "While solutions with \u2206 S = 0 exist, they occur for values of \u2206/\u03b4 for which a higher spin state with no pairing correlations has lower energy (because of the exchange interaction).",
+        "While solutions with $\\Delta_S \\neq 0$ exist, they occur for values of $\\Delta/\\delta$ for which a higher spin state with no pairing correlations has lower energy (because of the exchange interaction).",
+        94
+    ],
+    [
+        "This means that for a disk D, connected components of f \u22121 (D) can be associated via \u03d5 to components of F \u22121 (D) that have comparable size, and we will have good control of these components by construction.",
+        "This means that for a disk $D$, connected components of $f^{-1}(D)$ can be associated via $\\varphi$ to components of $F^{-1}(D)$ that have comparable size, and we will have good control of these components by construction.",
+        96
+    ],
+    [
+        "For instance, K1(R) is isomorphic to GL(R) modulo elementary relations.",
+        "For instance, $K_1(R)$ is isomorphic to $GL(R)$ modulo elementary relations.",
+        97
+    ],
+    [
+        "Data were submitted successively to motion correction, slice timing and normalization to the MNI template, and spatial smoothing using a 5 \u00d7 5 \u00d7 5 mm 3 FWHM Gaussian filter.",
+        "Data were submitted successively to motion correction, slice timing and normalization to the~MNI template, and spatial smoothing using a $5\\times 5\\times 5$~mm$^3$ FWHM Gaussian filter.",
+        96
+    ],
+    [
+        "3 . We see that even with damping there is a large difference between bSat and bNonSat, at y = 0 which corresponds to x I P = 10 \u22123 , as anticipated from Fig.",
+        "We see that even with damping there is a large difference between bSat and bNonSat, at $y=0$ which corresponds to $\\xpom=10^{-3}$, as anticipated from Fig.~ (c).",
+        93
+    ],
+    [
+        "With conformality distortion Kf (x), the bijectivity of the registration can be easily guaranteed by enforcing the constraint ||Kf (x)|| \u221e < K for some K < \u221e.",
+        "With conformality distortion $Kf(x)$, the bijectivity of the registration can be easily guaranteed by enforcing the constraint $||Kf(x)||_{\\infty}<K$ for some $K<\\infty$.",
+        94
+    ],
+    [
+        "Analogously, one can define the mean angular velocity of component i as \u2126 \u2126 \u2126 i = \u03c9 \u03c9 \u03c9 i .",
+        "Analogously, one can define the mean angular velocity of component $i$ as $\\bm{\\Omega}_i=\\langle \\wwa\\rangle$.",
+        82
+    ],
+    [
+        "It admits a canonical perfect obstruction theory if V has at most lci singularities.",
+        "It admits a canonical perfect obstruction theory if $V$ has at most lci singularities.",
+        99
+    ],
+    [
+        "Let \u03a3 : Frac(A Q ) \u2192 Frac(A Q ) be the automorphism mapping each y \u03b1 to y \u2212\u03b1 .",
+        "Let $\\Sigma: \\Frac(\\A_Q) \\to \\Frac(\\A_Q)$ be the automorphism mapping each $y^\\alpha$ to $y^{-\\alpha}$.",
+        83
+    ],
+    [
+        "For improved readability we abbreviate L = C[[t, u]].",
+        "For improved readability we abbreviate $\\LL=\\hahnseries{\\CC}{t,u}$.",
+        86
+    ],
+    [
+        "Fix u > 0.",
+        "Fix $u>0$.",
+        82
+    ],
+    [
+        "Another simple -from the market perspective an even more realistic -representation of \u03a0 is to use an asymmetric saw-like function.",
+        "Another simple - from the market perspective an even more realistic - representation of $\\Pi$ is to use an asymmetric saw-like function.",
+        97
+    ],
+    [
+        "We fix a lax functorial factorisation system with components (F, L, R, K).",
+        "We fix a lax functorial factorisation system with components $\\ton{F,L,R,K}$.",
+        95
+    ],
+    [
+        "Since \u03c9 sw (q K ) = 0, the latter corresponds to the central peak.",
+        "Since $\\omega_{sw}(\\bm{q}_K) = 0$, the latter corresponds to the central peak.",
+        89
+    ],
+    [
+        "Definition 1 (Tree-width) The class T W (k) of graphs of tree-width at most k is defined inductively as follows: -All (k + 1)-graphs of order at most k + 1 belong to T W (k).",
+        "[Tree-width] \\index{tree-width} The class $TW(k)$ of graphs of tree-width at most $k$ is defined inductively as follows: [--] All $(k+1)$-graphs of order at most $k+1$ belong to $TW(k)$.",
+        88
+    ],
+    [
+        "Therefore this restriction is a trivial line bundle and so the genus of each C (0) i is zero.",
+        "Therefore this restriction is a trivial line bundle and so the genus of each $C^{(0)}_i$ is zero.",
+        98
+    ],
+    [
+        "Then \u03a3 v is a disc, so \u2113 e is contractible, and hence T \u2113 e = 1.",
+        "Then $\\Sigma_v$ is a disc, so $\\ell_e$ is contractible, and hence $T_{\\ell_e} =1$.",
+        84
+    ],
+    [
+        "Proof. Invoking repeteadly the canonical Euclidean decomposition [BH99, II.6.15], it suffices to prove that any continuous isometric H-action on any R d has a fixed point.",
+        "Invoking repeteadly the canonical Euclidean decomposition~\\cite[II.6.15]{Bridson-Haefliger}, it suffices to prove that any continuous isometric $H$-action on any $\\RR^d$ has a fixed point.",
+        89
+    ],
+    [
+        "However, doing so is somewhat cumbersome: one has to analyze the conjugacy classes in F \u22ca D to show that |D| = 2, explain why |F| is an odd prime, and so on.",
+        "However, doing so is somewhat cumbersome: one has to analyze the conjugacy classes in ${\\bf F}\\rtimes {\\bf D}$ to show that $|{\\bf D}|=2$, explain why $|{\\bf F}|$ is an odd prime, and so on.",
+        90
+    ],
+    [
+        "[7a] below.) If the self-transition probability of a given state is lower than a certain metastability criterion Qmin \u2208 (0, 1], the state will be lumped with the state to which the transition probability is the highest.",
+        "(The choice of $\\tau_\\text{MPP}$ is explained in the discussion of Fig.~a below.) If the self-transition probability of a given state is lower than a certain metastability criterion $Q_\\text{min} \\in (0, 1]$, the state will be lumped with the state to which the transition probability is the highest.",
+        84
+    ],
+    [
+        "In this case \u03bb := \u03bb 0 | S E is a contact form on S E and its Reeb flow is equivalent to the Hamiltonian flow of H on S E .",
+        "In this case $\\lambda:=\\lambda_0|_{S_E}$ is a contact form on $S_E$ and its Reeb flow is equivalent to the Hamiltonian flow of $H$ on $S_E$.",
+        91
+    ]
 ]
