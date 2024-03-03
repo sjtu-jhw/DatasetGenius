@@ -1,0 +1,555 @@
+{
+    "title": [
+        {
+            "el_type": "title",
+            "txt": "Conditional Automated Channel Pruning for Deep Neural Networks"
+        }
+    ],
+    "abstract": [
+        {
+            "el_type": "p",
+            "txt": "\n"
+        },
+        {
+            "el_type": "s",
+            "coords": "1,63.96,238.39,218.57,7.77;1,63.96,248.35,130.43,7.77",
+            "txt": "Model compression aims to reduce the redundancy of deep networks to obtain compact models."
+        },
+        {
+            "el_type": "s",
+            "coords": "1,196.83,248.35,85.71,7.77;1,63.96,258.32,218.57,7.77;1,63.96,268.28,198.22,7.77",
+            "txt": "Recently, channel pruning has become one of the predominant compression methods to deploy deep models on resource-constrained devices."
+        },
+        {
+            "el_type": "s",
+            "coords": "1,264.10,268.28,18.43,7.77;1,63.96,278.24,218.57,7.77;1,63.96,288.21,218.57,7.77;1,63.96,298.17,29.64,7.77",
+            "txt": "Most channel pruning methods often use a fixed compression rate for all the layers of the model, which, however, may not be optimal."
+        },
+        {
+            "el_type": "s",
+            "coords": "1,95.51,298.17,187.03,7.77;1,63.96,308.13,218.57,7.77;1,63.96,318.09,83.82,7.77",
+            "txt": "To address this issue, given a target compression rate for the whole model, one can search for the optimal compression rate for each layer."
+        },
+        {
+            "el_type": "s",
+            "coords": "1,150.00,318.09,132.54,7.77;1,63.96,328.06,194.88,7.77",
+            "txt": "Nevertheless, these methods perform channel pruning for a specific target compression rate."
+        },
+        {
+            "el_type": "s",
+            "coords": "1,261.13,328.06,21.41,7.77;1,63.96,338.02,218.57,7.77;1,63.96,347.98,218.57,7.77;1,63.96,357.94,91.81,7.77",
+            "txt": "When we consider multiple compression rates, they have to repeat the channel pruning process multiple times, which is very inefficient yet unnecessary."
+        },
+        {
+            "el_type": "s",
+            "coords": "1,158.89,357.94,123.65,7.77;1,63.96,367.91,218.57,7.77;1,63.96,377.87,218.57,7.77;1,63.96,387.83,162.03,7.77",
+            "txt": "To address this issue, we propose a Conditional Automated Channel Pruning (CACP) method to obtain the compressed models with different compression rates through single channel pruning process."
+        },
+        {
+            "el_type": "s",
+            "coords": "1,228.16,387.83,54.37,7.77;1,63.96,397.79,218.57,7.77;1,63.96,407.76,218.57,7.77;1,63.96,417.72,24.66,7.77",
+            "txt": "To this end, we develop a conditional model that takes an arbitrary compression rate as input and outputs the corresponding compressed model."
+        },
+        {
+            "el_type": "s",
+            "coords": "1,90.52,417.72,192.01,7.77;1,63.96,427.68,218.57,7.77;1,63.96,437.64,218.57,7.77;1,63.96,447.61,117.11,7.77",
+            "txt": "In the experiments, the resultant models with different compression rates consistently outperform the models compressed by existing methods with a channel pruning process for each target compression rate."
+        }
+    ],
+    "body": [
+        {
+            "el_type": "head",
+            "coords": "1,140.81,475.14,64.88,10.75",
+            "txt": "<b>Introduction</b>\n"
+        },
+        {
+            "el_type": "p",
+            "txt": "\n"
+        },
+        {
+            "el_type": "s",
+            "coords": "1,54.00,492.15,238.50,8.64;1,54.00,503.11,238.50,8.64;1,54.00,514.07,78.02,8.64",
+            "txt": "Deep Neural Networks (DNNs) has achieved great success in many tasks, e.g., image classification, face recognition, and video analysis."
+        },
+        {
+            "el_type": "s",
+            "coords": "1,135.47,514.07,157.03,8.64;1,54.00,525.03,238.50,8.64;1,54.00,535.99,238.50,8.64;1,54.00,546.95,145.20,8.64",
+            "txt": "However, deep models often contain a large number of parameters and require high computational resources.As a result, it is hard to apply deep learning methods to resource-constrained devices."
+        },
+        {
+            "el_type": "s",
+            "coords": "1,202.04,546.95,90.46,8.64;1,54.00,557.91,238.50,8.64;1,54.00,568.87,221.53,8.64",
+            "txt": "To address this, model compression has been an effective way to reduce redundancy of deep networks "
+        },
+        {
+            "el_type": "ref",
+            "coords": "1,125.00,568.87,80.80,8.64",
+            "target": "#b5",
+            "type": "bibr",
+            "txt": "[(Zhuang et al. 2018]",
+            "tail": ""
+        },
+        {
+            "el_type": "ref",
+            "coords": "1,208.29,568.87,62.95,8.64",
+            "target": "#b0",
+            "type": "bibr",
+            "txt": "[Guo et al. 2019)]",
+            "tail": "."
+        },
+        {
+            "el_type": "p",
+            "txt": "\n"
+        },
+        {
+            "el_type": "s",
+            "coords": "1,63.96,580.26,228.54,8.64;1,54.00,591.22,186.37,8.64",
+            "txt": "Recently, channel pruning has been one of the predominant approaches for deep model compression."
+        },
+        {
+            "el_type": "s",
+            "coords": "1,243.62,591.22,48.89,8.64;1,54.00,602.18,238.50,8.64;1,54.00,613.13,115.84,8.64",
+            "txt": "Specifically, channel pruning aims to remove the redundant channels of the layers in a deep network."
+        },
+        {
+            "el_type": "s",
+            "coords": "1,172.61,613.13,119.89,8.64;1,54.00,624.09,238.50,8.64;1,54.00,635.05,238.50,8.64;1,54.00,646.01,86.39,8.64",
+            "txt": "To obtain the models with the desired compactness, most methods apply a fixed compression rate to all the layers of the deep model "
+        },
+        {
+            "el_type": "ref",
+            "coords": "1,235.46,635.05,57.05,8.64;1,54.00,646.01,22.69,8.64",
+            "target": "#b5",
+            "type": "bibr",
+            "txt": "[(Zhuang et al. 2018]",
+            "tail": ""
+        },
+        {
+            "el_type": "ref",
+            "coords": "1,79.07,646.01,52.74,8.64",
+            "target": "#b4",
+            "type": "bibr",
+            "txt": "[He et al. 2019]",
+            "tail": ")."
+        },
+        {
+            "el_type": "s",
+            "coords": "1,142.76,646.01,149.75,8.64;1,54.00,656.97,93.22,8.64",
+            "txt": "However, not all layers have the same amount of redundancy."
+        },
+        {
+            "el_type": "s",
+            "coords": "1,150.66,656.97,141.85,8.64",
+            "txt": "Thus, pruning the same proportion"
+        },
+        {
+            "el_type": "head",
+            "coords": "1,491.04,220.82,59.43,6.30",
+            "txt": "<b>Compressed Model</b>\n"
+        },
+        {
+            "el_type": "formula",
+            "coords": "1,319.50,245.91,234.44,115.51",
+            "xml_id": "formula_0",
+            "txt": "M ) * M ) + M ) , M Figure 1:"
+        },
+        {
+            "el_type": "p",
+            "txt": "\n"
+        },
+        {
+            "el_type": "s",
+            "coords": "1,359.40,352.78,151.35,8.64",
+            "txt": "The overview of the proposed CACP."
+        },
+        {
+            "el_type": "s",
+            "coords": "1,513.82,352.78,44.18,8.64;1,319.50,363.42,238.50,8.96;1,319.50,374.70,238.50,8.64;1,319.50,385.66,140.92,8.64",
+            "txt": "Our CACP takes a pretrained model M and a target compression rate as inputs and outputs the compressed model that satisfies the considered target compression rate."
+        },
+        {
+            "el_type": "p",
+            "txt": "\n"
+        },
+        {
+            "el_type": "s",
+            "coords": "1,319.50,417.97,192.71,8.64",
+            "txt": "of channels for all the layer may be suboptimal."
+        },
+        {
+            "el_type": "s",
+            "coords": "1,515.04,417.97,42.97,8.64;1,319.50,428.93,238.50,8.64;1,319.50,439.89,238.50,8.64;1,319.50,450.84,57.38,8.64",
+            "txt": "To address this issue, "
+        },
+        {
+            "el_type": "ref",
+            "coords": "1,363.08,428.93,70.17,8.64",
+            "target": "#b3",
+            "type": "bibr",
+            "txt": "[He et al. (2018b)]",
+            "tail": " propose an automatic pruning method AMC that searches for the optimal compression rate for each layer."
+        },
+        {
+            "el_type": "s",
+            "coords": "1,379.72,450.84,178.28,8.64;1,319.50,461.80,197.95,8.64",
+            "txt": "However, these methods only perform channel pruning for a specific target compression rate."
+        },
+        {
+            "el_type": "s",
+            "coords": "1,520.02,461.80,37.99,8.64;1,319.50,472.76,238.50,8.64;1,319.50,483.72,238.50,8.64;1,319.50,494.68,145.78,8.64",
+            "txt": "When we consider different compression rates, they have to repeat the channel pruning for each compression rate, which is very time-consuming and labor-intensive."
+        },
+        {
+            "el_type": "s",
+            "coords": "1,329.46,505.64,228.54,8.64;1,319.50,516.60,238.50,8.64;1,319.50,527.56,177.12,8.64",
+            "txt": "To address the above issue, we seek to train a single model to obtain the compressed models with different target compression rates simultaneously (See Figure "
+        },
+        {
+            "el_type": "ref",
+            "coords": "1,485.84,527.56,3.60,8.64",
+            "txt": "1",
+            "tail": ")."
+        },
+        {
+            "el_type": "s",
+            "coords": "1,498.68,527.56,59.33,8.64;1,319.50,538.52,238.50,8.64;1,319.50,549.47,238.50,8.64;1,319.50,560.43,238.50,8.64;1,319.50,571.39,25.74,8.64",
+            "txt": "To this end, we propose a Conditional Automated Channel Pruning (CACP) method that takes the target compression rate as the condition to obtain the compressed model satisfying this condition."
+        },
+        {
+            "el_type": "s",
+            "coords": "1,348.40,571.39,209.60,8.64;1,319.50,582.35,238.50,8.64;1,319.50,593.31,207.80,8.64",
+            "txt": "Extensive experiments show that the resultant models obtained by our CACP significantly outperform the compressed models by the considered baseline methods."
+        },
+        {
+            "el_type": "head",
+            "coords": "1,333.27,614.27,210.97,10.75",
+            "txt": "<b>Conditional Automated Channel Pruning</b>\n"
+        },
+        {
+            "el_type": "p",
+            "txt": "\n"
+        },
+        {
+            "el_type": "s",
+            "coords": "1,319.50,629.76,238.50,8.64;1,319.50,640.72,238.50,8.64;1,319.50,651.68,238.50,8.64;1,319.50,662.64,17.42,8.64",
+            "txt": "Existing channel pruning methods may either apply a fixed compression rate to all the layers or search for the optimal compression rate for each layer to satisfy the overall target rate."
+        },
+        {
+            "el_type": "s",
+            "coords": "1,340.15,662.64,217.85,8.64;1,319.50,673.60,238.50,8.64;1,319.50,684.56,238.50,8.64;1,319.50,695.51,107.83,8.64",
+            "txt": "However, when we consider different target compression rates, we have to repeat the channel pruning process to obtain the models satisfying these target rates, which is very inefficient yet unnecessary."
+        },
+        {
+            "el_type": "head",
+            "coords": "1,18.34,393.90,18.00,166.10;1,18.34,321.14,18.00,62.76;1,18.34,291.14,18.00,20.00;1,18.34,256.14,18.00,30.00;1,18.34,211.14,18.00,40.00",
+            "txt": "<b>arXiv:2009.09724v2 [cs.CV] 27 Sep 2020</b>\n"
+        },
+        {
+            "el_type": "p",
+            "txt": "\n"
+        },
+        {
+            "el_type": "s",
+            "coords": "2,63.96,57.48,228.53,8.64;2,54.00,68.44,238.50,8.64;2,54.00,79.39,238.50,8.64",
+            "txt": "To address this issue, we propose a Conditional Automated Channel Pruning (CACP) method that automatically compresses models with different target compression rates."
+        },
+        {
+            "el_type": "s",
+            "coords": "2,54.00,90.35,238.50,8.64;2,54.00,101.31,238.50,8.64;2,54.00,112.27,62.18,8.64",
+            "txt": "In this sense, we only train the CACP model once to obtain the models with different computational cost (e.g., FLOPs) simultaneously."
+        },
+        {
+            "el_type": "s",
+            "coords": "2,118.44,112.27,174.07,8.64;2,54.00,123.23,238.50,8.64;2,54.00,134.19,238.50,8.64;2,54.00,145.15,21.87,8.64",
+            "txt": "To achieve this, we treat the target compression rate as a condition and train a conditional model to obtain the compressed models satisfying the desired conditions."
+        },
+        {
+            "el_type": "s",
+            "coords": "2,78.85,144.83,213.65,8.96;2,54.00,155.79,238.50,8.96;2,54.00,166.75,238.50,9.65;2,54.00,178.03,131.06,8.64",
+            "txt": "Given a pretrained model M and any arbitrary target compression rate \u03b2, we seek to obtain the compressed model by M \u03b2 = CACP(M, \u03b2; \u03b8), where \u03b8 denotes the learnable parameters of the CACP model."
+        },
+        {
+            "el_type": "s",
+            "coords": "2,188.53,178.03,103.98,8.64;2,54.00,188.98,238.50,8.64;2,54.00,199.94,238.50,8.64;2,54.00,210.58,182.84,8.96",
+            "txt": "To enable CACP to compress models under different target compression rates, we train the model by maximizing the expected reward over a distribution of compression rate, i.e., \u03b2\u223cp(\u2022)."
+        },
+        {
+            "el_type": "s",
+            "coords": "2,239.76,210.90,52.74,8.64;2,54.00,221.54,217.36,8.96",
+            "txt": "In this paper, we assume p(\u2022) to be a uniformly discrete distribution."
+        },
+        {
+            "el_type": "s",
+            "coords": "2,273.89,221.86,18.61,8.64;2,54.00,232.82,238.50,8.64;2,54.00,243.46,20.65,8.74",
+            "txt": "During training, we use the validation accuracy as the reward R(\u2022)."
+        },
+        {
+            "el_type": "s",
+            "coords": "2,77.14,243.78,160.91,8.64",
+            "txt": "Thus, the objective can be formulated as"
+        },
+        {
+            "el_type": "formula",
+            "coords": "2,124.58,265.38,97.35,14.66",
+            "xml_id": "formula_1",
+            "txt": "max \u03b8 E \u03b2\u223cp(\u2022) [R (M \u03b2 )] ."
+        },
+        {
+            "el_type": "p",
+            "txt": "\n"
+        },
+        {
+            "el_type": "s",
+            "coords": "2,280.88,265.70,11.62,8.64",
+            "txt": "(1)"
+        },
+        {
+            "el_type": "p",
+            "txt": "\n"
+        },
+        {
+            "el_type": "s",
+            "coords": "2,63.96,282.69,228.54,8.64;2,54.00,293.65,44.30,8.64",
+            "txt": "However, directly obtaining the compressed models is non-trivial."
+        },
+        {
+            "el_type": "s",
+            "coords": "2,101.66,293.65,190.84,8.64;2,54.00,304.61,238.50,8.64;2,54.00,315.57,94.93,8.64",
+            "txt": "Instead, we seek to determine the compression rate for each layer and perform channel selection to obtain the compressed models."
+        },
+        {
+            "el_type": "s",
+            "coords": "2,151.16,315.57,141.35,8.64;2,54.00,326.53,238.50,8.64;2,54.00,337.49,133.55,8.64",
+            "txt": "Following "
+        },
+        {
+            "el_type": "ref",
+            "coords": "2,193.95,315.57,64.81,8.64",
+            "target": "#b3",
+            "type": "bibr",
+            "txt": "[(He et al. 2018b)]",
+            "tail": ", we use reinforcement learning to search for the optimal compression rate in a layer-wise manner."
+        },
+        {
+            "el_type": "s",
+            "coords": "2,190.90,337.49,101.61,8.64;2,54.00,348.45,238.50,8.64;2,54.00,359.41,238.50,8.64;2,54.00,370.37,74.62,8.64",
+            "txt": "As for channel selection, we use L1 norm to measure the importance of channels "
+        },
+        {
+            "el_type": "ref",
+            "coords": "2,272.59,348.45,19.92,8.64;2,54.00,359.41,44.27,8.64",
+            "target": "#b1",
+            "type": "bibr",
+            "txt": "[(Han et al. 2015)]",
+            "tail": " and prune the unimportant channels based on the compression rates."
+        },
+        {
+            "el_type": "s",
+            "coords": "2,131.58,370.37,160.93,8.64;2,54.00,381.32,238.50,8.64;2,54.00,392.28,238.50,8.64;2,54.00,403.24,135.98,8.64",
+            "txt": "Note that we have to limit the compression rate when we find that the resultant model cannot reach the target compression rate even though we remove all the channels of the following layers."
+        },
+        {
+            "el_type": "s",
+            "coords": "2,193.96,402.92,98.54,9.65;2,54.00,416.48,121.65,8.96;2,175.93,413.35,11.10,6.12;2,175.65,421.53,2.52,6.12;2,190.13,416.80,102.38,8.64;2,54.00,427.44,238.50,8.96;2,54.00,438.40,135.11,8.96",
+            "txt": "Let C l be the computational cost of this layer, and D (\u03b2) l be the lower bound of the computational cost that should be reduced for the l-th layer to achieve the compression rate \u03b2."
+        },
+        {
+            "el_type": "s",
+            "coords": "2,191.35,438.72,101.15,8.64;2,54.00,449.68,238.50,8.64;2,54.00,460.32,173.04,8.96",
+            "txt": "To ensure that we can obtain the model satisfying the overall compression rate, the compression rate for the l-th layer becomes"
+        },
+        {
+            "el_type": "formula",
+            "coords": "2,97.26,474.97,195.24,14.30",
+            "xml_id": "formula_2",
+            "txt": "\u03b1 (\u03b2) l = max f (S l , \u03b2; \u03b8), D (\u03b2) l C l ,"
+        },
+        {
+            "el_type": "p",
+            "txt": "\n"
+        },
+        {
+            "el_type": "s",
+            "coords": "2,63.96,496.23,228.54,9.65;2,54.00,507.51,238.50,8.64;2,54.00,518.15,199.52,8.96",
+            "txt": "where S l denotes the state/features of this layer, f (\u2022) denotes the function that determines the optimal compression rate for layer l under the target compression rate \u03b2."
+        },
+        {
+            "el_type": "s",
+            "coords": "2,255.58,518.15,36.42,9.65;2,54.00,529.42,238.50,8.64;2,54.00,540.06,238.00,9.65;2,54.00,551.34,238.50,8.64;2,54.00,561.98,238.50,9.65;2,54.00,573.26,41.35,8.64",
+            "txt": "Let \u03b1 max be the maximum possible compression rate for the following layers, C all be the overall cost of the whole model, C reduced be the total amount of reduced cost in the previous layers, and C rest be the amount of the remaining cost in the following layers."
+        },
+        {
+            "el_type": "s",
+            "coords": "2,97.71,573.26,194.80,8.64;2,54.00,583.90,122.95,8.96",
+            "txt": "Thus, the minimum computation cost that should be reduced for layer l becomes"
+        },
+        {
+            "el_type": "formula",
+            "coords": "2,86.32,602.68,173.86,14.30",
+            "xml_id": "formula_3",
+            "txt": "D (\u03b2) l = \u03b2 \u2022 C all \u2212 \u03b1 max \u2022 C rest \u2212 C reduced ."
+        },
+        {
+            "el_type": "p",
+            "txt": "\n"
+        },
+        {
+            "el_type": "s",
+            "coords": "2,280.88,606.14,11.62,8.64;2,54.00,618.80,113.42,8.64",
+            "txt": "(3) In this way, based on Eqns."
+        },
+        {
+            "el_type": "s",
+            "coords": "2,170.89,618.80,121.61,8.64;2,54.00,629.76,238.50,8.64;2,54.00,640.72,37.06,8.64",
+            "txt": "( "
+        },
+        {
+            "el_type": "ref",
+            "coords": "2,174.76,618.80,3.87,8.64",
+            "target": "#formula_2",
+            "type": "formula",
+            "txt": "[2]",
+            "tail": ") and (3), we can guarantee that the compressed model would satisfy the target compression rate."
+        },
+        {
+            "el_type": "s",
+            "coords": "2,94.09,640.72,198.41,8.64;2,54.00,651.68,238.50,8.64;2,54.00,662.64,238.50,8.64;2,54.00,673.60,159.46,8.64",
+            "txt": "During inference, based on a well-learned CACP model, we only need to feed in a specific target compression rate as a condition to obtain the optimal compression rates for all the layers under this condition."
+        },
+        {
+            "el_type": "s",
+            "coords": "2,217.60,673.60,74.91,8.64;2,54.00,684.56,238.50,8.64;2,54.00,695.51,220.89,8.64",
+            "txt": "Then, we perform channel selection to obtain the desired compressed model with the desired target compression rate (See Figure "
+        },
+        {
+            "el_type": "ref",
+            "coords": "2,264.10,695.51,3.60,8.64",
+            "txt": "1",
+            "tail": ")."
+        },
+        {
+            "el_type": "head",
+            "coords": "2,406.21,55.71,65.08,10.75",
+            "txt": "<b>Experiments</b>\n"
+        },
+        {
+            "el_type": "p",
+            "txt": "\n"
+        },
+        {
+            "el_type": "s",
+            "coords": "2,319.50,70.59,238.50,8.64;2,319.50,81.55,90.78,8.64",
+            "txt": "In this section, we empirically evaluate the proposed CACP method on CIFAR-10."
+        },
+        {
+            "el_type": "s",
+            "coords": "2,413.57,81.55,144.44,8.64;2,319.50,92.51,238.50,8.64;2,319.50,103.47,214.94,8.64",
+            "txt": "Several state-of-the-art methods are adopted as the baselines, including SFP "
+        },
+        {
+            "el_type": "ref",
+            "coords": "2,485.62,92.51,68.08,8.64",
+            "target": "#b2",
+            "type": "bibr",
+            "txt": "[(He et al. 2018a)]",
+            "tail": ", DCP "
+        },
+        {
+            "el_type": "ref",
+            "coords": "2,340.84,103.47,77.95,8.64",
+            "target": "#b5",
+            "type": "bibr",
+            "txt": "[(Zhuang et al. 2018)]",
+            "tail": ", and AMC "
+        },
+        {
+            "el_type": "ref",
+            "coords": "2,466.04,103.47,64.02,8.64",
+            "target": "#b3",
+            "type": "bibr",
+            "txt": "[(He et al. 2018b)]",
+            "tail": "."
+        },
+        {
+            "el_type": "s",
+            "coords": "2,536.42,103.47,21.59,8.64;2,319.50,114.43,238.50,8.64;2,319.50,125.39,238.50,8.64;2,319.50,136.35,21.30,8.64",
+            "txt": "From Table "
+        },
+        {
+            "el_type": "ref",
+            "coords": "2,343.95,114.43,3.74,8.64",
+            "target": "#tab_1",
+            "type": "table",
+            "txt": "[1]",
+            "tail": ", the models obtained by CACP significantly outperform the considered baseline methods with all compression rates."
+        },
+        {
+            "el_type": "s",
+            "coords": "2,343.55,136.35,214.46,8.64;2,319.50,147.31,238.50,8.64;2,319.50,158.26,173.10,8.64",
+            "txt": "It is worth noting that all the resultant models are obtained through a single channel pruning process, which is essentially different from existing methods."
+        },
+        {
+            "el_type": "head",
+            "coords": "2,410.18,326.15,57.13,10.75",
+            "txt": "<b>Conclusion</b>\n"
+        },
+        {
+            "el_type": "p",
+            "txt": "\n"
+        },
+        {
+            "el_type": "s",
+            "coords": "2,319.50,341.03,238.50,8.64;2,319.50,351.99,238.50,8.64;2,319.50,362.95,238.50,8.64;2,319.50,373.90,171.01,8.64",
+            "txt": "In this paper, we have proposed a Conditional Automated Channel Pruning method (CACP) that obtains the compressed models with different target compression rates through a single channel pruning process."
+        },
+        {
+            "el_type": "s",
+            "coords": "2,494.00,373.90,64.00,8.64;2,319.50,384.86,238.50,8.64;2,319.50,395.82,221.22,8.64",
+            "txt": "Specifically, we treat the target compression rate as a condition and train a conditional pruning model to compress deep networks."
+        },
+        {
+            "el_type": "s",
+            "coords": "2,543.62,395.82,14.39,8.64;2,319.50,406.78,238.50,8.64;2,319.50,417.74,238.50,8.64;2,319.50,428.70,102.65,8.64",
+            "txt": "Extensive experiments show that our compressed models with different compression rates consistently outperform the considered baseline methods."
+        },
+        {
+            "el_type": "figure",
+            "type": "table",
+            "coords": "2,319.50,178.39,238.50,123.22",
+            "xml_id": "tab_1",
+            "txt": ""
+        }
+    ],
+    "back": [
+        {
+            "el_type": "bibr",
+            "xml_id": "b0",
+            "txt": "[1] Guo, Y.; Zheng, Y.; Tan, M.; Chen, Q.; Chen, J.; Zhao, P.; and Huang, J. 2019. Nat: Neural architecture transformer for accurate and compact architectures. In NeurIPS."
+        },
+        {
+            "el_type": "bibr",
+            "xml_id": "b1",
+            "txt": "[2] Han, S.; Pool, J.; Tran, J.; and Dally, W. 2015. Learning both weights and connections for efficient neural network. In NeurIPS."
+        },
+        {
+            "el_type": "bibr",
+            "xml_id": "b2",
+            "txt": "[3] He, Y.; Kang, G.; Dong, X.; Fu, Y.; and Yang, Y. 2018a. Soft Filter Pruning for Accelerating Deep Convolutional Neural Networks. In IJCAI."
+        },
+        {
+            "el_type": "bibr",
+            "xml_id": "b3",
+            "txt": "[4] He, Y.; Lin, J.; Liu, Z.; Wang, H.; Li, L.-J.; and Han, S. 2018b. Amc: Automl for model compression and acceler- ation on mobile devices. In ECCV."
+        },
+        {
+            "el_type": "bibr",
+            "xml_id": "b4",
+            "txt": "[5] He, Y.; Liu, P.; Wang, Z.; Hu, Z.; and Yang, Y. 2019. Filter pruning via geometric median for deep convolutional neural networks acceleration. In CVPR, 4340-4349."
+        },
+        {
+            "el_type": "bibr",
+            "xml_id": "b5",
+            "txt": "[6] Zhuang, Z.; Tan, M.; Zhuang, B.; Liu, J.; Guo, Y.; Wu, Q.; Huang, J.; and Zhu, J. 2018. Discrimination-aware channel pruning for deep neural networks. In NeurIPS."
+        }
+    ]
+}
