@@ -284,5 +284,6 @@ def main():  # pragma no cover
     hours, remainder = divmod(total_time, 3600)
     minutes, seconds = divmod(remainder, 60)
     print(f"总共用时: {int(hours)} 小时, {int(minutes)} 分钟, {seconds:.2f} 秒")
+    
 if __name__ == "__main__":  # pragma no cover
     main()

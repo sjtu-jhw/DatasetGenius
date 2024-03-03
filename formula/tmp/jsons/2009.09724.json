@@ -516,7 +516,8 @@
             "el_type": "figure",
             "type": "table",
             "coords": "2,319.50,178.39,238.50,123.22",
-            "xml_id": "tab_1"
+            "xml_id": "tab_1",
+            "txt": ""
         }
     ],
     "back": [

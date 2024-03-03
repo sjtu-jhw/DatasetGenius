@@ -704,6 +704,12 @@
             "txt": "Dot-product attention is identical to our algorithm, except for the scaling factor of 1"
         },
         {
+            "el_type": "formula",
+            "coords": "4,120.06,522.91,14.47,12.21",
+            "xml_id": "formula_1",
+            "txt": "\u221a d k"
+        },
+        {
             "el_type": "p",
             "txt": "\n"
         },
@@ -751,6 +757,12 @@
             "el_type": "s",
             "coords": "4,222.84,606.51,214.21,8.64;4,446.27,604.31,3.97,6.12",
             "txt": "To counteract this effect, we scale the dot products by 1"
+        },
+        {
+            "el_type": "formula",
+            "coords": "4,440.73,606.51,18.73,12.72",
+            "xml_id": "formula_2",
+            "txt": "\u221a d k ."
         },
         {
             "el_type": "head_3",
@@ -2091,36 +2103,42 @@
         {
             "el_type": "figure",
             "coords": "3,210.01,405.82,191.98,8.64;3,196.56,72.00,218.88,322.42",
-            "xml_id": "fig_0"
+            "xml_id": "fig_0",
+            "txt": ""
         },
         {
             "el_type": "figure",
             "coords": "4,108.00,275.53,396.00,8.64;4,108.00,286.44,139.73,8.64;4,346.77,82.69,120.24,184.61",
-            "xml_id": "fig_1"
+            "xml_id": "fig_1",
+            "txt": ""
         },
         {
             "el_type": "figure",
             "type": "table",
             "coords": "6,107.69,72.27,396.31,77.62",
-            "xml_id": "tab_0"
+            "xml_id": "tab_0",
+            "txt": ""
         },
         {
             "el_type": "figure",
             "type": "table",
             "coords": "8,107.69,72.27,396.31,168.02",
-            "xml_id": "tab_1"
+            "xml_id": "tab_1",
+            "txt": ""
         },
         {
             "el_type": "figure",
             "type": "table",
             "coords": "9,107.69,72.27,396.31,351.19",
-            "xml_id": "tab_2"
+            "xml_id": "tab_2",
+            "txt": ""
         },
         {
             "el_type": "figure",
             "type": "table",
             "coords": "10,107.69,72.27,396.30,97.52",
-            "xml_id": "tab_3"
+            "xml_id": "tab_3",
+            "txt": ""
         },
         {
             "el_type": "foot_noot",

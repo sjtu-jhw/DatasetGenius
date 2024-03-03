@@ -777,6 +777,12 @@
             "txt": "where |C t | is the number of classes learned by previous model \u0398 t and p"
         },
         {
+            "el_type": "formula",
+            "coords": "3,111.54,367.22,28.31,12.46",
+            "xml_id": "formula_3",
+            "txt": "(i) o , p"
+        },
+        {
             "el_type": "p",
             "txt": "\n"
         },
@@ -784,6 +790,12 @@
             "el_type": "s",
             "coords": "3,130.80,370.67,157.21,9.00;3,50.11,382.63,34.32,8.64",
             "txt": "o are temperature-scaled softmax probabilities:"
+        },
+        {
+            "el_type": "formula",
+            "coords": "3,89.19,405.96,25.07,12.69",
+            "xml_id": "formula_4",
+            "txt": "p (i) o ="
         },
         {
             "el_type": "p",
@@ -808,6 +820,12 @@
             "el_type": "s",
             "coords": "3,49.64,436.23,238.38,8.96;3,50.11,449.79,98.54,8.96",
             "txt": "We denote temperature parameter with T and use o to emphasise that the logits y"
+        },
+        {
+            "el_type": "formula",
+            "coords": "3,148.66,446.65,30.32,12.46",
+            "xml_id": "formula_6",
+            "txt": "(i) o , \u0177(i)"
         },
         {
             "el_type": "p",
@@ -849,6 +867,12 @@
             "el_type": "s",
             "coords": "3,49.75,572.69,206.64,9.65",
             "txt": "where D KL is Kullback-Leibler divergence and p"
+        },
+        {
+            "el_type": "formula",
+            "coords": "3,256.39,569.55,29.47,12.46",
+            "xml_id": "formula_8",
+            "txt": "(i) o , p"
         },
         {
             "el_type": "p",
@@ -1441,42 +1465,49 @@
         {
             "el_type": "figure",
             "coords": "1,308.86,538.64,237.91,8.64;1,308.86,550.59,236.61,8.64;1,308.86,562.55,237.90,8.64;1,308.86,574.50,236.25,8.64;1,308.86,586.46,231.04,8.64",
-            "xml_id": "fig_0"
+            "xml_id": "fig_0",
+            "txt": ""
         },
         {
             "el_type": "figure",
             "coords": "2,50.11,211.92,495.17,8.64;2,50.11,223.88,495.17,8.64;2,50.11,235.83,495.00,8.64;2,50.11,247.79,495.00,8.64;2,50.11,259.74,315.04,8.64",
-            "xml_id": "fig_1"
+            "xml_id": "fig_1",
+            "txt": ""
         },
         {
             "el_type": "figure",
             "type": "table",
             "coords": "3,49.80,100.30,495.31,111.94",
-            "xml_id": "tab_0"
+            "xml_id": "tab_0",
+            "txt": ""
         },
         {
             "el_type": "figure",
             "type": "table",
             "coords": "4,308.55,258.92,236.56,215.42",
-            "xml_id": "tab_1"
+            "xml_id": "tab_1",
+            "txt": ""
         },
         {
             "el_type": "figure",
             "type": "table",
             "coords": "7,49.80,424.73,238.21,199.56",
-            "xml_id": "tab_2"
+            "xml_id": "tab_2",
+            "txt": ""
         },
         {
             "el_type": "figure",
             "type": "table",
             "coords": "8,50.11,113.17,495.00,569.11",
-            "xml_id": "tab_3"
+            "xml_id": "tab_3",
+            "txt": ""
         },
         {
             "el_type": "figure",
             "type": "table",
             "coords": "8,207.63,698.07,179.66,8.64",
-            "xml_id": "tab_4"
+            "xml_id": "tab_4",
+            "txt": ""
         }
     ],
     "back": [
