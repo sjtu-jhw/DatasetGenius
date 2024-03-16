@@ -3,6 +3,7 @@ from pathlib import Path
 import requests
 import os
 import tarfile
+from tarfile import ReadError
 import subprocess
 from bs4 import  BeautifulSoup
 import re
@@ -170,12 +171,12 @@ def extract_tar_gz(infile: Path, dest: Path):
     if (len(os.listdir(dest)) != 0) and not (len(os.listdir(dest)) == 1 and os.listdir(dest)[0].endswith(".pdf")): # when _extract_dir is empty and _extract_dir has one element but is a pdf, we extract                    
         return f"{dest.name} is already extrated."
     try:
-        tar = tarfile.open(infile)
-        tar.extractall(dest)
+        tar = tarfile.open(infile) # TODO: #issue in https://github.com/python/cpython/issues/116848
+        tar.extractall(dest, filter="tar")
         tar.close()
         os.remove(infile)
         return f"Extract {infile.name} finished."
-    except Exception as e1:
+    except ReadError as e1:
         try:
             gz_name = infile.parent / infile.name.replace(".tar.gz", ".gz")
             os.rename(infile, gz_name)
@@ -184,28 +185,34 @@ def extract_tar_gz(infile: Path, dest: Path):
             return f"Extract {gz_name.name} finished."
         except Exception as e2:  
             raise Exception(f"Extract {infile.stem} failed. {e1}, {e2}")
-    
+    except OSError as e:
+        tar.close()
+        os.remove(infile)
+        shutil.rmtree(dest)
+        return f"Extract {infile.name} falied for containing special character'_'."
   
 
 
 
 if __name__ == "__main__":
     download_base_dir = Path("./downloads/")
-    request_num = 1000 # first get this number papers, not too much for fear of explosion of my memory
-    doi_list = get_doi(Path("E:/projects/vscode/2024spring/DatasetGenius/doi.txt"))
-    random_doi_list = random.sample(doi_list, request_num) # random choose for diversity
-
+    # request_num = 1000 # first get this number papers, not too much for fear of explosion of my memory
+    # doi_list = get_doi(Path("E:/projects/vscode/2024spring/DatasetGenius/doi.txt"))
+    # random_doi_list = random.sample(doi_list, request_num) # random choose for diversity
+    random_doi_list = ["2101.06381"]
     with Progress() as progress:
-        task = progress.add_task("[red]Downloading...", total=request_num)
+        task = progress.add_task("[red]Downloading...", total=len(random_doi_list))
         for doi in random_doi_list:
             info = gat_paper_info(doi)
             category = info["category"]
             dest = download_base_dir / category
+            if (dest / doi).exists():
+                continue
             print(download_source(doi, dest))
             print(download_pdf(doi, dest / doi))
             print(extract_tar_gz(dest / f'{doi}.tar.gz', dest / doi)) # after extract the source files are deleted
-            if len(os.listdir(dest / doi)) == 1:
-               shutil.rmtree(dest / doi)
+            if (dest / doi).exists() and len(os.listdir(dest / doi)) == 1:
+                shutil.rmtree(dest / doi)
             progress.update(task, advance=1)
 
 
