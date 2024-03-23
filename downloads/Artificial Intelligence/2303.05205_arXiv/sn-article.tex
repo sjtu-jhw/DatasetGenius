@@ -1,0 +1,196 @@
+
+
+
+
+
+
+\documentclass[pdflatex,sn-mathphys]{sn-jnl}%
+
+
+
+\usepackage{caption}
+\usepackage{enumitem}
+\usepackage{bm}
+\usepackage{diagbox}
+\usepackage{bbding}
+\jyear{2022}%
+
+\newcommand{\weirui}[1]{{\color{blue}(\authnote{Weirui: }{#1})}}
+\newcommand{\yang}[1]{{\color{red}(\authnote{Yang: }{#1})}}
+\newcommand{\shaohuai}[1]{{\color{orange}(\authnote{Shaohuai: }{#1})}}
+
+\theoremstyle{thmstyleone}%
+\newtheorem{theorem}{Theorem}%
+\newtheorem{proposition}[theorem]{Proposition}%
+
+\theoremstyle{thmstyletwo}%
+\newtheorem{example}{Example}%
+\newtheorem{remark}{Remark}%
+
+\theoremstyle{thmstylethree}%
+\newtheorem{definition}{Definition}%
+
+\raggedbottom
+
+\begin{document}
+\title[ ]{Real-time scheduling of renewable power systems through planning-based reinforcement learning}
+
+
+\author[1]{\fnm{Shaohuai} \sur{Liu}\email{liush20@mails.tsinghua.edu.cn}}
+\equalcont{These authors contributed equally to this work.}
+\author[3]{\fnm{Jinbo} \sur{Liu}\email{liu-jinbo@sgcc.com.cn}}
+\equalcont{These authors contributed equally to this work.}
+\author[1]{\fnm{Weirui} \sur{Ye}}
+\author[2]{\fnm{Nan} \sur{Yang}
+}
+
+\author[4]{\fnm{Guanglun} \sur{Zhang}}
+\author[4]{\fnm{Haiwang} \sur{Zhong}}
+\author[4]{\fnm{Chongqing} \sur{Kang}}
+\author[4]{\fnm{Qirong} \sur{Jiang}
+}
+\author[2]{\fnm{Xuri} \sur{Song}}
+\author*[2]{\fnm{Fangchun} \sur{Di}
+\email{difangchun@epri.sgcc.com.cn}
+}
+\author*[1]{\fnm{Yang} \sur{Gao}}\email{gaoyangiiis@tsinghua.edu.cn}
+
+
+\affil[1]{\orgdiv{Institute for Interdisciplinary Information Science}, \orgname{Tsinghua University}, \orgaddress{
+\city{Beijing}, \postcode{100084}, 
+\country{China}}}
+
+\affil[2]{\orgdiv{China Electric Power Research Institute}, \orgname{State Grid Corporation of China}, \orgaddress{
+\city{Beijing}, 
+\postcode{102299}, 
+\country{China}}}
+
+\affil[3]{\orgdiv{National Power Dispatching and Control Center}, \orgname{State Grid Corporation of China}, \orgaddress{
+\city{Beijing}, 
+\postcode{100031}, 
+\country{China}}}
+
+\affil[4]{\orgdiv{Department of Electrical Engineering}, \orgname{Tsinghua University}, \orgaddress{
+\city{Beijing}, 
+\postcode{100084}, 
+\country{China}}}
+
+
+
+\abstract{
+The growing renewable energy sources have posed significant challenges to traditional power scheduling.
+It is difficult for operators to obtain accurate day-ahead forecasts of renewable generation, thereby requiring the future scheduling system to make real-time scheduling decisions aligning with ultra-short-term forecasts. Restricted by the computation speed, traditional optimization-based methods can not solve this problem. Recent developments in reinforcement learning (RL) have demonstrated the potential to solve this challenge. However, the existing RL methods are inadequate in terms of constraint complexity, algorithm performance, and environment fidelity. We are the first to propose a systematic solution based on the state-of-the-art reinforcement learning algorithm and the real power grid environment.
+The proposed approach enables planning and finer time resolution adjustments of power generators, including unit commitment and economic dispatch, thus increasing the grid's ability to admit more renewable energy. 
+The well-trained scheduling agent significantly reduces renewable curtailment and load shedding, which are issues arising from traditional scheduling's reliance on inaccurate day-ahead forecasts.
+High-frequency control decisions exploit the existing units' flexibility, reducing the power grid's dependence on hardware transformations and saving investment and operating costs, as demonstrated in experimental results. This research exhibits the potential of reinforcement learning in promoting low-carbon and intelligent power systems and represents a solid step toward sustainable electricity generation.
+}
+
+\keywords{Real-Time Scheduling, Markov Decision Process, Renewable Power System, Planning-based Reinforcement Learning}
+
+\maketitle
+
+\input{Intro_v3}
+
+\input{Results}
+
+\input{Discussion}
+
+\input{Methods}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\backmatter
+
+
+
+
+
+\bmhead{Acknowledgments}
+
+This work is supported by the Ministry of Science and Technology of the People´s Republic of China, the 2030 Innovation Megaprojects "Program on New Generation Artificial Intelligence" (Grant No. 2021AAA0150000) and the National Natural Science Foundation of China (Grant No. 52122706).
+
+\bmhead{Authors' contribution}
+Shaohuai Liu, Weirui Ye, Yang Gao conceived the idea of GridZero. Shaohuai Liu developed the GridZero's code and wrote the manuscript. Chongqing Kang, Haiwang Zhong and Guanglun Zhang provided revision for power system part. Qirong Jiang and Yang Gao provided funding and revision. Jinbo Liu accomplished the architecture design and scheme formulation of GridSim. Fangchun Di accomplished grid model design and data generation of GridSim. Yang Nan finished the code development of GridSim. 
+
+\bmhead{Competing interests}
+The authors declare no competing interests.
+
+\bmhead{Code availability}
+
+The reinforcement learning code is available at \url{https://github.com/liushaohuai5/GridZero.git}.
+
+\bmhead{Data availability} GridSim simulator is limited open-sourced. If required, contact CEPRI for permission.
+
+
+
+
+
+
+
+
+
+
+
+
+\bibliography{sn-bibliography}%
+
+\newpage
+\input{supplementary}
+
+\end{document}

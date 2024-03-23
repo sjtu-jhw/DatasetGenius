@@ -1,0 +1,199 @@
+\begin{thebibliography}{27}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Agarwal et~al.(2023)Agarwal, Vieillard, Stanczyk, Ramos, Geist, and
+  Bachem]{agarwal2023gkd}
+Rishabh Agarwal, Nino Vieillard, Piotr Stanczyk, Sabela Ramos, Matthieu Geist,
+  and Olivier Bachem.
+\newblock Gkd: Generalized knowledge distillation for auto-regressive sequence
+  models.
+\newblock \emph{arXiv preprint arXiv:2306.13649}, 2023.
+
+\bibitem[Bai et~al.(2022)Bai, Jones, Ndousse, Askell, Chen, DasSarma, Drain,
+  Fort, Ganguli, Henighan, et~al.]{bai2022training}
+Yuntao Bai, Andy Jones, Kamal Ndousse, Amanda Askell, Anna Chen, Nova DasSarma,
+  Dawn Drain, Stanislav Fort, Deep Ganguli, Tom Henighan, et~al.
+\newblock Training a helpful and harmless assistant with reinforcement learning
+  from human feedback.
+\newblock \emph{arXiv preprint arXiv:2204.05862}, 2022.
+
+\bibitem[Bharti(2023)]{alpaca-finance}
+Gaurang Bharti.
+\newblock gbharti/finance-alpaca, 2023.
+\newblock URL \url{https://huggingface.co/datasets/gbharti/finance-alpaca}.
+\newblock Accessed: 2023-09-17.
+
+\bibitem[Cai et~al.(2023)Cai, Li, Geng, Peng, and Dao]{medusa}
+Tianle Cai, Yuhong Li, Zhengyang Geng, Hongwu Peng, and Tri Dao.
+\newblock Medusa: Simple framework for accelerating llm generation with
+  multiple decoding heads.
+\newblock \url{https://github.com/FasterDecoding/Medusa}, 2023.
+
+\bibitem[Chen et~al.(2023)Chen, Borgeaud, Irving, Lespiau, Sifre, and
+  Jumper]{chen2023accelerating}
+Charlie Chen, Sebastian Borgeaud, Geoffrey Irving, Jean-Baptiste Lespiau,
+  Laurent Sifre, and John Jumper.
+\newblock Accelerating large language model decoding with speculative sampling.
+\newblock \emph{arXiv preprint arXiv:2302.01318}, 2023.
+
+\bibitem[Chiang et~al.(2023)Chiang, Li, Lin, Sheng, Wu, Zhang, Zheng, Zhuang,
+  Zhuang, Gonzalez, Stoica, and Xing]{vicuna2023}
+Wei-Lin Chiang, Zhuohan Li, Zi~Lin, Ying Sheng, Zhanghao Wu, Hao Zhang, Lianmin
+  Zheng, Siyuan Zhuang, Yonghao Zhuang, Joseph~E. Gonzalez, Ion Stoica, and
+  Eric~P. Xing.
+\newblock Vicuna: An open-source chatbot impressing gpt-4 with 90\%* chatgpt
+  quality, March 2023.
+\newblock URL \url{https://lmsys.org/blog/2023-03-30-vicuna/}.
+
+\bibitem[Chung et~al.(2022)Chung, Hou, Longpre, Zoph, Tay, Fedus, Li, Wang,
+  Dehghani, Brahma, et~al.]{chung2022scaling}
+Hyung~Won Chung, Le~Hou, Shayne Longpre, Barret Zoph, Yi~Tay, William Fedus,
+  Eric Li, Xuezhi Wang, Mostafa Dehghani, Siddhartha Brahma, et~al.
+\newblock Scaling instruction-finetuned language models.
+\newblock \emph{arXiv preprint arXiv:2210.11416}, 2022.
+
+\bibitem[Cobbe et~al.(2021)Cobbe, Kosaraju, Bavarian, Chen, Jun, Kaiser,
+  Plappert, Tworek, Hilton, Nakano, Hesse, and Schulman]{cobbe2021gsm8k}
+Karl Cobbe, Vineet Kosaraju, Mohammad Bavarian, Mark Chen, Heewoo Jun, Lukasz
+  Kaiser, Matthias Plappert, Jerry Tworek, Jacob Hilton, Reiichiro Nakano,
+  Christopher Hesse, and John Schulman.
+\newblock Training verifiers to solve math word problems.
+\newblock \emph{arXiv preprint arXiv:2110.14168}, 2021.
+
+\bibitem[Gu et~al.(2023)Gu, Dong, Wei, and Huang]{gu2023knowledge}
+Yuxian Gu, Li~Dong, Furu Wei, and Minlie Huang.
+\newblock Knowledge distillation of large language models.
+\newblock \emph{arXiv preprint arXiv:2306.08543}, 2023.
+
+\bibitem[He et~al.(2022)He, Sun, Yang, Bai, and Qi]{he2022knowledge}
+Ruifei He, Shuyang Sun, Jihan Yang, Song Bai, and Xiaojuan Qi.
+\newblock Knowledge distillation as efficient pre-training: Faster convergence,
+  higher data-efficiency, and better transferability.
+\newblock In \emph{Proceedings of the IEEE/CVF Conference on Computer Vision
+  and Pattern Recognition}, pp.\  9161--9171, 2022.
+
+\bibitem[Hinton et~al.(2015)Hinton, Vinyals, and Dean]{hinton2015distilling}
+Geoffrey Hinton, Oriol Vinyals, and Jeff Dean.
+\newblock Distilling the knowledge in a neural network.
+\newblock \emph{arXiv preprint arXiv:1503.02531}, 2015.
+
+\bibitem[Husain et~al.(2019)Husain, Wu, Gazit, Allamanis, and
+  Brockschmidt]{husain2019codesearchnet}
+Hamel Husain, Ho-Hsiang Wu, Tiferet Gazit, Miltiadis Allamanis, and Marc
+  Brockschmidt.
+\newblock {CodeSearchNet} challenge: Evaluating the state of semantic code
+  search.
+\newblock \emph{arXiv preprint arXiv:1909.09436}, 2019.
+
+\bibitem[Kaplan et~al.(2020)Kaplan, McCandlish, Henighan, Brown, Chess, Child,
+  Gray, Radford, Wu, and Amodei]{kaplan2020scaling}
+Jared Kaplan, Sam McCandlish, Tom Henighan, Tom~B Brown, Benjamin Chess, Rewon
+  Child, Scott Gray, Alec Radford, Jeffrey Wu, and Dario Amodei.
+\newblock Scaling laws for neural language models.
+\newblock \emph{arXiv preprint arXiv:2001.08361}, 2020.
+
+\bibitem[Kwon et~al.(2023)Kwon, Li, Zhuang, Sheng, Zheng, Yu, Gonzalez, Zhang,
+  and Stoica]{kwon2023efficient}
+Woosuk Kwon, Zhuohan Li, Siyuan Zhuang, Ying Sheng, Lianmin Zheng, Cody~Hao Yu,
+  Joseph~E Gonzalez, Hao Zhang, and Ion Stoica.
+\newblock Efficient memory management for large language model serving with
+  pagedattention.
+\newblock \emph{arXiv preprint arXiv:2309.06180}, 2023.
+
+\bibitem[Leviathan et~al.(2023)Leviathan, Kalman, and
+  Matias]{leviathan2023fast}
+Yaniv Leviathan, Matan Kalman, and Yossi Matias.
+\newblock Fast inference from transformers via speculative decoding.
+\newblock In \emph{International Conference on Machine Learning}, pp.\
+  19274--19286. PMLR, 2023.
+
+\bibitem[Luqmani(2023)]{distill-bert-topic}
+Ali~Mazhar Luqmani.
+\newblock distilled bert topic, 2023.
+\newblock URL
+  \url{https://huggingface.co/alimazhar-110/website_classification}.
+\newblock Accessed: 2023-10-07.
+
+\bibitem[Miao et~al.(2023)Miao, Oliaro, Zhang, Cheng, Wang, Wong, Chen, Arfeen,
+  Abhyankar, and Jia]{miao2023specinfer}
+Xupeng Miao, Gabriele Oliaro, Zhihao Zhang, Xinhao Cheng, Zeyu Wang, Rae
+  Ying~Yee Wong, Zhuoming Chen, Daiyaan Arfeen, Reyna Abhyankar, and Zhihao
+  Jia.
+\newblock Specinfer: Accelerating generative llm serving with speculative
+  inference and token tree verification, 2023.
+
+\bibitem[OpenAI(2023)]{openai2023gpt}
+R~OpenAI.
+\newblock Gpt-4 technical report.
+\newblock \emph{arXiv}, pp.\  2303--08774, 2023.
+
+\bibitem[Raffel et~al.(2020)Raffel, Shazeer, Roberts, Lee, Narang, Matena,
+  Zhou, Li, and Liu]{raffel2020exploring}
+Colin Raffel, Noam Shazeer, Adam Roberts, Katherine Lee, Sharan Narang, Michael
+  Matena, Yanqi Zhou, Wei Li, and Peter~J. Liu.
+\newblock Exploring the limits of transfer learning with a unified text-to-text
+  transformer, 2020.
+
+\bibitem[Spector \& Re(2023)Spector and Re]{spector2023accelerating}
+Benjamin Spector and Chris Re.
+\newblock Accelerating llm inference with staged speculative decoding.
+\newblock \emph{arXiv preprint arXiv:2308.04623}, 2023.
+
+\bibitem[Stern et~al.(2018)Stern, Shazeer, and Uszkoreit]{stern2018blockwise}
+Mitchell Stern, Noam Shazeer, and Jakob Uszkoreit.
+\newblock Blockwise parallel decoding for deep autoregressive models.
+\newblock \emph{Advances in Neural Information Processing Systems}, 31, 2018.
+
+\bibitem[Touvron et~al.(2023{\natexlab{a}})Touvron, Lavril, Izacard, Martinet,
+  Lachaux, Lacroix, Rozi{\`e}re, Goyal, Hambro, Azhar,
+  et~al.]{touvron2023llama}
+Hugo Touvron, Thibaut Lavril, Gautier Izacard, Xavier Martinet, Marie-Anne
+  Lachaux, Timoth{\'e}e Lacroix, Baptiste Rozi{\`e}re, Naman Goyal, Eric
+  Hambro, Faisal Azhar, et~al.
+\newblock Llama: Open and efficient foundation language models.
+\newblock \emph{arXiv preprint arXiv:2302.13971}, 2023{\natexlab{a}}.
+
+\bibitem[Touvron et~al.(2023{\natexlab{b}})Touvron, Martin, Stone, Albert,
+  Almahairi, Babaei, Bashlykov, Batra, Bhargava, Bhosale,
+  et~al.]{touvron2023llama2}
+Hugo Touvron, Louis Martin, Kevin Stone, Peter Albert, Amjad Almahairi, Yasmine
+  Babaei, Nikolay Bashlykov, Soumya Batra, Prajjwal Bhargava, Shruti Bhosale,
+  et~al.
+\newblock Llama 2: Open foundation and fine-tuned chat models.
+\newblock \emph{arXiv preprint arXiv:2307.09288}, 2023{\natexlab{b}}.
+
+\bibitem[Yu et~al.(2022)Yu, Jeong, Kim, Kim, and Chun]{yu2022orca}
+Gyeong-In Yu, Joo~Seong Jeong, Geon-Woo Kim, Soojeong Kim, and Byung-Gon Chun.
+\newblock Orca: A distributed serving system for $\{$Transformer-Based$\}$
+  generative models.
+\newblock In \emph{16th USENIX Symposium on Operating Systems Design and
+  Implementation (OSDI 22)}, pp.\  521--538, 2022.
+
+\bibitem[Yu et~al.(2018)Yu, Zhang, Yang, Yasunaga, Wang, Li, Ma, Li, Yao,
+  Roman, et~al.]{yu2018spider}
+Tao Yu, Rui Zhang, Kai Yang, Michihiro Yasunaga, Dongxu Wang, Zifan Li, James
+  Ma, Irene Li, Qingning Yao, Shanelle Roman, et~al.
+\newblock Spider: A large-scale human-labeled dataset for complex and
+  cross-domain semantic parsing and text-to-sql task.
+\newblock \emph{arXiv preprint arXiv:1809.08887}, 2018.
+
+\bibitem[Zheng et~al.(2023{\natexlab{a}})Zheng, Chiang, Sheng, Li, Zhuang, Wu,
+  Zhuang, Li, Lin, Xing, et~al.]{zheng2023lmsys}
+Lianmin Zheng, Wei-Lin Chiang, Ying Sheng, Tianle Li, Siyuan Zhuang, Zhanghao
+  Wu, Yonghao Zhuang, Zhuohan Li, Zi~Lin, Eric Xing, et~al.
+\newblock Lmsys-chat-1m: A large-scale real-world llm conversation dataset.
+\newblock \emph{arXiv preprint arXiv:2309.11998}, 2023{\natexlab{a}}.
+
+\bibitem[Zheng et~al.(2023{\natexlab{b}})Zheng, Chiang, Sheng, Li, Zhuang, Wu,
+  Zhuang, Li, Lin, Xing, Gonzalez, Stoica, and Zhang]{zheng2023lmsyschat1m}
+Lianmin Zheng, Wei-Lin Chiang, Ying Sheng, Tianle Li, Siyuan Zhuang, Zhanghao
+  Wu, Yonghao Zhuang, Zhuohan Li, Zi~Lin, Eric.~P Xing, Joseph~E. Gonzalez, Ion
+  Stoica, and Hao Zhang.
+\newblock Lmsys-chat-1m: A large-scale real-world llm conversation dataset,
+  2023{\natexlab{b}}.
+
+\end{thebibliography}

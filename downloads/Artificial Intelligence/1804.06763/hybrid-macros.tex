@@ -1,0 +1,435 @@
+%
+% Macros for the Hybrid Logics Book.
+% Carlos Areces
+% September 9th, 1999.
+%
+
+
+%--------------------------------------------------------
+% New Environments
+%--------------------------------------------------------
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Theorem like environments
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheorem{theorem}{Theorem}
+\newtheorem{propositioni}[theorem]{Proposition}
+\newenvironment{proposition}
+   {\begin{propositioni}\rm}{\end{propositioni}}
+
+\newtheorem{lemmai}[theorem]{Lemma}
+\newenvironment{lemma}
+   {\begin{lemmai}\rm}{\end{lemmai}}
+
+\newtheorem{propertyi}[theorem]{Property}
+\newenvironment{property}
+   {\begin{propertyi}\rm}{\end{propertyi}}
+
+\newtheorem{postulatei}[theorem]{Postulate}
+\newenvironment{postulate}
+   {\begin{postulatei}\rm}{\end{postulatei}}
+
+
+\newtheorem{definitioni}{Definition}
+\newenvironment{definition}
+   {\begin{definitioni}\rm}{\end{definitioni}}
+
+\newtheorem{corollaryi}[theorem]{Corollary}
+\newenvironment{corollary}
+   {\begin{corollaryi}\rm}{\end{corollaryi}}
+
+\newtheorem{defii}[theorem]{Definition}
+\newenvironment{defi}
+   {\begin{defii}\rm}{\end{defii}}
+
+\newtheorem{claimi}[theorem]{Claim}
+\newenvironment{claim}
+   {\begin{claimi}\rm}{\end{claimi}}
+
+\newtheorem{conjecturei}[theorem]{Conjecture}
+\newenvironment{conjecture}
+   {\begin{conjecturei}\rm}{\end{conjecturei}}
+
+\newtheorem{exercisei}[theorem]{Exercise}
+\newenvironment{exercise}
+   {\begin{exercisei}\rm}{\end{exercisei}}
+
+\newtheorem{questioni}[theorem]{Open Question}
+\newenvironment{question}
+   {\begin{questioni}\rm}{\end{questioni}}
+
+\newtheorem{conventioni}[theorem]{Convention}
+\newenvironment{convention}
+   {\begin{conventioni}\rm}{\end{conventioni}}
+
+\newtheorem{facti}[theorem]{Fact}
+\newenvironment{fact}
+   {\begin{facti}\rm}{\end{facti}}
+
+\newtheorem{problemi}[theorem]{Problem}
+\newenvironment{problem}
+   {\begin{problemi}\rm}{\end{problemi}}
+
+\newtheorem{remarki}[theorem]{Remark}
+\newenvironment{remark}
+   {\begin{remarki}\rm}{\end{remarki}}
+
+\newtheorem{examplei}[theorem]{Example}
+\newenvironment{example}
+   {\begin{examplei}\rm}{\end{examplei}}
+
+\newtheorem{notationi}[theorem]{Notation}
+\newenvironment{notation}
+   {\begin{notationi}\rm}{\end{notationi}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Non numbered environments
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Proof
+\newenvironment{proof}
+   {\begin{trivlist}\item[]{\sc Proof.}}
+   {\hfill {\sc qed}\end{trivlist}}
+
+% Outline of Proof
+\newenvironment{outline}
+   {\begin{trivlist}\item[]{\sc Outline of Proof.}}
+   {\hfill {\sc qed}\end{trivlist}}
+
+% Proof of <argument>
+\newenvironment{proofof}[1]
+   {\begin{trivlist}\item[\hskip\labelsep{\sc Proof~of~{#1}.\ }]}
+   {\hspace*{\fill} {\sc qed}\end{trivlist}}
+
+
+% Claims and Proofs of claims inside a proof
+%
+% Use claim only inside a proof and start always with claimfirst.
+% Then % the claims are numbered inside the proof.
+
+\newtheorem{claim2}{Claim}
+\newenvironment{claimnext}
+   {\begin{claim2}\rm}
+   {\end{claim2}}
+\newenvironment{claimfirst}
+   {\setcounter{claim2}{0}\begin{claim2}\rm}
+   {\end{claim2}}
+\newenvironment{pfclaim}
+   {\begin{trivlist}\item[]{\sc Proof of Claim.}}
+   {\hfill {\mbox{$\dashv$}}\end{trivlist}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% To-be-suplied environment
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcounter{tbsnr}
+\newenvironment{tbs}
+{\addtocounter{tbsnr}{1}\par\bigskip \noindent\fbox{\thetbsnr}
+\hspace*{\fill}\begin{minipage}{0.8\textwidth}\tt}
+{\end{minipage}\hspace*{\fill}\bigskip}
+\newcommand{\tb}[1]{\begin{tbs}{#1}\end{tbs}}
+
+
+%--------------------------------------------------------
+% New Commands
+%--------------------------------------------------------
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Operators
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Hybrid
+\newcommand{\atnom}{@}
+\newcommand{\down}{\downarrow \! }
+
+% Modal
+\newcommand{\modop}{\Diamond}
+\newcommand{\Modop}{\Box}
+
+% Multimodal
+\newcommand{\mmodop}[1]{\tup{#1}}
+\newcommand{\Mmodop}[1]{[#1]}
+
+% Difference
+\newcommand{\dmodop}{\mathsf{D}}
+\newcommand{\Dmodop}{\overline{\mathsf{D}}}
+
+% Universal
+\newcommand{\umodop}{\mathsf{E}}
+\newcommand{\Umodop}{\mathsf{A}}
+
+% Temporal
+\newcommand{\fmodop}{\mathsf{F}}
+\newcommand{\Fmodop}{\mathsf{G}}
+\newcommand{\pmodop}{\mathsf{P}}
+\newcommand{\Pmodop}{\mathsf{H}}
+\newcommand{\until}{\mathsf{Until}}
+\newcommand{\since}{\mathsf{Since}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Signature, Language
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Signature
+\newcommand{\NOM}{\mathsf{NOM}}
+\newcommand{\ATOM}{\mathsf{ATOM}}
+\newcommand{\PROP}{\mathsf{PROP}}
+\newcommand{\SVAR}{\mathsf{SVAR}}
+\newcommand{\SSYM}{\mathsf{SSYM}}
+\newcommand{\sig}{\tup{\PROP,\NOM,\SVAR}}
+
+% Language
+\newcommand{\lang}{\mathcal{L}}
+
+% Set of Propositional Symbols
+\newcommand{\IP}{\mathsf{I}\hspace{-1pt}\mathsf{P}}
+
+% Set of Propositional Symbols of a Formula
+\newcommand{\IPv}[1]{\IP(#1)}
+
+% Set of Subformulas of a Formula
+\newcommand{\SF}[1]{\mathsf{SF}(#1)}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Games
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Universal Player
+\newcommand{\Abelard}{$\forall$belard\xspace}
+
+% Existential Player
+\newcommand{\Eloise}{$\exists$loise\xspace}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Frames, Models, Structures
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% valuation
+\newcommand{\val}{V}
+
+% assignment
+\newcommand{\ass}{g}
+
+% denotation of a nominal
+\newcommand{\den}[1]{\mathbf{#1}}
+
+% \fram{F}{W}{R} becomes F=<W,R>
+\newcommand{\fram}[3]{{\fra{#1}}=\tup{#2, #3}}
+
+% \framk{F}{W}{R}{I} becomes F=<W,R_k>_{k \in I}
+\newcommand{\framk}[4]
+   {{\fra{#1}} = \tup{#2,#3_k}_{k \in #4}}
+
+% Class of frames
+\newcommand{\class}[1]{\mathsf{#1}}
+
+% \model{M} gives you a model
+\newcommand{\model}[1]{{\fra{#1}}}
+
+% \krmod{M}{F} gives you a kripke model M over frame F
+\newcommand{\krmod}[2]
+   {{\fra{#1}}=\tup{{\fra{#2}},\val}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Some Models
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\fra}[1]{{\mathfrak{#1}}}
+\newcommand{\gA}{\fra{A}}
+\newcommand{\gB}{\fra{B}}
+\newcommand{\gC}{\fra{C}}
+\newcommand{\gF}{\fra{F}}
+\newcommand{\gG}{\fra{G}}
+\newcommand{\gI}{\fra{I}}
+\newcommand{\gL}{\fra{L}}
+\newcommand{\gM}{\fra{M}}
+\newcommand{\gN}{\fra{N}}
+\newcommand{\gP}{\fra{P}}
+\newcommand{\gR}{\fra{R}}
+\newcommand{\gS}{\fra{S}}
+\newcommand{\gT}{\fra{T}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Bisimulations
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Standar Bisimulation
+\newcommand{\bis}{\;\underline{\leftrightarrow}\;}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Consequence and Satisfacion relations
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% forces symbol ||-
+\newcommand{\forces}{\Vdash}
+
+% models symbol |= provided by latex
+%\newcommand{\models}
+
+% theorem symbol |-
+\newcommand{\theo}{\vdash}
+
+% Global satisfacion
+\newcommand{\glomodels}{\models^*}
+
+% Consequence Operator
+\newcommand{\Cn}{\mathop{\rm Cn}}
+
+% Theory of a set of worlds
+\newcommand{\Th}{\mathop{\rm Th}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Translations
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Standard Translation
+\newcommand{\ST}{\mathsf{ST}}
+
+% Hybrid Translation
+\newcommand{\HT}{\mathsf{HT}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Special Sets
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Natural Numbers
+\newcommand{\IN}{\mathbb{N}}
+
+% Real Numbers
+\newcommand{\IR}{\mathbb{R}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Some Constructions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Tuples \tup{x,y} = <x,y>
+\newcommand{\tup}[1]{\langle #1 \rangle}
+
+% Sets \cset{x,y} = {x,y}
+\newcommand{\cset}[1]{\{ #1 \}}
+
+% Sets with condition \csetsc{y}{xRy} = {y | xRy}
+\newcommand{\csetsc}[2]{\{ #1  \; | \; #2 \}}
+
+% Sets with domain and condition \csetc{y}{A}{xRy} = {y \in A | xRy}
+\newcommand{\csetc}[3]{\{ #1 \in #2 \; | \; #3 \}}
+
+% Double brackets
+\newcommand{\dbra}[1]{[ \! [ #1 ] \! ]}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Arrows
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Named Arrow
+\newcommand{\nmto}[1]{\stackrel{#1}{\to}}
+
+% Right Zigzag morphism
+\newcommand{\rzzm}{\twoheadrightarrow}
+% Named Right Zigzag morphism
+\newcommand{\nmrzzm}[1]{\stackrel{#1}{\rzzm}}
+
+% Left Zigzag morphism
+\newcommand{\lzzm}{\twoheadleftarrow}
+% Named Left Zigzag morphism
+\newcommand{\nmlzzm}[1]{\stackrel{#1}{\lzzm}}
+
+% Injective Arrow
+\newcommand{\inj}{\rightarrowtail}
+% Named Injective Arrow
+\newcommand{\nminj}[1]{\stackrel{#1}{\inj}}
+
+% Surjective Arrow
+\newcommand{\surj}{\twoheadrightarrow}
+% Named Surjective Arrow
+\newcommand{\nmsurj}[1]{\stackrel{#1}{\surj}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Operators on classes of algebras
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\oper}[1]{\mathbf{#1}}
+
+%subalgebras
+\newcommand{\Sub}{\oper{S}}
+
+%homomorphic images
+\newcommand{\Hom}{\oper{H}}
+
+%products
+\newcommand{\Pro}{\oper{P}}
+
+%variety
+\newcommand{\Var}{\oper{V}}
+
+%isomorphic copies
+\newcommand{\Ism}{\oper{I}}
+
+%embedding algebras
+\newcommand{\Emb}{\oper{Emb}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Operators on frame classes
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%bounded morphic images
+\newcommand{\Zig}{\oper{H_f}}
+
+%disjoint unions
+\newcommand{\Dis}{\oper{P_f}}
+
+%generated subframes
+\newcommand{\Gen}{\oper{S_f}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Modal and Hybrid Languages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\ML}[1]{\mathit{ML}(#1)}
+\newcommand{\HL}[1]{\mathcal{HL}\!(#1)}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% First Order Languages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\Lomom}{L_{\omega\omega}}
+\newcommand{\Ltf}{L_{\mathit{tf}}}
+\newcommand{\Ltwo}{L^2_2(v_0,v_1)}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Others
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Metalanguage existential
+\newcommand{\Exists}{\exists \hspace{-0.45em} \exists}
+
+% Metalanguage universal
+\newcommand{\Forall}{\forall \hspace{-0.45em} \forall}
+
+% Restriction of a struction to a set
+\newcommand{\restr}{\upharpoonright}
+
+% Equal by definition
+\newcommand{\deq}
+   {\mathrel{\stackrel{\scriptscriptstyle\mathchar"7001}{=}}}
+
+
+% Local Variables:
+% mode: latex
+% TeX-master: "bookh"
+% End:

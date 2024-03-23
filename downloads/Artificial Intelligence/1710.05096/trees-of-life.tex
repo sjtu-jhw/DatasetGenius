@@ -1,0 +1,85 @@
+\section{Phylogenetic Trees}\label{sec:trees-of-life}
+
+One of the central tenets following from the theory of organismal
+evolution is that all life is related through descent with
+modification \cite{Darwin1859-ka}. That is, populations of a
+biological species can over time diverge enough, due to natural
+selection, adaptation, genetic drift, and other forces acting
+differentially on different populations, that they form new species,
+some of which persist and go on themselves to split, giving rise to
+new species, and so forth. Speciation through diversification can
+sometimes be driven by new ecologic opportunities, for example when
+new habitats are being colonized, a process often referred to as
+adaptive radiation \cite{Simpson1949-pv,Simpson1953-qg}. One of the
+most prominent research objectives in evolutionary science is to
+reconstruct, using genetic and organismal trait data, the evolutionary
+history of different organisms, species, or life forms; i.e., to
+reconstruct the lines of shared descent by which organisms are
+connected \cite{Felsenstein2003-ji,Swofford1996-ya}. Such a
+reconstruction is represented in the form of a phylogenetic tree, in
+which the leaves are often called operational taxonomic units (OTUs)
+and represent the sampled entities, and internal nodes represent
+ancestral entities, such as ancestral populations from which
+descendent ones diverged. Phylogenetic reconstruction results in
+unrooted trees; the root is normally not known (and cannot normally be
+sampled), but reasonably accurate mechanisms for inducing a root exist
+\cite{Huelsenbeck2002-hm,Maddison1984-qa} (for example, by including
+in the reconstruction analysis a group of species -- a so-called
+``outgroup'' -- that are already known to fall outside of the ingroup
+for which evolutionary patterns are being studied).
+
+A phylogenetic tree represents important evolutionary hypotheses about\linebreak[4]
+shared history. For example, two OTUs A and B are more closely related
+to each other than to OTU C if A and B share a more recent common
+ancestor than they do with C. The subtree descending from a node forms
+a clade, clades which share a parent are called sister clades. One of
+the major objects of comparative phylogenetics is to identify the
+properties and processes (organismal traits, geographic range, tempo and mode of
+evolution, etc) by which one clade differs from others, in particular
+its sisters, and how these properties change along lines of descent in
+the tree \cite{Felsenstein1985-au,OMeara2011-br}. This gives rise to a
+number of important queries when mapping data onto phylogenetic trees
+for (or as a result of) analysis. Particularly ubiquitous operations
+on trees include the following: (1) finding the most recent common
+ancestor of a given number of nodes (usually leaf nodes); (2)
+enumerating the leaf nodes, or all nodes descending from a given
+(internal) node; (3) enumerating the sequence of ancestors of a node
+to the root; and (4) identifying the last ancestor of a node A from
+which another node B is not also descended. We will come back to these and other operations as part of the competency questions for our modeling in Section \ref{sec:arb-trees}.
+
+Operations (1) and (4) correspond to two principle ways in which the
+semantics of clade concepts can be defined on a tree
+\cite{De_Queiroz1990-bv}, whether using a concrete instantiation of a
+tree, or a hypothetical one. In the field of phylogenetic taxonomy
+\cite{De_Queiroz1992-oq}, a clade concept defined by the most recent
+common ancestor of a set of (usually leaf) nodes includes the common
+ancestor and is referred to as a node-based definition. In contrast, a
+branch-based definition circumscribes the clade as the last ancestor
+of a (usually leaf) node that excludes (i.e., does not have as a
+descendant) another node (also usually a leaf node). The semantics of
+a clade concept defined in this way is such that the branch subtending
+from the ancestor node to its parent is included (hence the name
+“branch-based”). To understand this, remember that a phylogenetic tree
+is a model of evolutionary lines of descent reconstructed from sampled
+data. In reality, there may be lines of descent which were not
+observed (sampled), for example because all organisms from those lines
+are now extinct, but which, had they been observed, would originate
+from the subtending branch and which would therefore still be included
+in the clade because they would branch off after the lineage to be
+excluded.
+
+
+It is worth noting that spurred in part by the exponentially
+increasing amount of data available for phylogenetic reconstruction,
+very large trees encompassing up to tens of thousands of taxa have
+recently become available \cite{Goloboff2009-oa,Driskell2004-wq,Dunn2008-tr,Smith2009-yk,Jarvis2014-lq}, culminating in the initial publication of
+the synthesized Open Tree of Life with about 2 million tips \cite{Hinchliff2015-nd}. Such
+encompassing trees open up unprecedented opportunities for comparative
+phylogenetic research. However, this also means that our knowledge
+about the evolution of life is changing at increasing pace and
+breadth, which makes it necessary to efficiently map clade definitions
+from one tree to another, or from one revision of the Open Tree of
+Life to a future one. A recent initiative, termed ``phyloreferencing''
+(http://phyloref.org) aims to accomplish this by using machine
+reasoning over ontological representations of the semantics of both
+clade definitions and phylogenetic trees \cite{Cellinese2015-zv,Michael_Keesey2007-lb,Sereno2005-wv}. In the rest of this paper, we abstract from the specific use case and look at the task of ontological modeling of trees in general.

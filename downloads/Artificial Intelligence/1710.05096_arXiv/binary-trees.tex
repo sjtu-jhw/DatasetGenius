@@ -1,0 +1,49 @@
+\section{Trees With Bounded Arity}\label{sec:bin-trees}
+
+In this section, we look at $n$-bounded trees as a special case, and present a set of OWL axioms that can be employed to model these.
+
+\begin{definition}
+A \emph{rooted directed branching $n$-bounded tree} (short: \emph{$n$-bounded tree}) is a tree $T = (V, E)$ where every node has at most $n$ outgoing edges; i.e., for every $v \in V$, $\vert E \cap (\{v\} \times V) \vert \leq n$.
+\end{definition}
+
+In the previous section, we have discussed why we needed to include an explicit hasSibling relation in our model, namely because we were unable to axiomatically define it in OWL. If we know that the trees under consideration are $n$-bounded, though, we can in fact infer the hasSibling relation. 
+
+To this end, we introduce a set of additional axioms (see Figure \ref{figure:binaryTreeAxioms}) that, if combined with the axioms  from Figure \ref{figure:tree} can be used to axiomatize the structure of an $n$-bounded tree. Key to this 
+are axioms (\ref{disjunction}) and (\ref{disjoint}), which together limit the number of children per node to a maximum of $n$. 
+
+Note that, if these axioms are considered, we can indeed automatically infer the hasSibling relationship: Having an upper bound on the number of children per node, we can use a finite set of concept names $\text{Child}_i$ to differentiate the children of any given node in the tree.
+Note how, due to (\ref{disjunction}) and (\ref{disjoint}), every $n$-ary tree node is typed by one and only one class $\text{Child}_i$.
+Moreover, axioms in (\ref{atMost1Childi}) enforce that at most one child of every node is in the class $\text{Child}_i$ for every $i = 1, \ldots, n$.
+Using axioms in (\ref{selfConnect}), we automatically infer that each child of every node is connected to itself via some property $R_i$ for some $i = 1, \ldots, n$.
+Using axiom (\ref{chain}), %
+we can infer the hasSibling relation.
+
+
+
+\begin{figure}[t]
+\begin{align}
+n\text{-BoundedTreeNode} &\sqsubseteq \text{TreeNode} \\
+n\text{-BoundedTreeNode} &\sqsubseteq \forall \text{hasAncestor}.n\text{-BoundedTreeNode} \\
+n\text{-BoundedTreeNode} &\sqsubseteq \forall \text{hasDescendant}.n\text{-BoundedTreeNode} \\
+n\text{-BoundedTreeNode} &\sqsubseteq \text{Child}_1 \sqcup \ldots \sqcup \text{Child}_n \label{disjunction} \\
+\{\text{Child}_i \sqcap \text{Child}_j &\sqsubseteq \bot \mid 1 \leq i < j \leq n \} \label{disjoint} \\
+\{n\text{-BoundedTreeNode} &\sqsubseteq \mathord{\leq} 1 \text{hasChild}.\text{Child}_i \mid 1 \leq i \leq n\} \label{atMost1Childi}\\
+n\text{-BoundedTreeNode} &\sqsubseteq \mathord{\leq} n \text{hasChild}.n\text{-BoundedTreeNode} \\
+\{\text{Child}_i &\sqsubseteq \exists R_\text{i}.\textsf{Self} \mid 1 \leq i \leq n\} \label{selfConnect} \\
+\{R_\text{i} \circ \text{hasParent} \circ \text{hasChild} \circ R_\text{j} &\sqsubseteq \text{hasSibling} \mid 1 \leq i < j \leq n \} \label{chain} 
+\end{align}
+\caption{Axioms for the $n$-bounded Tree Pattern: These need to be added to the axioms from Figure \ref{figure:tree}}
+\label{figure:binaryTreeAxioms}
+\end{figure}
+
+Note, though, that hasSibling is non-simple, i.e. the declaration of irreflexivity for hasSibling from Figure \ref{figure:tree} violates regularity. If the ontology shall fall within OWL DL, the irreflexivity axiom should be removed.
+
+Note also, that the approach just spelled out may not be practical for large $n$, as the number of models to be checked, e.g. by a tableaux-based reasoner, will increase exponentially with $n$ due to the disjunction in (\ref{disjunction}).
+
+
+
+
+
+
+
+

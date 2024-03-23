@@ -1,0 +1,74 @@
+\section{Fundamental Limitations Regarding Tree Modeling}\label{sec:tree-limits}
+
+In order to investigate to what degree tree-based properties can be expressed using common KR formalisms, we first need to formally define what structures we denote by the notion ``tree''.
+
+\begin{definition}\label{def:tree} A \emph{rooted directed branching tree} (short: \emph{tree}) is defined as a directed graph $T=(V,E)$ where $V$ is a set called \emph{vertices} or \emph{nodes} and $E\subseteq V \times V$ is the set of edges, satisfying the following properties:
+\begin{enumerate}
+\item There is exactly one node $r \in V$ called \emph{root}, which has no incoming edges, i.e., $E \cap (V \times \{r\}) = \emptyset$.
+\item Every node $v \in V \setminus \{r\}$ that is not the root has exactly one incoming edge, i.e., there exists exactly one $v' \in V$ such that $(v',v)\in E$. We then call $v'$ the parent of $v$ and $v$ the child of $v'$.
+\item Every node $v \in V$ can be reached from the root traversing edges, i.e., there is a number $n\geq 0$ and a sequence $(v)_{i\in \{0,\ldots,n\}}$ such that $r=v_0$, $v=v_n$, and for all $i\in \{0,\ldots,n-1\}$ we have $(v_i,v_{i+1})\in E$.
+\end{enumerate}
+A node without children will be called \emph{leaf {node}}. A \emph{binary tree} is a tree where every node that is not a leaf has exactly two children. An \emph{$n$-ary tree} is a tree where every node that is not a leaf has exactly $n$ children. An \emph{$n$-bounded tree} is a tree where every node has at most $n$ children.  A tree is \emph{finite} if $V$ is finite.
+\end{definition}
+
+When modeling trees using some logic-based KR language, we would like to achieve that we can create a knowledge base which has exactly all (finite) trees as its models (possibly using additional auxiliary vocabulary), in other words, we would like to characterize or axiomatize the class of all (finite) trees.
+
+Unfortunately, it is not too hard to show that this is not possible by any KR formalism that is expressible in first order predicate logic (FOL). A very helpful tool for showing this is the well-known compactness theorem of first-order logic\cite{compactness}.
+
+\begin{theorem}[Compactness of FOL]
+A set $\Phi$ of FOL sentences is satisfiable if and only if every finite subset of $\Phi$ is.	
+\end{theorem}
+
+We now use this theorem to show our negative result.
+
+\begin{proposition}
+Let $\psi$ be a FOL sentence (using the binary predicate ``$edge$'') such that every finite tree $T=(V,E)$ corresponds to some model $\mathcal{I}$ of $\psi$, i.e., $(V,E) \cong (\Delta^\mathcal{I},edge^\mathcal{I})$. Then, $\psi$ also has a model which does not correspond to any (finite or infinite) tree.
+\end{proposition}
+
+\begin{proof}
+Consider the following sequence $(\varphi_i)_{i\in \mathbb{N}}$ of FOL sentences (where $a$ is a fresh constant):
+\begin{itemize}
+\item[] $\varphi_1 := \exists x_1. edge(x_1,a)$
+\item[] $\varphi_2 := \exists x_1 \exists x_2. edge(x_2,x_1) \wedge edge(x_1,a)$
+\item[] $\varphi_3 := \exists x_1\exists x_2\exists x_3. edge(x_3,x_2) \wedge edge(x_2,x_1) \wedge edge(x_1,a)$
+\item[] $\vdots$
+\end{itemize} 
+
+In words, $\varphi_k$ expresses that the node $a$ has an incoming edge-path of length $k$.
+Now let $\Phi := \{\psi\} \cup \{\varphi_k \mid k \in \mathbb{N}\}$. Obviously, every finite subset of $\Phi$ is satisfiable (intuitively, just pick an arbitrary large finite tree and then pick $a$ such that it is ``deep enough'' in the tree). Then, by compactness of FOL, $\Phi$ itself must be satisfiable. However, in a model $\mathcal{I}$ of $\Phi$ the element $a^\mathcal{I}$ cannot be reachable from the root, since then it would have an incoming edge-path of maximal length which cannot be the case by construction of $\Phi$. Hence $\mathcal{I}$ cannot correspond to a tree. By construction, $\mathcal{I}$ is also a model of $\psi$.\qed
+\end{proof}
+
+This result shows, that trees (finite or infinite) are not fully axiomatizable in FOL and any attempt to do so will only be approximate (although practically useful). 
+
+On the other hand, trees are axiomatizable when we extend FOL (or just DLs for that matter) by a transitive closure operator for binary predicates. Assume that, for every binary predicate (or in DL terms: role) $p$, we allow for a binary predicate/role name $p^+$ and define its semantics such that $(p^+)^\mathcal{I}$ is the transitive closure of $p^\mathcal{I}$. Then the conditions of Definition~\ref{def:tree} can be expressed using the following axioms:
+\begin{align}
+\{\text{root}\} &\sqsubseteq  \neg \exists \text{edge}^-.\top\\
+\neg \{\text{root}\} &\sqsubseteq  {=}1\, \text{edge}^-.\top \\
+\neg \{\text{root}\} &\sqsubseteq \exists (\text{edge}^-)^+.\{\text{root}\}
+\end{align}
+To axiomatize the class of binary trees, the following axiom can be added: 
+\begin{align}
+\top &\sqsubseteq  \neg \exists \text{edge}.\top \sqcup {{=}2} \,\text{edge}.\top
+\end{align}
+In order to impose finiteness, one can axiomatize (as an auxiliary additional structure) a finite linear order with a starting element and an ending element and the successor role:
+
+\noindent
+\begin{minipage}{0.49\textwidth}
+\begin{align}
+\{\text{start}\} &\sqsubseteq  \neg \exists \text{succ}^-.\top\\
+\neg \{\text{start}\} &\sqsubseteq  {=}1\, \text{succ}^-.\top \\
+\neg \{\text{start}\} &\sqsubseteq \exists (\text{succ}^-)^+.\{\text{start}\}
+\end{align}
+\end{minipage}
+\hfill
+\begin{minipage}{0.49\textwidth}
+\begin{align}
+\{\text{end}\} &\sqsubseteq  \neg \exists \text{succ}.\top\\
+\neg \{\text{end}\} &\sqsubseteq  {=}1\, \text{succ}.\top \\
+\neg \{\text{end}\} &\sqsubseteq \exists (\text{succ})^+.\{\text{end}\}
+\end{align}
+\end{minipage}
+
+\bigskip
+
+Transitive closures, of course, are not part of the OWL specification \cite{owl2-primer}, i.e., this characterization cannot be used when modeling in the Web Ontology Language. Description logics featuring regular expressions over roles have, however, been considered since the early days of DL research \cite{DBLP:conf/ijcai/Baader91} and decision and query answering procedures have been described for very expressive DLs with that feature \cite{DBLP:conf/ijcai/CalvaneseEO09}.

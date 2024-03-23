@@ -1,0 +1,190 @@
+\begin{thebibliography}{10}
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\urlprefix}{URL }
+
+\bibitem{DBLP:conf/ijcai/Baader91}
+Baader, F.: Augmenting concept languages by transitive closure of roles: An
+  alternative to terminological cycles. In: Mylopoulos, J., Reiter, R. (eds.)
+  Proceedings of the 12th International Joint Conference on Artificial
+  Intelligence. Sydney, Australia, August 24-30, 1991. pp. 446--451. Morgan
+  Kaufmann (1991), \url{http://ijcai.org/Proceedings/91-1/Papers/069.pdf}
+
+\bibitem{DBLP:conf/ijcai/CalvaneseEO09}
+Calvanese, D., Eiter, T., Ortiz, M.: Regular path queries in expressive
+  description logics with nominals. In: Boutilier, C. (ed.) {IJCAI} 2009,
+  Proceedings of the 21st International Joint Conference on Artificial
+  Intelligence, Pasadena, California, USA, July 11-17, 2009. pp. 714--720
+  (2009), \url{http://ijcai.org/Proceedings/09/Papers/124.pdf}
+
+\bibitem{Cellinese2015-zv}
+Cellinese, N., Lapp, H.: An {Ontology-Based} system for querying life in a
+  {Post-Taxonomic} age (2015),
+  \url{https://figshare.com/articles/An_Ontology_Based_System_for_Querying_Life_in_a_Post_Taxonomic_Age/1401984}
+
+\bibitem{Darwin1859-ka}
+Darwin, C.: On the Origin of Species. John Murray, London, 6 edn. (1859)
+
+\bibitem{compactness}
+{Dawson Jr.}, J.W.: The compactness of first-order logic:from {G}ödel to
+  {L}indström. History and Philosophy of Logic  14(1),  15--37 (1993)
+
+\bibitem{Driskell2004-wq}
+Driskell, A.C., An{\'e}, C., Burleigh, J.G., McMahon, M.M., O'meara, B.C.,
+  Sanderson, M.J.: Prospects for building the tree of life from large sequence
+  databases. Science  306(5699),  1172--1174 (12~Nov 2004),
+  \url{http://dx.doi.org/10.1126/science.1102036}
+
+\bibitem{Dunn2008-tr}
+Dunn, C.W., Hejnol, A., Matus, D.Q., Pang, K., Browne, W.E., Smith, S.A.,
+  Seaver, E., Rouse, G.W., Obst, M., Edgecombe, G.D., S{\o}rensen, M.V.,
+  Haddock, S.H.D., Schmidt-Rhaesa, A., Okusu, A., Kristensen, R.M., Wheeler,
+  W.C., Martindale, M.Q., Giribet, G.: Broad phylogenomic sampling improves
+  resolution of the animal tree of life. Nature  452(7188),  745--749 (Apr
+  2008), \url{http://dx.doi.org/10.1038/nature06614}
+
+\bibitem{Felsenstein1985-au}
+Felsenstein, J.: Phylogenies and the comparative method. Am. Nat.  125(1),
+  1--15 (1985), \url{http://www.jstor.org/stable/10.2307/2461605}
+
+\bibitem{Felsenstein2003-ji}
+Felsenstein, J.: Inferring Phylogenies. Sinauer Associates, 2 edn. (4~Sep 2003)
+
+\bibitem{Goloboff2009-oa}
+Goloboff, P., Catalano, S., Mirande, J., Szumik, C., Arias, J.,
+  K{\"a}llersj{\"o}, M., Farris, J.: Phylogenetic analysis of 73 060 taxa
+  corroborates major eukaryotic groups. Cladistics  25(3),  211 (2009),
+  \url{http://dx.doi.org/10.1111/j.1096-0031.2009.00255.x}
+
+\bibitem{Hinchliff2015-nd}
+Hinchliff, C.E., Smith, S.A., Allman, J.F., Burleigh, J.G., Chaudhary, R.,
+  Coghill, L.M., Crandall, K.A., Deng, J., Drew, B.T., Gazis, R., Gude, K.,
+  Hibbett, D.S., Katz, L.A., Laughinghouse, 4th, H.D., McTavish, E.J., Midford,
+  P.E., Owen, C.L., Ree, R.H., Rees, J.A., Soltis, D.E., Williams, T.,
+  Cranston, K.A.: Synthesis of phylogeny and taxonomy into a comprehensive tree
+  of life. Proc. Natl. Acad. Sci. U. S. A.  112(41),  12764--12769 (13~Oct
+  2015), \url{http://dx.doi.org/10.1073/pnas.1423041112}
+
+\bibitem{HitzlerK16}
+Hitzler, P., Krisnadhi, A.: On the roles of logical axiomatizations for
+  ontologies. In: Hitzler, P., Gangemi, A., Janowicz, K., Krisnadhi, A.,
+  Presutti, V. (eds.) Ontology Engineering with Ontology Design Patterns --
+  Foundations and Applications, Studies on the Semantic Web, vol.~25, pp.
+  73--80. {IOS} Press (2016)
+
+\bibitem{owl2-primer}
+Hitzler, P., Kr\"o{}tzsch, M., Parsia, B., Patel-Schneider, P.F., Rudolph, S.
+  (eds.): {OWL}~2 Web Ontology Language Primer (Second Edition). {W3C}
+  Recommendation (11 December 2012), \url{http://www.w3.org/TR/owl2-primer/}
+
+\bibitem{FOST}
+Hitzler, P., Kr\"otzsch, M., Rudolph, S.: Foundations of Semantic Web
+  Technologies. CRC Press/Chapman \&{} Hall (2010)
+
+\bibitem{Huelsenbeck2002-hm}
+Huelsenbeck, J.P., Bollback, J.P., Levine, A.M.: Inferring the root of a
+  phylogenetic tree. Syst. Biol.  51(1),  32--43 (Feb 2002),
+  \url{http://dx.doi.org/10.1080/106351502753475862}
+
+\bibitem{Jarvis2014-lq}
+Jarvis, E.D., Mirarab, S., Aberer, A.J., Li, B., Houde, P., Li, C., Ho, S.Y.W.,
+  Faircloth, B.C., Nabholz, B., Howard, J.T., Suh, A., Weber, C.C., da~Fonseca,
+  R.R., Li, J., Zhang, F., Li, H., Zhou, L., Narula, N., Liu, L., Ganapathy,
+  G., Boussau, B., Bayzid, M.S., Zavidovych, V., Subramanian, S., Gabald{\'o}n,
+  T., Capella-Guti{\'e}rrez, S., Huerta-Cepas, J., Rekepalli, B., Munch, K.,
+  Schierup, M., Lindow, B., Warren, W.C., Ray, D., Green, R.E., Bruford, M.W.,
+  Zhan, X., Dixon, A., Li, S., Li, N., Huang, Y., Derryberry, E.P., Bertelsen,
+  M.F., Sheldon, F.H., Brumfield, R.T., Mello, C.V., Lovell, P.V., Wirthlin,
+  M., Schneider, M.P.C., Prosdocimi, F., Samaniego, J.A., Vargas~Velazquez,
+  A.M., Alfaro-N{\'u}{\~n}ez, A., Campos, P.F., Petersen, B., Sicheritz-Ponten,
+  T., Pas, A., Bailey, T., Scofield, P., Bunce, M., Lambert, D.M., Zhou, Q.,
+  Perelman, P., Driskell, A.C., Shapiro, B., Xiong, Z., Zeng, Y., Liu, S., Li,
+  Z., Liu, B., Wu, K., Xiao, J., Yinqi, X., Zheng, Q., Zhang, Y., Yang, H.,
+  Wang, J., Smeds, L., Rheindt, F.E., Braun, M., Fjeldsa, J., Orlando, L.,
+  Barker, F.K., J{\o}nsson, K.A., Johnson, W., Koepfli, K.P., O'Brien, S.,
+  Haussler, D., Ryder, O.A., Rahbek, C., Willerslev, E., Graves, G.R., Glenn,
+  T.C., McCormack, J., Burt, D., Ellegren, H., Alstr{\"o}m, P., Edwards, S.V.,
+  Stamatakis, A., Mindell, D.P., Cracraft, J., Braun, E.L., Warnow, T., Jun,
+  W., Gilbert, M.T.P., Zhang, G.: Whole-genome analyses resolve early branches
+  in the tree of life of modern birds. Science  346(6215),  1320--1331 (12~Dec
+  2014), \url{http://dx.doi.org/10.1126/science.1253451}
+
+\bibitem{chess-odp-book}
+Krisnadhi, A., Hitzler, P.: Modeling with ontology design patterns: Chess games
+  as a worked example. In: Hitzler, P., Gangemi, A., Janowicz, K., Krisnadhi,
+  A., Presutti, V. (eds.) Ontology Engineering with Ontology Design Patterns:
+  Foundations and Applications, Studies on the Semantic Web, vol.~25, pp.
+  3--22. IOS Press, Amsterdam (2016)
+
+\bibitem{KrisnadhiMH11}
+Krisnadhi, A., Maier, F., Hitzler, P.: {OWL} and rules. In: Polleres, A.,
+  d'Amato, C., Arenas, M., Handschuh, S., Kroner, P., Ossowski, S.,
+  Patel{-}Schneider, P.F. (eds.) Reasoning Web. Semantic Technologies for the
+  Web of Data -- 7th International Summer School 2011, Galway, Ireland, August
+  23-27, 2011, Tutorial Lectures. Lecture Notes in Computer Science, vol. 6848,
+  pp. 382--415. Springer (2011)
+
+\bibitem{Maddison1984-qa}
+Maddison, W.P., Donoghue, M.J., Maddison, D.R.: Outgroup analysis and
+  parsimony. Syst. Biol.  33(1),  83--103 (1~Mar 1984),
+  \url{https://academic.oup.com/sysbio/article-abstract/33/1/83/1669598/Outgroup-Analysis-and-Parsimony?redirectedFrom=fulltext}
+
+\bibitem{CarralJH12}
+Mart{\'{\i}}nez, D.C., Janowicz, K., Hitzler, P.: A logical geo-ontology design
+  pattern for quantifying over types. In: Cruz, I.F., Knoblock, C.A.,
+  Kr{\"{o}}ger, P., Tanin, E., Widmayer, P. (eds.) {SIGSPATIAL} 2012
+  International Conference on Advances in Geographic Information Systems
+  (formerly known as GIS), SIGSPATIAL'12, Redondo Beach, CA, USA, November 7-9,
+  2012. pp. 239--248. {ACM} (2012)
+
+\bibitem{Michael_Keesey2007-lb}
+Michael~Keesey, T.: A mathematical approach to defining clade names, with
+  potential applications to computer storage and processing. Zool. Scr.  36(6),
+   607--621 (Nov 2007),
+  \url{http://dx.doi.org/10.1111/j.1463-6409.2007.00302.x}
+
+\bibitem{OMeara2011-br}
+O'Meara, B.C.: Evolutionary inferences from phylogenies: A review of methods.
+  Annu. Rev. Ecol. Evol. Syst.  43(1),  267--85 (Nov 2011),
+  \url{http://dx.doi.org/10.1146/annurev-ecolsys-110411-160331}
+
+\bibitem{De_Queiroz1990-bv}
+de~Queiroz, K., Gauthier, J.: Phylogeny as a central principle in taxonomy:
+  Phylogenetic definitions of taxon names. Syst. Biol.  39(4),  307--322 (1~Dec
+  1990),
+  \url{https://academic.oup.com/sysbio/article-abstract/39/4/307/1646987/Phylogeny-as-a-Central-Principle-in-Taxonomy}
+
+\bibitem{De_Queiroz1992-oq}
+de~Queiroz, K., Gauthier, J.: Phylogenetic taxonomy. Annu. Rev. Ecol. Syst.
+  23(1),  449--480 (1~Nov 1992),
+  \url{https://doi.org/10.1146/annurev.es.23.110192.002313}
+
+\bibitem{Sereno2005-wv}
+Sereno, P.C.: The logical basis of phylogenetic taxonomy. Syst. Biol.  54(4),
+  595--619 (Aug 2005), \url{http://dx.doi.org/10.1080/106351591007453}
+
+\bibitem{eswc17-latex}
+Shimizu, C., Hitzler, P., Horridge, M.: Rendering {OWL} in description logic
+  syntax. In: Proceedings of the ESWC 2017 Poster and Demo Session (2017), to
+  appear
+
+\bibitem{Simpson1949-pv}
+Simpson, G.G.: Tempo and Mode in Evolution. Columbia University Press, New York
+  (1949)
+
+\bibitem{Simpson1953-qg}
+Simpson, G.G.: The Major Features of Evolution. Columbia University Press, New
+  York (1953)
+
+\bibitem{Smith2009-yk}
+Smith, S.A., Beaulieu, J.M., Donoghue, M.J.: Mega-phylogeny approach for
+  comparative biology: an alternative to supertree and supermatrix approaches.
+  BMC Evol. Biol.  9, ~37 (11~Feb 2009),
+  \url{http://dx.doi.org/10.1186/1471-2148-9-37}
+
+\bibitem{Swofford1996-ya}
+Swofford, D.L., Olsen, G.J., Waddell, P.J., Hillis, D.M.: Phylogenetic
+  inference. In: Hillis, D.M., Moritz, C., Mable, B.K. (eds.) Molecular
+  systematics, pp. 407--514. Sinauer Associates, Inc., 2 edn. (1996),
+  \url{http://www.citeulike.org/group/1390/article/768694}
+
+\end{thebibliography}

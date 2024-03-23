@@ -1,0 +1,13 @@
+\section{Introduction}\label{sec:intro}
+
+%\textbf{Total paper: max 15 pages}
+
+Trees are fundamental data structures for knowledge organization. They make their appearance in the form of taxonomies, meronomies, decision trees, branching processes, etc. As such they are fundamental for ontological knowledge representation. 
+
+At the same time, however, it is not possible to fully characterize trees in the Web Ontology Language (OWL) \cite{owl2-primer,FOST} (see Section \ref{sec:tree-limits}). It is thus an important research question how to represent trees in ontology modeling, and to understand the pros and cons of different ways to do it. 
+
+We need to realize, of course, that trees in ontology modeling often serve a different purpose than in programming. Operations on trees important in programming include, for example, adding or deleting items or pruning of whole sections; i.e., some of the important operations do actually change the tree. For ontology modeling purposes, in contrast, it is more appropriate to think of a tree as static and as something which is being queried. Typical queries would be to identify roots or leaves, common ancestors, or descendants. 
+
+However, despite the importance of trees for knowledge organization, there is currently no corresponding ontology design pattern available on ontologydesignpatterns.org. In this paper, we will provide such a pattern, and will also discuss different design choices as well as their respective advantages and disadvantages. 
+
+The rest of the paper is structured as follows. In Section \ref{sec:trees-of-life} we present a particularly interesting use case which has informed our work, namely the use of ontology modeling for evolutionary or phylogenetic trees. In Section \ref{sec:tree-limits} we  discuss the fundamental shortcomings of the Web Ontology Language (OWL) regarding the modeling of trees.\footnote{The pattern is available from \url{http://ontologydesignpatterns.org/wiki/Submissions:Tree_Pattern}} In Section \ref{sec:arb-trees} we present a basic ontology design pattern for the modeling of trees. In Section \ref{sec:bin-trees} we discuss the special case of $n$-bounded trees (e.g., with $n = 2$ for binary trees). In Section \ref{sec:conclusion} we conclude. 

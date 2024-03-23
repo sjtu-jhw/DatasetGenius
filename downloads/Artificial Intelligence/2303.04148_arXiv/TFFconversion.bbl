@@ -1,0 +1,46 @@
+\begin{thebibliography}{}
+
+\bibitem[Baldwin and Lessmann, 2018]{BaldwinLessmann}
+Baldwin, J.~T. and Lessmann, O. (2018).
+\newblock {What is Russell's paradox?}
+\newblock
+  \url{https://www.scientificamerican.com/article/what-is-russells-paradox/}.
+
+\bibitem[Kov\'{a}cs and Voronkov, 2013]{Kovacs:2013:FTP:2958031.2958033}
+Kov\'{a}cs, L. and Voronkov, A. (2013).
+\newblock First-order theorem proving and vampire.
+\newblock In {\em Proceedings of the 25th International Conference on Computer
+  Aided Verification}, volume 8044 of {\em CAV 2013}, pages 1--35, New York,
+  NY, USA. Springer-Verlag New York, Inc.
+
+\bibitem[Niles and Pease, 2001]{np01}
+Niles, I. and Pease, A. (2001).
+\newblock {Toward a Standard Upper Ontology}.
+\newblock In Welty, C. and Smith, B., editors, {\em Proceedings of the 2nd
+  International Conference on Formal Ontology in Information Systems
+  (FOIS-2001)}, pages 2--9.
+
+\bibitem[Pease, 2011]{p11}
+Pease, A. (2011).
+\newblock {\em {Ontology: A Practical Guide}}.
+\newblock Articulate Software Press, Angwin, CA.
+
+\bibitem[Pease and Schulz, 2014]{ps14}
+Pease, A. and Schulz, S. (2014).
+\newblock {Knowledge Engineering for Large Ontologies with Sigma KEE 3.0}.
+\newblock In {\em {The International Joint Conference on Automated Reasoning}}.
+
+\bibitem[Sutcliffe, 2007]{Sutcliffe:2007:TTC:2391910.2391914}
+Sutcliffe, G. (2007).
+\newblock {TPTP, TSTP, CASC, etc.}
+\newblock In {\em Proceedings of the Second International Conference on
+  Computer Science: Theory and Applications}, CSR'07, pages 6--22, Berlin,
+  Heidelberg. Springer-Verlag.
+
+\bibitem[Sutcliffe et~al., 2012]{SutcliffeTFF}
+Sutcliffe, G., Schulz, S., Claessen, K., and Baumgartner, P. (2012).
+\newblock {The TPTP Typed First-order Form with Arithmetic}.
+\newblock In {\em International Conference on Logic for Programming Artificial
+  Intelligence and Reasoning (LPAR 2012)}, pages 406--419.
+
+\end{thebibliography}
