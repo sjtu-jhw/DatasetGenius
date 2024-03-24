@@ -93,10 +93,46 @@ def check_main_tex(in_folder: str):
       tex = _read_file_content(file_name)
       if "\\begin{document}" in tex and "\\end{document}" in tex:
          main_tex_name.append(file_name)
-   assert len(main_tex_name) == 1, "There are more than one main .tex file in the folder."
+   assert len(main_tex_name) == 1, f"There are more than one / no main .tex file in the folder"
    return main_tex_name[0]
 
+def find_bibliography_tex(in_tex: str):
+   """
+   Find \\bibliography{.*} in input tex strings so that we can replace them with original tex text.
+   HACK: just reuse `find_input_tex` for convienience, considering a more concise way to do this.
 
+   Args:
+        in_tex(str): all tex text in the .tex file
+
+   Returns:
+        list of .bib files
+   """
+   pattern = r"\\bibliography{(.*)}"
+   p = regex.compile(pattern)
+   finds = p.findall(in_tex)
+   return finds
+   
+def insert_bibliography_tex(in_tex_path: str) -> None:
+   """
+   Find \\input{.*} in input tex files and substitute them with contents within corresponding .tex files
+   +
+   Rewrite in_tex_path contents
+
+   Args:
+        in_tex_path(str): path to .tex file where \\input{.*} may exist
+
+   Returns:
+        None
+   """
+   with open(in_tex_path, "r", encoding='ISO-8859-1') as f: 
+      in_tex = f.read()
+   finds = find_bibliography_tex(in_tex) # matched patterns
+   for find in finds:
+      insert_tex_path = os.path.join(os.path.dirname(in_tex_path), find+'.bib') # HACK: believe bibliography files are .bib files
+      insert_tex_content = _read_file_content(insert_tex_path)
+      in_tex = in_tex.replace(f"\\bibliography{{{find}}}", insert_tex_content)
+   with open(in_tex_path, "w", encoding='ISO-8859-1') as f:
+      f.write(in_tex)
 
 def find_input_tex(in_tex: str):
    """
@@ -125,7 +161,7 @@ def insert_input_tex(in_tex_path: str) -> None:
    Returns:
         None
    """
-   with open(in_tex_path, "r", encoding='ISO-8859-1') as f:
+   with open(in_tex_path, "r", encoding='ISO-8859-1') as f: 
       in_tex = f.read()
    finds = find_input_tex(in_tex) # matched patterns
    for find in finds:
@@ -185,7 +221,12 @@ if __name__ == "__main__":
        for paper_dir in os.listdir(path_):
           if paper_dir.endswith("_arXiv"):
             paper_dirs.append(os.path.join(path_, paper_dir))
-    # for path in paper_dirs:
-    #     print(check_main_tex(path))
-    insert_input_tex_completely(check_main_tex(paper_dirs[3]))
+    main_tex_paths = []
+    for path in paper_dirs:
+        try:
+            print(check_main_tex(path))
+            main_tex_paths.append(check_main_tex(path))
+        except AssertionError as e:
+           print(e)
+    # insert_input_tex_completely(check_main_tex(paper_dirs[3]))
 
