@@ -1,12 +1,11 @@
 """
 Credits to fantastic work at https://github.com/google-research/arxiv-latex-cleaner
 """
-
 import os
 import subprocess
 from multiprocessing import Pool
 import regex
-import numpy
+from typing import List
 
 # Fix for Windows: Even if '\' (os.sep) is the standard way of making paths on
 # Windows, it interferes with regular expressions. We just change os.sep to '/'
@@ -93,69 +92,110 @@ def check_main_tex(in_folder: str):
       tex = _read_file_content(file_name)
       if "\\begin{document}" in tex and "\\end{document}" in tex:
          main_tex_name.append(file_name)
-   assert len(main_tex_name) == 1, "There are more than one main .tex file in the folder."
+   assert len(main_tex_name) == 1, f"There are more than one / no main .tex file in the folder"
    return main_tex_name[0]
 
-
-
-def find_input_tex(in_tex: str):
+def find_pattern_tex(pattern: str, in_tex: str) -> List:
    """
-   Find \\input{.*} in input tex strings so that we can replace them with original tex text.
+   Find matched pattern in input tex strings
 
    Args:
+        pattern(str): pattern we find
         in_tex(str): all tex text in the .tex file
 
    Returns:
         list of .tex files
    """
-   pattern = r"\\input{(.*)}"
    p = regex.compile(pattern)
    finds = p.findall(in_tex)
+
    return finds
-   
-def insert_input_tex(in_tex_path: str) -> None:
+
+def insert_aux_files(in_tex_path: str) -> None:
    """
-   Find \\input{.*} in input tex files and substitute them with contents within corresponding .tex files
-   +
-   Rewrite in_tex_path contents
+   Find all auxiliary files and substitute them with contents within corresponding files
+   and rewrite in_tex_path contents
 
    Args:
-        in_tex_path(str): path to .tex file where \\input{.*} may exist
+        in_tex_path(str): path to main .tex file where auxiliary files may exist
 
    Returns:
         None
    """
+   patterns = [
+      r"\\input{(.*)}", # find input .tex files
+      r"\\bibliography{(.*)}", # find .bib files
+   ]
+   suffixes = [
+      [".tex"],
+      [".bib", ".bbl"],
+   ]
+   
+   cnt = 0
    with open(in_tex_path, "r", encoding='ISO-8859-1') as f:
-      in_tex = f.read()
-   finds = find_input_tex(in_tex) # matched patterns
-   for find in finds:
-      insert_tex_path = os.path.join(os.path.dirname(in_tex_path), find+'.tex') # HACK: believe input files are .tex files
-      insert_tex_content = _read_file_content(insert_tex_path)
-      in_tex = in_tex.replace(f"\\input{{{find}}}", insert_tex_content)
+       in_tex = f.read() # read main file contents
+   while True:
+       for pattern, suffixes in zip(patterns, suffixes):
+           finds = find_pattern_tex(pattern, in_tex)
+           if finds == []:
+               cnt += 1
+           for find in finds:
+               
+               def _return_appropriate_suffix_path(suffixes: List, find: str):
+                   """
+                   This func is used to check right insertation file path
+                   """
+                   if os.path.exists(os.path.join(os.path.dirname(in_tex_path), find)):
+                      return os.path.join(os.path.dirname(in_tex_path), find)
+                   else:
+                      for suffix in suffixes:
+                         if os.path.exists(os.path.join(os.path.dirname(in_tex_path), find + suffix)):
+                            return os.path.join(os.path.dirname(in_tex_path), find + suffix)
+                      raise FileNotFoundError(f"File not found: {find}")
+                  
+               insert_tex_path = _return_appropriate_suffix_path(suffixes, find) 
+               insert_tex_content = _read_file_content(insert_tex_path)
+               in_tex = in_tex.replace(f"{pattern[1:pattern.find('{')]}{{{find}}}", insert_tex_content)
+       if cnt == len(patterns):
+          break
    with open(in_tex_path, "w", encoding='ISO-8859-1') as f:
-      f.write(in_tex)
+       f.write(in_tex) 
 
-def insert_input_tex_completely(in_tex_path: str) -> None:
+def clean_redunant_contents(in_tex_path: str) -> None:
    """
-   In case of those needed to be inserted .tex file need to be inserted.
+   Remove redundant LaTeX code that does not contain any original document information
 
    Args:
-        in_tex_path(str): path to .tex file where \\input{.*} may exist
+        in_tex_path(str): path to main .tex file where redundant LaTeX code may exist
 
    Returns:
         None
    """
-   while True:
-    with open(in_tex_path, "r", encoding='ISO-8859-1') as f:
-        in_tex = f.read()
-    finds = find_input_tex(in_tex) # matched patterns
-    if len(finds) == 0:
-        break
-    else:
-        insert_input_tex(in_tex_path)
-      
-      
-   
+   patterns = [
+       r"^[^.]*?(?=\\title\{.*?\})", # clean redundancy before title
+       r"\\documentclass.*?\n", 
+       r"\\usepackage.*?\n", 
+       r"\\newcommand.*?\n",
+       r"\\def.*?\n",
+       r"\\DeclareMathAlphabet.*?\n",
+       r"\\SetMathAlphabet.*?\n",
+       r"\\DeclareMathOperator.*?\n",
+       r"\\let.*?\n",
+       r"\\maketitle",
+       r"\\noindent",
+   ]
+   all_pattern = "|".join(patterns)
+   p = regex.compile(all_pattern, regex.DOTALL)
+   with open(in_tex_path, "r", encoding='ISO-8859-1') as f:
+      in_tex = f.read() # read main file contents
+   in_tex = p.sub("", in_tex)
+   if in_tex.find("\\begin{document}"):
+      in_tex = f"\n{in_tex}"
+   else:
+      in_tex = f"\\begin{{document}}\n{in_tex}"
+
+   with open(in_tex_path, "w", encoding='ISO-8859-1') as f:
+       f.write(in_tex.strip()) 
 
 
 # for pre-cleaning the latex code directory, removing unused files and commets in the .tex files.
@@ -178,6 +218,7 @@ def insert_input_tex_completely(in_tex_path: str) -> None:
 
 if __name__ == "__main__":
     paper_dirs = []
+    paper_ok_dirs = []
     download_abs_path = _get_absolute_path("downloads")
     disciplines = os.listdir(download_abs_path)
     for discipline in disciplines:
@@ -187,5 +228,10 @@ if __name__ == "__main__":
             paper_dirs.append(os.path.join(path_, paper_dir))
     # for path in paper_dirs:
     #     print(check_main_tex(path))
-    insert_input_tex_completely(check_main_tex(paper_dirs[3]))
+    try:
+        clean_redunant_contents(check_main_tex(paper_dirs[-1]))
+        # insert_aux_files(check_main_tex(paper_dirs[-1]))
+        paper_ok_dirs.append(paper_dirs[-1])
+    except FileNotFoundError as e:
+       print(e)
 
