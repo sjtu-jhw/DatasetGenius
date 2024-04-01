@@ -23,6 +23,14 @@ def _find_closed_brackets(in_tex: str, start: int, end: int):
         end += 1
     return in_tex[start:end]
 
+
+def _get_tree_from_tex(in_tex: str):
+    tree = {}
+    pattern = r"(?<!\\){"
+    p = regex.compile(pattern)
+    
+
+
 def parse_title(in_tex: str):
     pattern = r"\\title{(.*)}"
     p = regex.compile(pattern)
@@ -38,4 +46,9 @@ def parse_affiliations(in_tex: str):
 
     def _parse_author(in_tex: str):
         # first clean unwanted
-        patterns = [r"\$\\qquad\$", r"\\begin\{(.*?)\}", r"\\end\{(.*?)\}"]
+        patterns = [r"\$\\qquad\$", r"\\vspace\{.*?\}", r"\\hspace\{.*?\}"]
+        all_pattern = "|".join(patterns)
+        p = regex.compile(all_pattern)
+        p.sub("", in_tex)
+
+
