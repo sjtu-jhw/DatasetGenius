@@ -18,5 +18,25 @@ class Element:
         child.parent = self
         return child
 
-  
-class
+@dataclass
+class Document(Element):
+    pass
+
+@dataclass
+class Title(Element):
+    level: int = 1
+    content: str = ""
+
+    @property
+    def plain_text(self):
+        return self.content
+
+@dataclass
+class Affiliation(Element):
+    authors: List[str] = field(default_factory=list)
+    institutions: List[str] = field(default_factory=list)
+    emails: List[str] = field(default_factory=list)
+
+    @property
+    def plain_text(self):
+        pass
